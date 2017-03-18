@@ -1,0 +1,193 @@
+@function slice($list, $start: 1, $end: length($list)) {
+  $result: ();
+
+  @for $i from $start through $end {
+    $result: append($result, nth($list, $i), list-separator($list));
+  }
+
+  @return $result;
+}
+
+$chrys-brewer-paired:   #a6cee3, #1f78b4, #b2df8a, #33a02c, #fb9a99, #e31a1c, #fdbf6f, #ff7f00, #cab2d6, #6a3d9a, #ffff99, #b15928;
+$chrys-brewer-set1:     #e41a1c, #377eb8, #4daf4a, #984ea3, #ff7f00, #ffff33, #a65628, #f781bf, #999999;
+$chrys-brewer-set2:     #66c2a5, #fc8d62, #8da0cb, #e78ac3, #a6d854, #ffd92f, #e5c494, #b3b3b3;
+$chrys-brewer-set3:     #8dd3c7, #ffffb3, #bebada, #fb8072, #80b1d3, #fdb462, #b3de69, #fccde5, #d9d9d9, #bc80bd, #ccebc5, #ffed6f;
+$chrys-d3-category10:   #1f77b4, #ff7f0e, #2ca02c, #d62728, #9467bd, #8c564b, #e377c2, #7f7f7f, #bcbd22, #17becf;
+$chrys-d3-category20:   #1f77b4, #aec7e8, #ff7f0e, #ffbb78, #2ca02c, #98df8a, #d62728, #ff9896, #9467bd, #c5b0d5, #8c564b, #c49c94, #e377c2, #f7b6d2, #7f7f7f, #c7c7c7, #bcbd22, #dbdb8d, #17becf, #9edae5;
+$chrys-d3-category20b:  #393b79, #5254a3, #6b6ecf, #9c9ede, #637939, #8ca252, #b5cf6b, #cedb9c, #8c6d31, #bd9e39, #e7ba52, #e7cb94, #843c39, #ad494a, #d6616b, #e7969c, #7b4173, #a55194, #ce6dbd, #de9ed6;
+$chrys-d3-category20c:  #3182bd, #6baed6, #9ecae1, #c6dbef, #e6550d, #fd8d3c, #fdae6b, #fdd0a2, #31a354, #74c476, #a1d99b, #c7e9c0, #756bb1, #9e9ac8, #bcbddc, #dadaeb, #636363, #969696, #bdbdbd, #d9d9d9;
+
+$chrys-color-map: (
+  mpl-inferno: (
+    3:  (#000003, #ba3655, #fcfea4),
+    4:  (#000003, #781c6d, #ed6825, #fcfea4),
+    5:  (#000003, #550f6d, #ba3655, #f98c09, #fcfea4),
+    6:  (#000003, #410967, #932567, #dc5039, #fba40a, #fcfea4),
+    7:  (#000003, #32095d, #781c6d, #ba3655, #ed6825, #fbb318, #fcfea4),
+    8:  (#000003, #270b52, #63146e, #9e2963, #d24742, #f57c15, #fabf25, #fcfea4),
+    9:  (#000003, #1f0c47, #550f6d, #88216a, #ba3655, #e35832, #f98c09, #f8c931, #fcfea4),
+    10: (#000003, #1a0b40, #4a0b6a, #781c6d, #a42c60, #cd4247, #ed6825, #fb9906, #f7cf3a, #fcfea4),
+    11: (#000003, #160b39, #410967, #6a176e, #932567, #ba3655, #dc5039, #f2751a, #fba40a, #f6d542, #fcfea4)
+  ),
+  mpl-magma: (
+    3:  (#000003, #b53679, #fbfcbf),
+    4:  (#000003, #711f81, #f0605d, #fbfcbf),
+    5:  (#000003, #4f117b, #b53679, #fb8660, #fbfcbf),
+    6:  (#000003, #3b0f6f, #8c2980, #dd4968, #fd9f6c, #fbfcbf),
+    7:  (#000003, #2b115e, #711f81, #b53679, #f0605d, #feae76, #fbfcbf),
+    8:  (#000003, #221150, #5d177e, #972c7f, #d1426e, #f8755c, #feb97f, #fbfcbf),
+    9:  (#000003, #1b1044, #4f117b, #812581, #b53679, #e55063, #fb8660, #fec286, #fbfcbf),
+    10: (#000003, #170f3c, #430f75, #711f81, #9e2e7e, #cb3e71, #f0605d, #fc9366, #fec78b, #fbfcbf),
+    11: (#000003, #140d35, #3b0f6f, #63197f, #8c2980, #b53679, #dd4968, #f66e5b, #fd9f6c, #fdcd90, #fbfcbf)
+  ),
+  mpl-plasma: (
+    3:  (#0c0786, #ca4678, #eff821),
+    4:  (#0c0786, #9b179e, #ec7853, #eff821),
+    5:  (#0c0786, #7c02a7, #ca4678, #f79341, #eff821),
+    6:  (#0c0786, #6a00a7, #b02a8f, #e06461, #fca635, #eff821),
+    7:  (#0c0786, #5c00a5, #9b179e, #ca4678, #ec7853, #fdb22f, #eff821),
+    8:  (#0c0786, #5201a3, #8908a5, #b83289, #da5a68, #f38748, #fdbb2b, #eff821),
+    9:  (#0c0786, #4a02a0, #7c02a7, #a82296, #ca4678, #e56b5c, #f79341, #fdc328, #eff821),
+    10: (#0c0786, #45039e, #7200a8, #9b179e, #bc3685, #d7566c, #ec7853, #fa9d3a, #fcc726, #eff821),
+    11: (#0c0786, #40039c, #6a00a7, #8f0da3, #b02a8f, #ca4678, #e06461, #f1824c, #fca635, #fccc25, #eff821)
+  ),
+  mpl-viridis: (
+    3:  (#440154, #208f8c, #fde724),
+    4:  (#440154, #30678d, #35b778, #fde724),
+    5:  (#440154, #3b518a, #208f8c, #5bc862, #fde724),
+    6:  (#440154, #404387, #29788e, #22a784, #79d151, #fde724),
+    7:  (#440154, #443982, #30678d, #208f8c, #35b778, #8dd644, #fde724),
+    8:  (#440154, #46317e, #365a8c, #277e8e, #1ea087, #49c16d, #9dd93a, #fde724),
+    9:  (#440154, #472b7a, #3b518a, #2c718e, #208f8c, #27ad80, #5bc862, #aadb32, #fde724),
+    10: (#440154, #472777, #3e4989, #30678d, #25828e, #1e9c89, #35b778, #6bcd59, #b2dd2c, #fde724),
+    11: (#440154, #482374, #404387, #345e8d, #29788e, #208f8c, #22a784, #42be71, #79d151, #bade27, #fde724)
+  ),
+  brewer-paired: (
+    3:  slice($chrys-brewer-paired, 1, 3),
+    4:  slice($chrys-brewer-paired, 1, 4),
+    5:  slice($chrys-brewer-paired, 1, 5),
+    6:  slice($chrys-brewer-paired, 1, 6),
+    7:  slice($chrys-brewer-paired, 1, 7),
+    8:  slice($chrys-brewer-paired, 1, 8),
+    9:  slice($chrys-brewer-paired, 1, 9),
+    10: slice($chrys-brewer-paired, 1, 10),
+    11: slice($chrys-brewer-paired, 1, 11),
+    12: slice($chrys-brewer-paired, 1, 12)
+  ),
+  brewer-set1: (
+    3:  slice($chrys-brewer-set1, 1, 3),
+    4:  slice($chrys-brewer-set1, 1, 4),
+    5:  slice($chrys-brewer-set1, 1, 5),
+    6:  slice($chrys-brewer-set1, 1, 6),
+    7:  slice($chrys-brewer-set1, 1, 7),
+    8:  slice($chrys-brewer-set1, 1, 8)
+  ),
+  brewer-set2: (
+    3:  slice($chrys-brewer-set2, 1, 3),
+    4:  slice($chrys-brewer-set2, 1, 4),
+    5:  slice($chrys-brewer-set2, 1, 5),
+    6:  slice($chrys-brewer-set2, 1, 6),
+    7:  slice($chrys-brewer-set2, 1, 7),
+    8:  slice($chrys-brewer-set2, 1, 8)
+  ),
+  brewer-set3: (
+    3:  slice($chrys-brewer-set3, 1, 3),
+    4:  slice($chrys-brewer-set3, 1, 4),
+    5:  slice($chrys-brewer-set3, 1, 5),
+    6:  slice($chrys-brewer-set3, 1, 6),
+    7:  slice($chrys-brewer-set3, 1, 7),
+    8:  slice($chrys-brewer-set3, 1, 8),
+    9:  slice($chrys-brewer-set3, 1, 9),
+    10: slice($chrys-brewer-set3, 1, 10),
+    11: slice($chrys-brewer-set3, 1, 11),
+    12: slice($chrys-brewer-set3, 1, 12)
+  ),
+  d3-category10: (
+    3:  slice($chrys-d3-category10, 1, 3),
+    4:  slice($chrys-d3-category10, 1, 4),
+    5:  slice($chrys-d3-category10, 1, 5),
+    6:  slice($chrys-d3-category10, 1, 6),
+    7:  slice($chrys-d3-category10, 1, 7),
+    8:  slice($chrys-d3-category10, 1, 8),
+    9:  slice($chrys-d3-category10, 1, 9),
+    10: slice($chrys-d3-category10, 1, 10)
+  ),
+  d3-category20: (
+    3:  slice($chrys-d3-category20, 1, 3),
+    4:  slice($chrys-d3-category20, 1, 4),
+    5:  slice($chrys-d3-category20, 1, 5),
+    6:  slice($chrys-d3-category20, 1, 6),
+    7:  slice($chrys-d3-category20, 1, 7),
+    8:  slice($chrys-d3-category20, 1, 8),
+    9:  slice($chrys-d3-category20, 1, 9),
+    10: slice($chrys-d3-category20, 1, 10),
+    11: slice($chrys-d3-category20, 1, 11),
+    12: slice($chrys-d3-category20, 1, 12),
+    13: slice($chrys-d3-category20, 1, 13),
+    14: slice($chrys-d3-category20, 1, 14),
+    15: slice($chrys-d3-category20, 1, 15),
+    16: slice($chrys-d3-category20, 1, 16),
+    17: slice($chrys-d3-category20, 1, 17),
+    18: slice($chrys-d3-category20, 1, 18),
+    19: slice($chrys-d3-category20, 1, 19),
+    20: slice($chrys-d3-category20, 1, 20)
+  ),
+  d3-category20b: (
+    3:  slice($chrys-d3-category20b, 1, 3),
+    4:  slice($chrys-d3-category20b, 1, 4),
+    5:  slice($chrys-d3-category20b, 1, 5),
+    6:  slice($chrys-d3-category20b, 1, 6),
+    7:  slice($chrys-d3-category20b, 1, 7),
+    8:  slice($chrys-d3-category20b, 1, 8),
+    9:  slice($chrys-d3-category20b, 1, 9),
+    10: slice($chrys-d3-category20b, 1, 10),
+    11: slice($chrys-d3-category20b, 1, 11),
+    12: slice($chrys-d3-category20b, 1, 12),
+    13: slice($chrys-d3-category20b, 1, 13),
+    14: slice($chrys-d3-category20b, 1, 14),
+    15: slice($chrys-d3-category20b, 1, 15),
+    16: slice($chrys-d3-category20b, 1, 16),
+    17: slice($chrys-d3-category20b, 1, 17),
+    18: slice($chrys-d3-category20b, 1, 18),
+    19: slice($chrys-d3-category20b, 1, 19),
+    20: slice($chrys-d3-category20b, 1, 20)
+  ),
+  d3-category20c: (
+    3:  slice($chrys-d3-category20c, 1, 3),
+    4:  slice($chrys-d3-category20c, 1, 4),
+    5:  slice($chrys-d3-category20c, 1, 5),
+    6:  slice($chrys-d3-category20c, 1, 6),
+    7:  slice($chrys-d3-category20c, 1, 7),
+    8:  slice($chrys-d3-category20c, 1, 8),
+    9:  slice($chrys-d3-category20c, 1, 9),
+    10: slice($chrys-d3-category20c, 1, 10),
+    11: slice($chrys-d3-category20c, 1, 11),
+    12: slice($chrys-d3-category20c, 1, 12),
+    13: slice($chrys-d3-category20c, 1, 13),
+    14: slice($chrys-d3-category20c, 1, 14),
+    15: slice($chrys-d3-category20c, 1, 15),
+    16: slice($chrys-d3-category20c, 1, 16),
+    17: slice($chrys-d3-category20c, 1, 17),
+    18: slice($chrys-d3-category20c, 1, 18),
+    19: slice($chrys-d3-category20c, 1, 19),
+    20: slice($chrys-d3-category20c, 1, 20)
+  )
+);
+
+@each $name in map-keys($chrys-color-map) {
+  $map: map-get($chrys-color-map, $name);
+  $sizes: map-keys($map);
+
+  @each $size in $sizes {
+    $colors: map-get($map, $size);
+    $index: 0;
+
+    @each $color in $colors {
+      $index: $index + 1;
+
+      .chrys-#{$name}-#{$size}-#{$index} {
+        background-color: $color;
+      }
+    }
+  }
+}
