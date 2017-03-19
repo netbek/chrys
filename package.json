@@ -1,6 +1,6 @@
 {
   "name": "chrys",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "repository": {
     "type": "git",
@@ -18,12 +18,16 @@
   "bugs": {
     "url": "https://github.com/netbek/chrys/issues"
   },
+  "dependencies": {
+    "normalize-css": "git://github.com/necolas/normalize.css.git#02c5c7adbbec1707900fde86068405735c733b42"
+  },
   "devDependencies": {
     "autoprefixer": "^6.7.6",
     "bluebird": "^3.4.6",
     "fs-extra": "^2.0.0",
     "gulp": "^3.9.1",
     "gulp-cssmin": "^0.1.7",
+    "gulp-gh-pages": "^0.5.4",
     "gulp-postcss": "^6.3.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.2.0",
@@ -34,10 +38,11 @@
     "nunjucks": "^3.0.0",
     "open": "0.0.5",
     "os": "^0.1.1",
-    "postcss": "^5.2.15",
+    "postcss": "^5.2.16",
     "postcss-color-rgba-fallback": "^2.2.0",
     "postcss-js": "^0.3.0",
     "postcss-opacity": "^4.0.0",
-    "run-sequence": "^1.2.2"
+    "run-sequence": "^1.2.2",
+    "through2": "^2.0.3"
   }
 }

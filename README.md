@@ -1,6 +1,14 @@
 # chrys
 
-A collection of palettes for color mapping. See the [Bokeh docs](http://bokeh.pydata.org/en/0.12.4/docs/reference/palettes.html) for reference.
+A collection of palettes for color mapping.
+
+## Demo
+
+[netbek.github.io/chrys](https://netbek.github.io/chrys)
+
+## Feature ideas
+
+* Add more palettes. See the [Bokeh docs](http://bokeh.pydata.org/en/0.12.4/docs/reference/palettes.html) for reference.
 
 ## Credit
 

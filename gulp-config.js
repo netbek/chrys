@@ -37,7 +37,7 @@ module.exports = {
     'path': '/',
     'livereload': false,
     'directoryListing': false,
-    'open': '/docs/',
+    'open': '/demo/',
     'https': false,
     'browsers': {
       'default': 'firefox',
