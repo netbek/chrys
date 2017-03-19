@@ -16,7 +16,7 @@
         {% for size, items in sizes %}
           <tr>
             <th class="var">
-              $chrys-{{ name }}-{{ size|replace("_", "") }}-*
+              {{ name }} {{ size|replace("_", "") }}
             </th>
             {% for index, item in items %}
               <td class="color">
