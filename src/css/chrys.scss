@@ -8,7 +8,12 @@
   @return $result;
 }
 
+$chrys-colorblind:      #0072b2, #e69f00, #f0e442, #009e73, #56b4e9, #d55e00, #cc79a7, #000000;
+$chrys-brewer-accent:   #7fc97f, #beaed4, #fdc086, #ffff99, #386cb0, #f0027f, #bf5b17, #666666;
+$chrys-brewer-dark2:    #1b9e77, #d95f02, #7570b3, #e7298a, #66a61e, #e6ab02, #a6761d, #666666;
 $chrys-brewer-paired:   #a6cee3, #1f78b4, #b2df8a, #33a02c, #fb9a99, #e31a1c, #fdbf6f, #ff7f00, #cab2d6, #6a3d9a, #ffff99, #b15928;
+$chrys-brewer-pastel1:  #fbb4ae, #b3cde3, #ccebc5, #decbe4, #fed9a6, #ffffcc, #e5d8bd, #fddaec, #f2f2f2;
+$chrys-brewer-pastel2:  #b3e2cd, #fdcdac, #cbd5e8, #f4cae4, #e6f5c9, #fff2ae, #f1e2cc, #cccccc;
 $chrys-brewer-set1:     #e41a1c, #377eb8, #4daf4a, #984ea3, #ff7f00, #ffff33, #a65628, #f781bf, #999999;
 $chrys-brewer-set2:     #66c2a5, #fc8d62, #8da0cb, #e78ac3, #a6d854, #ffd92f, #e5c494, #b3b3b3;
 $chrys-brewer-set3:     #8dd3c7, #ffffb3, #bebada, #fb8072, #80b1d3, #fdb462, #b3de69, #fccde5, #d9d9d9, #bc80bd, #ccebc5, #ffed6f;
@@ -18,6 +23,14 @@ $chrys-d3-category20b:  #393b79, #5254a3, #6b6ecf, #9c9ede, #637939, #8ca252, #b
 $chrys-d3-category20c:  #3182bd, #6baed6, #9ecae1, #c6dbef, #e6550d, #fd8d3c, #fdae6b, #fdd0a2, #31a354, #74c476, #a1d99b, #c7e9c0, #756bb1, #9e9ac8, #bcbddc, #dadaeb, #636363, #969696, #bdbdbd, #d9d9d9;
 
 $chrys-color-map: (
+  colorblind: (
+    3:  slice($chrys-colorblind, 1, 3),
+    4:  slice($chrys-colorblind, 1, 4),
+    5:  slice($chrys-colorblind, 1, 5),
+    6:  slice($chrys-colorblind, 1, 6),
+    7:  slice($chrys-colorblind, 1, 7),
+    8:  slice($chrys-colorblind, 1, 8)
+  ),
   mpl-inferno: (
     3:  (#000003, #ba3655, #fcfea4),
     4:  (#000003, #781c6d, #ed6825, #fcfea4),
@@ -62,6 +75,285 @@ $chrys-color-map: (
     10: (#440154, #472777, #3e4989, #30678d, #25828e, #1e9c89, #35b778, #6bcd59, #b2dd2c, #fde724),
     11: (#440154, #482374, #404387, #345e8d, #29788e, #208f8c, #22a784, #42be71, #79d151, #bade27, #fde724)
   ),
+  brewer-brbg: (
+    3:  (#5ab4ac, #f5f5f5, #d8b365),
+    4:  (#018571, #80cdc1, #dfc27d, #a6611a),
+    5:  (#018571, #80cdc1, #f5f5f5, #dfc27d, #a6611a),
+    6:  (#01665e, #5ab4ac, #c7eae5, #f6e8c3, #d8b365, #8c510a),
+    7:  (#01665e, #5ab4ac, #c7eae5, #f5f5f5, #f6e8c3, #d8b365, #8c510a),
+    8:  (#01665e, #35978f, #80cdc1, #c7eae5, #f6e8c3, #dfc27d, #bf812d, #8c510a),
+    9:  (#01665e, #35978f, #80cdc1, #c7eae5, #f5f5f5, #f6e8c3, #dfc27d, #bf812d, #8c510a),
+    10: (#003c30, #01665e, #35978f, #80cdc1, #c7eae5, #f6e8c3, #dfc27d, #bf812d, #8c510a, #543005),
+    11: (#003c30, #01665e, #35978f, #80cdc1, #c7eae5, #f5f5f5, #f6e8c3, #dfc27d, #bf812d, #8c510a, #543005),
+  ),
+  brewer-bugn: (
+    3:  (#2ca25f, #99d8c9, #e5f5f9),
+    4:  (#238b45, #66c2a4, #b2e2e2, #edf8fb),
+    5:  (#006d2c, #2ca25f, #66c2a4, #b2e2e2, #edf8fb),
+    6:  (#006d2c, #2ca25f, #66c2a4, #99d8c9, #ccece6, #edf8fb),
+    7:  (#005824, #238b45, #41ae76, #66c2a4, #99d8c9, #ccece6, #edf8fb),
+    8:  (#005824, #238b45, #41ae76, #66c2a4, #99d8c9, #ccece6, #e5f5f9, #f7fcfd),
+    9:  (#00441b, #006d2c, #238b45, #41ae76, #66c2a4, #99d8c9, #ccece6, #e5f5f9, #f7fcfd)
+  ),
+  brewer-bupu: (
+    3:  (#8856a7, #9ebcda, #e0ecf4),
+    4:  (#88419d, #8c96c6, #b3cde3, #edf8fb),
+    5:  (#810f7c, #8856a7, #8c96c6, #b3cde3, #edf8fb),
+    6:  (#810f7c, #8856a7, #8c96c6, #9ebcda, #bfd3e6, #edf8fb),
+    7:  (#6e016b, #88419d, #8c6bb1, #8c96c6, #9ebcda, #bfd3e6, #edf8fb),
+    8:  (#6e016b, #88419d, #8c6bb1, #8c96c6, #9ebcda, #bfd3e6, #e0ecf4, #f7fcfd),
+    9:  (#4d004b, #810f7c, #88419d, #8c6bb1, #8c96c6, #9ebcda, #bfd3e6, #e0ecf4, #f7fcfd)
+  ),
+  brewer-gnbu: (
+    3:  (#43a2ca, #a8ddb5, #e0f3db),
+    4:  (#2b8cbe, #7bccc4, #bae4bc, #f0f9e8),
+    5:  (#0868ac, #43a2ca, #7bccc4, #bae4bc, #f0f9e8),
+    6:  (#0868ac, #43a2ca, #7bccc4, #a8ddb5, #ccebc5, #f0f9e8),
+    7:  (#08589e, #2b8cbe, #4eb3d3, #7bccc4, #a8ddb5, #ccebc5, #f0f9e8),
+    8:  (#08589e, #2b8cbe, #4eb3d3, #7bccc4, #a8ddb5, #ccebc5, #e0f3db, #f7fcf0),
+    9:  (#084081, #0868ac, #2b8cbe, #4eb3d3, #7bccc4, #a8ddb5, #ccebc5, #e0f3db, #f7fcf0)
+  ),
+  brewer-orrd: (
+    3:  (#e34a33, #fdbb84, #fee8c8),
+    4:  (#d7301f, #fc8d59, #fdcc8a, #fef0d9),
+    5:  (#b30000, #e34a33, #fc8d59, #fdcc8a, #fef0d9),
+    6:  (#b30000, #e34a33, #fc8d59, #fdbb84, #fdd49e, #fef0d9),
+    7:  (#990000, #d7301f, #ef6548, #fc8d59, #fdbb84, #fdd49e, #fef0d9),
+    8:  (#990000, #d7301f, #ef6548, #fc8d59, #fdbb84, #fdd49e, #fee8c8, #fff7ec),
+    9:  (#7f0000, #b30000, #d7301f, #ef6548, #fc8d59, #fdbb84, #fdd49e, #fee8c8, #fff7ec)
+  ),
+  brewer-piyg: (
+    3:  (#a1d76a, #f7f7f7, #e9a3c9),
+    4:  (#4dac26, #b8e186, #f1b6da, #d01c8b),
+    5:  (#4dac26, #b8e186, #f7f7f7, #f1b6da, #d01c8b),
+    6:  (#4d9221, #a1d76a, #e6f5d0, #fde0ef, #e9a3c9, #c51b7d),
+    7:  (#4d9221, #a1d76a, #e6f5d0, #f7f7f7, #fde0ef, #e9a3c9, #c51b7d),
+    8:  (#4d9221, #7fbc41, #b8e186, #e6f5d0, #fde0ef, #f1b6da, #de77ae, #c51b7d),
+    9:  (#4d9221, #7fbc41, #b8e186, #e6f5d0, #f7f7f7, #fde0ef, #f1b6da, #de77ae, #c51b7d),
+    10: (#276419, #4d9221, #7fbc41, #b8e186, #e6f5d0, #fde0ef, #f1b6da, #de77ae, #c51b7d, #8e0152),
+    11: (#276419, #4d9221, #7fbc41, #b8e186, #e6f5d0, #f7f7f7, #fde0ef, #f1b6da, #de77ae, #c51b7d, #8e0152),
+  ),
+  brewer-prgn: (
+    3:  (#7fbf7b, #f7f7f7, #af8dc3),
+    4:  (#008837, #a6dba0, #c2a5cf, #7b3294),
+    5:  (#008837, #a6dba0, #f7f7f7, #c2a5cf, #7b3294),
+    6:  (#1b7837, #7fbf7b, #d9f0d3, #e7d4e8, #af8dc3, #762a83),
+    7:  (#1b7837, #7fbf7b, #d9f0d3, #f7f7f7, #e7d4e8, #af8dc3, #762a83),
+    8:  (#1b7837, #5aae61, #a6dba0, #d9f0d3, #e7d4e8, #c2a5cf, #9970ab, #762a83),
+    9:  (#1b7837, #5aae61, #a6dba0, #d9f0d3, #f7f7f7, #e7d4e8, #c2a5cf, #9970ab, #762a83),
+    10: (#00441b, #1b7837, #5aae61, #a6dba0, #d9f0d3, #e7d4e8, #c2a5cf, #9970ab, #762a83, #40004b),
+    11: (#00441b, #1b7837, #5aae61, #a6dba0, #d9f0d3, #f7f7f7, #e7d4e8, #c2a5cf, #9970ab, #762a83, #40004b),
+  ),
+  brewer-pubu: (
+    3:  (#2b8cbe, #a6bddb, #ece7f2),
+    4:  (#0570b0, #74a9cf, #bdc9e1, #f1eef6),
+    5:  (#045a8d, #2b8cbe, #74a9cf, #bdc9e1, #f1eef6),
+    6:  (#045a8d, #2b8cbe, #74a9cf, #a6bddb, #d0d1e6, #f1eef6),
+    7:  (#034e7b, #0570b0, #3690c0, #74a9cf, #a6bddb, #d0d1e6, #f1eef6),
+    8:  (#034e7b, #0570b0, #3690c0, #74a9cf, #a6bddb, #d0d1e6, #ece7f2, #fff7fb),
+    9:  (#023858, #045a8d, #0570b0, #3690c0, #74a9cf, #a6bddb, #d0d1e6, #ece7f2, #fff7fb)
+  ),
+  brewer-pubugn: (
+    3:  (#1c9099, #a6bddb, #ece2f0),
+    4:  (#02818a, #67a9cf, #bdc9e1, #f6eff7),
+    5:  (#016c59, #1c9099, #67a9cf, #bdc9e1, #f6eff7),
+    6:  (#016c59, #1c9099, #67a9cf, #a6bddb, #d0d1e6, #f6eff7),
+    7:  (#016450, #02818a, #3690c0, #67a9cf, #a6bddb, #d0d1e6, #f6eff7),
+    8:  (#016450, #02818a, #3690c0, #67a9cf, #a6bddb, #d0d1e6, #ece2f0, #fff7fb),
+    9:  (#014636, #016c59, #02818a, #3690c0, #67a9cf, #a6bddb, #d0d1e6, #ece2f0, #fff7fb)
+  ),
+  brewer-puor: (
+    3:  (#998ec3, #f7f7f7, #f1a340),
+    4:  (#5e3c99, #b2abd2, #fdb863, #e66101),
+    5:  (#5e3c99, #b2abd2, #f7f7f7, #fdb863, #e66101),
+    6:  (#542788, #998ec3, #d8daeb, #fee0b6, #f1a340, #b35806),
+    7:  (#542788, #998ec3, #d8daeb, #f7f7f7, #fee0b6, #f1a340, #b35806),
+    8:  (#542788, #8073ac, #b2abd2, #d8daeb, #fee0b6, #fdb863, #e08214, #b35806),
+    9:  (#542788, #8073ac, #b2abd2, #d8daeb, #f7f7f7, #fee0b6, #fdb863, #e08214, #b35806),
+    10: (#2d004b, #542788, #8073ac, #b2abd2, #d8daeb, #fee0b6, #fdb863, #e08214, #b35806, #7f3b08),
+    11: (#2d004b, #542788, #8073ac, #b2abd2, #d8daeb, #f7f7f7, #fee0b6, #fdb863, #e08214, #b35806, #7f3b08),
+  ),
+  brewer-purd: (
+    3:  (#dd1c77, #c994c7, #e7e1ef),
+    4:  (#ce1256, #df65b0, #d7b5d8, #f1eef6),
+    5:  (#980043, #dd1c77, #df65b0, #d7b5d8, #f1eef6),
+    6:  (#980043, #dd1c77, #df65b0, #c994c7, #d4b9da, #f1eef6),
+    7:  (#91003f, #ce1256, #e7298a, #df65b0, #c994c7, #d4b9da, #f1eef6),
+    8:  (#91003f, #ce1256, #e7298a, #df65b0, #c994c7, #d4b9da, #e7e1ef, #f7f4f9),
+    9:  (#67001f, #980043, #ce1256, #e7298a, #df65b0, #c994c7, #d4b9da, #e7e1ef, #f7f4f9)
+  ),
+  brewer-rdbu: (
+    3:  (#67a9cf, #f7f7f7, #ef8a62),
+    4:  (#0571b0, #92c5de, #f4a582, #ca0020),
+    5:  (#0571b0, #92c5de, #f7f7f7, #f4a582, #ca0020),
+    6:  (#2166ac, #67a9cf, #d1e5f0, #fddbc7, #ef8a62, #b2182b),
+    7:  (#2166ac, #67a9cf, #d1e5f0, #f7f7f7, #fddbc7, #ef8a62, #b2182b),
+    8:  (#2166ac, #4393c3, #92c5de, #d1e5f0, #fddbc7, #f4a582, #d6604d, #b2182b),
+    9:  (#2166ac, #4393c3, #92c5de, #d1e5f0, #f7f7f7, #fddbc7, #f4a582, #d6604d, #b2182b),
+    10: (#053061, #2166ac, #4393c3, #92c5de, #d1e5f0, #fddbc7, #f4a582, #d6604d, #b2182b, #67001f),
+    11: (#053061, #2166ac, #4393c3, #92c5de, #d1e5f0, #f7f7f7, #fddbc7, #f4a582, #d6604d, #b2182b, #67001f),
+  ),
+  brewer-rdgy: (
+    3:  (#999999, #ffffff, #ef8a62),
+    4:  (#404040, #bababa, #f4a582, #ca0020),
+    5:  (#404040, #bababa, #ffffff, #f4a582, #ca0020),
+    6:  (#4d4d4d, #999999, #e0e0e0, #fddbc7, #ef8a62, #b2182b),
+    7:  (#4d4d4d, #999999, #e0e0e0, #ffffff, #fddbc7, #ef8a62, #b2182b),
+    8:  (#4d4d4d, #878787, #bababa, #e0e0e0, #fddbc7, #f4a582, #d6604d, #b2182b),
+    9:  (#4d4d4d, #878787, #bababa, #e0e0e0, #ffffff, #fddbc7, #f4a582, #d6604d, #b2182b),
+    10: (#1a1a1a, #4d4d4d, #878787, #bababa, #e0e0e0, #fddbc7, #f4a582, #d6604d, #b2182b, #67001f),
+    11: (#1a1a1a, #4d4d4d, #878787, #bababa, #e0e0e0, #ffffff, #fddbc7, #f4a582, #d6604d, #b2182b, #67001f),
+  ),
+  brewer-rdpu: (
+    3:  (#c51b8a, #fa9fb5, #fde0dd),
+    4:  (#ae017e, #f768a1, #fbb4b9, #feebe2),
+    5:  (#7a0177, #c51b8a, #f768a1, #fbb4b9, #feebe2),
+    6:  (#7a0177, #c51b8a, #f768a1, #fa9fb5, #fcc5c0, #feebe2),
+    7:  (#7a0177, #ae017e, #dd3497, #f768a1, #fa9fb5, #fcc5c0, #feebe2),
+    8:  (#7a0177, #ae017e, #dd3497, #f768a1, #fa9fb5, #fcc5c0, #fde0dd, #fff7f3),
+    9:  (#49006a, #7a0177, #ae017e, #dd3497, #f768a1, #fa9fb5, #fcc5c0, #fde0dd, #fff7f3)
+  ),
+  brewer-rdylbu: (
+    3:  (#91bfdb, #ffffbf, #fc8d59),
+    4:  (#2c7bb6, #abd9e9, #fdae61, #d7191c),
+    5:  (#2c7bb6, #abd9e9, #ffffbf, #fdae61, #d7191c),
+    6:  (#4575b4, #91bfdb, #e0f3f8, #fee090, #fc8d59, #d73027),
+    7:  (#4575b4, #91bfdb, #e0f3f8, #ffffbf, #fee090, #fc8d59, #d73027),
+    8:  (#4575b4, #74add1, #abd9e9, #e0f3f8, #fee090, #fdae61, #f46d43, #d73027),
+    9:  (#4575b4, #74add1, #abd9e9, #e0f3f8, #ffffbf, #fee090, #fdae61, #f46d43, #d73027),
+    10: (#313695, #4575b4, #74add1, #abd9e9, #e0f3f8, #fee090, #fdae61, #f46d43, #d73027, #a50026),
+    11: (#313695, #4575b4, #74add1, #abd9e9, #e0f3f8, #ffffbf, #fee090, #fdae61, #f46d43, #d73027, #a50026),
+  ),
+  brewer-rdylgn: (
+    3:  (#91cf60, #ffffbf, #fc8d59),
+    4:  (#1a9641, #a6d96a, #fdae61, #d7191c),
+    5:  (#1a9641, #a6d96a, #ffffbf, #fdae61, #d7191c),
+    6:  (#1a9850, #91cf60, #d9ef8b, #fee08b, #fc8d59, #d73027),
+    7:  (#1a9850, #91cf60, #d9ef8b, #ffffbf, #fee08b, #fc8d59, #d73027),
+    8:  (#1a9850, #66bd63, #a6d96a, #d9ef8b, #fee08b, #fdae61, #f46d43, #d73027),
+    9:  (#1a9850, #66bd63, #a6d96a, #d9ef8b, #ffffbf, #fee08b, #fdae61, #f46d43, #d73027),
+    10: (#006837, #1a9850, #66bd63, #a6d96a, #d9ef8b, #fee08b, #fdae61, #f46d43, #d73027, #a50026),
+    11: (#006837, #1a9850, #66bd63, #a6d96a, #d9ef8b, #ffffbf, #fee08b, #fdae61, #f46d43, #d73027, #a50026),
+  ),
+  brewer-spectral: (
+    3:  (#99d594, #ffffbf, #fc8d59),
+    4:  (#2b83ba, #abdda4, #fdae61, #d7191c),
+    5:  (#2b83ba, #abdda4, #ffffbf, #fdae61, #d7191c),
+    6:  (#3288bd, #99d594, #e6f598, #fee08b, #fc8d59, #d53e4f),
+    7:  (#3288bd, #99d594, #e6f598, #ffffbf, #fee08b, #fc8d59, #d53e4f),
+    8:  (#3288bd, #66c2a5, #abdda4, #e6f598, #fee08b, #fdae61, #f46d43, #d53e4f),
+    9:  (#3288bd, #66c2a5, #abdda4, #e6f598, #ffffbf, #fee08b, #fdae61, #f46d43, #d53e4f),
+    10: (#5e4fa2, #3288bd, #66c2a5, #abdda4, #e6f598, #fee08b, #fdae61, #f46d43, #d53e4f, #9e0142),
+    11: (#5e4fa2, #3288bd, #66c2a5, #abdda4, #e6f598, #ffffbf, #fee08b, #fdae61, #f46d43, #d53e4f, #9e0142),
+  ),
+  brewer-ylgn: (
+    3:  (#31a354, #addd8e, #f7fcb9),
+    4:  (#238443, #78c679, #c2e699, #ffffcc),
+    5:  (#006837, #31a354, #78c679, #c2e699, #ffffcc),
+    6:  (#006837, #31a354, #78c679, #addd8e, #d9f0a3, #ffffcc),
+    7:  (#005a32, #238443, #41ab5d, #78c679, #addd8e, #d9f0a3, #ffffcc),
+    8:  (#005a32, #238443, #41ab5d, #78c679, #addd8e, #d9f0a3, #f7fcb9, #ffffe5),
+    9:  (#004529, #006837, #238443, #41ab5d, #78c679, #addd8e, #d9f0a3, #f7fcb9, #ffffe5)
+  ),
+  brewer-ylgnbu: (
+    3:  (#2c7fb8, #7fcdbb, #edf8b1),
+    4:  (#225ea8, #41b6c4, #a1dab4, #ffffcc),
+    5:  (#253494, #2c7fb8, #41b6c4, #a1dab4, #ffffcc),
+    6:  (#253494, #2c7fb8, #41b6c4, #7fcdbb, #c7e9b4, #ffffcc),
+    7:  (#0c2c84, #225ea8, #1d91c0, #41b6c4, #7fcdbb, #c7e9b4, #ffffcc),
+    8:  (#0c2c84, #225ea8, #1d91c0, #41b6c4, #7fcdbb, #c7e9b4, #edf8b1, #ffffd9),
+    9:  (#081d58, #253494, #225ea8, #1d91c0, #41b6c4, #7fcdbb, #c7e9b4, #edf8b1, #ffffd9)
+  ),
+  brewer-ylorbr: (
+    3:  (#d95f0e, #fec44f, #fff7bc),
+    4:  (#cc4c02, #fe9929, #fed98e, #ffffd4),
+    5:  (#993404, #d95f0e, #fe9929, #fed98e, #ffffd4),
+    6:  (#993404, #d95f0e, #fe9929, #fec44f, #fee391, #ffffd4),
+    7:  (#8c2d04, #cc4c02, #ec7014, #fe9929, #fec44f, #fee391, #ffffd4),
+    8:  (#8c2d04, #cc4c02, #ec7014, #fe9929, #fec44f, #fee391, #fff7bc, #ffffe5),
+    9:  (#662506, #993404, #cc4c02, #ec7014, #fe9929, #fec44f, #fee391, #fff7bc, #ffffe5)
+  ),
+  brewer-ylorrd: (
+    3:  (#f03b20, #feb24c, #ffeda0),
+    4:  (#e31a1c, #fd8d3c, #fecc5c, #ffffb2),
+    5:  (#bd0026, #f03b20, #fd8d3c, #fecc5c, #ffffb2),
+    6:  (#bd0026, #f03b20, #fd8d3c, #feb24c, #fed976, #ffffb2),
+    7:  (#b10026, #e31a1c, #fc4e2a, #fd8d3c, #feb24c, #fed976, #ffffb2),
+    8:  (#b10026, #e31a1c, #fc4e2a, #fd8d3c, #feb24c, #fed976, #ffeda0, #ffffcc),
+    9:  (#800026, #bd0026, #e31a1c, #fc4e2a, #fd8d3c, #feb24c, #fed976, #ffeda0, #ffffcc),
+  ),
+  brewer-blues: (
+    3:  (#3182bd, #9ecae1, #deebf7),
+    4:  (#2171b5, #6baed6, #bdd7e7, #eff3ff),
+    5:  (#08519c, #3182bd, #6baed6, #bdd7e7, #eff3ff),
+    6:  (#08519c, #3182bd, #6baed6, #9ecae1, #c6dbef, #eff3ff),
+    7:  (#084594, #2171b5, #4292c6, #6baed6, #9ecae1, #c6dbef, #eff3ff),
+    8:  (#084594, #2171b5, #4292c6, #6baed6, #9ecae1, #c6dbef, #deebf7, #f7fbff),
+    9:  (#08306b, #08519c, #2171b5, #4292c6, #6baed6, #9ecae1, #c6dbef, #deebf7, #f7fbff)
+  ),
+  brewer-greens: (
+    3:  (#31a354, #a1d99b, #e5f5e0),
+    4:  (#238b45, #74c476, #bae4b3, #edf8e9),
+    5:  (#006d2c, #31a354, #74c476, #bae4b3, #edf8e9),
+    6:  (#006d2c, #31a354, #74c476, #a1d99b, #c7e9c0, #edf8e9),
+    7:  (#005a32, #238b45, #41ab5d, #74c476, #a1d99b, #c7e9c0, #edf8e9),
+    8:  (#005a32, #238b45, #41ab5d, #74c476, #a1d99b, #c7e9c0, #e5f5e0, #f7fcf5),
+    9:  (#00441b, #006d2c, #238b45, #41ab5d, #74c476, #a1d99b, #c7e9c0, #e5f5e0, #f7fcf5)
+  ),
+  brewer-oranges: (
+    3:  (#e6550d, #fdae6b, #fee6ce),
+    4:  (#d94701, #fd8d3c, #fdbe85, #feedde),
+    5:  (#a63603, #e6550d, #fd8d3c, #fdbe85, #feedde),
+    6:  (#a63603, #e6550d, #fd8d3c, #fdae6b, #fdd0a2, #feedde),
+    7:  (#8c2d04, #d94801, #f16913, #fd8d3c, #fdae6b, #fdd0a2, #feedde),
+    8:  (#8c2d04, #d94801, #f16913, #fd8d3c, #fdae6b, #fdd0a2, #fee6ce, #fff5eb),
+    9:  (#7f2704, #a63603, #d94801, #f16913, #fd8d3c, #fdae6b, #fdd0a2, #fee6ce, #fff5eb)
+  ),
+  brewer-purples: (
+    3:  (#756bb1, #bcbddc, #efedf5),
+    4:  (#6a51a3, #9e9ac8, #cbc9e2, #f2f0f7),
+    5:  (#54278f, #756bb1, #9e9ac8, #cbc9e2, #f2f0f7),
+    6:  (#54278f, #756bb1, #9e9ac8, #bcbddc, #dadaeb, #f2f0f7),
+    7:  (#4a1486, #6a51a3, #807dba, #9e9ac8, #bcbddc, #dadaeb, #f2f0f7),
+    8:  (#4a1486, #6a51a3, #807dba, #9e9ac8, #bcbddc, #dadaeb, #efedf5, #fcfbfd),
+    9:  (#3f007d, #54278f, #6a51a3, #807dba, #9e9ac8, #bcbddc, #dadaeb, #efedf5, #fcfbfd)
+  ),
+  brewer-reds: (
+    3:  (#de2d26, #fc9272, #fee0d2),
+    4:  (#cb181d, #fb6a4a, #fcae91, #fee5d9),
+    5:  (#a50f15, #de2d26, #fb6a4a, #fcae91, #fee5d9),
+    6:  (#a50f15, #de2d26, #fb6a4a, #fc9272, #fcbba1, #fee5d9),
+    7:  (#99000d, #cb181d, #ef3b2c, #fb6a4a, #fc9272, #fcbba1, #fee5d9),
+    8:  (#99000d, #cb181d, #ef3b2c, #fb6a4a, #fc9272, #fcbba1, #fee0d2, #fff5f0),
+    9:  (#67000d, #a50f15, #cb181d, #ef3b2c, #fb6a4a, #fc9272, #fcbba1, #fee0d2, #fff5f0)
+  ),
+  brewer-greys: (
+    3:  (#636363, #bdbdbd, #f0f0f0),
+    4:  (#525252, #969696, #cccccc, #f7f7f7),
+    5:  (#252525, #636363, #969696, #cccccc, #f7f7f7),
+    6:  (#252525, #636363, #969696, #bdbdbd, #d9d9d9, #f7f7f7),
+    7:  (#252525, #525252, #737373, #969696, #bdbdbd, #d9d9d9, #f7f7f7),
+    8:  (#252525, #525252, #737373, #969696, #bdbdbd, #d9d9d9, #f0f0f0, #ffffff),
+    9:  (#000000, #252525, #525252, #737373, #969696, #bdbdbd, #d9d9d9, #f0f0f0, #ffffff),
+    10: (#000000, #1c1c1c, #383838, #555555, #717171, #8d8d8d, #aaaaaa, #c6c6c6, #e2e2e2, #ffffff),
+    11: (#000000, #191919, #333333, #4c4c4c, #666666, #7f7f7f, #999999, #b2b2b2, #cccccc, #e5e5e5, #ffffff)
+  ),
+  brewer-accent: (
+    3:  slice($chrys-brewer-accent, 1, 3),
+    4:  slice($chrys-brewer-accent, 1, 4),
+    5:  slice($chrys-brewer-accent, 1, 5),
+    6:  slice($chrys-brewer-accent, 1, 6),
+    7:  slice($chrys-brewer-accent, 1, 7),
+    8:  slice($chrys-brewer-accent, 1, 8)
+  ),
+  brewer-dark2: (
+    3:  slice($chrys-brewer-dark2, 1, 3),
+    4:  slice($chrys-brewer-dark2, 1, 4),
+    5:  slice($chrys-brewer-dark2, 1, 5),
+    6:  slice($chrys-brewer-dark2, 1, 6),
+    7:  slice($chrys-brewer-dark2, 1, 7),
+    8:  slice($chrys-brewer-dark2, 1, 8)
+  ),
   brewer-paired: (
     3:  slice($chrys-brewer-paired, 1, 3),
     4:  slice($chrys-brewer-paired, 1, 4),
@@ -73,6 +365,23 @@ $chrys-color-map: (
     10: slice($chrys-brewer-paired, 1, 10),
     11: slice($chrys-brewer-paired, 1, 11),
     12: slice($chrys-brewer-paired, 1, 12)
+  ),
+  brewer-pastel1: (
+    3:  slice($chrys-brewer-pastel1, 1, 3),
+    4:  slice($chrys-brewer-pastel1, 1, 4),
+    5:  slice($chrys-brewer-pastel1, 1, 5),
+    6:  slice($chrys-brewer-pastel1, 1, 6),
+    7:  slice($chrys-brewer-pastel1, 1, 7),
+    8:  slice($chrys-brewer-pastel1, 1, 8),
+    9:  slice($chrys-brewer-pastel1, 1, 9)
+  ),
+  brewer-pastel2: (
+    3:  slice($chrys-brewer-pastel2, 1, 3),
+    4:  slice($chrys-brewer-pastel2, 1, 4),
+    5:  slice($chrys-brewer-pastel2, 1, 5),
+    6:  slice($chrys-brewer-pastel2, 1, 6),
+    7:  slice($chrys-brewer-pastel2, 1, 7),
+    8:  slice($chrys-brewer-pastel2, 1, 8)
   ),
   brewer-set1: (
     3:  slice($chrys-brewer-set1, 1, 3),
