@@ -175,7 +175,7 @@ gulp.task('build-demo-css', function (cb) {
 gulp.task('build-demo-page', function (cb) {
   var colors;
 
-  loadColors('src/css/chrys.scss')
+  loadColors('src/css/chrys-bg.scss')
     .then(function (data) {
       colors = data;
 
