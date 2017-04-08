@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var autoprefixer = require('autoprefixer');
+var chroma = require('chroma-js');
 var cssmin = require('gulp-cssmin');
 var fs = require('fs-extra');
 var ghPages = require('gulp-gh-pages');
@@ -164,6 +165,15 @@ gulp.task('livereload-reload', function (cb) {
  * Tasks
  ******************************************************************************/
 
+gulp.task('clean', function () {
+  return Promise.mapSeries([
+    'demo/',
+    'illustrator/'
+  ], function (file) {
+    return fs.removeAsync(file);
+  });
+});
+
 gulp.task('build-demo-css', function (cb) {
   buildCss([
       'src/css/**/*.scss',
@@ -206,11 +216,51 @@ gulp.task('build-demo-vendor', function () {
     .pipe(gulp.dest('demo/css/'));
 });
 
+gulp.task('build-illustrator', function () {
+  return loadColors('src/css/chrys-bg.scss')
+    .then(function (data) {
+      var palettes = [];
+
+      _.forEach(data, function (sizes, name) {
+        _.forEach(sizes, function (items, size) {
+          var paletteName = name + '-' + _.trimStart(size, '_');
+
+          palettes.push({
+            name: paletteName,
+            colors: _.map(items, function (item, index) {
+              return {
+                group: paletteName,
+                name: paletteName + '-' + _.trimStart(index, '_'),
+                rgb: chroma(item).rgb()
+              };
+            })
+          });
+        });
+      });
+
+      return fs.readFileAsync('src/illustrator/swatches.js', 'utf8')
+        .then(function (data) {
+          return Promise.mapSeries(palettes, function (palette) {
+            var illustratorConfig = {
+              mode: 'rgb',
+              colors: palette.colors
+            };
+
+            var str = 'var config = ' + JSON.stringify(illustratorConfig) + ';\n\n';
+
+            return fs.outputFileAsync('illustrator/' + palette.name + '.js', str + data, 'utf8');
+          });
+        });
+    });
+});
+
 gulp.task('build', function (cb) {
   runSequence(
+    'clean',
     'build-demo-css',
     'build-demo-page',
     'build-demo-vendor',
+    'build-illustrator',
     cb
   );
 });
