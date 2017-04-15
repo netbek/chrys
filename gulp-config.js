@@ -1,6 +1,6 @@
 module.exports = {
-  'autoprefixer': {
-    'browsers': [
+  autoprefixer: {
+    browsers: [
       'last 2 versions',
       'ie >= 8',
       'ff >= 5',
@@ -12,15 +12,32 @@ module.exports = {
       'bb >= 6'
     ]
   },
-  'css': {
-    'params': {
-      'includePaths': [
+  css: {
+    params: {
+      includePaths: [
         'src/'
       ],
-      'errLogToConsole': true
+      errLogToConsole: true
     }
   },
-  'watchTasks': [
+  illustratorTasks: {
+    swatches: {
+      document: {
+        height: 210, // mm
+        width: 297 // mm
+      },
+      characterStyles: [{
+        name: 'swatchRectTitle',
+        attributes: {
+          size: 8 // pt
+        }
+      }],
+      swatchRect: {
+        textPosition: 0.125 // Value between 0 and 1
+      }
+    }
+  },
+  watchTasks: [
     //
     {
       files: [
@@ -31,15 +48,15 @@ module.exports = {
       ]
     }
   ],
-  'webserver': {
-    'host': 'localhost',
-    'port': 8000,
-    'path': '/',
-    'livereload': false,
-    'directoryListing': false,
-    'open': '/demo/',
-    'https': false,
-    'browsers': {
+  webserver: {
+    host: 'localhost',
+    port: 8000,
+    path: '/',
+    livereload: false,
+    directoryListing: false,
+    open: '/demo/',
+    https: false,
+    browsers: {
       'default': 'firefox',
       'darwin': 'google chrome',
       'linux': 'google-chrome',

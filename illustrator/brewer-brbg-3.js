@@ -1,61 +1,83 @@
-var config = {"mode":"rgb","colors":[{"group":"brewer-brbg-3","name":"brewer-brbg-3-1","rgb":[90,180,172]},{"group":"brewer-brbg-3","name":"brewer-brbg-3-2","rgb":[245,245,245]},{"group":"brewer-brbg-3","name":"brewer-brbg-3-3","rgb":[216,179,101]}]};
+var config = {"document":{"height":210,"width":297,"mode":"rgb"},"characterStyles":[{"name":"swatchRectTitle","attributes":{"size":8}}],"swatchRect":{"textPosition":0.125},"colors":[{"group":"brewer-brbg-3","name":"brewer-brbg-3-1","rgb":[90,180,172]},{"group":"brewer-brbg-3","name":"brewer-brbg-3-2","rgb":[245,245,245]},{"group":"brewer-brbg-3","name":"brewer-brbg-3-3","rgb":[216,179,101]}]};
 
 // Polyfills methods that aren't available in Illustrator.
 polyfill();
 
-// Creates a new document in CMYK mode.
-var doc = app.documents.add(config.mode === 'cmyk' ? DocumentColorSpace.CMYK : DocumentColorSpace.RGB);
+// Document configuration.
+var docColorSpace = 'cmyk' === config.document.mode ? DocumentColorSpace.CMYK : DocumentColorSpace.RGB;
+var docHeight = mmToPt(config.document.height);
+var docWidth = mmToPt(config.document.width);
+
+// Swatch rectangle configuration.
+var swatchRectWidth = docWidth / getColorGroups(config.colors).length;
+var swatchRectHeight = docHeight / getMaxShades(config.colors);
+
+// Creates a document template.
+var docPreset = new DocumentPreset;
+docPreset.colorMode = docColorSpace;
+docPreset.height = docHeight;
+docPreset.width = docWidth;
+docPreset.units = RulerUnits.Millimeters;
+
+// Creates a new document.
+var doc = app.documents.addDocument(docColorSpace, docPreset);
+
+// Creates character styles.
+var charStyles = {};
+config.characterStyles.forEach(function (style) {
+  var styleAttributes = style.attributes;
+  var characterStyle = doc.characterStyles.add(style.name);
+  var characterAttributes = characterStyle.characterAttributes;
+
+  Object.keys(styleAttributes).forEach(function (attribute) {
+    characterAttributes[attribute] = styleAttributes[attribute];
+  });
+
+  charStyles[style.name] = characterStyle;
+});
 
 // Removes default swatches and swatch groups created by Illustrator.
 removeAllSwatchGroups();
 removeAllSwatches();
 
 // Creates and adds swatch groups and swatches.
-build(config.colors);
+build(config.colors, config.document.mode);
 
 /**
  * Creates and adds swatch groups and swatches.
  *
  * @param   {Array} colors
+ * @param   {String} mode
  */
-function build(colors) {
-  // Builds array of unique group names.
-  var groups = [];
-  colors.forEach(function (color) {
-    if (groups.indexOf(color.group) < 0) {
-      groups.push(color.group);
-    }
-  });
+function build(colors, mode) {
+  var colorGroups = getColorGroups(colors);
 
-  groups.forEach(function (group) {
+  colorGroups.forEach(function (colorGroup, colorGroupIndex) {
     // Creates and adds swatch group.
-    var swatchGroup = addSwatchGroup(group);
+    var swatchGroup = addSwatchGroup(colorGroup);
 
     // Gets colors that belong to group.
     var groupColors = colors.filter(function (o) {
-      return o.group === group;
+      return o.group === colorGroup;
     });
 
-    groupColors.forEach(function (color) {
+    groupColors.forEach(function (groupColor, groupColorIndex) {
       // Creates RGB color.
       var rgb = new RGBColor();
-      rgb.red = color.rgb[0];
-      rgb.green = color.rgb[1];
-      rgb.blue = color.rgb[2];
+      rgb.red = groupColor.rgb[0];
+      rgb.green = groupColor.rgb[1];
+      rgb.blue = groupColor.rgb[2];
 
-      var swatchColor;
-      if (config.mode === 'cmyk') {
-        swatchColor = toCMYK(rgb);
-      }
-      else {
-        swatchColor = rgb;
-      }
+      var swatchColor = 'cmyk' === mode ? colorToCMYK(rgb) : rgb;
 
       // Creates and adds swatch to document.
-      var swatch = addSwatch(color.name, swatchColor);
+      var swatch = addSwatch(groupColor.name, swatchColor);
 
       // Adds swatch to swatch group.
       swatchGroup.addSwatch(swatch);
+
+      // Draws rectangle on artboard.
+      drawSwatchRect(docHeight - groupColorIndex * swatchRectHeight, colorGroupIndex * swatchRectWidth, swatchRectWidth, swatchRectHeight, groupColor.name, swatchColor);
     });
   });
 }
@@ -107,12 +129,84 @@ function removeAllSwatchGroups() {
 }
 
 /**
+ * Draws rectangle on artboard.
+ *
+ * @param   {Number} top
+ * @param   {Number} left
+ * @param   {Number} width
+ * @param   {Number} height
+ * @param   {String} name
+ * @param   {Color} color
+ * @returns {PathItem}
+ */
+function drawSwatchRect(top, left, width, height, name, color) {
+  var layer = doc.layers[0];
+
+  var rect = layer.pathItems.rectangle(top, left, width, height);
+  rect.filled = true;
+  rect.fillColor = color;
+  rect.stroked = false;
+
+  var textBounds = layer.pathItems.rectangle(top - height * config.swatchRect.textPosition, left + width * config.swatchRect.textPosition, width * (1 - config.swatchRect.textPosition * 2), height * (1 - config.swatchRect.textPosition * 2));
+  var text = layer.textFrames.areaText(textBounds);
+  text.contents = name + '\n' + colorToString(color);
+
+  charStyles['swatchRectTitle'].applyTo(text.textRange);
+
+  return rect;
+}
+
+/**
+ * Returns an array of unique group names.
+ *
+ * @param   {Array} colors
+ * @returns {Array)
+ */
+function getColorGroups(colors) {
+  var colorGroups = [];
+
+  colors.forEach(function (color) {
+    if (colorGroups.indexOf(color.group) < 0) {
+      colorGroups.push(color.group);
+    }
+  });
+
+  return colorGroups;
+}
+
+/**
+ * Returns maximum number of shades.
+ *
+ * @param   {Array} colors
+ * @returns {Number}
+ */
+function getMaxShades(colors) {
+  var max = 0;
+  var colorGroups = getColorGroups(colors);
+
+  colorGroups.forEach(function (colorGroup, colorGroupIndex) {
+    // Gets colors that belong to group.
+    var groupColors = colors.filter(function (o) {
+      return o.group === colorGroup;
+    });
+
+    var len = groupColors.length;
+
+    if (len > max) {
+      max = len;
+    }
+  });
+
+  return max;
+}
+
+/**
  *
  * @see https://github.com/totorototo/adobe_cc_extension/blob/master/Apps/Panels/src/cep/application/ilst/color.jsx
  * @param   {Color} color
  * @returns {CMYKColor}
  */
-function toCMYK(color) {
+function colorToCMYK(color) {
   var cmykColor = new CMYKColor();
   var colors;
 
@@ -146,11 +240,54 @@ function toCMYK(color) {
     break;
 
   case 'SpotColor':
-    return toCMYK(color.spot.color);
+    return colorToCMYK(color.spot.color);
   }
 
   return cmykColor;
 };
+
+/**
+ *
+ * @param   {Color} color
+ * @returns {String}
+ */
+function colorToString(color) {
+  if ('CMYKColor' === color.typename) {
+    return [
+      Math.round(color.cyan) + '%',
+      Math.round(color.magenta) + '%',
+      Math.round(color.yellow) + '%',
+      Math.round(color.black) + '%'
+    ].join(', ');
+  }
+  else if ('RGBColor' === color.typename) {
+    return [
+      Math.round(color.red),
+      Math.round(color.green),
+      Math.round(color.blue)
+    ].join(', ');
+  }
+
+  return '';
+}
+
+/**
+ *
+ * @param   {Number} mm
+ * @returns {Number}
+ */
+function mmToPt(mm) {
+  return mm * 2.834645;
+}
+
+/**
+ *
+ * @param   {Number} pt
+ * @returns {Number}
+ */
+function ptToMm(pt) {
+  return pt / 2.834645;
+}
 
 /**
  * Polyfills methods that aren't available in Illustrator.
@@ -313,5 +450,50 @@ function polyfill() {
 
       return -1;
     };
+  }
+
+  // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/keys#Polyfill
+  if (!Object.keys) {
+    Object.keys = (function () {
+      'use strict';
+      var hasOwnProperty = Object.prototype.hasOwnProperty,
+        hasDontEnumBug = !({
+          toString: null
+        }).propertyIsEnumerable('toString'),
+        dontEnums = [
+          'toString',
+          'toLocaleString',
+          'valueOf',
+          'hasOwnProperty',
+          'isPrototypeOf',
+          'propertyIsEnumerable',
+          'constructor'
+        ],
+        dontEnumsLength = dontEnums.length;
+
+      return function (obj) {
+        if (typeof obj !== 'function' && (typeof obj !== 'object' || obj === null)) {
+          throw new TypeError('Object.keys called on non-object');
+        }
+
+        var result = [],
+          prop, i;
+
+        for (prop in obj) {
+          if (hasOwnProperty.call(obj, prop)) {
+            result.push(prop);
+          }
+        }
+
+        if (hasDontEnumBug) {
+          for (i = 0; i < dontEnumsLength; i++) {
+            if (hasOwnProperty.call(obj, dontEnums[i])) {
+              result.push(dontEnums[i]);
+            }
+          }
+        }
+        return result;
+      };
+    }());
   }
 }

@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var autoprefixer = require('autoprefixer');
 var chroma = require('chroma-js');
+var illustratorSwatches = require('.').illustratorSwatches;
 var cssmin = require('gulp-cssmin');
 var fs = require('fs-extra');
 var ghPages = require('gulp-gh-pages');
@@ -10,6 +11,7 @@ var livereload = require('livereload');
 var nunjucks = require('nunjucks');
 var open = require('open');
 var os = require('os');
+var path = require('path');
 var postcss = require('postcss');
 var postcssColorRgbaFallback = require('postcss-color-rgba-fallback');
 var postcssJs = require('postcss-js');
@@ -27,9 +29,9 @@ Promise.promisifyAll(fs);
  * Config
  ******************************************************************************/
 
-var config = require('./gulp-config.js');
+var gulpConfig = require('./gulp-config.js');
 
-var livereloadOpen = (config.webserver.https ? 'https' : 'http') + '://' + config.webserver.host + ':' + config.webserver.port + (config.webserver.open ? config.webserver.open : '/');
+var livereloadOpen = (gulpConfig.webserver.https ? 'https' : 'http') + '://' + gulpConfig.webserver.host + ':' + gulpConfig.webserver.port + (gulpConfig.webserver.open ? gulpConfig.webserver.open : '/');
 
 /*******************************************************************************
  * Misc
@@ -41,10 +43,10 @@ var flags = {
 var server;
 
 // Choose browser for node-open.
-var browser = config.webserver.browsers.default;
+var browser = gulpConfig.webserver.browsers.default;
 var platform = os.platform();
-if (_.has(config.webserver.browsers, platform)) {
-  browser = config.webserver.browsers[platform];
+if (_.has(gulpConfig.webserver.browsers, platform)) {
+  browser = gulpConfig.webserver.browsers[platform];
 }
 
 /*******************************************************************************
@@ -60,9 +62,9 @@ if (_.has(config.webserver.browsers, platform)) {
 function buildCss(src, dist) {
   return gulp
     .src(src)
-    .pipe(sass(config.css.params).on('error', sass.logError))
+    .pipe(sass(gulpConfig.css.params).on('error', sass.logError))
     .pipe(gulpPostcss([
-      autoprefixer(config.autoprefixer),
+      autoprefixer(gulpConfig.autoprefixer),
       postcssColorRgbaFallback,
       postcssOpacity
     ]))
@@ -87,7 +89,7 @@ function loadColors(src) {
 
     gulp
       .src(src)
-      .pipe(sass(config.css.params).on('error', sass.logError))
+      .pipe(sass(gulpConfig.css.params).on('error', sass.logError))
       .pipe(through2.obj(function (chunk, enc, callback) {
         var data = chunk.contents.toString(enc);
         var root = postcss.parse(data);
@@ -136,11 +138,11 @@ function startWatch(files, tasks, livereload) {
 
 // Start webserver.
 gulp.task('webserver-init', function (cb) {
-  var conf = _.clone(config.webserver);
-  conf.open = false;
+  var config = _.clone(gulpConfig.webserver);
+  config.open = false;
 
   gulp.src('./')
-    .pipe(webserver(conf))
+    .pipe(webserver(config))
     .on('end', cb);
 });
 
@@ -238,19 +240,15 @@ gulp.task('build-illustrator', function () {
         });
       });
 
-      return fs.readFileAsync('src/illustrator/swatches.js', 'utf8')
-        .then(function (data) {
-          return Promise.mapSeries(palettes, function (palette) {
-            var illustratorConfig = {
-              mode: 'rgb',
-              colors: palette.colors
-            };
+      return Promise.mapSeries(palettes, function (palette) {
+        var config = _.cloneDeep(gulpConfig.illustratorTasks.swatches);
+        config.document.mode = 'rgb';
+        config.colors = palette.colors;
 
-            var str = 'var config = ' + JSON.stringify(illustratorConfig) + ';\n\n';
+        var dist = path.resolve('illustrator/' + palette.name + '.js');
 
-            return fs.outputFileAsync('illustrator/' + palette.name + '.js', str + data, 'utf8');
-          });
-        });
+        return illustratorSwatches(config, dist);
+      });
     });
 });
 
@@ -287,7 +285,7 @@ gulp.task('livereload', function () {
 gulp.task('watch:livereload', function (cb) {
   var livereloadTask = 'livereload-reload';
 
-  _.forEach(config.watchTasks, function (watchConfig) {
+  _.forEach(gulpConfig.watchTasks, function (watchConfig) {
     var tasks = _.clone(watchConfig.tasks);
     tasks.push(livereloadTask);
     startWatch(watchConfig.files, tasks);
