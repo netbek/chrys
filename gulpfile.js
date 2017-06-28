@@ -55,27 +55,32 @@ if (_.has(gulpConfig.webserver.browsers, platform)) {
 
 /**
  *
- * @param  {String} src
- * @param  {String} dist
- * @return {Stream}
+ * @param   {String} src
+ * @param   {String} dist
+ * @returns {Promise}
  */
 function buildCss(src, dist) {
-  return gulp
-    .src(src)
-    .pipe(sass(gulpConfig.css.params).on('error', sass.logError))
-    .pipe(gulpPostcss([
-      autoprefixer(gulpConfig.autoprefixer),
-      postcssColorRgbaFallback,
-      postcssOpacity
-    ]))
-    .pipe(gulp.dest(dist))
-    .pipe(cssmin({
-      advanced: false
-    }))
-    .pipe(rename({
-      suffix: '.min'
-    }))
-    .pipe(gulp.dest(dist));
+  return new Promise(function (resolve, reject) {
+    gulp
+      .src(src)
+      .pipe(sass(gulpConfig.css.params).on('error', sass.logError))
+      .pipe(gulpPostcss([
+        autoprefixer(gulpConfig.autoprefixer),
+        postcssColorRgbaFallback,
+        postcssOpacity
+      ]))
+      .pipe(gulp.dest(dist))
+      .pipe(cssmin({
+        advanced: false
+      }))
+      .pipe(rename({
+        suffix: '.min'
+      }))
+      .pipe(gulp.dest(dist))
+      .on('end', function () {
+        resolve();
+      });
+  });
 }
 
 /**
@@ -170,6 +175,7 @@ gulp.task('livereload-reload', function (cb) {
 
 gulp.task('clean', function () {
   return Promise.mapSeries([
+    'css/',
     'demo/',
     'illustrator/',
     'src/css/background-color/',
@@ -234,12 +240,24 @@ gulp.task('build-demo-scss', function () {
     });
 });
 
-gulp.task('build-demo-css', function (cb) {
-  buildCss([
-      'src/css/**/*.scss',
-      'src/demo/css/**/*.scss'
-    ], 'demo/css/')
-    .on('end', cb);
+gulp.task('build-demo-css', function () {
+  return buildCss([
+      'src/css/**/*.scss'
+    ], 'css/')
+    .then(function () {
+      return buildCss([
+        'src/demo/css/**/*.scss'
+      ], 'demo/css/');
+    })
+    .then(function () {
+      return new Promise(function (resolve, reject) {
+        gulp.src(['css/**/*'])
+          .pipe(gulp.dest('demo/css/'))
+          .on('end', function () {
+            resolve();
+          });
+      });
+    });
 });
 
 gulp.task('build-demo-page', function (cb) {
