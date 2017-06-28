@@ -81,9 +81,10 @@ function buildCss(src, dist) {
 /**
  *
  * @param   {String} src
+ * @param   {RegExp} re
  * @returns {Promise}
  */
-function loadColors(src) {
+function loadColors(src, re) {
   return new Promise(function (resolve, reject) {
     var colors = {};
 
@@ -96,7 +97,7 @@ function loadColors(src) {
         var rules = postcssJs.objectify(root);
 
         _.forEach(rules, function (value, key) {
-          var matches = key.match(/^.chrys\-(.+)\-(\d+)\-(\d+)$/i);
+          var matches = key.match(re);
 
           if (matches) {
             var name = matches[1];
@@ -170,10 +171,67 @@ gulp.task('livereload-reload', function (cb) {
 gulp.task('clean', function () {
   return Promise.mapSeries([
     'demo/',
-    'illustrator/'
+    'illustrator/',
+    'src/css/background-color/',
+    'src/css/color/',
+    'src/css/background-color.scss',
+    'src/css/color.scss'
   ], function (file) {
     return fs.removeAsync(file);
   });
+});
+
+gulp.task('build-demo-scss', function () {
+  var tasks = ['background-color', 'color'];
+
+  return Promise.mapSeries(tasks, function (task) {
+      return new Promise(function (resolve, reject) {
+        var res = nunjucks.render('src/templates/css/' + task + '.scss.njk', {
+          colors: gulpConfig.colors
+        }, function (err, res) {
+          if (err) {
+            console.log(err);
+            reject();
+          }
+          else {
+            fs.writeFileAsync('src/css/' + task + '.scss', res, 'utf8')
+              .then(function () {
+                resolve();
+              });
+          }
+        });
+      });
+    })
+    .then(function () {
+      var tasks = [];
+
+      gulpConfig.colors.forEach(function (color) {
+        tasks.push(['color', color]);
+        tasks.push(['background-color', color]);
+      });
+
+      return Promise.mapSeries(tasks, function (task) {
+        return new Promise(function (resolve, reject) {
+          var res = nunjucks.render('src/templates/css/' + task[0] + '/index.scss.njk', {
+            name: task[1]
+          }, function (err, res) {
+            if (err) {
+              console.log(err);
+              reject();
+            }
+            else {
+              fs.ensureDirAsync('src/css/' + task[0] + '/')
+                .then(function () {
+                  return fs.writeFileAsync('src/css/' + task[0] + '/' + task[1] + '.scss', res, 'utf8');
+                })
+                .then(function () {
+                  resolve();
+                });
+            }
+          });
+        });
+      });
+    });
 });
 
 gulp.task('build-demo-css', function (cb) {
@@ -186,8 +244,11 @@ gulp.task('build-demo-css', function (cb) {
 
 gulp.task('build-demo-page', function (cb) {
   var colors;
+  var src = 'src/css/background-color.scss';
+  var re = /^.chrys\-background\-color\-(.+)\-(\d+)\-(\d+)$/i;
+  // var re = /^.chrys__background\-color\-\-(.+)\-(\d+)\-(\d+)$/i;
 
-  loadColors('src/css/chrys-bg.scss')
+  loadColors(src, re)
     .then(function (data) {
       colors = data;
 
@@ -219,7 +280,11 @@ gulp.task('build-demo-vendor', function () {
 });
 
 gulp.task('build-illustrator', function () {
-  return loadColors('src/css/chrys-bg.scss')
+  var src = 'src/css/background-color.scss';
+  var re = /^.chrys\-background\-color\-(.+)\-(\d+)\-(\d+)$/i;
+  // var re = /^.chrys__background\-color\-\-(.+)\-(\d+)\-(\d+)$/i;
+
+  return loadColors(src, re)
     .then(function (data) {
       var palettes = [];
 
@@ -255,6 +320,7 @@ gulp.task('build-illustrator', function () {
 gulp.task('build', function (cb) {
   runSequence(
     'clean',
+    'build-demo-scss',
     'build-demo-css',
     'build-demo-page',
     'build-demo-vendor',

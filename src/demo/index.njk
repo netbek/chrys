@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>chrys</title>
     <link rel="stylesheet" href="css/normalize.css"/>
-    <link rel="stylesheet" href="css/chrys-bg.min.css"/>
+    <link rel="stylesheet" href="css/background-color.min.css"/>
     <link rel="stylesheet" href="css/demo.min.css"/>
   </head>
   <body>
@@ -20,7 +20,7 @@
             </th>
             {% for index, item in items %}
               <td class="color">
-                <div class="swatch" style="background: {{ item }};"></div>
+                <div class="swatch chrys-background-color-{{ name }}-{{ size|replace("_", "") }}-{{ index|replace("_", "") }}"></div>
                 <div class="hex">{{ item }}</div>
               </td>
             {% endfor %}
