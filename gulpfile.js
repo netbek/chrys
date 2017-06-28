@@ -263,8 +263,7 @@ gulp.task('build-demo-css', function () {
 gulp.task('build-demo-page', function (cb) {
   var colors;
   var src = 'src/css/background-color.scss';
-  var re = /^.chrys\-background\-color\-(.+)\-(\d+)\-(\d+)$/i;
-  // var re = /^.chrys__background\-color\-\-(.+)\-(\d+)\-(\d+)$/i;
+  var re = /^.chrys-background-color-(.+)-(\d+)-(\d+)$/i;
 
   loadColors(src, re)
     .then(function (data) {
@@ -299,8 +298,7 @@ gulp.task('build-demo-vendor', function () {
 
 gulp.task('build-illustrator', function () {
   var src = 'src/css/background-color.scss';
-  var re = /^.chrys\-background\-color\-(.+)\-(\d+)\-(\d+)$/i;
-  // var re = /^.chrys__background\-color\-\-(.+)\-(\d+)\-(\d+)$/i;
+  var re = /^.chrys-background-color-(.+)-(\d+)-(\d+)$/i;
 
   return loadColors(src, re)
     .then(function (data) {
