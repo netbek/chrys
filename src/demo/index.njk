@@ -16,11 +16,11 @@
         {% for size in palette.sizes %}
           <tr>
             <th class="var">
-              {{ palette.name }} {{ size.size }}
+              {{ palette.name }} {{ size.name }}
             </th>
             {% for color in size.colors %}
               <td class="color">
-                <div class="swatch chrys-background-color-{{ palette.name }}-{{ size.size }}-{{ loop.index }}"></div>
+                <div class="swatch chrys-background-color-{{ palette.name }}-{{ size.name }}-{{ loop.index }}"></div>
                 <div class="hex">{{ color }}</div>
               </td>
             {% endfor %}

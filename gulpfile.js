@@ -260,7 +260,7 @@ gulp.task('build-illustrator', function () {
 
       palettes.forEach(function (palette) {
         palette.sizes.forEach(function (size) {
-          var group = palette.name + '-' + size.size;
+          var group = palette.name + '-' + size.name;
 
           illustratorPalettes.push({
             name: group,
