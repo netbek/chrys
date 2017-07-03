@@ -8,19 +8,17 @@ var ghPages = require('gulp-gh-pages');
 var gulp = require('gulp');
 var gulpPostcss = require('gulp-postcss');
 var livereload = require('livereload');
+var loadColors = require('.').loadColors;
 var nunjucks = require('nunjucks');
 var open = require('open');
 var os = require('os');
 var path = require('path');
-var postcss = require('postcss');
 var postcssColorRgbaFallback = require('postcss-color-rgba-fallback');
-var postcssJs = require('postcss-js');
 var postcssOpacity = require('postcss-opacity');
 var Promise = require('bluebird');
 var rename = require('gulp-rename');
 var runSequence = require('run-sequence');
 var sass = require('gulp-sass');
-var through2 = require('through2');
 var webserver = require('gulp-webserver');
 
 Promise.promisifyAll(fs);
@@ -79,44 +77,6 @@ function buildCss(src, dist) {
       .pipe(gulp.dest(dist))
       .on('end', function () {
         resolve();
-      });
-  });
-}
-
-/**
- *
- * @param   {String} src
- * @param   {RegExp} re
- * @returns {Promise}
- */
-function loadColors(src, re) {
-  return new Promise(function (resolve, reject) {
-    var colors = {};
-
-    gulp
-      .src(src)
-      .pipe(sass(gulpConfig.css.params).on('error', sass.logError))
-      .pipe(through2.obj(function (chunk, enc, callback) {
-        var data = chunk.contents.toString(enc);
-        var root = postcss.parse(data);
-        var rules = postcssJs.objectify(root);
-
-        _.forEach(rules, function (value, key) {
-          var matches = key.match(re);
-
-          if (matches) {
-            var name = matches[1];
-            var size = matches[2];
-            var index = matches[3];
-
-            _.set(colors, name + '._' + size + '._' + index, value.backgroundColor);
-          }
-        });
-
-        this.emit('end');
-      }))
-      .on('end', function () {
-        resolve(colors);
       });
   });
 }
@@ -261,17 +221,11 @@ gulp.task('build-demo-css', function () {
 });
 
 gulp.task('build-demo-page', function (cb) {
-  var colors;
-  var src = 'src/css/background-color.scss';
-  var re = /^.chrys-background-color-(.+)-(\d+)-(\d+)$/i;
-
-  loadColors(src, re)
-    .then(function (data) {
-      colors = data;
-
-      return fs.mkdirpAsync('demo/');
-    })
+  fs.mkdirpAsync('demo/')
     .then(function () {
+      return loadColors();
+    })
+    .then(function (colors) {
       var res = nunjucks.render('src/demo/index.njk', {
         colors: colors
       }, function (err, res) {
@@ -297,14 +251,11 @@ gulp.task('build-demo-vendor', function () {
 });
 
 gulp.task('build-illustrator', function () {
-  var src = 'src/css/background-color.scss';
-  var re = /^.chrys-background-color-(.+)-(\d+)-(\d+)$/i;
-
-  return loadColors(src, re)
-    .then(function (data) {
+  return loadColors()
+    .then(function (colors) {
       var palettes = [];
 
-      _.forEach(data, function (sizes, name) {
+      _.forEach(colors, function (sizes, name) {
         _.forEach(sizes, function (items, size) {
           var paletteName = name + '-' + _.trimStart(size, '_');
 
