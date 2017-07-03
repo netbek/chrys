@@ -12,52 +12,183 @@ module.exports = {
       'bb >= 6'
     ]
   },
-  // Color names as declared in `$chrys-color-map` in `src/css/_variables.scss`
-  colors: [
-    'colorblind',
-    'mpl-inferno',
-    'mpl-magma',
-    'mpl-plasma',
-    'mpl-viridis',
-    'brewer-brbg',
-    'brewer-bugn',
-    'brewer-bupu',
-    'brewer-gnbu',
-    'brewer-orrd',
-    'brewer-piyg',
-    'brewer-prgn',
-    'brewer-pubu',
-    'brewer-pubugn',
-    'brewer-puor',
-    'brewer-purd',
-    'brewer-rdbu',
-    'brewer-rdgy',
-    'brewer-rdpu',
-    'brewer-rdylbu',
-    'brewer-rdylgn',
-    'brewer-spectral',
-    'brewer-ylgn',
-    'brewer-ylgnbu',
-    'brewer-ylorbr',
-    'brewer-ylorrd',
-    'brewer-blues',
-    'brewer-greens',
-    'brewer-oranges',
-    'brewer-purples',
-    'brewer-reds',
-    'brewer-greys',
-    'brewer-accent',
-    'brewer-dark2',
-    'brewer-paired',
-    'brewer-pastel1',
-    'brewer-pastel2',
-    'brewer-set1',
-    'brewer-set2',
-    'brewer-set3',
-    'd3-category10',
-    'd3-category20',
-    'd3-category20b',
-    'd3-category20c'
+  // Palette names as declared in `$chrys-color-map` in `src/css/_variables.scss`
+  palettes: [{
+      name: 'colorblind',
+      type: 'qualitative'
+    },
+    {
+      name: 'mpl-inferno',
+      type: 'sequential'
+    },
+    {
+      name: 'mpl-magma',
+      type: 'sequential'
+    },
+    {
+      name: 'mpl-plasma',
+      type: 'sequential'
+    },
+    {
+      name: 'mpl-viridis',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-brbg',
+      type: 'diverging'
+    },
+    {
+      name: 'brewer-bugn',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-bupu',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-gnbu',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-orrd',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-piyg',
+      type: 'diverging'
+    },
+    {
+      name: 'brewer-prgn',
+      type: 'diverging'
+    },
+    {
+      name: 'brewer-pubu',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-pubugn',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-puor',
+      type: 'diverging'
+    },
+    {
+      name: 'brewer-purd',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-rdbu',
+      type: 'diverging'
+    },
+    {
+      name: 'brewer-rdgy',
+      type: 'diverging'
+    },
+    {
+      name: 'brewer-rdpu',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-rdylbu',
+      type: 'diverging'
+    },
+    {
+      name: 'brewer-rdylgn',
+      type: 'diverging'
+    },
+    {
+      name: 'brewer-spectral',
+      type: 'diverging'
+    },
+    {
+      name: 'brewer-ylgn',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-ylgnbu',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-ylorbr',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-ylorrd',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-blues',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-greens',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-oranges',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-purples',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-reds',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-greys',
+      type: 'sequential'
+    },
+    {
+      name: 'brewer-accent',
+      type: 'qualitative'
+    },
+    {
+      name: 'brewer-dark2',
+      type: 'qualitative'
+    },
+    {
+      name: 'brewer-paired',
+      type: 'qualitative'
+    },
+    {
+      name: 'brewer-pastel1',
+      type: 'qualitative'
+    },
+    {
+      name: 'brewer-pastel2',
+      type: 'qualitative'
+    },
+    {
+      name: 'brewer-set1',
+      type: 'qualitative'
+    },
+    {
+      name: 'brewer-set2',
+      type: 'qualitative'
+    },
+    {
+      name: 'brewer-set3',
+      type: 'qualitative'
+    },
+    {
+      name: 'd3-category10',
+      type: 'qualitative'
+    },
+    {
+      name: 'd3-category20',
+      type: 'qualitative'
+    },
+    {
+      name: 'd3-category20b',
+      type: 'qualitative'
+    },
+    {
+      name: 'd3-category20c',
+      type: 'qualitative'
+    }
   ],
   css: {
     params: {

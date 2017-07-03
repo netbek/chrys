@@ -8,7 +8,7 @@ var ghPages = require('gulp-gh-pages');
 var gulp = require('gulp');
 var gulpPostcss = require('gulp-postcss');
 var livereload = require('livereload');
-var loadColors = require('.').loadColors;
+var loadPalettes = require('.').loadPalettes;
 var nunjucks = require('nunjucks');
 var open = require('open');
 var os = require('os');
@@ -149,11 +149,14 @@ gulp.task('clean', function () {
 
 gulp.task('build-demo-scss', function () {
   var tasks = ['background-color', 'color'];
+  var paletteNames = gulpConfig.palettes.map(function (palette) {
+    return palette.name;
+  });
 
   return Promise.mapSeries(tasks, function (task) {
       return new Promise(function (resolve, reject) {
         var res = nunjucks.render('src/templates/css/' + task + '.scss.njk', {
-          colors: gulpConfig.colors
+          names: paletteNames
         }, function (err, res) {
           if (err) {
             console.log(err);
@@ -171,9 +174,9 @@ gulp.task('build-demo-scss', function () {
     .then(function () {
       var tasks = [];
 
-      gulpConfig.colors.forEach(function (color) {
-        tasks.push(['color', color]);
-        tasks.push(['background-color', color]);
+      gulpConfig.palettes.forEach(function (palette) {
+        tasks.push(['color', palette.name]);
+        tasks.push(['background-color', palette.name]);
       });
 
       return Promise.mapSeries(tasks, function (task) {
@@ -223,11 +226,11 @@ gulp.task('build-demo-css', function () {
 gulp.task('build-demo-page', function (cb) {
   fs.mkdirpAsync('demo/')
     .then(function () {
-      return loadColors();
+      return loadPalettes();
     })
-    .then(function (colors) {
+    .then(function (palettes) {
       var res = nunjucks.render('src/demo/index.njk', {
-        colors: colors
+        palettes: palettes
       }, function (err, res) {
         if (err) {
           console.log(err);
@@ -251,28 +254,28 @@ gulp.task('build-demo-vendor', function () {
 });
 
 gulp.task('build-illustrator', function () {
-  return loadColors()
-    .then(function (colors) {
-      var palettes = [];
+  return loadPalettes()
+    .then(function (palettes) {
+      var illustratorPalettes = [];
 
-      _.forEach(colors, function (sizes, name) {
-        _.forEach(sizes, function (items, size) {
-          var paletteName = name + '-' + _.trimStart(size, '_');
+      palettes.forEach(function (palette) {
+        palette.sizes.forEach(function (size) {
+          var group = palette.name + '-' + size.size;
 
-          palettes.push({
-            name: paletteName,
-            colors: _.map(items, function (item, index) {
+          illustratorPalettes.push({
+            name: group,
+            colors: size.colors.map(function (color, index) {
               return {
-                group: paletteName,
-                name: paletteName + '-' + _.trimStart(index, '_'),
-                rgb: chroma(item).rgb()
+                group: group,
+                name: group + '-' + (index + 1),
+                rgb: chroma(color).rgb()
               };
             })
           });
         });
       });
 
-      return Promise.mapSeries(palettes, function (palette) {
+      return Promise.mapSeries(illustratorPalettes, function (palette) {
         var config = _.cloneDeep(gulpConfig.illustratorTasks.swatches);
         config.document.mode = 'rgb';
         config.colors = palette.colors;

@@ -12,16 +12,16 @@
   <body>
     <main>
       <table class="table">
-      {% for name, sizes in colors %}
-        {% for size, items in sizes %}
+      {% for palette in palettes %}
+        {% for size in palette.sizes %}
           <tr>
             <th class="var">
-              {{ name }} {{ size|replace("_", "") }}
+              {{ palette.name }} {{ size.size }}
             </th>
-            {% for index, item in items %}
+            {% for color in size.colors %}
               <td class="color">
-                <div class="swatch chrys-background-color-{{ name }}-{{ size|replace("_", "") }}-{{ index|replace("_", "") }}"></div>
-                <div class="hex">{{ item }}</div>
+                <div class="swatch chrys-background-color-{{ palette.name }}-{{ size.size }}-{{ loop.index }}"></div>
+                <div class="hex">{{ color }}</div>
               </td>
             {% endfor %}
           </tr>
