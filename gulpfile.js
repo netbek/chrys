@@ -9,6 +9,7 @@ var gulp = require('gulp');
 var gulpPostcss = require('gulp-postcss');
 var livereload = require('livereload');
 var loadPalettes = require('.').loadPalettes;
+var loadPalettesFromCss = require('.').loadPalettesFromCss;
 var nunjucks = require('nunjucks');
 var open = require('open');
 var os = require('os');
@@ -136,6 +137,7 @@ gulp.task('livereload-reload', function (cb) {
 gulp.task('clean', function () {
   return Promise.mapSeries([
     'css/',
+    'data/',
     'demo/',
     'illustrator/',
     'src/css/background-color/',
@@ -147,7 +149,7 @@ gulp.task('clean', function () {
   });
 });
 
-gulp.task('build-demo-scss', function () {
+gulp.task('build-sass', function () {
   var tasks = ['background-color', 'color'];
   var paletteNames = gulpConfig.palettes.map(function (palette) {
     return palette.name;
@@ -203,7 +205,7 @@ gulp.task('build-demo-scss', function () {
     });
 });
 
-gulp.task('build-demo-css', function () {
+gulp.task('build-css', function () {
   return buildCss([
       'src/css/**/*.scss'
     ], 'css/')
@@ -220,6 +222,16 @@ gulp.task('build-demo-css', function () {
             resolve();
           });
       });
+    });
+});
+
+gulp.task('build-data', function () {
+  return fs.mkdirpAsync('data/')
+    .then(function () {
+      return loadPalettesFromCss();
+    })
+    .then(function (palettes) {
+      return fs.writeFileAsync('data/palettes.json', JSON.stringify(palettes, null, 2), 'utf8');
     });
 });
 
@@ -290,8 +302,9 @@ gulp.task('build-illustrator', function () {
 gulp.task('build', function (cb) {
   runSequence(
     'clean',
-    'build-demo-scss',
-    'build-demo-css',
+    'build-sass',
+    'build-css',
+    'build-data',
     'build-demo-page',
     'build-demo-vendor',
     'build-illustrator',
