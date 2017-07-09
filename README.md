@@ -1,6 +1,6 @@
 # chrys
 
-A collection of palettes for color mapping.
+A collection of Sass color palettes for mapping and visualisation.
 
 ## Demo
 
