@@ -219,7 +219,9 @@ module.exports = {
     //
     {
       files: [
-        'src/**/*'
+        'src/css/_variables.scss',
+        'src/demo/**/*',
+        'src/templates/**/*'
       ],
       tasks: [
         'build'

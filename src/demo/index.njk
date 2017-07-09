@@ -10,24 +10,60 @@
     <link rel="stylesheet" href="css/demo.min.css"/>
   </head>
   <body>
-    <main>
-      <table class="table">
-      {% for palette in palettes %}
-        {% for size in palette.sizes %}
-          <tr>
-            <th class="var">
-              {{ palette.name }} {{ size.name }}
-            </th>
-            {% for color in size.colors %}
-              <td class="color">
-                <div class="swatch chrys-background-color-{{ palette.name }}-{{ size.name }}-{{ loop.index }}"></div>
-                <div class="hex">{{ color }}</div>
-              </td>
+    <header class="header">
+      <h1 class="heading">chrys</h1>
+
+      <nav class="nav">
+        {% for collection in collections %}
+        <ul>
+          <li>
+            <a href="#{{ collection.name }}">{{ collection.name }}</a>
+            <ul>
+            {% for palette in collection.palettes %}
+              <li>
+                <a href="#{{ palette.name }}">{{ palette.name }}</a>
+              </li>
             {% endfor %}
-          </tr>
+            </ul>
+          </li>
+        </ul>
         {% endfor %}
-      {% endfor %}
-      </table>
+      </nav>
+    </header>
+
+    <main class="main">
+      <section>
+        <table class="table">
+          {% for collection in collections %}
+            <tr class="h3">
+              <td colspan="21" id="{{ collection.name }}">
+                <h3>{{ collection.name }}</h3>
+              </td>
+            </tr>
+            {% for palette in collection.palettes %}
+              <tr class="h4">
+                <td colspan="21" id="{{ palette.name }}">
+                  <h4 class="palette-name">{{ palette.name }}</h4>
+                </td>
+              </tr>
+              {% for size in palette.sizes %}
+                <tr>
+                  <th class="palette-size">
+                    {{ size.name }}
+                  </th>
+                  {% for color in size.colors %}
+                    <td class="swatch-wrapper">
+                      <div class="swatch chrys-background-color-{{ palette.name }}-{{ size.name }}-{{ loop.index }}">
+                        <div class="hex" style="color: {{ color|bestContrast }};">{{ color }}</div>
+                      </div>
+                    </td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            {% endfor %}
+          {% endfor %}
+        </table>
+      </section>
     </main>
   </body>
 </html>

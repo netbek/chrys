@@ -48,6 +48,42 @@ if (_.has(gulpConfig.webserver.browsers, platform)) {
   browser = gulpConfig.webserver.browsers[platform];
 }
 
+var env = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
+
+/**
+ * Adapted from https://github.com/voxpelli/sass-color-helpers/blob/a32cfd607ca6479318452461a70a7a9ffd886eb1/stylesheets/color-helpers/_contrast.scss#L35
+ *
+ * @param   {String} base
+ * @param   {Array} colors
+ * @param   {Number} tolerance
+ * @returns {String}
+ */
+env.addFilter('bestContrast', function (base, colors, tolerance) {
+  if (_.isUndefined(colors)) {
+    colors = ['#000', '#fff'];
+  }
+  if (_.isUndefined(tolerance)) {
+    tolerance = 0;
+  }
+
+  var bestColor = colors[0];
+  var bestContrast = chroma.contrast(base, bestColor);
+  var color;
+  var contrast;
+
+  for (var i = 1, il = colors.length; i < il; i++) {
+    color = colors[i];
+    contrast = chroma.contrast(base, color);
+
+    if (contrast - bestContrast > tolerance) {
+      bestColor = color;
+      bestContrast = contrast;
+    }
+  }
+
+  return bestColor;
+});
+
 /*******************************************************************************
  * Functions
  ******************************************************************************/
@@ -236,14 +272,38 @@ gulp.task('build-data', function () {
 });
 
 gulp.task('build-demo-page', function (cb) {
+  var context = {};
+
   fs.mkdirpAsync('demo/')
     .then(function () {
       return loadPalettes();
     })
     .then(function (palettes) {
-      var res = nunjucks.render('src/demo/index.njk', {
-        palettes: palettes
-      }, function (err, res) {
+      var collections = _.uniq(palettes.map(function (palette) {
+        return palette.type;
+      }));
+
+      collections.sort();
+
+      context.collections = collections.map(function (paletteType) {
+        var filtered = palettes.filter(function (palette) {
+          return paletteType === palette.type;
+        });
+
+        var sorted = _.sortBy(filtered, [function (palette) {
+          return palette.name;
+        }]);
+
+        return {
+          name: paletteType,
+          palettes: sorted
+        };
+      });
+
+      return fs.readFileAsync('src/demo/index.njk', 'utf8');
+    })
+    .then(function (data) {
+      var res = env.renderString(data, context, function (err, res) {
         if (err) {
           console.log(err);
           cb();
