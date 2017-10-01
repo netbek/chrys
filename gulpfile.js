@@ -7,6 +7,7 @@ var fs = require('fs-extra');
 var ghPages = require('gulp-gh-pages');
 var gulp = require('gulp');
 var gulpPostcss = require('gulp-postcss');
+var jsonSass = require('json-sass');
 var livereload = require('livereload');
 var loadPalettes = require('.').loadPalettes;
 var loadPalettesFromCss = require('.').loadPalettesFromCss;
@@ -20,6 +21,7 @@ var Promise = require('bluebird');
 var rename = require('gulp-rename');
 var runSequence = require('run-sequence');
 var sass = require('gulp-sass');
+var ts = require('gulp-typescript');
 var webserver = require('gulp-webserver');
 
 Promise.promisifyAll(fs);
@@ -30,7 +32,13 @@ Promise.promisifyAll(fs);
 
 var gulpConfig = require('./gulp-config.js');
 
-var livereloadOpen = (gulpConfig.webserver.https ? 'https' : 'http') + '://' + gulpConfig.webserver.host + ':' + gulpConfig.webserver.port + (gulpConfig.webserver.open ? gulpConfig.webserver.open : '/');
+var livereloadOpen =
+  (gulpConfig.webserver.https ? 'https' : 'http') +
+  '://' +
+  gulpConfig.webserver.host +
+  ':' +
+  gulpConfig.webserver.port +
+  (gulpConfig.webserver.open ? gulpConfig.webserver.open : '/');
 
 /*******************************************************************************
  * Misc
@@ -58,7 +66,7 @@ var env = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
  * @param   {Number} tolerance
  * @returns {String}
  */
-env.addFilter('bestContrast', function (base, colors, tolerance) {
+env.addFilter('bestContrast', function(base, colors, tolerance) {
   if (_.isUndefined(colors)) {
     colors = ['#000', '#fff'];
   }
@@ -95,24 +103,30 @@ env.addFilter('bestContrast', function (base, colors, tolerance) {
  * @returns {Promise}
  */
 function buildCss(src, dist) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     gulp
       .src(src)
       .pipe(sass(gulpConfig.css.params).on('error', sass.logError))
-      .pipe(gulpPostcss([
-        autoprefixer(gulpConfig.autoprefixer),
-        postcssColorRgbaFallback,
-        postcssOpacity
-      ]))
+      .pipe(
+        gulpPostcss([
+          autoprefixer(gulpConfig.autoprefixer),
+          postcssColorRgbaFallback,
+          postcssOpacity
+        ])
+      )
       .pipe(gulp.dest(dist))
-      .pipe(cssmin({
-        advanced: false
-      }))
-      .pipe(rename({
-        suffix: '.min'
-      }))
+      .pipe(
+        cssmin({
+          advanced: false
+        })
+      )
+      .pipe(
+        rename({
+          suffix: '.min'
+        })
+      )
       .pipe(gulp.dest(dist))
-      .on('end', function () {
+      .on('end', function() {
         resolve();
       });
   });
@@ -130,7 +144,7 @@ function startWatch(files, tasks, livereload) {
     tasks.push('livereload-reload');
   }
 
-  gulp.watch(files, function () {
+  gulp.watch(files, function() {
     runSequence.apply(null, tasks);
   });
 }
@@ -140,17 +154,18 @@ function startWatch(files, tasks, livereload) {
  ******************************************************************************/
 
 // Start webserver.
-gulp.task('webserver-init', function (cb) {
+gulp.task('webserver-init', function(cb) {
   var config = _.clone(gulpConfig.webserver);
   config.open = false;
 
-  gulp.src('./')
+  gulp
+    .src('./')
     .pipe(webserver(config))
     .on('end', cb);
 });
 
 // Start livereload server
-gulp.task('livereload-init', function (cb) {
+gulp.task('livereload-init', function(cb) {
   if (!flags.livereloadInit) {
     flags.livereloadInit = true;
     server = livereload.createServer();
@@ -161,7 +176,7 @@ gulp.task('livereload-init', function (cb) {
 });
 
 // Refresh page
-gulp.task('livereload-reload', function (cb) {
+gulp.task('livereload-reload', function(cb) {
   server.refresh(livereloadOpen);
   cb();
 });
@@ -170,129 +185,195 @@ gulp.task('livereload-reload', function (cb) {
  * Tasks
  ******************************************************************************/
 
-gulp.task('clean', function () {
-  return Promise.mapSeries([
-    'css/',
-    'data/',
-    'demo/',
-    'illustrator/',
-    'src/css/background-color/',
-    'src/css/color/',
-    'src/css/background-color.scss',
-    'src/css/color.scss'
-  ], function (file) {
-    return fs.removeAsync(file);
-  });
+gulp.task('clean', function() {
+  return Promise.mapSeries(
+    [
+      'css/',
+      'data/',
+      'demo/',
+      'illustrator/',
+      'src/css/background-color/',
+      'src/css/color/',
+      'src/css/background-color.scss',
+      'src/css/color.scss'
+    ],
+    function(file) {
+      return fs.removeAsync(file);
+    }
+  );
 });
 
-gulp.task('build-sass', function () {
+// Convert Bokeh palettes TS to JS.
+gulp.task('build-bokeh-data', function() {
+  return gulp
+    .src('src/data/*.ts')
+    .pipe(ts({module: 'commonjs'}))
+    .pipe(gulp.dest('src/data'));
+});
+
+gulp.task('build-sass-vars', function() {
+  var bokehPalettes = require('./src/data/palettes');
+
+  var vars = {
+    '$chrys-color-map': {}
+  };
+
+  gulpConfig.palettes.forEach(function(palette) {
+    var bokehPalette = _.values(bokehPalettes[palette.bokehName]);
+
+    // Exclude palettes with 256 colors.
+    bokehPalette = bokehPalette.filter(function(value) {
+      return value.length < 256;
+    });
+
+    vars['$chrys-' + palette.name] = _.last(bokehPalette).map(function(value) {
+      return '#' + _.padStart(value.toString(16), 6, '0');
+    });
+
+    vars['$chrys-color-map'][palette.name] = {};
+
+    bokehPalette.forEach(function(values) {
+      vars['$chrys-color-map'][palette.name][
+        values.length
+      ] = values.map(function(value) {
+        return '#' + _.padStart(value.toString(16), 6, '0');
+      });
+    });
+  });
+
+  var data = _.map(vars, function(value, name) {
+    return name + ': ' + jsonSass.convertJs(value) + ';';
+  }).join('\n\n');
+
+  return fs.writeFileAsync('src/css/_variables.scss', data, 'utf8');
+});
+
+gulp.task('build-sass', function() {
   var tasks = ['background-color', 'color'];
-  var paletteNames = gulpConfig.palettes.map(function (palette) {
+  var paletteNames = gulpConfig.palettes.map(function(palette) {
     return palette.name;
   });
 
-  return Promise.mapSeries(tasks, function (task) {
-      return new Promise(function (resolve, reject) {
-        var res = nunjucks.render('src/templates/css/' + task + '.scss.njk', {
+  return Promise.mapSeries(tasks, function(task) {
+    return new Promise(function(resolve, reject) {
+      var res = nunjucks.render(
+        'src/templates/css/' + task + '.scss.njk',
+        {
           names: paletteNames
-        }, function (err, res) {
+        },
+        function(err, res) {
           if (err) {
             console.log(err);
             reject();
-          }
-          else {
-            fs.writeFileAsync('src/css/' + task + '.scss', res, 'utf8')
-              .then(function () {
+          } else {
+            fs
+              .writeFileAsync('src/css/' + task + '.scss', res, 'utf8')
+              .then(function() {
                 resolve();
               });
           }
-        });
-      });
-    })
-    .then(function () {
-      var tasks = [];
+        }
+      );
+    });
+  }).then(function() {
+    var tasks = [];
 
-      gulpConfig.palettes.forEach(function (palette) {
-        tasks.push(['color', palette.name]);
-        tasks.push(['background-color', palette.name]);
-      });
+    gulpConfig.palettes.forEach(function(palette) {
+      tasks.push(['color', palette.name]);
+      tasks.push(['background-color', palette.name]);
+    });
 
-      return Promise.mapSeries(tasks, function (task) {
-        return new Promise(function (resolve, reject) {
-          var res = nunjucks.render('src/templates/css/' + task[0] + '/index.scss.njk', {
+    return Promise.mapSeries(tasks, function(task) {
+      return new Promise(function(resolve, reject) {
+        var res = nunjucks.render(
+          'src/templates/css/' + task[0] + '/index.scss.njk',
+          {
             name: task[1]
-          }, function (err, res) {
+          },
+          function(err, res) {
             if (err) {
               console.log(err);
               reject();
-            }
-            else {
-              fs.ensureDirAsync('src/css/' + task[0] + '/')
-                .then(function () {
-                  return fs.writeFileAsync('src/css/' + task[0] + '/' + task[1] + '.scss', res, 'utf8');
+            } else {
+              fs
+                .ensureDirAsync('src/css/' + task[0] + '/')
+                .then(function() {
+                  return fs.writeFileAsync(
+                    'src/css/' + task[0] + '/' + task[1] + '.scss',
+                    res,
+                    'utf8'
+                  );
                 })
-                .then(function () {
+                .then(function() {
                   resolve();
                 });
             }
-          });
-        });
+          }
+        );
       });
     });
+  });
 });
 
-gulp.task('build-css', function () {
-  return buildCss([
-      'src/css/**/*.scss'
-    ], 'css/')
-    .then(function () {
-      return buildCss([
-        'src/demo/css/**/*.scss'
-      ], 'demo/css/');
+gulp.task('build-css', function() {
+  return buildCss(['src/css/**/*.scss'], 'css/')
+    .then(function() {
+      return buildCss(['src/demo/css/**/*.scss'], 'demo/css/');
     })
-    .then(function () {
-      return new Promise(function (resolve, reject) {
-        gulp.src(['css/**/*'])
+    .then(function() {
+      return new Promise(function(resolve, reject) {
+        gulp
+          .src(['css/**/*'])
           .pipe(gulp.dest('demo/css/'))
-          .on('end', function () {
+          .on('end', function() {
             resolve();
           });
       });
     });
 });
 
-gulp.task('build-data', function () {
-  return fs.mkdirpAsync('data/')
-    .then(function () {
+gulp.task('build-data', function() {
+  return fs
+    .mkdirpAsync('data/')
+    .then(function() {
       return loadPalettesFromCss();
     })
-    .then(function (palettes) {
-      return fs.writeFileAsync('data/palettes.json', JSON.stringify(palettes, null, 2), 'utf8');
+    .then(function(palettes) {
+      return fs.writeFileAsync(
+        'data/palettes.json',
+        JSON.stringify(palettes, null, 2),
+        'utf8'
+      );
     });
 });
 
-gulp.task('build-demo-page', function (cb) {
+gulp.task('build-demo-page', function(cb) {
   var context = {};
 
-  fs.mkdirpAsync('demo/')
-    .then(function () {
+  fs
+    .mkdirpAsync('demo/')
+    .then(function() {
       return loadPalettes();
     })
-    .then(function (palettes) {
-      var collections = _.uniq(palettes.map(function (palette) {
-        return palette.type;
-      }));
+    .then(function(palettes) {
+      var collections = _.uniq(
+        palettes.map(function(palette) {
+          return palette.type;
+        })
+      );
 
       collections.sort();
 
-      context.collections = collections.map(function (paletteType) {
-        var filtered = palettes.filter(function (palette) {
+      context.collections = collections.map(function(paletteType) {
+        var filtered = palettes.filter(function(palette) {
           return paletteType === palette.type;
         });
 
-        var sorted = _.sortBy(filtered, [function (palette) {
-          return palette.name;
-        }]);
+        var sorted = _.sortBy(filtered, [
+          function(palette) {
+            return palette.name;
+          }
+        ]);
 
         return {
           name: paletteType,
@@ -302,66 +383,64 @@ gulp.task('build-demo-page', function (cb) {
 
       return fs.readFileAsync('src/demo/index.njk', 'utf8');
     })
-    .then(function (data) {
-      var res = env.renderString(data, context, function (err, res) {
+    .then(function(data) {
+      var res = env.renderString(data, context, function(err, res) {
         if (err) {
           console.log(err);
           cb();
-        }
-        else {
-          fs.writeFileAsync('demo/index.html', res, 'utf8')
-            .then(function () {
-              cb();
-            });
+        } else {
+          fs.writeFileAsync('demo/index.html', res, 'utf8').then(function() {
+            cb();
+          });
         }
       });
     });
 });
 
-gulp.task('build-demo-vendor', function () {
-  return gulp.src([
-      'node_modules/normalize-css/**/*.css'
-    ])
+gulp.task('build-demo-vendor', function() {
+  return gulp
+    .src(['node_modules/normalize-css/**/*.css'])
     .pipe(gulp.dest('demo/css/'));
 });
 
-gulp.task('build-illustrator', function () {
-  return loadPalettes()
-    .then(function (palettes) {
-      var illustratorPalettes = [];
+gulp.task('build-illustrator', function() {
+  return loadPalettes().then(function(palettes) {
+    var illustratorPalettes = [];
 
-      palettes.forEach(function (palette) {
-        palette.sizes.forEach(function (size) {
-          var group = palette.name + '-' + size.name;
+    palettes.forEach(function(palette) {
+      palette.sizes.forEach(function(size) {
+        var group = palette.name + '-' + size.name;
 
-          illustratorPalettes.push({
-            name: group,
-            colors: size.colors.map(function (color, index) {
-              return {
-                group: group,
-                name: group + '-' + (index + 1),
-                rgb: chroma(color).rgb()
-              };
-            })
-          });
+        illustratorPalettes.push({
+          name: group,
+          colors: size.colors.map(function(color, index) {
+            return {
+              group: group,
+              name: group + '-' + (index + 1),
+              rgb: chroma(color).rgb()
+            };
+          })
         });
       });
-
-      return Promise.mapSeries(illustratorPalettes, function (palette) {
-        var config = _.cloneDeep(gulpConfig.illustratorTasks.swatches);
-        config.document.mode = 'rgb';
-        config.colors = palette.colors;
-
-        var dist = path.resolve('illustrator/' + palette.name + '.js');
-
-        return illustratorSwatches(config, dist);
-      });
     });
+
+    return Promise.mapSeries(illustratorPalettes, function(palette) {
+      var config = _.cloneDeep(gulpConfig.illustratorTasks.swatches);
+      config.document.mode = 'rgb';
+      config.colors = palette.colors;
+
+      var dist = path.resolve('illustrator/' + palette.name + '.js');
+
+      return illustratorSwatches(config, dist);
+    });
+  });
 });
 
-gulp.task('build', function (cb) {
+gulp.task('build', function(cb) {
   runSequence(
     'clean',
+    'build-bokeh-data',
+    'build-sass-vars',
     'build-sass',
     'build-css',
     'build-data',
@@ -372,18 +451,12 @@ gulp.task('build', function (cb) {
   );
 });
 
-gulp.task('deploy', function () {
-  return gulp.src('demo/**/*')
-    .pipe(ghPages());
+gulp.task('deploy', function() {
+  return gulp.src('demo/**/*').pipe(ghPages());
 });
 
-gulp.task('livereload', function () {
-  runSequence(
-    'build',
-    'webserver-init',
-    'livereload-init',
-    'watch:livereload'
-  );
+gulp.task('livereload', function() {
+  runSequence('build', 'webserver-init', 'livereload-init', 'watch:livereload');
 });
 
 /*******************************************************************************
@@ -391,10 +464,10 @@ gulp.task('livereload', function () {
  ******************************************************************************/
 
 // Watch with livereload that doesn't rebuild docs
-gulp.task('watch:livereload', function (cb) {
+gulp.task('watch:livereload', function(cb) {
   var livereloadTask = 'livereload-reload';
 
-  _.forEach(gulpConfig.watchTasks, function (watchConfig) {
+  _.forEach(gulpConfig.watchTasks, function(watchConfig) {
     var tasks = _.clone(watchConfig.tasks);
     tasks.push(livereloadTask);
     startWatch(watchConfig.files, tasks);
