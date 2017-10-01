@@ -1,5 +1,7 @@
 [
   {
+    "bokehName": "Colorblind",
+    "group": "",
     "name": "colorblind",
     "type": "qualitative",
     "sizes": [
@@ -69,15 +71,17 @@
     ]
   },
   {
+    "bokehName": "Inferno",
+    "group": "mpl",
     "name": "mpl-inferno",
     "type": "sequential",
     "sizes": [
       {
         "name": 3,
         "colors": [
-          "#000003",
-          "#ba3655",
-          "#fcfea4"
+          "#440154",
+          "#208f8c",
+          "#fde724"
         ]
       },
       {
@@ -183,6 +187,8 @@
     ]
   },
   {
+    "bokehName": "Magma",
+    "group": "mpl",
     "name": "mpl-magma",
     "type": "sequential",
     "sizes": [
@@ -297,6 +303,8 @@
     ]
   },
   {
+    "bokehName": "Plasma",
+    "group": "mpl",
     "name": "mpl-plasma",
     "type": "sequential",
     "sizes": [
@@ -411,6 +419,8 @@
     ]
   },
   {
+    "bokehName": "Viridis",
+    "group": "mpl",
     "name": "mpl-viridis",
     "type": "sequential",
     "sizes": [
@@ -525,6 +535,8 @@
     ]
   },
   {
+    "bokehName": "BrBG",
+    "group": "brewer",
     "name": "brewer-brbg",
     "type": "diverging",
     "sizes": [
@@ -639,6 +651,8 @@
     ]
   },
   {
+    "bokehName": "BuGn",
+    "group": "brewer",
     "name": "brewer-bugn",
     "type": "sequential",
     "sizes": [
@@ -722,6 +736,8 @@
     ]
   },
   {
+    "bokehName": "BuPu",
+    "group": "brewer",
     "name": "brewer-bupu",
     "type": "sequential",
     "sizes": [
@@ -805,6 +821,8 @@
     ]
   },
   {
+    "bokehName": "GnBu",
+    "group": "brewer",
     "name": "brewer-gnbu",
     "type": "sequential",
     "sizes": [
@@ -888,6 +906,8 @@
     ]
   },
   {
+    "bokehName": "OrRd",
+    "group": "brewer",
     "name": "brewer-orrd",
     "type": "sequential",
     "sizes": [
@@ -971,6 +991,8 @@
     ]
   },
   {
+    "bokehName": "PiYG",
+    "group": "brewer",
     "name": "brewer-piyg",
     "type": "diverging",
     "sizes": [
@@ -1085,6 +1107,8 @@
     ]
   },
   {
+    "bokehName": "PRGn",
+    "group": "brewer",
     "name": "brewer-prgn",
     "type": "diverging",
     "sizes": [
@@ -1199,6 +1223,8 @@
     ]
   },
   {
+    "bokehName": "PuBu",
+    "group": "brewer",
     "name": "brewer-pubu",
     "type": "sequential",
     "sizes": [
@@ -1282,6 +1308,8 @@
     ]
   },
   {
+    "bokehName": "PuBuGn",
+    "group": "brewer",
     "name": "brewer-pubugn",
     "type": "sequential",
     "sizes": [
@@ -1365,6 +1393,8 @@
     ]
   },
   {
+    "bokehName": "PuOr",
+    "group": "brewer",
     "name": "brewer-puor",
     "type": "diverging",
     "sizes": [
@@ -1479,6 +1509,8 @@
     ]
   },
   {
+    "bokehName": "PuRd",
+    "group": "brewer",
     "name": "brewer-purd",
     "type": "sequential",
     "sizes": [
@@ -1562,6 +1594,8 @@
     ]
   },
   {
+    "bokehName": "RdBu",
+    "group": "brewer",
     "name": "brewer-rdbu",
     "type": "diverging",
     "sizes": [
@@ -1676,6 +1710,8 @@
     ]
   },
   {
+    "bokehName": "RdGy",
+    "group": "brewer",
     "name": "brewer-rdgy",
     "type": "diverging",
     "sizes": [
@@ -1790,6 +1826,8 @@
     ]
   },
   {
+    "bokehName": "RdPu",
+    "group": "brewer",
     "name": "brewer-rdpu",
     "type": "sequential",
     "sizes": [
@@ -1873,6 +1911,8 @@
     ]
   },
   {
+    "bokehName": "RdYlBu",
+    "group": "brewer",
     "name": "brewer-rdylbu",
     "type": "diverging",
     "sizes": [
@@ -1987,6 +2027,8 @@
     ]
   },
   {
+    "bokehName": "RdYlGn",
+    "group": "brewer",
     "name": "brewer-rdylgn",
     "type": "diverging",
     "sizes": [
@@ -2101,6 +2143,8 @@
     ]
   },
   {
+    "bokehName": "Spectral",
+    "group": "brewer",
     "name": "brewer-spectral",
     "type": "diverging",
     "sizes": [
@@ -2215,6 +2259,8 @@
     ]
   },
   {
+    "bokehName": "YlGn",
+    "group": "brewer",
     "name": "brewer-ylgn",
     "type": "sequential",
     "sizes": [
@@ -2298,6 +2344,8 @@
     ]
   },
   {
+    "bokehName": "YlGnBu",
+    "group": "brewer",
     "name": "brewer-ylgnbu",
     "type": "sequential",
     "sizes": [
@@ -2381,6 +2429,8 @@
     ]
   },
   {
+    "bokehName": "YlOrBr",
+    "group": "brewer",
     "name": "brewer-ylorbr",
     "type": "sequential",
     "sizes": [
@@ -2464,6 +2514,8 @@
     ]
   },
   {
+    "bokehName": "YlOrRd",
+    "group": "brewer",
     "name": "brewer-ylorrd",
     "type": "sequential",
     "sizes": [
@@ -2547,6 +2599,8 @@
     ]
   },
   {
+    "bokehName": "Blues",
+    "group": "brewer",
     "name": "brewer-blues",
     "type": "sequential",
     "sizes": [
@@ -2630,6 +2684,8 @@
     ]
   },
   {
+    "bokehName": "Greens",
+    "group": "brewer",
     "name": "brewer-greens",
     "type": "sequential",
     "sizes": [
@@ -2713,6 +2769,8 @@
     ]
   },
   {
+    "bokehName": "Oranges",
+    "group": "brewer",
     "name": "brewer-oranges",
     "type": "sequential",
     "sizes": [
@@ -2796,6 +2854,8 @@
     ]
   },
   {
+    "bokehName": "Purples",
+    "group": "brewer",
     "name": "brewer-purples",
     "type": "sequential",
     "sizes": [
@@ -2879,6 +2939,8 @@
     ]
   },
   {
+    "bokehName": "Reds",
+    "group": "brewer",
     "name": "brewer-reds",
     "type": "sequential",
     "sizes": [
@@ -2962,6 +3024,8 @@
     ]
   },
   {
+    "bokehName": "Greys",
+    "group": "brewer",
     "name": "brewer-greys",
     "type": "sequential",
     "sizes": [
@@ -3076,6 +3140,8 @@
     ]
   },
   {
+    "bokehName": "Accent",
+    "group": "brewer",
     "name": "brewer-accent",
     "type": "qualitative",
     "sizes": [
@@ -3145,6 +3211,8 @@
     ]
   },
   {
+    "bokehName": "Dark2",
+    "group": "brewer",
     "name": "brewer-dark2",
     "type": "qualitative",
     "sizes": [
@@ -3214,6 +3282,8 @@
     ]
   },
   {
+    "bokehName": "Paired",
+    "group": "brewer",
     "name": "brewer-paired",
     "type": "qualitative",
     "sizes": [
@@ -3345,6 +3415,8 @@
     ]
   },
   {
+    "bokehName": "Pastel1",
+    "group": "brewer",
     "name": "brewer-pastel1",
     "type": "qualitative",
     "sizes": [
@@ -3428,6 +3500,8 @@
     ]
   },
   {
+    "bokehName": "Pastel2",
+    "group": "brewer",
     "name": "brewer-pastel2",
     "type": "qualitative",
     "sizes": [
@@ -3497,6 +3571,8 @@
     ]
   },
   {
+    "bokehName": "Set1",
+    "group": "brewer",
     "name": "brewer-set1",
     "type": "qualitative",
     "sizes": [
@@ -3562,10 +3638,26 @@
           "#a65628",
           "#f781bf"
         ]
+      },
+      {
+        "name": 9,
+        "colors": [
+          "#e41a1c",
+          "#377eb8",
+          "#4daf4a",
+          "#984ea3",
+          "#ff7f00",
+          "#ffff33",
+          "#a65628",
+          "#f781bf",
+          "#999999"
+        ]
       }
     ]
   },
   {
+    "bokehName": "Set2",
+    "group": "brewer",
     "name": "brewer-set2",
     "type": "qualitative",
     "sizes": [
@@ -3635,6 +3727,8 @@
     ]
   },
   {
+    "bokehName": "Set3",
+    "group": "brewer",
     "name": "brewer-set3",
     "type": "qualitative",
     "sizes": [
@@ -3766,6 +3860,8 @@
     ]
   },
   {
+    "bokehName": "Category10",
+    "group": "d3",
     "name": "d3-category10",
     "type": "qualitative",
     "sizes": [
@@ -3864,6 +3960,8 @@
     ]
   },
   {
+    "bokehName": "Category20",
+    "group": "d3",
     "name": "d3-category20",
     "type": "qualitative",
     "sizes": [
@@ -4167,6 +4265,8 @@
     ]
   },
   {
+    "bokehName": "Category20b",
+    "group": "d3",
     "name": "d3-category20b",
     "type": "qualitative",
     "sizes": [
@@ -4470,6 +4570,8 @@
     ]
   },
   {
+    "bokehName": "Category20c",
+    "group": "d3",
     "name": "d3-category20c",
     "type": "qualitative",
     "sizes": [

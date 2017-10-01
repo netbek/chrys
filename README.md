@@ -32,6 +32,10 @@ div {
 }
 ```
 
+## Maintenance
+
+Download `https://raw.githubusercontent.com/bokeh/bokeh/0.12.4/bokehjs/src/coffee/api/palettes.ts` to `/src/data` and run `gulp`.
+
 ## Credit
 
 Adapted from [Bokeh](http://bokeh.pydata.org/en/0.12.4/docs/reference/palettes.html). The respective licenses for all the palettes included are viewable as a comment at the top of the [bokeh/palettes.py](https://github.com/bokeh/bokeh/tree/0.12.4/bokeh/palettes.py) source file.
