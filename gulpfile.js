@@ -215,10 +215,12 @@ gulp.task('build-bokeh-data', function() {
     .pipe(gulp.dest('src/data'));
 });
 
-gulp.task('build-sass-vars', function() {
+gulp.task('build-vars', function() {
   var bokehPalettes = require('./src/data/palettes');
 
-  var vars = {
+  var jsVars = {};
+
+  var sassVars = {
     '$chrys-color-map': {}
   };
 
@@ -230,26 +232,58 @@ gulp.task('build-sass-vars', function() {
       return value.length < 256;
     });
 
-    vars['$chrys-' + palette.name] = _.last(bokehPalette).map(function(value) {
+    bokehPalette = _.sortBy(bokehPalette, function(values) {
+      return values.length;
+    });
+
+    var minLength = _.first(bokehPalette).length;
+
+    jsVars[palette.name] = _.assign(
+      _.pick(palette, ['group', 'name', 'type']),
+      {
+        sizes: _.times(minLength, _.constant(null))
+      }
+    );
+
+    sassVars['$chrys-' + palette.name] = _.last(bokehPalette).map(function(
+      value
+    ) {
       return '#' + _.padStart(value.toString(16), 6, '0');
     });
 
-    vars['$chrys-color-map'][palette.name] = {};
+    sassVars['$chrys-color-map'][palette.name] = {};
 
     bokehPalette.forEach(function(values) {
-      vars['$chrys-color-map'][palette.name][
-        values.length
-      ] = values.map(function(value) {
+      var hexValues = values.map(function(value) {
         return '#' + _.padStart(value.toString(16), 6, '0');
       });
+
+      jsVars[palette.name].sizes.push(hexValues);
+
+      sassVars['$chrys-color-map'][palette.name][values.length] = hexValues;
     });
   });
 
-  var data = _.map(vars, function(value, name) {
+  var jsData = 'module.exports = ' + JSON.stringify(jsVars, null, 2) + ';\n';
+
+  var sassData = _.map(sassVars, function(value, name) {
     return name + ': ' + jsonSass.convertJs(value) + ';';
   }).join('\n\n');
 
-  return fs.writeFileAsync('src/css/_variables.scss', data, 'utf8');
+  var tasks = [
+    {
+      dist: 'data/palettes.js',
+      data: jsData
+    },
+    {
+      dist: 'src/css/_variables.scss',
+      data: sassData
+    }
+  ];
+
+  return Promise.mapSeries(tasks, function(task) {
+    return fs.outputFileAsync(task.dist, task.data, 'utf-8');
+  });
 });
 
 gulp.task('build-sass', function() {
@@ -444,7 +478,7 @@ gulp.task('build', function(cb) {
   runSequence(
     'clean',
     'build-bokeh-data',
-    'build-sass-vars',
+    'build-vars',
     'build-sass',
     'build-css',
     'build-data',
