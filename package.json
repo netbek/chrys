@@ -2,7 +2,7 @@
   "name": "chrys",
   "version": "1.0.4",
   "description": "",
-  "main": "lib/chrys.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/netbek/chrys"

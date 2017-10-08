@@ -1,7 +1,6 @@
 var _ = require('lodash');
 var autoprefixer = require('autoprefixer');
 var chroma = require('chroma-js');
-var illustratorSwatches = require('.').illustratorSwatches;
 var cssmin = require('gulp-cssmin');
 var fs = require('fs-extra');
 var ghPages = require('gulp-gh-pages');
@@ -9,8 +8,6 @@ var gulp = require('gulp');
 var gulpPostcss = require('gulp-postcss');
 var jsonSass = require('json-sass');
 var livereload = require('livereload');
-var loadPalettes = require('.').loadPalettes;
-var loadPalettesFromCss = require('.').loadPalettesFromCss;
 var nunjucks = require('nunjucks');
 var open = require('open');
 var os = require('os');
@@ -23,6 +20,8 @@ var runSequence = require('run-sequence');
 var sass = require('gulp-sass');
 var ts = require('gulp-typescript');
 var webserver = require('gulp-webserver');
+var illustratorSwatches = require('./utils/illustratorSwatches');
+var loadPalettes = require('./utils/loadPalettes');
 
 Promise.promisifyAll(fs);
 
@@ -204,7 +203,7 @@ gulp.task('clean', function() {
 });
 
 // Convert Bokeh palettes TS to JS.
-gulp.task('build-bokeh-data', function() {
+gulp.task('build-src-data', function() {
   return gulp
     .src('src/data/*.ts')
     .pipe(
@@ -370,21 +369,6 @@ gulp.task('build-css', function() {
     });
 });
 
-gulp.task('build-data', function() {
-  return fs
-    .mkdirpAsync('data/')
-    .then(function() {
-      return loadPalettesFromCss();
-    })
-    .then(function(palettes) {
-      return fs.writeFileAsync(
-        'data/palettes.json',
-        JSON.stringify(palettes, null, 2),
-        'utf8'
-      );
-    });
-});
-
 gulp.task('build-demo-page', function(cb) {
   var context = {};
 
@@ -477,11 +461,10 @@ gulp.task('build-illustrator', function() {
 gulp.task('build', function(cb) {
   runSequence(
     'clean',
-    'build-bokeh-data',
+    'build-src-data',
     'build-vars',
     'build-sass',
     'build-css',
-    'build-data',
     'build-demo-page',
     'build-demo-vendor',
     'build-illustrator',
