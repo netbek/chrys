@@ -3,6 +3,7 @@ module.exports = {
     "group": "",
     "name": "colorblind",
     "type": "qualitative",
+    "defaultSize": 8,
     "sizes": [
       null,
       null,
@@ -58,6 +59,7 @@ module.exports = {
     "group": "mpl",
     "name": "mpl-inferno",
     "type": "sequential",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -149,6 +151,7 @@ module.exports = {
     "group": "mpl",
     "name": "mpl-magma",
     "type": "sequential",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -240,6 +243,7 @@ module.exports = {
     "group": "mpl",
     "name": "mpl-plasma",
     "type": "sequential",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -331,6 +335,7 @@ module.exports = {
     "group": "mpl",
     "name": "mpl-viridis",
     "type": "sequential",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -422,6 +427,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-brbg",
     "type": "diverging",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -513,6 +519,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-bugn",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -579,6 +586,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-bupu",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -645,6 +653,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-gnbu",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -711,6 +720,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-orrd",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -777,6 +787,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-piyg",
     "type": "diverging",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -868,6 +879,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-prgn",
     "type": "diverging",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -959,6 +971,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-pubu",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -1025,6 +1038,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-pubugn",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -1091,6 +1105,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-puor",
     "type": "diverging",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -1182,6 +1197,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-purd",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -1248,6 +1264,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-rdbu",
     "type": "diverging",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -1339,6 +1356,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-rdgy",
     "type": "diverging",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -1430,6 +1448,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-rdpu",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -1496,6 +1515,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-rdylbu",
     "type": "diverging",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -1587,6 +1607,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-rdylgn",
     "type": "diverging",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -1678,6 +1699,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-spectral",
     "type": "diverging",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -1769,6 +1791,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-ylgn",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -1835,6 +1858,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-ylgnbu",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -1901,6 +1925,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-ylorbr",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -1967,6 +1992,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-ylorrd",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -2033,6 +2059,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-blues",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -2099,6 +2126,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-greens",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -2165,6 +2193,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-oranges",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -2231,6 +2260,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-purples",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -2297,6 +2327,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-reds",
     "type": "sequential",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -2363,6 +2394,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-greys",
     "type": "sequential",
+    "defaultSize": 11,
     "sizes": [
       null,
       null,
@@ -2454,6 +2486,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-accent",
     "type": "qualitative",
+    "defaultSize": 8,
     "sizes": [
       null,
       null,
@@ -2509,6 +2542,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-dark2",
     "type": "qualitative",
+    "defaultSize": 8,
     "sizes": [
       null,
       null,
@@ -2564,6 +2598,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-paired",
     "type": "qualitative",
+    "defaultSize": 12,
     "sizes": [
       null,
       null,
@@ -2669,6 +2704,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-pastel1",
     "type": "qualitative",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -2735,6 +2771,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-pastel2",
     "type": "qualitative",
+    "defaultSize": 8,
     "sizes": [
       null,
       null,
@@ -2790,6 +2827,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-set1",
     "type": "qualitative",
+    "defaultSize": 9,
     "sizes": [
       null,
       null,
@@ -2856,6 +2894,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-set2",
     "type": "qualitative",
+    "defaultSize": 8,
     "sizes": [
       null,
       null,
@@ -2911,6 +2950,7 @@ module.exports = {
     "group": "brewer",
     "name": "brewer-set3",
     "type": "qualitative",
+    "defaultSize": 12,
     "sizes": [
       null,
       null,
@@ -3016,6 +3056,7 @@ module.exports = {
     "group": "d3",
     "name": "d3-category10",
     "type": "qualitative",
+    "defaultSize": 10,
     "sizes": [
       null,
       null,
@@ -3094,6 +3135,7 @@ module.exports = {
     "group": "d3",
     "name": "d3-category20",
     "type": "qualitative",
+    "defaultSize": 20,
     "sizes": [
       null,
       null,
@@ -3347,6 +3389,7 @@ module.exports = {
     "group": "d3",
     "name": "d3-category20b",
     "type": "qualitative",
+    "defaultSize": 20,
     "sizes": [
       null,
       null,
@@ -3600,6 +3643,7 @@ module.exports = {
     "group": "d3",
     "name": "d3-category20c",
     "type": "qualitative",
+    "defaultSize": 20,
     "sizes": [
       null,
       null,

@@ -1,4 +1,8 @@
+var palettes = require('./data/palettes');
+
 module.exports = {
-  illustratorSwatches: require('./utils/illustratorSwatches'),
-  loadPalettes: require('./utils/loadPalettes')
+  palette: function(name, size) {
+    return palettes[name].sizes[size || palettes[name].defaultSize];
+  },
+  palettes: palettes
 };

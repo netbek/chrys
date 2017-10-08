@@ -6,6 +6,7 @@ var fs = require('fs-extra');
 var ghPages = require('gulp-gh-pages');
 var gulp = require('gulp');
 var gulpPostcss = require('gulp-postcss');
+var illustratorSwatches = require('chrys-cli').illustratorSwatches;
 var jsonSass = require('json-sass');
 var livereload = require('livereload');
 var nunjucks = require('nunjucks');
@@ -20,7 +21,6 @@ var runSequence = require('run-sequence');
 var sass = require('gulp-sass');
 var ts = require('gulp-typescript');
 var webserver = require('gulp-webserver');
-var illustratorSwatches = require('./utils/illustratorSwatches');
 var loadPalettes = require('./utils/loadPalettes');
 
 Promise.promisifyAll(fs);
@@ -236,10 +236,12 @@ gulp.task('build-vars', function() {
     });
 
     var minLength = _.first(bokehPalette).length;
+    var maxLength = _.last(bokehPalette).length;
 
     jsVars[palette.name] = _.assign(
       _.pick(palette, ['group', 'name', 'type']),
       {
+        defaultSize: maxLength,
         sizes: _.times(minLength, _.constant(null))
       }
     );
