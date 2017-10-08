@@ -207,7 +207,11 @@ gulp.task('clean', function() {
 gulp.task('build-bokeh-data', function() {
   return gulp
     .src('src/data/*.ts')
-    .pipe(ts({module: 'commonjs'}))
+    .pipe(
+      ts({
+        module: 'commonjs'
+      })
+    )
     .pipe(gulp.dest('src/data'));
 });
 
