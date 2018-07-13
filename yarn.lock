@@ -795,9 +795,9 @@ chroma-js@^1.3.7:
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/chroma-js/-/chroma-js-1.3.7.tgz#38db1b46c99b002b77aa5e6b6744589388f28425"
 
-chrys-cli@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/chrys-cli/-/chrys-cli-1.0.2.tgz#c24688cddf0de4f91a5346366d983257366175b7"
+chrys-cli@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/chrys-cli/-/chrys-cli-1.0.3.tgz#e84bc8c5d2be4466f9836be0436a06da1c62034c"
 
 circular-json@^0.3.1:
   version "0.3.3"
