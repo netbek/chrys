@@ -33,7 +33,7 @@
     "babel-plugin-transform-class-properties": "6.24.1",
     "bluebird": "3.5.5",
     "chroma-js": "1.4.1",
-    "chrys-cli": "1.0.4",
+    "chrys-cli": "1.0.5",
     "eslint": "4.19.1",
     "eslint-config-airbnb": "16.1.0",
     "eslint-config-prettier": "2.10.0",
