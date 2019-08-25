@@ -1,6 +1,10 @@
 bower_components
 node_modules
 npm-debug.log
+*.egg-info
+*.pyc
+build/
+dist/
 
 # IDE files
 nbproject

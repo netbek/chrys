@@ -1,13 +1,15 @@
 {
   "name": "chrys",
   "version": "2.0.13",
-  "description": "",
+  "description": "A collection of color palettes for mapping and visualisation",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/netbek/chrys"
   },
   "scripts": {
+    "build-data": "node -r esm scripts/vega-palettes.js",
+    "build-dist": "python2.7 setup.py sdist bdist_wheel",
     "test": "make test"
   },
   "author": {
@@ -34,6 +36,7 @@
     "bluebird": "3.5.5",
     "chroma-js": "1.4.1",
     "chrys-cli": "1.0.8",
+    "d3-color": "1.3.0",
     "eslint": "4.19.1",
     "eslint-config-airbnb": "16.1.0",
     "eslint-config-prettier": "2.10.0",
@@ -46,6 +49,7 @@
     "eslint-plugin-markdown": "1.0.0",
     "eslint-plugin-prettier": "2.7.0",
     "eslint-plugin-react": "7.14.3",
+    "esm": "3.2.25",
     "fs-extra": "6.0.1",
     "gulp": "3.9.1",
     "gulp-cssmin": "0.2.0",
@@ -69,6 +73,7 @@
     "prettier": "1.18.2",
     "run-sequence": "2.2.1",
     "through2": "2.0.5",
-    "typescript": "2.9.2"
+    "typescript": "2.9.2",
+    "vega": "5.4.0"
   }
 }
