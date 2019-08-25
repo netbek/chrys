@@ -8,8 +8,9 @@
     "url": "git://github.com/netbek/chrys"
   },
   "scripts": {
-    "build-data": "node -r esm scripts/vega-palettes.js",
-    "build-dist": "python2.7 setup.py sdist bdist_wheel",
+    "py-build-data": "node -r esm scripts/vega-palettes.js",
+    "py-build-dist": "python2.7 setup.py sdist bdist_wheel",
+    "py-publish": "twine upload dist/*",
     "test": "make test"
   },
   "author": {

@@ -77,13 +77,19 @@ Install Node and Python dependencies:
 Build palette data:
 
 ```shell
-npm run build-data
+npm run py-build-data
 ```
 
 Build distribution package:
 
 ```shell
-npm run build-dist
+npm run py-build-dist
+```
+
+Publish distribution package:
+
+```shell
+npm run py-publish
 ```
 
 ## Credit
