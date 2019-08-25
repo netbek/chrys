@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var autoprefixer = require('autoprefixer');
+var bokehPalettes = require('bokehjs/build/js/lib/api/palettes');
 var chroma = require('chroma-js');
 var cssmin = require('gulp-cssmin');
 var fs = require('fs-extra');
@@ -19,7 +20,6 @@ var Promise = require('bluebird');
 var rename = require('gulp-rename');
 var runSequence = require('run-sequence');
 var sass = require('gulp-sass');
-var ts = require('gulp-typescript');
 var webserver = require('gulp-webserver');
 var loadPalettes = require('./utils/loadPalettes');
 
@@ -202,21 +202,7 @@ gulp.task('clean', function() {
   );
 });
 
-// Convert Bokeh palettes TS to JS.
-gulp.task('build-src-data', function() {
-  return gulp
-    .src('src/data/*.ts')
-    .pipe(
-      ts({
-        module: 'commonjs'
-      })
-    )
-    .pipe(gulp.dest('src/data'));
-});
-
 gulp.task('build-vars', function() {
-  var bokehPalettes = require('./src/data/palettes');
-
   var jsVars = {};
 
   var sassVars = {
@@ -305,11 +291,11 @@ gulp.task('build-sass', function() {
             console.log(err);
             reject();
           } else {
-            fs
-              .writeFileAsync('src/css/' + task + '.scss', res, 'utf8')
-              .then(function() {
+            fs.writeFileAsync('src/css/' + task + '.scss', res, 'utf8').then(
+              function() {
                 resolve();
-              });
+              }
+            );
           }
         }
       );
@@ -334,8 +320,7 @@ gulp.task('build-sass', function() {
               console.log(err);
               reject();
             } else {
-              fs
-                .ensureDirAsync('src/css/' + task[0] + '/')
+              fs.ensureDirAsync('src/css/' + task[0] + '/')
                 .then(function() {
                   return fs.writeFileAsync(
                     'src/css/' + task[0] + '/' + task[1] + '.scss',
@@ -374,8 +359,7 @@ gulp.task('build-css', function() {
 gulp.task('build-demo-page', function(cb) {
   var context = {};
 
-  fs
-    .mkdirpAsync('demo/')
+  fs.mkdirpAsync('demo/')
     .then(function() {
       return loadPalettes();
     })
@@ -463,7 +447,6 @@ gulp.task('build-illustrator', function() {
 gulp.task('build', function(cb) {
   runSequence(
     'clean',
-    'build-src-data',
     'build-vars',
     'build-sass',
     'build-css',

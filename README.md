@@ -34,7 +34,11 @@ div {
 
 ### Development
 
-Download `https://raw.githubusercontent.com/bokeh/bokeh/0.12.4/bokehjs/src/coffee/api/palettes.ts` to `/src/data` and run `gulp`.
+Build distribution files:
+
+```shell
+gulp
+```
 
 ## Python
 
