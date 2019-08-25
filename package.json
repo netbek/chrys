@@ -7,6 +7,13 @@
     "type": "git",
     "url": "git://github.com/netbek/chrys"
   },
+  "files": [
+    "css",
+    "data",
+    "illustrator",
+    "src",
+    "utils"
+  ],
   "scripts": {
     "py-build-data": "node -r esm scripts/vega-palettes.js",
     "py-build-dist": "python2.7 setup.py sdist bdist_wheel",
