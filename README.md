@@ -50,9 +50,9 @@ Generate a new palette as a subset of a given palette:
 
 ```python
 >>> from chrys.palettes import VEGA_PALETTES, to_continuous_palette, to_discrete_palette
->>> print to_discrete_palette(VEGA_PALETTES['viridis'], 6)
+>>> to_discrete_palette(VEGA_PALETTES['viridis'], 6)
 ['#46327f', '#375c8d', '#27808e', '#1fa187', '#4ac26d', '#9fda3a']
->>> print to_continuous_palette(VEGA_PALETTES['viridis'][256], 6)
+>>> to_continuous_palette(VEGA_PALETTES['viridis'][256], 6)
 ['#440356', '#414587', '#2a788e', '#22a884', '#79d152', '#fbe724']
 ```
 
@@ -60,9 +60,9 @@ Generate a new palette as a subset of a palette from a given provider:
 
 ```python
 >>> from chrys.palettes import VEGA, continuous_palette, discrete_palette
->>> print discrete_palette(VEGA, 'viridis', 6)
+>>> discrete_palette(VEGA, 'viridis', 6)
 ['#46327f', '#375c8d', '#27808e', '#1fa187', '#4ac26d', '#9fda3a']
->>> print continuous_palette(VEGA, 'viridis', 6)
+>>> continuous_palette(VEGA, 'viridis', 6)
 ['#440356', '#414587', '#2a788e', '#22a884', '#79d152', '#fbe724']
 ```
 

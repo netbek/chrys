@@ -2,13 +2,14 @@ import math
 import matplotlib as mpl
 import numpy as np
 
+from chrys.data.bokeh_palettes import BOKEH_PALETTES
 from chrys.data.vega_palettes import VEGA_PALETTES
 
 BOKEH = 'bokeh'
 MATPLOTLIB = 'matplotlib'
 VEGA = 'vega'
 
-DIVERGING_PALETTES = (
+DIVERGING_PALETTE_PROVIDERS = (
     {BOKEH: None, MATPLOTLIB: None, VEGA: 'blueorange'},
     {BOKEH: 'BrBG', MATPLOTLIB: None, VEGA: 'brownbluegreen'},
     {BOKEH: 'PRGn', MATPLOTLIB: None, VEGA: 'purplegreen'},
@@ -21,7 +22,7 @@ DIVERGING_PALETTES = (
     {BOKEH: 'Spectral', MATPLOTLIB: None, VEGA: 'spectral'},
 )
 
-QUALITATIVE_PALETTES = (
+QUALITATIVE_PALETTE_PROVIDERS = (
     {BOKEH: 'Accent', MATPLOTLIB: None, VEGA: 'accent'},
     {BOKEH: 'Category10', MATPLOTLIB: None, VEGA: 'category10'},
     {BOKEH: 'Category20', MATPLOTLIB: None, VEGA: 'category20'},
@@ -38,7 +39,7 @@ QUALITATIVE_PALETTES = (
     {BOKEH: None, MATPLOTLIB: None, VEGA: 'tableau20'},
 )
 
-SEQUENTIAL_PALETTES = (
+SEQUENTIAL_PALETTE_PROVIDERS = (
     # Single hue
     {BOKEH: 'Blues', MATPLOTLIB: None, VEGA: 'blues'},
     {BOKEH: None, MATPLOTLIB: None, VEGA: 'tealblues'},
@@ -84,27 +85,42 @@ SEQUENTIAL_PALETTES = (
     {BOKEH: None, MATPLOTLIB: None, VEGA: 'lighttealblue'},
 )
 
-CYCLICAL_PALETTES = (
+CYCLICAL_PALETTE_PROVIDERS = (
     {BOKEH: None, MATPLOTLIB: None, VEGA: 'rainbow'},
     {BOKEH: None, MATPLOTLIB: None, VEGA: 'sinebow'},
 )
 
-VEGA_DIVERGING_PALETTES = map(lambda x: x[VEGA], filter(lambda x: x[VEGA], DIVERGING_PALETTES))
-VEGA_QUALITATIVE_PALETTES = map(lambda x: x[VEGA], filter(lambda x: x[VEGA], QUALITATIVE_PALETTES))
-VEGA_SEQUENTIAL_PALETTES = map(lambda x: x[VEGA], filter(lambda x: x[VEGA], SEQUENTIAL_PALETTES))
-VEGA_CYCLICAL_PALETTES = map(lambda x: x[VEGA], filter(lambda x: x[VEGA], CYCLICAL_PALETTES))
-VEGA_CONTINUOUS_PALETTES = [name for name, palette in VEGA_PALETTES.iteritems()
-                            if filter(lambda x: x == 256, palette.keys())]
+BOKEH_DIVERGING_PALETTE_NAMES = map(
+    lambda x: x[BOKEH], filter(lambda x: x[BOKEH], DIVERGING_PALETTE_PROVIDERS))
+BOKEH_QUALITATIVE_PALETTE_NAMES = map(
+    lambda x: x[BOKEH], filter(lambda x: x[BOKEH], QUALITATIVE_PALETTE_PROVIDERS))
+BOKEH_SEQUENTIAL_PALETTE_NAMES = map(
+    lambda x: x[BOKEH], filter(lambda x: x[BOKEH], SEQUENTIAL_PALETTE_PROVIDERS))
+BOKEH_CYCLICAL_PALETTE_NAMES = map(
+    lambda x: x[BOKEH], filter(lambda x: x[BOKEH], CYCLICAL_PALETTE_PROVIDERS))
+BOKEH_CONTINUOUS_PALETTE_NAMES = [name for name, palette in BOKEH_PALETTES.iteritems()
+                                  if filter(lambda x: x == 256, palette.keys())]
+
+VEGA_DIVERGING_PALETTE_NAMES = map(
+    lambda x: x[VEGA], filter(lambda x: x[VEGA], DIVERGING_PALETTE_PROVIDERS))
+VEGA_QUALITATIVE_PALETTE_NAMES = map(
+    lambda x: x[VEGA], filter(lambda x: x[VEGA], QUALITATIVE_PALETTE_PROVIDERS))
+VEGA_SEQUENTIAL_PALETTE_NAMES = map(
+    lambda x: x[VEGA], filter(lambda x: x[VEGA], SEQUENTIAL_PALETTE_PROVIDERS))
+VEGA_CYCLICAL_PALETTE_NAMES = map(
+    lambda x: x[VEGA], filter(lambda x: x[VEGA], CYCLICAL_PALETTE_PROVIDERS))
+VEGA_CONTINUOUS_PALETTE_NAMES = [name for name, palette in VEGA_PALETTES.iteritems()
+                                 if filter(lambda x: x == 256, palette.keys())]
 
 
 def to_discrete_palette(palette, n=6, as_rgb=False):
     """
-    Generate a list of discrete colours.
+    Generate a list of discrete colors.
 
     Parameters
     ----------
     palette: list[str]
-        A list of RGB hex colour strings.
+        A list of RGB hex color strings.
     n: int
         The size of the output palette to generate.
     as_rgb: bool
@@ -113,25 +129,25 @@ def to_discrete_palette(palette, n=6, as_rgb=False):
     Returns
     -------
     list[str]
-        A list of RGB hex colour strings or RGB tuples.
+        A list of RGB hex color strings or RGB tuples.
     """
     n_clamped = min(len(palette), max(1, n))
     result = palette[n_clamped][:n]
 
     if as_rgb:
-        result = [mpl.colours.to_rgb(colour) for colour in result]
+        result = [mpl.colors.to_rgb(color) for color in result]
 
     return result
 
 
 def to_continuous_palette(palette, n=6, as_rgb=False):
     """
-    Generate a list of continuous colours.
+    Generate a list of continuous colors.
 
     Parameters
     ----------
     palette: list[str]
-        A list of RGB hex colour strings.
+        A list of RGB hex color strings.
     n: int
         The size of the output palette to generate.
     as_rgb: bool
@@ -140,25 +156,27 @@ def to_continuous_palette(palette, n=6, as_rgb=False):
     Returns
     -------
     list[str]
-        A list of RGB hex colour strings or RGB tuples.
+        A list of RGB hex color strings or RGB tuples.
 
     Adapted from Bokeh 1.3.4 https://bokeh.org (BSD-3-Clause)
     """
     if n > len(palette):
         raise ValueError(
-            "Requested %(r)s colours, function can only return colours up to the base palette's"
+            "Requested %(r)s colors, function can only return colors up to the base palette's"
             "length (%(l)s)" % dict(r=n, l=len(palette)))
 
     result = [palette[int(math.floor(i))] for i in np.linspace(0, len(palette)-1, num=n)]
 
     if as_rgb:
-        result = [mpl.colors.to_rgb(colour) for colour in result]
+        result = [mpl.colors.to_rgb(color) for color in result]
 
     return result
 
 
 def discrete_palette(provider, name, n=6, as_rgb=False):
-    if provider == VEGA:
+    if provider == BOKEH:
+        palettes = BOKEH_PALETTES
+    elif provider == VEGA:
         palettes = VEGA_PALETTES
     else:
         raise ValueError('Provider {} not recognised'.format(provider))
@@ -167,9 +185,12 @@ def discrete_palette(provider, name, n=6, as_rgb=False):
 
 
 def continuous_palette(provider, name, n=6, as_rgb=False):
-    if provider == VEGA:
+    if provider == BOKEH:
+        palettes = BOKEH_PALETTES
+        continuous_palettes = BOKEH_CONTINUOUS_PALETTE_NAMES
+    elif provider == VEGA:
         palettes = VEGA_PALETTES
-        continuous_palettes = VEGA_CONTINUOUS_PALETTES
+        continuous_palettes = VEGA_CONTINUOUS_PALETTE_NAMES
     else:
         raise ValueError('Provider {} not recognised'.format(provider))
 

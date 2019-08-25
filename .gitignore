@@ -5,6 +5,7 @@ npm-debug.log
 *.pyc
 build/
 dist/
+venv/
 
 # IDE files
 nbproject
