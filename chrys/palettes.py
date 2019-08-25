@@ -18,7 +18,7 @@ DIVERGING_PALETTE_PROVIDERS = (
     {BOKEH: 'RdBu', MATPLOTLIB: None, VEGA: 'redblue'},
     {BOKEH: 'RdGy', MATPLOTLIB: None, VEGA: 'redgrey'},
     {BOKEH: 'RdYlBu', MATPLOTLIB: None, VEGA: 'redyellowblue'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'redyellowgreen'},
+    {BOKEH: 'RdYlGn', MATPLOTLIB: None, VEGA: 'redyellowgreen'},
     {BOKEH: 'Spectral', MATPLOTLIB: None, VEGA: 'spectral'},
 )
 
@@ -37,6 +37,7 @@ QUALITATIVE_PALETTE_PROVIDERS = (
     {BOKEH: 'Set3', MATPLOTLIB: None, VEGA: 'set3'},
     {BOKEH: None, MATPLOTLIB: None, VEGA: 'tableau10'},
     {BOKEH: None, MATPLOTLIB: None, VEGA: 'tableau20'},
+    {BOKEH: 'Colorblind', MATPLOTLIB: None, VEGA: None},
 )
 
 SEQUENTIAL_PALETTE_PROVIDERS = (
@@ -111,6 +112,57 @@ VEGA_CYCLICAL_PALETTE_NAMES = map(
     lambda x: x[VEGA], filter(lambda x: x[VEGA], CYCLICAL_PALETTE_PROVIDERS))
 VEGA_CONTINUOUS_PALETTE_NAMES = [name for name, palette in VEGA_PALETTES.iteritems()
                                  if filter(lambda x: x == 256, palette.keys())]
+
+BOKEH_TO_VEGA_PALETTE_MAP = {
+    # Diverging palettes
+    'PuOr': 'purpleorange',
+    'BrBG': 'brownbluegreen',
+    'PRGn': 'purplegreen',
+    'PiYG': 'pinkyellowgreen',
+    'RdBu': 'redblue',
+    'RdGy': 'redgrey',
+    'RdYlBu': 'redyellowblue',
+    'Spectral': 'spectral',
+    'RdYlGn': 'redyellowgreen',
+
+    # Qualitative palettes
+    'Accent': 'accent',
+    'Dark2': 'dark2',
+    'Paired': 'paired',
+    'Pastel1': 'pastel1',
+    'Pastel2': 'pastel2',
+    'Set1': 'set1',
+    'Set2': 'set2',
+    'Set3': 'set3',
+    'Category10': 'category10',
+    'Category20': 'category20',
+    'Category20b': 'category20b',
+    'Category20c': 'category20c',
+
+    # Sequential palettes
+    'YlGn': 'yellowgreen',
+    'YlGnBu': 'yellowgreenblue',
+    'GnBu': 'greenblue',
+    'BuGn': 'bluegreen',
+    'PuBuGn': 'purplebluegreen',
+    'PuBu': 'purpleblue',
+    'BuPu': 'bluepurple',
+    'RdPu': 'redpurple',
+    'PuRd': 'purplered',
+    'OrRd': 'orangered',
+    'YlOrRd': 'yelloworangered',
+    'YlOrBr': 'yelloworangebrown',
+    'Purples': 'purples',
+    'Blues': 'blues',
+    'Greens': 'greens',
+    'Oranges': 'oranges',
+    'Reds': 'reds',
+    'Greys': 'greys',
+    'Inferno': 'inferno',
+    'Magma': 'magma',
+    'Plasma': 'plasma',
+    'Viridis': 'viridis',
+}
 
 
 def to_discrete_palette(palette, n=6, as_rgb=False):
