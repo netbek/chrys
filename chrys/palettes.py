@@ -2,93 +2,114 @@ import math
 import matplotlib as mpl
 import numpy as np
 
-from chrys.data.bokeh_palettes import BOKEH_PALETTES
-from chrys.data.vega_palettes import VEGA_PALETTES
+from chrys.data.bokeh_palettes import BOKEH_PALETTES, BOKEH_CATEGORY_10, BOKEH_CATEGORY_20, \
+    BOKEH_CATEGORY_20_B, BOKEH_CATEGORY_20_C, BOKEH_COLORBLIND, BOKEH_ACCENT, BOKEH_DARK_2, \
+    BOKEH_PAIRED, BOKEH_PASTEL_1, BOKEH_PASTEL_2, BOKEH_SET_1, BOKEH_SET_2, BOKEH_SET_3, \
+    BOKEH_YL_GN, BOKEH_YL_GN_BU, BOKEH_GN_BU, BOKEH_BU_GN, BOKEH_PU_BU_GN, BOKEH_PU_BU, \
+    BOKEH_BU_PU, BOKEH_RD_PU, BOKEH_PU_RD, BOKEH_OR_RD, BOKEH_YL_OR_RD, BOKEH_YL_OR_BR, \
+    BOKEH_PURPLES, BOKEH_BLUES, BOKEH_GREENS, BOKEH_ORANGES, BOKEH_REDS, BOKEH_GREYS, \
+    BOKEH_PU_OR, BOKEH_BR_BG, BOKEH_PR_GN, BOKEH_PI_YG, BOKEH_RD_BU, BOKEH_RD_GY, \
+    BOKEH_RD_YL_BU, BOKEH_SPECTRAL, BOKEH_RD_YL_GN, BOKEH_INFERNO, BOKEH_MAGMA, BOKEH_PLASMA, \
+    BOKEH_VIRIDIS
+from chrys.data.vega_palettes import VEGA_PALETTES, VEGA_CATEGORY_10, VEGA_CATEGORY_20, \
+    VEGA_CATEGORY_20_B, VEGA_CATEGORY_20_C, VEGA_TABLEAU_10, VEGA_TABLEAU_20, VEGA_ACCENT, \
+    VEGA_DARK_2, VEGA_PAIRED, VEGA_PASTEL_1, VEGA_PASTEL_2, VEGA_SET_1, VEGA_SET_2, VEGA_SET_3, \
+    VEGA_BLUES, VEGA_GREENS, VEGA_GREYS, VEGA_ORANGES, VEGA_PURPLES, VEGA_REDS, VEGA_BLUE_GREEN, \
+    VEGA_BLUE_PURPLE, VEGA_GREEN_BLUE, VEGA_ORANGE_RED, VEGA_PURPLE_BLUE, VEGA_PURPLE_BLUE_GREEN, \
+    VEGA_PURPLE_RED, VEGA_RED_PURPLE, VEGA_YELLOW_GREEN, VEGA_YELLOW_ORANGE_BROWN, \
+    VEGA_YELLOW_ORANGE_RED, VEGA_BLUE_ORANGE, VEGA_BROWN_BLUE_GREEN, VEGA_PURPLE_GREEN, \
+    VEGA_PURPLE_ORANGE, VEGA_RED_BLUE, VEGA_RED_GREY, VEGA_YELLOW_GREEN_BLUE, \
+    VEGA_RED_YELLOW_BLUE, VEGA_RED_YELLOW_GREEN, VEGA_PINK_YELLOW_GREEN, VEGA_SPECTRAL, \
+    VEGA_VIRIDIS, VEGA_MAGMA, VEGA_INFERNO, VEGA_PLASMA, VEGA_RAINBOW, VEGA_SINEBOW, VEGA_BROWNS, \
+    VEGA_TEAL_BLUES, VEGA_TEALS, VEGA_WARM_GREYS, VEGA_GOLD_GREEN, VEGA_GOLD_ORANGE, \
+    VEGA_GOLD_RED, VEGA_LIGHT_GREY_RED, VEGA_LIGHT_GREY_TEAL, VEGA_LIGHT_MULTI, VEGA_LIGHT_ORANGE, \
+    VEGA_LIGHT_TEAL_BLUE, VEGA_DARK_BLUE, VEGA_DARK_GOLD, VEGA_DARK_GREEN, VEGA_DARK_MULTI, \
+    VEGA_DARK_RED
 
 BOKEH = 'bokeh'
 MATPLOTLIB = 'matplotlib'
 VEGA = 'vega'
 
 DIVERGING_PALETTE_PROVIDERS = (
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'blueorange'},
-    {BOKEH: 'BrBG', MATPLOTLIB: None, VEGA: 'brownbluegreen'},
-    {BOKEH: 'PRGn', MATPLOTLIB: None, VEGA: 'purplegreen'},
-    {BOKEH: 'PiYG', MATPLOTLIB: None, VEGA: 'pinkyellowgreen'},
-    {BOKEH: 'PuOr', MATPLOTLIB: None, VEGA: 'purpleorange'},
-    {BOKEH: 'RdBu', MATPLOTLIB: None, VEGA: 'redblue'},
-    {BOKEH: 'RdGy', MATPLOTLIB: None, VEGA: 'redgrey'},
-    {BOKEH: 'RdYlBu', MATPLOTLIB: None, VEGA: 'redyellowblue'},
-    {BOKEH: 'RdYlGn', MATPLOTLIB: None, VEGA: 'redyellowgreen'},
-    {BOKEH: 'Spectral', MATPLOTLIB: None, VEGA: 'spectral'},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_BLUE_ORANGE},
+    {BOKEH: BOKEH_BR_BG, MATPLOTLIB: None, VEGA: VEGA_BROWN_BLUE_GREEN},
+    {BOKEH: BOKEH_PR_GN, MATPLOTLIB: None, VEGA: VEGA_PURPLE_GREEN},
+    {BOKEH: BOKEH_PI_YG, MATPLOTLIB: None, VEGA: VEGA_PINK_YELLOW_GREEN},
+    {BOKEH: BOKEH_PU_OR, MATPLOTLIB: None, VEGA: VEGA_PURPLE_ORANGE},
+    {BOKEH: BOKEH_RD_BU, MATPLOTLIB: None, VEGA: VEGA_RED_BLUE},
+    {BOKEH: BOKEH_RD_GY, MATPLOTLIB: None, VEGA: VEGA_RED_GREY},
+    {BOKEH: BOKEH_RD_YL_BU, MATPLOTLIB: None, VEGA: VEGA_RED_YELLOW_BLUE},
+    {BOKEH: BOKEH_RD_YL_GN, MATPLOTLIB: None, VEGA: VEGA_RED_YELLOW_GREEN},
+    {BOKEH: BOKEH_SPECTRAL, MATPLOTLIB: None, VEGA: VEGA_SPECTRAL},
 )
 
 QUALITATIVE_PALETTE_PROVIDERS = (
-    {BOKEH: 'Accent', MATPLOTLIB: None, VEGA: 'accent'},
-    {BOKEH: 'Category10', MATPLOTLIB: None, VEGA: 'category10'},
-    {BOKEH: 'Category20', MATPLOTLIB: None, VEGA: 'category20'},
-    {BOKEH: 'Category20b', MATPLOTLIB: None, VEGA: 'category20b'},
-    {BOKEH: 'Category20c', MATPLOTLIB: None, VEGA: 'category20c'},
-    {BOKEH: 'Dark2', MATPLOTLIB: None, VEGA: 'dark2'},
-    {BOKEH: 'Paired', MATPLOTLIB: None, VEGA: 'paired'},
-    {BOKEH: 'Pastel1', MATPLOTLIB: None, VEGA: 'pastel1'},
-    {BOKEH: 'Pastel2', MATPLOTLIB: None, VEGA: 'pastel2'},
-    {BOKEH: 'Set1', MATPLOTLIB: None, VEGA: 'set1'},
-    {BOKEH: 'Set2', MATPLOTLIB: None, VEGA: 'set2'},
-    {BOKEH: 'Set3', MATPLOTLIB: None, VEGA: 'set3'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'tableau10'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'tableau20'},
-    {BOKEH: 'Colorblind', MATPLOTLIB: None, VEGA: None},
+    {BOKEH: BOKEH_ACCENT, MATPLOTLIB: None, VEGA: VEGA_ACCENT},
+    {BOKEH: BOKEH_CATEGORY_10, MATPLOTLIB: None, VEGA: VEGA_CATEGORY_10},
+    {BOKEH: BOKEH_CATEGORY_20, MATPLOTLIB: None, VEGA: VEGA_CATEGORY_20},
+    {BOKEH: BOKEH_CATEGORY_20_B, MATPLOTLIB: None, VEGA: VEGA_CATEGORY_20_B},
+    {BOKEH: BOKEH_CATEGORY_20_C, MATPLOTLIB: None, VEGA: VEGA_CATEGORY_20_C},
+    {BOKEH: BOKEH_DARK_2, MATPLOTLIB: None, VEGA: VEGA_DARK_2},
+    {BOKEH: BOKEH_PAIRED, MATPLOTLIB: None, VEGA: VEGA_PAIRED},
+    {BOKEH: BOKEH_PASTEL_1, MATPLOTLIB: None, VEGA: VEGA_PASTEL_1},
+    {BOKEH: BOKEH_PASTEL_2, MATPLOTLIB: None, VEGA: VEGA_PASTEL_2},
+    {BOKEH: BOKEH_SET_1, MATPLOTLIB: None, VEGA: VEGA_SET_1},
+    {BOKEH: BOKEH_SET_2, MATPLOTLIB: None, VEGA: VEGA_SET_2},
+    {BOKEH: BOKEH_SET_3, MATPLOTLIB: None, VEGA: VEGA_SET_3},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_TABLEAU_10},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_TABLEAU_20},
+    {BOKEH: BOKEH_COLORBLIND, MATPLOTLIB: None, VEGA: None},
 )
 
 SEQUENTIAL_PALETTE_PROVIDERS = (
     # Single hue
-    {BOKEH: 'Blues', MATPLOTLIB: None, VEGA: 'blues'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'tealblues'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'teals'},
-    {BOKEH: 'Greens', MATPLOTLIB: None, VEGA: 'greens'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'browns'},
-    {BOKEH: 'Oranges', MATPLOTLIB: None, VEGA: 'oranges'},
-    {BOKEH: 'Reds', MATPLOTLIB: None, VEGA: 'reds'},
-    {BOKEH: 'Purples', MATPLOTLIB: None, VEGA: 'purples'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'warmgreys'},
-    {BOKEH: 'Greys', MATPLOTLIB: None, VEGA: 'greys'},
+    {BOKEH: BOKEH_BLUES, MATPLOTLIB: None, VEGA: VEGA_BLUES},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_TEAL_BLUES},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_TEALS},
+    {BOKEH: BOKEH_GREENS, MATPLOTLIB: None, VEGA: VEGA_GREENS},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_BROWNS},
+    {BOKEH: BOKEH_ORANGES, MATPLOTLIB: None, VEGA: VEGA_ORANGES},
+    {BOKEH: BOKEH_REDS, MATPLOTLIB: None, VEGA: VEGA_REDS},
+    {BOKEH: BOKEH_PURPLES, MATPLOTLIB: None, VEGA: VEGA_PURPLES},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_WARM_GREYS},
+    {BOKEH: BOKEH_GREYS, MATPLOTLIB: None, VEGA: VEGA_GREYS},
     # Multiple hues
-    {BOKEH: 'Viridis', MATPLOTLIB: None, VEGA: 'viridis'},
-    {BOKEH: 'Magma', MATPLOTLIB: None, VEGA: 'magma'},
-    {BOKEH: 'Inferno', MATPLOTLIB: None, VEGA: 'inferno'},
-    {BOKEH: 'Plasma', MATPLOTLIB: None, VEGA: 'plasma'},
-    {BOKEH: 'BuGn', MATPLOTLIB: None, VEGA: 'bluegreen'},
-    {BOKEH: 'BuPu', MATPLOTLIB: None, VEGA: 'bluepurple'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'goldgreen'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'goldorange'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'goldred'},
-    {BOKEH: 'GnBu', MATPLOTLIB: None, VEGA: 'greenblue'},
-    {BOKEH: 'OrRd', MATPLOTLIB: None, VEGA: 'orangered'},
-    {BOKEH: 'PuBuGn', MATPLOTLIB: None, VEGA: 'purplebluegreen'},
-    {BOKEH: 'PuBu', MATPLOTLIB: None, VEGA: 'purpleblue'},
-    {BOKEH: 'PuRd', MATPLOTLIB: None, VEGA: 'purplered'},
-    {BOKEH: 'RdPu', MATPLOTLIB: None, VEGA: 'redpurple'},
-    {BOKEH: 'YlGnBu', MATPLOTLIB: None, VEGA: 'yellowgreenblue'},
-    {BOKEH: 'YlGn', MATPLOTLIB: None, VEGA: 'yellowgreen'},
-    {BOKEH: 'YlOrBr', MATPLOTLIB: None, VEGA: 'yelloworangebrown'},
-    {BOKEH: 'YlOrRd', MATPLOTLIB: None, VEGA: 'yelloworangered'},
+    {BOKEH: BOKEH_VIRIDIS, MATPLOTLIB: None, VEGA: VEGA_VIRIDIS},
+    {BOKEH: BOKEH_MAGMA, MATPLOTLIB: None, VEGA: VEGA_MAGMA},
+    {BOKEH: BOKEH_INFERNO, MATPLOTLIB: None, VEGA: VEGA_INFERNO},
+    {BOKEH: BOKEH_PLASMA, MATPLOTLIB: None, VEGA: VEGA_PLASMA},
+    {BOKEH: BOKEH_BU_GN, MATPLOTLIB: None, VEGA: VEGA_BLUE_GREEN},
+    {BOKEH: BOKEH_BU_PU, MATPLOTLIB: None, VEGA: VEGA_BLUE_PURPLE},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_GOLD_GREEN},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_GOLD_ORANGE},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_GOLD_RED},
+    {BOKEH: BOKEH_GN_BU, MATPLOTLIB: None, VEGA: VEGA_GREEN_BLUE},
+    {BOKEH: BOKEH_OR_RD, MATPLOTLIB: None, VEGA: VEGA_ORANGE_RED},
+    {BOKEH: BOKEH_PU_BU_GN, MATPLOTLIB: None, VEGA: VEGA_PURPLE_BLUE_GREEN},
+    {BOKEH: BOKEH_PU_BU, MATPLOTLIB: None, VEGA: VEGA_PURPLE_BLUE},
+    {BOKEH: BOKEH_PU_RD, MATPLOTLIB: None, VEGA: VEGA_PURPLE_RED},
+    {BOKEH: BOKEH_RD_PU, MATPLOTLIB: None, VEGA: VEGA_RED_PURPLE},
+    {BOKEH: BOKEH_YL_GN_BU, MATPLOTLIB: None, VEGA: VEGA_YELLOW_GREEN_BLUE},
+    {BOKEH: BOKEH_YL_GN, MATPLOTLIB: None, VEGA: VEGA_YELLOW_GREEN},
+    {BOKEH: BOKEH_YL_OR_BR, MATPLOTLIB: None, VEGA: VEGA_YELLOW_ORANGE_BROWN},
+    {BOKEH: BOKEH_YL_OR_RD, MATPLOTLIB: None, VEGA: VEGA_YELLOW_ORANGE_RED},
     # For dark backgrounds
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'darkblue'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'darkgold'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'darkgreen'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'darkmulti'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'darkred'},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_DARK_BLUE},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_DARK_GOLD},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_DARK_GREEN},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_DARK_MULTI},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_DARK_RED},
     # For light backgrounds
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'lightgreyred'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'lightgreyteal'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'lightmulti'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'lightorange'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'lighttealblue'},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_LIGHT_GREY_RED},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_LIGHT_GREY_TEAL},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_LIGHT_MULTI},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_LIGHT_ORANGE},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_LIGHT_TEAL_BLUE},
 )
 
 CYCLICAL_PALETTE_PROVIDERS = (
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'rainbow'},
-    {BOKEH: None, MATPLOTLIB: None, VEGA: 'sinebow'},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_RAINBOW},
+    {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_SINEBOW},
 )
 
 BOKEH_DIVERGING_PALETTE_NAMES = map(
@@ -113,55 +134,56 @@ VEGA_CYCLICAL_PALETTE_NAMES = map(
 VEGA_CONTINUOUS_PALETTE_NAMES = [name for name, palette in VEGA_PALETTES.iteritems()
                                  if filter(lambda x: x == 256, palette.keys())]
 
+# TODO Compute from providers map
 BOKEH_TO_VEGA_PALETTE_MAP = {
     # Diverging palettes
-    'PuOr': 'purpleorange',
-    'BrBG': 'brownbluegreen',
-    'PRGn': 'purplegreen',
-    'PiYG': 'pinkyellowgreen',
-    'RdBu': 'redblue',
-    'RdGy': 'redgrey',
-    'RdYlBu': 'redyellowblue',
-    'Spectral': 'spectral',
-    'RdYlGn': 'redyellowgreen',
+    'puor': 'purpleorange',
+    'brbg': 'brownbluegreen',
+    'prgn': 'purplegreen',
+    'piyg': 'pinkyellowgreen',
+    'rdbu': 'redblue',
+    'rdgy': 'redgrey',
+    'rdylbu': 'redyellowblue',
+    'spectral': 'spectral',
+    'rdylgn': 'redyellowgreen',
 
     # Qualitative palettes
-    'Accent': 'accent',
-    'Dark2': 'dark2',
-    'Paired': 'paired',
-    'Pastel1': 'pastel1',
-    'Pastel2': 'pastel2',
-    'Set1': 'set1',
-    'Set2': 'set2',
-    'Set3': 'set3',
-    'Category10': 'category10',
-    'Category20': 'category20',
-    'Category20b': 'category20b',
-    'Category20c': 'category20c',
+    'accent': 'accent',
+    'dark2': 'dark2',
+    'paired': 'paired',
+    'pastel1': 'pastel1',
+    'pastel2': 'pastel2',
+    'set1': 'set1',
+    'set2': 'set2',
+    'set3': 'set3',
+    'category10': 'category10',
+    'category20': 'category20',
+    'category20b': 'category20b',
+    'category20c': 'category20c',
 
     # Sequential palettes
-    'YlGn': 'yellowgreen',
-    'YlGnBu': 'yellowgreenblue',
-    'GnBu': 'greenblue',
-    'BuGn': 'bluegreen',
-    'PuBuGn': 'purplebluegreen',
-    'PuBu': 'purpleblue',
-    'BuPu': 'bluepurple',
-    'RdPu': 'redpurple',
-    'PuRd': 'purplered',
-    'OrRd': 'orangered',
-    'YlOrRd': 'yelloworangered',
-    'YlOrBr': 'yelloworangebrown',
-    'Purples': 'purples',
-    'Blues': 'blues',
-    'Greens': 'greens',
-    'Oranges': 'oranges',
-    'Reds': 'reds',
-    'Greys': 'greys',
-    'Inferno': 'inferno',
-    'Magma': 'magma',
-    'Plasma': 'plasma',
-    'Viridis': 'viridis',
+    'ylgn': 'yellowgreen',
+    'ylgnbu': 'yellowgreenblue',
+    'gnbu': 'greenblue',
+    'bugn': 'bluegreen',
+    'pubugn': 'purplebluegreen',
+    'pubu': 'purpleblue',
+    'bupu': 'bluepurple',
+    'rdpu': 'redpurple',
+    'purd': 'purplered',
+    'orrd': 'orangered',
+    'ylorrd': 'yelloworangered',
+    'ylorbr': 'yelloworangebrown',
+    'purples': 'purples',
+    'blues': 'blues',
+    'greens': 'greens',
+    'oranges': 'oranges',
+    'reds': 'reds',
+    'greys': 'greys',
+    'inferno': 'inferno',
+    'magma': 'magma',
+    'plasma': 'plasma',
+    'viridis': 'viridis',
 }
 
 

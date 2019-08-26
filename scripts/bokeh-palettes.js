@@ -102,31 +102,45 @@ const basename = _.snakeCase(
   path.basename(__filename, path.extname(__filename))
 );
 const file = path.join(__dirname, '../chrys/data/' + basename + '.py');
-let data = {};
-let maxCount = 0;
+const vars = {names: {}, palettes: {}};
+let maxSize = 0;
 
 _.forEach(discrete, (palettes, name) => {
-  data[name] = {};
+  vars.palettes[name.toLowerCase()] = {};
+  vars.names[_.snakeCase('bokeh_' + name).toUpperCase()] = name.toLowerCase();
+
   _.forEach(palettes, palette => {
-    maxCount = Math.max(maxCount, palette.length);
-    data[name][palette.length] = palette.map(
+    maxSize = Math.max(maxSize, palette.length);
+    vars.palettes[name.toLowerCase()][palette.length] = palette.map(
       d => '#' + _.padStart(d.toString(16), 6, '0')
     );
   });
 });
 
 _.forEach(continuous, (palettes, name) => {
-  data[name] = {};
+  vars.palettes[name.toLowerCase()] = {};
+  vars.names[_.snakeCase('bokeh_' + name).toUpperCase()] = name.toLowerCase();
+
   _.forEach(palettes, palette => {
-    maxCount = Math.max(maxCount, palette.length);
-    data[name][palette.length] = palette.map(
+    maxSize = Math.max(maxSize, palette.length);
+    vars.palettes[name.toLowerCase()][palette.length] = palette.map(
       d => '#' + _.padStart(d.toString(16), 6, '0')
     );
   });
 });
 
-data = basename.toUpperCase() + ' = ' + JSON.stringify(data, null, 2);
-_.times(maxCount, i => {
+// Serialise data
+let data = '';
+
+_.forEach(vars.names, (v, k) => {
+  data += k + ' = "' + v + '"\n';
+});
+data += '\n';
+
+data += basename.toUpperCase() + ' = ' + JSON.stringify(vars.palettes, null, 2);
+
+// Remove quotes from numeric keys
+_.times(maxSize, i => {
   data = data.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
 });
 

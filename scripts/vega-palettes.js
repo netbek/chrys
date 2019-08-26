@@ -9,13 +9,13 @@ const basename = _.snakeCase(
   path.basename(__filename, path.extname(__filename))
 );
 const file = path.join(__dirname, '../chrys/data/' + basename + '.py');
-let data = {};
-let maxCount = 9;
+const vars = {names: {}, palettes: {}};
+let maxSize = 9;
 
 const discreteNames = Object.keys(discrete);
 
-data = {
-  ...data,
+vars.palettes = {
+  ...vars.palettes,
   ..._.zipObject(
     discreteNames.map(d => d.toLowerCase()),
     _.times(discreteNames.length, () => ({}))
@@ -23,17 +23,18 @@ data = {
 };
 
 discreteNames.forEach(name => {
-  maxCount = Math.max(maxCount, scheme(name).length);
+  vars.names[_.snakeCase('vega_' + name).toUpperCase()] = name.toLowerCase();
+  maxSize = Math.max(maxSize, scheme(name).length);
 
   for (let i = 1; i <= scheme(name).length; i++) {
-    data[name.toLowerCase()][i] = scheme(name).slice(0, i);
+    vars.palettes[name.toLowerCase()][i] = scheme(name).slice(0, i);
   }
 });
 
 const continuousNames = Object.keys(continuous);
 
-data = {
-  ...data,
+vars.palettes = {
+  ...vars.palettes,
   ..._.zipObject(
     continuousNames.map(d => d.toLowerCase()),
     _.times(continuousNames.length, () => ({}))
@@ -41,25 +42,38 @@ data = {
 };
 
 continuousNames.forEach(name => {
-  maxCount = Math.max(maxCount, continuous[name].length / 6);
+  vars.names[_.snakeCase('vega_' + name).toUpperCase()] = name.toLowerCase();
+  maxSize = Math.max(maxSize, continuous[name].length / 6);
 
   for (let i = 1; i <= 9; i++) {
-    data[name.toLowerCase()][i] = quantizeInterpolator(scheme(name), i).map(d =>
-      color(d).formatHex()
-    );
+    vars.palettes[name.toLowerCase()][i] = quantizeInterpolator(
+      scheme(name),
+      i
+    ).map(d => color(d).formatHex());
   }
 
   if (~['viridis', 'magma', 'inferno', 'plasma'].indexOf(name)) {
-    maxCount = Math.max(maxCount, 256);
+    maxSize = Math.max(maxSize, 256);
 
-    data[name.toLowerCase()][256] = quantizeInterpolator(scheme(name), 256).map(
-      d => color(d).formatHex()
-    );
+    vars.palettes[name.toLowerCase()][256] = quantizeInterpolator(
+      scheme(name),
+      256
+    ).map(d => color(d).formatHex());
   }
 });
 
-data = basename.toUpperCase() + ' = ' + JSON.stringify(data, null, 2);
-_.times(maxCount, i => {
+// Serialise data
+let data = '';
+
+_.forEach(vars.names, (v, k) => {
+  data += k + ' = "' + v + '"\n';
+});
+data += '\n';
+
+data += basename.toUpperCase() + ' = ' + JSON.stringify(vars.palettes, null, 2);
+
+// Remove quoutes from numeric keys
+_.times(maxSize, i => {
   data = data.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
 });
 
