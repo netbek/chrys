@@ -107,7 +107,7 @@ let maxSize = 0;
 
 _.forEach(discrete, (palettes, vendorName) => {
   const uniqueName = 'bokeh_' + vendorName;
-  const constantName = _.snakeCase(uniqueName).toUpperCase();
+  const constantName = _.snakeCase('bokeh_' + vendorName).toUpperCase();
 
   vars.constantNames[constantName] = uniqueName;
   vars.vendorNames[vendorName] = constantName;
@@ -123,7 +123,7 @@ _.forEach(discrete, (palettes, vendorName) => {
 
 _.forEach(continuous, (palettes, vendorName) => {
   const uniqueName = 'bokeh_' + vendorName;
-  const constantName = _.snakeCase(uniqueName).toUpperCase();
+  const constantName = _.snakeCase('bokeh_' + vendorName).toUpperCase();
 
   vars.constantNames[constantName] = uniqueName;
   vars.vendorNames[vendorName] = constantName;

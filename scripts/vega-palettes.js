@@ -14,7 +14,7 @@ let maxSize = 0;
 
 Object.keys(discrete).forEach(vendorName => {
   const uniqueName = 'vega_' + vendorName.toLowerCase();
-  const constantName = _.snakeCase(uniqueName).toUpperCase();
+  const constantName = _.snakeCase('vega_' + vendorName).toUpperCase();
 
   vars.constantNames[constantName] = uniqueName;
   vars.vendorNames[vendorName.toLowerCase()] = constantName;
@@ -28,7 +28,7 @@ Object.keys(discrete).forEach(vendorName => {
 
 Object.keys(continuous).forEach(vendorName => {
   const uniqueName = 'vega_' + vendorName.toLowerCase();
-  const constantName = _.snakeCase(uniqueName).toUpperCase();
+  const constantName = _.snakeCase('vega_' + vendorName).toUpperCase();
 
   vars.constantNames[constantName] = uniqueName;
   vars.vendorNames[vendorName.toLowerCase()] = constantName;
