@@ -70,6 +70,14 @@ Generate a new palette as a subset of a palette from a given provider:
 ['#440356', '#414587', '#2a788e', '#22a884', '#79d152', '#fbe724']
 ```
 
+Get the vendor library and palette names from a given name:
+
+```python
+>>> from chrys.palettes import parse_name
+>>> parse_name('vega_viridis')
+('vega', 'viridis')
+```
+
 ### Development
 
 Install Node and Python dependencies:

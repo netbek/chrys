@@ -144,6 +144,38 @@ VEGA_CONTINUOUS_PALETTE_NAMES = [name for name, palette in VEGA_PALETTES_DATA.it
                                  if filter(lambda x: x == 256, palette.keys())]
 
 
+def parse_name(name):
+    if name not in PALETTE_TO_VENDOR_MAP:
+        raise ValueError('Palette name "{}" not recognized'.format(name))
+
+    vendor = PALETTE_TO_VENDOR_MAP[name]
+    palette = name[len(vendor)+1:]
+
+    return (vendor, palette)
+
+
+def _get_palette(name):
+    vendor, _ = parse_name(name)
+
+    if vendor == BOKEH:
+        return BOKEH_PALETTES_DATA[name]
+    elif vendor == VEGA:
+        return VEGA_PALETTES_DATA[name]
+    else:
+        raise ValueError('Vendor "{}" not recognized'.format(vendor))
+
+
+def _is_continuous(name):
+    vendor, _ = parse_name(name)
+
+    if vendor == BOKEH:
+        return name in BOKEH_CONTINUOUS_PALETTE_NAMES
+    elif vendor == VEGA:
+        return name in VEGA_CONTINUOUS_PALETTE_NAMES
+    else:
+        raise ValueError('Vendor "{}" not recognized'.format(vendor))
+
+
 def to_discrete_palette(palette, n=6, as_rgb=False):
     """
     Generate a list of discrete colors.
@@ -202,34 +234,6 @@ def to_continuous_palette(palette, n=6, as_rgb=False):
         result = [mpl.colors.to_rgb(color) for color in result]
 
     return result
-
-
-def _get_palette(name):
-    if name not in PALETTE_TO_VENDOR_MAP:
-        raise ValueError('Palette name "{}" not recognized'.format(name))
-
-    vendor = PALETTE_TO_VENDOR_MAP[name]
-
-    if vendor == BOKEH:
-        return BOKEH_PALETTES_DATA[name]
-    elif vendor == VEGA:
-        return VEGA_PALETTES_DATA[name]
-    else:
-        raise ValueError('Vendor "{}" not recognized'.format(vendor))
-
-
-def _is_continuous(name):
-    if name not in PALETTE_TO_VENDOR_MAP:
-        raise ValueError('Palette name "{}" not recognized'.format(name))
-
-    vendor = PALETTE_TO_VENDOR_MAP[name]
-
-    if vendor == BOKEH:
-        return name in BOKEH_CONTINUOUS_PALETTE_NAMES
-    elif vendor == VEGA:
-        return name in VEGA_CONTINUOUS_PALETTE_NAMES
-    else:
-        raise ValueError('Vendor "{}" not recognized'.format(vendor))
 
 
 def discrete_palette(name, n=6, as_rgb=False):
