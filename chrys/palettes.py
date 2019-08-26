@@ -144,7 +144,7 @@ VEGA_CONTINUOUS_PALETTE_NAMES = [name for name, palette in VEGA_PALETTES_DATA.it
                                  if filter(lambda x: x == 256, palette.keys())]
 
 
-def parse_name(name):
+def parse_palette_name(name):
     if name not in PALETTE_TO_VENDOR_MAP:
         raise ValueError('Palette name "{}" not recognized'.format(name))
 
@@ -155,7 +155,7 @@ def parse_name(name):
 
 
 def _get_palette(name):
-    vendor, _ = parse_name(name)
+    vendor, _ = parse_palette_name(name)
 
     if vendor == BOKEH:
         return BOKEH_PALETTES_DATA[name]
@@ -166,7 +166,7 @@ def _get_palette(name):
 
 
 def _is_continuous(name):
-    vendor, _ = parse_name(name)
+    vendor, _ = parse_palette_name(name)
 
     if vendor == BOKEH:
         return name in BOKEH_CONTINUOUS_PALETTE_NAMES

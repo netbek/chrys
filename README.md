@@ -73,8 +73,8 @@ Generate a new palette as a subset of a palette from a given provider:
 Get the vendor library and palette names from a given name:
 
 ```python
->>> from chrys.palettes import parse_name
->>> parse_name('vega_viridis')
+>>> from chrys.palettes import parse_palette_name
+>>> parse_palette_name('vega_viridis')
 ('vega', 'viridis')
 ```
 
