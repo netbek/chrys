@@ -206,7 +206,7 @@ def to_continuous_palette(palette, n=6, as_rgb=False):
 
 def _get_palette(name):
     if name not in PALETTE_TO_VENDOR_MAP:
-        raise ValueError('Palette name "{}" not recognised'.format(name))
+        raise ValueError('Palette name "{}" not recognized'.format(name))
 
     vendor = PALETTE_TO_VENDOR_MAP[name]
 
@@ -215,12 +215,12 @@ def _get_palette(name):
     elif vendor == VEGA:
         return VEGA_PALETTES_DATA[name]
     else:
-        raise ValueError('Vendor "{}" not recognised'.format(vendor))
+        raise ValueError('Vendor "{}" not recognized'.format(vendor))
 
 
 def _is_continuous(name):
     if name not in PALETTE_TO_VENDOR_MAP:
-        raise ValueError('Palette name "{}" not recognised'.format(name))
+        raise ValueError('Palette name "{}" not recognized'.format(name))
 
     vendor = PALETTE_TO_VENDOR_MAP[name]
 
@@ -229,7 +229,7 @@ def _is_continuous(name):
     elif vendor == VEGA:
         return name in VEGA_CONTINUOUS_PALETTE_NAMES
     else:
-        raise ValueError('Vendor "{}" not recognised'.format(vendor))
+        raise ValueError('Vendor "{}" not recognized'.format(vendor))
 
 
 def discrete_palette(name, n=6, as_rgb=False):
