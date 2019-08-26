@@ -1,71 +1,5 @@
-VEGA_CATEGORY_10 = "category10"
-VEGA_CATEGORY_20 = "category20"
-VEGA_CATEGORY_20_B = "category20b"
-VEGA_CATEGORY_20_C = "category20c"
-VEGA_TABLEAU_10 = "tableau10"
-VEGA_TABLEAU_20 = "tableau20"
-VEGA_ACCENT = "accent"
-VEGA_DARK_2 = "dark2"
-VEGA_PAIRED = "paired"
-VEGA_PASTEL_1 = "pastel1"
-VEGA_PASTEL_2 = "pastel2"
-VEGA_SET_1 = "set1"
-VEGA_SET_2 = "set2"
-VEGA_SET_3 = "set3"
-VEGA_BLUES = "blues"
-VEGA_GREENS = "greens"
-VEGA_GREYS = "greys"
-VEGA_ORANGES = "oranges"
-VEGA_PURPLES = "purples"
-VEGA_REDS = "reds"
-VEGA_BLUE_GREEN = "bluegreen"
-VEGA_BLUE_PURPLE = "bluepurple"
-VEGA_GREEN_BLUE = "greenblue"
-VEGA_ORANGE_RED = "orangered"
-VEGA_PURPLE_BLUE = "purpleblue"
-VEGA_PURPLE_BLUE_GREEN = "purplebluegreen"
-VEGA_PURPLE_RED = "purplered"
-VEGA_RED_PURPLE = "redpurple"
-VEGA_YELLOW_GREEN = "yellowgreen"
-VEGA_YELLOW_ORANGE_BROWN = "yelloworangebrown"
-VEGA_YELLOW_ORANGE_RED = "yelloworangered"
-VEGA_BLUE_ORANGE = "blueorange"
-VEGA_BROWN_BLUE_GREEN = "brownbluegreen"
-VEGA_PURPLE_GREEN = "purplegreen"
-VEGA_PURPLE_ORANGE = "purpleorange"
-VEGA_RED_BLUE = "redblue"
-VEGA_RED_GREY = "redgrey"
-VEGA_YELLOW_GREEN_BLUE = "yellowgreenblue"
-VEGA_RED_YELLOW_BLUE = "redyellowblue"
-VEGA_RED_YELLOW_GREEN = "redyellowgreen"
-VEGA_PINK_YELLOW_GREEN = "pinkyellowgreen"
-VEGA_SPECTRAL = "spectral"
-VEGA_VIRIDIS = "viridis"
-VEGA_MAGMA = "magma"
-VEGA_INFERNO = "inferno"
-VEGA_PLASMA = "plasma"
-VEGA_RAINBOW = "rainbow"
-VEGA_SINEBOW = "sinebow"
-VEGA_BROWNS = "browns"
-VEGA_TEAL_BLUES = "tealblues"
-VEGA_TEALS = "teals"
-VEGA_WARM_GREYS = "warmgreys"
-VEGA_GOLD_GREEN = "goldgreen"
-VEGA_GOLD_ORANGE = "goldorange"
-VEGA_GOLD_RED = "goldred"
-VEGA_LIGHT_GREY_RED = "lightgreyred"
-VEGA_LIGHT_GREY_TEAL = "lightgreyteal"
-VEGA_LIGHT_MULTI = "lightmulti"
-VEGA_LIGHT_ORANGE = "lightorange"
-VEGA_LIGHT_TEAL_BLUE = "lighttealblue"
-VEGA_DARK_BLUE = "darkblue"
-VEGA_DARK_GOLD = "darkgold"
-VEGA_DARK_GREEN = "darkgreen"
-VEGA_DARK_MULTI = "darkmulti"
-VEGA_DARK_RED = "darkred"
-
-VEGA_PALETTES = {
-  "category10": {
+VEGA_PALETTES_DATA = {
+  "vega_category_10": {
     1: [
       "#1f77b4"
     ],
@@ -142,7 +76,7 @@ VEGA_PALETTES = {
       "#17becf"
     ]
   },
-  "category20": {
+  "vega_category_20": {
     1: [
       "#1f77b4"
     ],
@@ -394,7 +328,7 @@ VEGA_PALETTES = {
       "#9edae5"
     ]
   },
-  "category20b": {
+  "vega_category_20_b": {
     1: [
       "#393b79"
     ],
@@ -646,7 +580,7 @@ VEGA_PALETTES = {
       "#de9ed6"
     ]
   },
-  "category20c": {
+  "vega_category_20_c": {
     1: [
       "#3182bd"
     ],
@@ -898,7 +832,7 @@ VEGA_PALETTES = {
       "#d9d9d9"
     ]
   },
-  "tableau10": {
+  "vega_tableau_10": {
     1: [
       "#4c78a8"
     ],
@@ -975,7 +909,7 @@ VEGA_PALETTES = {
       "#bab0ac"
     ]
   },
-  "tableau20": {
+  "vega_tableau_20": {
     1: [
       "#4c78a8"
     ],
@@ -1227,7 +1161,7 @@ VEGA_PALETTES = {
       "#d8b5a5"
     ]
   },
-  "accent": {
+  "vega_accent": {
     1: [
       "#7fc97f"
     ],
@@ -1281,7 +1215,7 @@ VEGA_PALETTES = {
       "#666666"
     ]
   },
-  "dark2": {
+  "vega_dark_2": {
     1: [
       "#1b9e77"
     ],
@@ -1335,7 +1269,7 @@ VEGA_PALETTES = {
       "#666666"
     ]
   },
-  "paired": {
+  "vega_paired": {
     1: [
       "#a6cee3"
     ],
@@ -1439,7 +1373,7 @@ VEGA_PALETTES = {
       "#b15928"
     ]
   },
-  "pastel1": {
+  "vega_pastel_1": {
     1: [
       "#fbb4ae"
     ],
@@ -1504,7 +1438,7 @@ VEGA_PALETTES = {
       "#f2f2f2"
     ]
   },
-  "pastel2": {
+  "vega_pastel_2": {
     1: [
       "#b3e2cd"
     ],
@@ -1558,7 +1492,7 @@ VEGA_PALETTES = {
       "#cccccc"
     ]
   },
-  "set1": {
+  "vega_set_1": {
     1: [
       "#e41a1c"
     ],
@@ -1623,7 +1557,7 @@ VEGA_PALETTES = {
       "#999999"
     ]
   },
-  "set2": {
+  "vega_set_2": {
     1: [
       "#66c2a5"
     ],
@@ -1677,7 +1611,7 @@ VEGA_PALETTES = {
       "#b3b3b3"
     ]
   },
-  "set3": {
+  "vega_set_3": {
     1: [
       "#8dd3c7"
     ],
@@ -1781,7 +1715,7 @@ VEGA_PALETTES = {
       "#ffed6f"
     ]
   },
-  "blues": {
+  "vega_blues": {
     1: [
       "#5ba3cf"
     ],
@@ -1846,7 +1780,7 @@ VEGA_PALETTES = {
       "#125ca4"
     ]
   },
-  "greens": {
+  "vega_greens": {
     1: [
       "#60ba6c"
     ],
@@ -1911,7 +1845,7 @@ VEGA_PALETTES = {
       "#0e7735"
     ]
   },
-  "greys": {
+  "vega_greys": {
     1: [
       "#888888"
     ],
@@ -1976,7 +1910,7 @@ VEGA_PALETTES = {
       "#353535"
     ]
   },
-  "oranges": {
+  "vega_oranges": {
     1: [
       "#f87f2c"
     ],
@@ -2041,7 +1975,7 @@ VEGA_PALETTES = {
       "#b93d02"
     ]
   },
-  "purples": {
+  "vega_purples": {
     1: [
       "#928ec3"
     ],
@@ -2106,7 +2040,7 @@ VEGA_PALETTES = {
       "#5c3696"
     ]
   },
-  "reds": {
+  "vega_reds": {
     1: [
       "#f6573f"
     ],
@@ -2171,7 +2105,7 @@ VEGA_PALETTES = {
       "#b21218"
     ]
   },
-  "bluegreen": {
+  "vega_blue_green": {
     1: [
       "#58ba91"
     ],
@@ -2236,7 +2170,7 @@ VEGA_PALETTES = {
       "#0e7736"
     ]
   },
-  "bluepurple": {
+  "vega_blue_purple": {
     1: [
       "#8d85be"
     ],
@@ -2301,7 +2235,7 @@ VEGA_PALETTES = {
       "#822287"
     ]
   },
-  "greenblue": {
+  "vega_green_blue": {
     1: [
       "#69c2ca"
     ],
@@ -2366,7 +2300,7 @@ VEGA_PALETTES = {
       "#1675b1"
     ]
   },
-  "orangered": {
+  "vega_orange_red": {
     1: [
       "#f67d53"
     ],
@@ -2431,7 +2365,7 @@ VEGA_PALETTES = {
       "#bf130d"
     ]
   },
-  "purpleblue": {
+  "vega_purple_blue": {
     1: [
       "#5b9fc9"
     ],
@@ -2496,7 +2430,7 @@ VEGA_PALETTES = {
       "#056199"
     ]
   },
-  "purplebluegreen": {
+  "vega_purple_blue_green": {
     1: [
       "#549fc8"
     ],
@@ -2561,7 +2495,7 @@ VEGA_PALETTES = {
       "#02736b"
     ]
   },
-  "purplered": {
+  "vega_purple_red": {
     1: [
       "#e14da0"
     ],
@@ -2626,7 +2560,7 @@ VEGA_PALETTES = {
       "#ab0749"
     ]
   },
-  "redpurple": {
+  "vega_red_purple": {
     1: [
       "#ec539d"
     ],
@@ -2691,7 +2625,7 @@ VEGA_PALETTES = {
       "#8d0179"
     ]
   },
-  "yellowgreen": {
+  "vega_yellow_green": {
     1: [
       "#62bb6e"
     ],
@@ -2756,7 +2690,7 @@ VEGA_PALETTES = {
       "#0e723b"
     ]
   },
-  "yelloworangebrown": {
+  "vega_yellow_orange_brown": {
     1: [
       "#f68921"
     ],
@@ -2821,7 +2755,7 @@ VEGA_PALETTES = {
       "#ab3d03"
     ]
   },
-  "yelloworangered": {
+  "vega_yellow_orange_red": {
     1: [
       "#fc7335"
     ],
@@ -2886,7 +2820,7 @@ VEGA_PALETTES = {
       "#ca0b22"
     ]
   },
-  "blueorange": {
+  "vega_blue_orange": {
     1: [
       "#f2f0eb"
     ],
@@ -2951,7 +2885,7 @@ VEGA_PALETTES = {
       "#c5690d"
     ]
   },
-  "brownbluegreen": {
+  "vega_brown_blue_green": {
     1: [
       "#eef1ea"
     ],
@@ -3016,7 +2950,7 @@ VEGA_PALETTES = {
       "#187a72"
     ]
   },
-  "purplegreen": {
+  "vega_purple_green": {
     1: [
       "#eff0ef"
     ],
@@ -3081,7 +3015,7 @@ VEGA_PALETTES = {
       "#368e49"
     ]
   },
-  "purpleorange": {
+  "vega_purple_orange": {
     1: [
       "#f3eeea"
     ],
@@ -3146,7 +3080,7 @@ VEGA_PALETTES = {
       "#c5690d"
     ]
   },
-  "redblue": {
+  "vega_red_blue": {
     1: [
       "#f2efee"
     ],
@@ -3211,7 +3145,7 @@ VEGA_PALETTES = {
       "#2f78b3"
     ]
   },
-  "redgrey": {
+  "vega_red_grey": {
     1: [
       "#faf4f1"
     ],
@@ -3276,7 +3210,7 @@ VEGA_PALETTES = {
       "#646464"
     ]
   },
-  "yellowgreenblue": {
+  "vega_yellow_green_blue": {
     1: [
       "#45b4c2"
     ],
@@ -3341,7 +3275,7 @@ VEGA_PALETTES = {
       "#23479c"
     ]
   },
-  "redyellowblue": {
+  "vega_red_yellow_blue": {
     1: [
       "#faf8c1"
     ],
@@ -3406,7 +3340,7 @@ VEGA_PALETTES = {
       "#4a74b4"
     ]
   },
-  "redyellowgreen": {
+  "vega_red_yellow_green": {
     1: [
       "#f9f7ae"
     ],
@@ -3471,7 +3405,7 @@ VEGA_PALETTES = {
       "#22964f"
     ]
   },
-  "pinkyellowgreen": {
+  "vega_pink_yellow_green": {
     1: [
       "#f5f3ef"
     ],
@@ -3536,7 +3470,7 @@ VEGA_PALETTES = {
       "#4f9125"
     ]
   },
-  "spectral": {
+  "vega_spectral": {
     1: [
       "#fbf8b0"
     ],
@@ -3601,7 +3535,7 @@ VEGA_PALETTES = {
       "#4288b5"
     ]
   },
-  "viridis": {
+  "vega_viridis": {
     1: [
       "#21918d"
     ],
@@ -3924,7 +3858,7 @@ VEGA_PALETTES = {
       "#fbe724"
     ]
   },
-  "magma": {
+  "vega_magma": {
     1: [
       "#b6377a"
     ],
@@ -4247,7 +4181,7 @@ VEGA_PALETTES = {
       "#fcfbbd"
     ]
   },
-  "inferno": {
+  "vega_inferno": {
     1: [
       "#bb3755"
     ],
@@ -4570,7 +4504,7 @@ VEGA_PALETTES = {
       "#fbfea0"
     ]
   },
-  "plasma": {
+  "vega_plasma": {
     1: [
       "#cb4779"
     ],
@@ -4893,7 +4827,7 @@ VEGA_PALETTES = {
       "#f1f722"
     ]
   },
-  "rainbow": {
+  "vega_rainbow": {
     1: [
       "#aff05b"
     ],
@@ -4958,7 +4892,7 @@ VEGA_PALETTES = {
       "#4c6edb"
     ]
   },
-  "sinebow": {
+  "vega_sinebow": {
     1: [
       "#00bfbf"
     ],
@@ -5023,7 +4957,7 @@ VEGA_PALETTES = {
       "#e70b8d"
     ]
   },
-  "browns": {
+  "vega_browns": {
     1: [
       "#d18954"
     ],
@@ -5088,7 +5022,7 @@ VEGA_PALETTES = {
       "#ad4433"
     ]
   },
-  "tealblues": {
+  "vega_teal_blues": {
     1: [
       "#45a2b9"
     ],
@@ -5153,7 +5087,7 @@ VEGA_PALETTES = {
       "#2f6790"
     ]
   },
-  "teals": {
+  "vega_teals": {
     1: [
       "#4da5a4"
     ],
@@ -5218,7 +5152,7 @@ VEGA_PALETTES = {
       "#127273"
     ]
   },
-  "warmgreys": {
+  "vega_warm_greys": {
     1: [
       "#98908c"
     ],
@@ -5283,7 +5217,7 @@ VEGA_PALETTES = {
       "#665c5a"
     ]
   },
-  "goldgreen": {
+  "vega_gold_green": {
     1: [
       "#60a656"
     ],
@@ -5348,7 +5282,7 @@ VEGA_PALETTES = {
       "#257740"
     ]
   },
-  "goldorange": {
+  "vega_gold_orange": {
     1: [
       "#ef701b"
     ],
@@ -5413,7 +5347,7 @@ VEGA_PALETTES = {
       "#b14223"
     ]
   },
-  "goldred": {
+  "vega_gold_red": {
     1: [
       "#ee734a"
     ],
@@ -5478,7 +5412,7 @@ VEGA_PALETTES = {
       "#c43141"
     ]
   },
-  "lightgreyred": {
+  "vega_light_grey_red": {
     1: [
       "#c4a293"
     ],
@@ -5543,7 +5477,7 @@ VEGA_PALETTES = {
       "#df3a10"
     ]
   },
-  "lightgreyteal": {
+  "vega_light_grey_teal": {
     1: [
       "#85b2be"
     ],
@@ -5608,7 +5542,7 @@ VEGA_PALETTES = {
       "#1e84be"
     ]
   },
-  "lightmulti": {
+  "vega_light_multi": {
     1: [
       "#f6e072"
     ],
@@ -5673,7 +5607,7 @@ VEGA_PALETTES = {
       "#f56c3f"
     ]
   },
-  "lightorange": {
+  "vega_light_orange": {
     1: [
       "#f8936d"
     ],
@@ -5738,7 +5672,7 @@ VEGA_PALETTES = {
       "#dd4f5b"
     ]
   },
-  "lighttealblue": {
+  "vega_light_teal_blue": {
     1: [
       "#49a7bd"
     ],
@@ -5803,7 +5737,7 @@ VEGA_PALETTES = {
       "#276994"
     ]
   },
-  "darkblue": {
+  "vega_dark_blue": {
     1: [
       "#039ac7"
     ],
@@ -5868,7 +5802,7 @@ VEGA_PALETTES = {
       "#61f4fb"
     ]
   },
-  "darkgold": {
+  "vega_dark_gold": {
     1: [
       "#bf9828"
     ],
@@ -5933,7 +5867,7 @@ VEGA_PALETTES = {
       "#fff290"
     ]
   },
-  "darkgreen": {
+  "vega_dark_green": {
     1: [
       "#5fa941"
     ],
@@ -5998,7 +5932,7 @@ VEGA_PALETTES = {
       "#ffed39"
     ]
   },
-  "darkmulti": {
+  "vega_dark_multi": {
     1: [
       "#29a869"
     ],
@@ -6063,7 +5997,7 @@ VEGA_PALETTES = {
       "#fff166"
     ]
   },
-  "darkred": {
+  "vega_dark_red": {
     1: [
       "#e75d1e"
     ],
@@ -6129,3 +6063,136 @@ VEGA_PALETTES = {
     ]
   }
 }
+
+VEGA_CATEGORY_10 = "vega_category_10"
+VEGA_CATEGORY_20 = "vega_category_20"
+VEGA_CATEGORY_20_B = "vega_category_20_b"
+VEGA_CATEGORY_20_C = "vega_category_20_c"
+VEGA_TABLEAU_10 = "vega_tableau_10"
+VEGA_TABLEAU_20 = "vega_tableau_20"
+VEGA_ACCENT = "vega_accent"
+VEGA_DARK_2 = "vega_dark_2"
+VEGA_PAIRED = "vega_paired"
+VEGA_PASTEL_1 = "vega_pastel_1"
+VEGA_PASTEL_2 = "vega_pastel_2"
+VEGA_SET_1 = "vega_set_1"
+VEGA_SET_2 = "vega_set_2"
+VEGA_SET_3 = "vega_set_3"
+VEGA_BLUES = "vega_blues"
+VEGA_GREENS = "vega_greens"
+VEGA_GREYS = "vega_greys"
+VEGA_ORANGES = "vega_oranges"
+VEGA_PURPLES = "vega_purples"
+VEGA_REDS = "vega_reds"
+VEGA_BLUE_GREEN = "vega_blue_green"
+VEGA_BLUE_PURPLE = "vega_blue_purple"
+VEGA_GREEN_BLUE = "vega_green_blue"
+VEGA_ORANGE_RED = "vega_orange_red"
+VEGA_PURPLE_BLUE = "vega_purple_blue"
+VEGA_PURPLE_BLUE_GREEN = "vega_purple_blue_green"
+VEGA_PURPLE_RED = "vega_purple_red"
+VEGA_RED_PURPLE = "vega_red_purple"
+VEGA_YELLOW_GREEN = "vega_yellow_green"
+VEGA_YELLOW_ORANGE_BROWN = "vega_yellow_orange_brown"
+VEGA_YELLOW_ORANGE_RED = "vega_yellow_orange_red"
+VEGA_BLUE_ORANGE = "vega_blue_orange"
+VEGA_BROWN_BLUE_GREEN = "vega_brown_blue_green"
+VEGA_PURPLE_GREEN = "vega_purple_green"
+VEGA_PURPLE_ORANGE = "vega_purple_orange"
+VEGA_RED_BLUE = "vega_red_blue"
+VEGA_RED_GREY = "vega_red_grey"
+VEGA_YELLOW_GREEN_BLUE = "vega_yellow_green_blue"
+VEGA_RED_YELLOW_BLUE = "vega_red_yellow_blue"
+VEGA_RED_YELLOW_GREEN = "vega_red_yellow_green"
+VEGA_PINK_YELLOW_GREEN = "vega_pink_yellow_green"
+VEGA_SPECTRAL = "vega_spectral"
+VEGA_VIRIDIS = "vega_viridis"
+VEGA_MAGMA = "vega_magma"
+VEGA_INFERNO = "vega_inferno"
+VEGA_PLASMA = "vega_plasma"
+VEGA_RAINBOW = "vega_rainbow"
+VEGA_SINEBOW = "vega_sinebow"
+VEGA_BROWNS = "vega_browns"
+VEGA_TEAL_BLUES = "vega_teal_blues"
+VEGA_TEALS = "vega_teals"
+VEGA_WARM_GREYS = "vega_warm_greys"
+VEGA_GOLD_GREEN = "vega_gold_green"
+VEGA_GOLD_ORANGE = "vega_gold_orange"
+VEGA_GOLD_RED = "vega_gold_red"
+VEGA_LIGHT_GREY_RED = "vega_light_grey_red"
+VEGA_LIGHT_GREY_TEAL = "vega_light_grey_teal"
+VEGA_LIGHT_MULTI = "vega_light_multi"
+VEGA_LIGHT_ORANGE = "vega_light_orange"
+VEGA_LIGHT_TEAL_BLUE = "vega_light_teal_blue"
+VEGA_DARK_BLUE = "vega_dark_blue"
+VEGA_DARK_GOLD = "vega_dark_gold"
+VEGA_DARK_GREEN = "vega_dark_green"
+VEGA_DARK_MULTI = "vega_dark_multi"
+VEGA_DARK_RED = "vega_dark_red"
+
+VEGA_PALETTES = {}
+VEGA_PALETTES['category10'] = VEGA_PALETTES_DATA[VEGA_CATEGORY_10]
+VEGA_PALETTES['category20'] = VEGA_PALETTES_DATA[VEGA_CATEGORY_20]
+VEGA_PALETTES['category20b'] = VEGA_PALETTES_DATA[VEGA_CATEGORY_20_B]
+VEGA_PALETTES['category20c'] = VEGA_PALETTES_DATA[VEGA_CATEGORY_20_C]
+VEGA_PALETTES['tableau10'] = VEGA_PALETTES_DATA[VEGA_TABLEAU_10]
+VEGA_PALETTES['tableau20'] = VEGA_PALETTES_DATA[VEGA_TABLEAU_20]
+VEGA_PALETTES['accent'] = VEGA_PALETTES_DATA[VEGA_ACCENT]
+VEGA_PALETTES['dark2'] = VEGA_PALETTES_DATA[VEGA_DARK_2]
+VEGA_PALETTES['paired'] = VEGA_PALETTES_DATA[VEGA_PAIRED]
+VEGA_PALETTES['pastel1'] = VEGA_PALETTES_DATA[VEGA_PASTEL_1]
+VEGA_PALETTES['pastel2'] = VEGA_PALETTES_DATA[VEGA_PASTEL_2]
+VEGA_PALETTES['set1'] = VEGA_PALETTES_DATA[VEGA_SET_1]
+VEGA_PALETTES['set2'] = VEGA_PALETTES_DATA[VEGA_SET_2]
+VEGA_PALETTES['set3'] = VEGA_PALETTES_DATA[VEGA_SET_3]
+VEGA_PALETTES['blues'] = VEGA_PALETTES_DATA[VEGA_BLUES]
+VEGA_PALETTES['greens'] = VEGA_PALETTES_DATA[VEGA_GREENS]
+VEGA_PALETTES['greys'] = VEGA_PALETTES_DATA[VEGA_GREYS]
+VEGA_PALETTES['oranges'] = VEGA_PALETTES_DATA[VEGA_ORANGES]
+VEGA_PALETTES['purples'] = VEGA_PALETTES_DATA[VEGA_PURPLES]
+VEGA_PALETTES['reds'] = VEGA_PALETTES_DATA[VEGA_REDS]
+VEGA_PALETTES['blueGreen'] = VEGA_PALETTES_DATA[VEGA_BLUE_GREEN]
+VEGA_PALETTES['bluePurple'] = VEGA_PALETTES_DATA[VEGA_BLUE_PURPLE]
+VEGA_PALETTES['greenBlue'] = VEGA_PALETTES_DATA[VEGA_GREEN_BLUE]
+VEGA_PALETTES['orangeRed'] = VEGA_PALETTES_DATA[VEGA_ORANGE_RED]
+VEGA_PALETTES['purpleBlue'] = VEGA_PALETTES_DATA[VEGA_PURPLE_BLUE]
+VEGA_PALETTES['purpleBlueGreen'] = VEGA_PALETTES_DATA[VEGA_PURPLE_BLUE_GREEN]
+VEGA_PALETTES['purpleRed'] = VEGA_PALETTES_DATA[VEGA_PURPLE_RED]
+VEGA_PALETTES['redPurple'] = VEGA_PALETTES_DATA[VEGA_RED_PURPLE]
+VEGA_PALETTES['yellowGreen'] = VEGA_PALETTES_DATA[VEGA_YELLOW_GREEN]
+VEGA_PALETTES['yellowOrangeBrown'] = VEGA_PALETTES_DATA[VEGA_YELLOW_ORANGE_BROWN]
+VEGA_PALETTES['yellowOrangeRed'] = VEGA_PALETTES_DATA[VEGA_YELLOW_ORANGE_RED]
+VEGA_PALETTES['blueOrange'] = VEGA_PALETTES_DATA[VEGA_BLUE_ORANGE]
+VEGA_PALETTES['brownBlueGreen'] = VEGA_PALETTES_DATA[VEGA_BROWN_BLUE_GREEN]
+VEGA_PALETTES['purpleGreen'] = VEGA_PALETTES_DATA[VEGA_PURPLE_GREEN]
+VEGA_PALETTES['purpleOrange'] = VEGA_PALETTES_DATA[VEGA_PURPLE_ORANGE]
+VEGA_PALETTES['redBlue'] = VEGA_PALETTES_DATA[VEGA_RED_BLUE]
+VEGA_PALETTES['redGrey'] = VEGA_PALETTES_DATA[VEGA_RED_GREY]
+VEGA_PALETTES['yellowGreenBlue'] = VEGA_PALETTES_DATA[VEGA_YELLOW_GREEN_BLUE]
+VEGA_PALETTES['redYellowBlue'] = VEGA_PALETTES_DATA[VEGA_RED_YELLOW_BLUE]
+VEGA_PALETTES['redYellowGreen'] = VEGA_PALETTES_DATA[VEGA_RED_YELLOW_GREEN]
+VEGA_PALETTES['pinkYellowGreen'] = VEGA_PALETTES_DATA[VEGA_PINK_YELLOW_GREEN]
+VEGA_PALETTES['spectral'] = VEGA_PALETTES_DATA[VEGA_SPECTRAL]
+VEGA_PALETTES['viridis'] = VEGA_PALETTES_DATA[VEGA_VIRIDIS]
+VEGA_PALETTES['magma'] = VEGA_PALETTES_DATA[VEGA_MAGMA]
+VEGA_PALETTES['inferno'] = VEGA_PALETTES_DATA[VEGA_INFERNO]
+VEGA_PALETTES['plasma'] = VEGA_PALETTES_DATA[VEGA_PLASMA]
+VEGA_PALETTES['rainbow'] = VEGA_PALETTES_DATA[VEGA_RAINBOW]
+VEGA_PALETTES['sinebow'] = VEGA_PALETTES_DATA[VEGA_SINEBOW]
+VEGA_PALETTES['browns'] = VEGA_PALETTES_DATA[VEGA_BROWNS]
+VEGA_PALETTES['tealBlues'] = VEGA_PALETTES_DATA[VEGA_TEAL_BLUES]
+VEGA_PALETTES['teals'] = VEGA_PALETTES_DATA[VEGA_TEALS]
+VEGA_PALETTES['warmGreys'] = VEGA_PALETTES_DATA[VEGA_WARM_GREYS]
+VEGA_PALETTES['goldGreen'] = VEGA_PALETTES_DATA[VEGA_GOLD_GREEN]
+VEGA_PALETTES['goldOrange'] = VEGA_PALETTES_DATA[VEGA_GOLD_ORANGE]
+VEGA_PALETTES['goldRed'] = VEGA_PALETTES_DATA[VEGA_GOLD_RED]
+VEGA_PALETTES['lightGreyRed'] = VEGA_PALETTES_DATA[VEGA_LIGHT_GREY_RED]
+VEGA_PALETTES['lightGreyTeal'] = VEGA_PALETTES_DATA[VEGA_LIGHT_GREY_TEAL]
+VEGA_PALETTES['lightMulti'] = VEGA_PALETTES_DATA[VEGA_LIGHT_MULTI]
+VEGA_PALETTES['lightOrange'] = VEGA_PALETTES_DATA[VEGA_LIGHT_ORANGE]
+VEGA_PALETTES['lightTealBlue'] = VEGA_PALETTES_DATA[VEGA_LIGHT_TEAL_BLUE]
+VEGA_PALETTES['darkBlue'] = VEGA_PALETTES_DATA[VEGA_DARK_BLUE]
+VEGA_PALETTES['darkGold'] = VEGA_PALETTES_DATA[VEGA_DARK_GOLD]
+VEGA_PALETTES['darkGreen'] = VEGA_PALETTES_DATA[VEGA_DARK_GREEN]
+VEGA_PALETTES['darkMulti'] = VEGA_PALETTES_DATA[VEGA_DARK_MULTI]
+VEGA_PALETTES['darkRed'] = VEGA_PALETTES_DATA[VEGA_DARK_RED]

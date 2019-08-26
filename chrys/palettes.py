@@ -2,23 +2,23 @@ import math
 import matplotlib as mpl
 import numpy as np
 
-from chrys.data.bokeh_palettes import BOKEH_PALETTES, BOKEH_CATEGORY_10, BOKEH_CATEGORY_20, \
-    BOKEH_CATEGORY_20_B, BOKEH_CATEGORY_20_C, BOKEH_COLORBLIND, BOKEH_ACCENT, BOKEH_DARK_2, \
-    BOKEH_PAIRED, BOKEH_PASTEL_1, BOKEH_PASTEL_2, BOKEH_SET_1, BOKEH_SET_2, BOKEH_SET_3, \
-    BOKEH_YL_GN, BOKEH_YL_GN_BU, BOKEH_GN_BU, BOKEH_BU_GN, BOKEH_PU_BU_GN, BOKEH_PU_BU, \
-    BOKEH_BU_PU, BOKEH_RD_PU, BOKEH_PU_RD, BOKEH_OR_RD, BOKEH_YL_OR_RD, BOKEH_YL_OR_BR, \
-    BOKEH_PURPLES, BOKEH_BLUES, BOKEH_GREENS, BOKEH_ORANGES, BOKEH_REDS, BOKEH_GREYS, \
-    BOKEH_PU_OR, BOKEH_BR_BG, BOKEH_PR_GN, BOKEH_PI_YG, BOKEH_RD_BU, BOKEH_RD_GY, \
+from chrys.data.bokeh_palettes import BOKEH_PALETTES_DATA, BOKEH_PALETTES, BOKEH_CATEGORY_10, \
+    BOKEH_CATEGORY_20, BOKEH_CATEGORY_20_B, BOKEH_CATEGORY_20_C, BOKEH_COLORBLIND, BOKEH_ACCENT, \
+    BOKEH_DARK_2, BOKEH_PAIRED, BOKEH_PASTEL_1, BOKEH_PASTEL_2, BOKEH_SET_1, BOKEH_SET_2, \
+    BOKEH_SET_3, BOKEH_YL_GN, BOKEH_YL_GN_BU, BOKEH_GN_BU, BOKEH_BU_GN, BOKEH_PU_BU_GN, \
+    BOKEH_PU_BU, BOKEH_BU_PU, BOKEH_RD_PU, BOKEH_PU_RD, BOKEH_OR_RD, BOKEH_YL_OR_RD, \
+    BOKEH_YL_OR_BR, BOKEH_PURPLES, BOKEH_BLUES, BOKEH_GREENS, BOKEH_ORANGES, BOKEH_REDS, \
+    BOKEH_GREYS, BOKEH_PU_OR, BOKEH_BR_BG, BOKEH_PR_GN, BOKEH_PI_YG, BOKEH_RD_BU, BOKEH_RD_GY, \
     BOKEH_RD_YL_BU, BOKEH_SPECTRAL, BOKEH_RD_YL_GN, BOKEH_INFERNO, BOKEH_MAGMA, BOKEH_PLASMA, \
     BOKEH_VIRIDIS
-from chrys.data.vega_palettes import VEGA_PALETTES, VEGA_CATEGORY_10, VEGA_CATEGORY_20, \
-    VEGA_CATEGORY_20_B, VEGA_CATEGORY_20_C, VEGA_TABLEAU_10, VEGA_TABLEAU_20, VEGA_ACCENT, \
-    VEGA_DARK_2, VEGA_PAIRED, VEGA_PASTEL_1, VEGA_PASTEL_2, VEGA_SET_1, VEGA_SET_2, VEGA_SET_3, \
-    VEGA_BLUES, VEGA_GREENS, VEGA_GREYS, VEGA_ORANGES, VEGA_PURPLES, VEGA_REDS, VEGA_BLUE_GREEN, \
-    VEGA_BLUE_PURPLE, VEGA_GREEN_BLUE, VEGA_ORANGE_RED, VEGA_PURPLE_BLUE, VEGA_PURPLE_BLUE_GREEN, \
-    VEGA_PURPLE_RED, VEGA_RED_PURPLE, VEGA_YELLOW_GREEN, VEGA_YELLOW_ORANGE_BROWN, \
-    VEGA_YELLOW_ORANGE_RED, VEGA_BLUE_ORANGE, VEGA_BROWN_BLUE_GREEN, VEGA_PURPLE_GREEN, \
-    VEGA_PURPLE_ORANGE, VEGA_RED_BLUE, VEGA_RED_GREY, VEGA_YELLOW_GREEN_BLUE, \
+from chrys.data.vega_palettes import VEGA_PALETTES_DATA, VEGA_PALETTES, VEGA_CATEGORY_10, \
+    VEGA_CATEGORY_20, VEGA_CATEGORY_20_B, VEGA_CATEGORY_20_C, VEGA_TABLEAU_10, VEGA_TABLEAU_20, \
+    VEGA_ACCENT, VEGA_DARK_2, VEGA_PAIRED, VEGA_PASTEL_1, VEGA_PASTEL_2, VEGA_SET_1, VEGA_SET_2, \
+    VEGA_SET_3, VEGA_BLUES, VEGA_GREENS, VEGA_GREYS, VEGA_ORANGES, VEGA_PURPLES, VEGA_REDS, \
+    VEGA_BLUE_GREEN, VEGA_BLUE_PURPLE, VEGA_GREEN_BLUE, VEGA_ORANGE_RED, VEGA_PURPLE_BLUE, \
+    VEGA_PURPLE_BLUE_GREEN, VEGA_PURPLE_RED, VEGA_RED_PURPLE, VEGA_YELLOW_GREEN, \
+    VEGA_YELLOW_ORANGE_BROWN, VEGA_YELLOW_ORANGE_RED, VEGA_BLUE_ORANGE, VEGA_BROWN_BLUE_GREEN, \
+    VEGA_PURPLE_GREEN, VEGA_PURPLE_ORANGE, VEGA_RED_BLUE, VEGA_RED_GREY, VEGA_YELLOW_GREEN_BLUE, \
     VEGA_RED_YELLOW_BLUE, VEGA_RED_YELLOW_GREEN, VEGA_PINK_YELLOW_GREEN, VEGA_SPECTRAL, \
     VEGA_VIRIDIS, VEGA_MAGMA, VEGA_INFERNO, VEGA_PLASMA, VEGA_RAINBOW, VEGA_SINEBOW, VEGA_BROWNS, \
     VEGA_TEAL_BLUES, VEGA_TEALS, VEGA_WARM_GREYS, VEGA_GOLD_GREEN, VEGA_GOLD_ORANGE, \
@@ -112,79 +112,36 @@ CYCLICAL_PALETTE_PROVIDERS = (
     {BOKEH: None, MATPLOTLIB: None, VEGA: VEGA_SINEBOW},
 )
 
-BOKEH_DIVERGING_PALETTE_NAMES = map(
-    lambda x: x[BOKEH], filter(lambda x: x[BOKEH], DIVERGING_PALETTE_PROVIDERS))
-BOKEH_QUALITATIVE_PALETTE_NAMES = map(
-    lambda x: x[BOKEH], filter(lambda x: x[BOKEH], QUALITATIVE_PALETTE_PROVIDERS))
-BOKEH_SEQUENTIAL_PALETTE_NAMES = map(
-    lambda x: x[BOKEH], filter(lambda x: x[BOKEH], SEQUENTIAL_PALETTE_PROVIDERS))
-BOKEH_CYCLICAL_PALETTE_NAMES = map(
-    lambda x: x[BOKEH], filter(lambda x: x[BOKEH], CYCLICAL_PALETTE_PROVIDERS))
-BOKEH_CONTINUOUS_PALETTE_NAMES = [name for name, palette in BOKEH_PALETTES.iteritems()
+NAME_TO_PROVIDER_MAP = {}
+mappings = (DIVERGING_PALETTE_PROVIDERS, QUALITATIVE_PALETTE_PROVIDERS,
+            SEQUENTIAL_PALETTE_PROVIDERS, CYCLICAL_PALETTE_PROVIDERS)
+for mapping in mappings:
+    for palette in mapping:
+        for provider, name in palette.iteritems():
+            if name:
+                NAME_TO_PROVIDER_MAP[name] = provider
+
+# BOKEH_DIVERGING_PALETTE_NAMES = map(
+#     lambda x: x[BOKEH], filter(lambda x: x[BOKEH], DIVERGING_PALETTE_PROVIDERS))
+# BOKEH_QUALITATIVE_PALETTE_NAMES = map(
+#     lambda x: x[BOKEH], filter(lambda x: x[BOKEH], QUALITATIVE_PALETTE_PROVIDERS))
+# BOKEH_SEQUENTIAL_PALETTE_NAMES = map(
+#     lambda x: x[BOKEH], filter(lambda x: x[BOKEH], SEQUENTIAL_PALETTE_PROVIDERS))
+# BOKEH_CYCLICAL_PALETTE_NAMES = map(
+#     lambda x: x[BOKEH], filter(lambda x: x[BOKEH], CYCLICAL_PALETTE_PROVIDERS))
+BOKEH_CONTINUOUS_PALETTE_NAMES = [name for name, palette in BOKEH_PALETTES_DATA.iteritems()
                                   if filter(lambda x: x == 256, palette.keys())]
 
-VEGA_DIVERGING_PALETTE_NAMES = map(
-    lambda x: x[VEGA], filter(lambda x: x[VEGA], DIVERGING_PALETTE_PROVIDERS))
-VEGA_QUALITATIVE_PALETTE_NAMES = map(
-    lambda x: x[VEGA], filter(lambda x: x[VEGA], QUALITATIVE_PALETTE_PROVIDERS))
-VEGA_SEQUENTIAL_PALETTE_NAMES = map(
-    lambda x: x[VEGA], filter(lambda x: x[VEGA], SEQUENTIAL_PALETTE_PROVIDERS))
-VEGA_CYCLICAL_PALETTE_NAMES = map(
-    lambda x: x[VEGA], filter(lambda x: x[VEGA], CYCLICAL_PALETTE_PROVIDERS))
-VEGA_CONTINUOUS_PALETTE_NAMES = [name for name, palette in VEGA_PALETTES.iteritems()
+# VEGA_DIVERGING_PALETTE_NAMES = map(
+#     lambda x: x[VEGA], filter(lambda x: x[VEGA], DIVERGING_PALETTE_PROVIDERS))
+# VEGA_QUALITATIVE_PALETTE_NAMES = map(
+#     lambda x: x[VEGA], filter(lambda x: x[VEGA], QUALITATIVE_PALETTE_PROVIDERS))
+# VEGA_SEQUENTIAL_PALETTE_NAMES = map(
+#     lambda x: x[VEGA], filter(lambda x: x[VEGA], SEQUENTIAL_PALETTE_PROVIDERS))
+# VEGA_CYCLICAL_PALETTE_NAMES = map(
+#     lambda x: x[VEGA], filter(lambda x: x[VEGA], CYCLICAL_PALETTE_PROVIDERS))
+VEGA_CONTINUOUS_PALETTE_NAMES = [name for name, palette in VEGA_PALETTES_DATA.iteritems()
                                  if filter(lambda x: x == 256, palette.keys())]
-
-# TODO Compute from providers map
-BOKEH_TO_VEGA_PALETTE_MAP = {
-    # Diverging palettes
-    'puor': 'purpleorange',
-    'brbg': 'brownbluegreen',
-    'prgn': 'purplegreen',
-    'piyg': 'pinkyellowgreen',
-    'rdbu': 'redblue',
-    'rdgy': 'redgrey',
-    'rdylbu': 'redyellowblue',
-    'spectral': 'spectral',
-    'rdylgn': 'redyellowgreen',
-
-    # Qualitative palettes
-    'accent': 'accent',
-    'dark2': 'dark2',
-    'paired': 'paired',
-    'pastel1': 'pastel1',
-    'pastel2': 'pastel2',
-    'set1': 'set1',
-    'set2': 'set2',
-    'set3': 'set3',
-    'category10': 'category10',
-    'category20': 'category20',
-    'category20b': 'category20b',
-    'category20c': 'category20c',
-
-    # Sequential palettes
-    'ylgn': 'yellowgreen',
-    'ylgnbu': 'yellowgreenblue',
-    'gnbu': 'greenblue',
-    'bugn': 'bluegreen',
-    'pubugn': 'purplebluegreen',
-    'pubu': 'purpleblue',
-    'bupu': 'bluepurple',
-    'rdpu': 'redpurple',
-    'purd': 'purplered',
-    'orrd': 'orangered',
-    'ylorrd': 'yelloworangered',
-    'ylorbr': 'yelloworangebrown',
-    'purples': 'purples',
-    'blues': 'blues',
-    'greens': 'greens',
-    'oranges': 'oranges',
-    'reds': 'reds',
-    'greys': 'greys',
-    'inferno': 'inferno',
-    'magma': 'magma',
-    'plasma': 'plasma',
-    'viridis': 'viridis',
-}
 
 
 def to_discrete_palette(palette, n=6, as_rgb=False):
@@ -247,28 +204,40 @@ def to_continuous_palette(palette, n=6, as_rgb=False):
     return result
 
 
-def discrete_palette(provider, name, n=6, as_rgb=False):
+def _get_palette(name):
+    if name not in NAME_TO_PROVIDER_MAP:
+        raise ValueError('Palette name "{}" not recognised'.format(name))
+
+    provider = NAME_TO_PROVIDER_MAP[name]
+
     if provider == BOKEH:
-        palettes = BOKEH_PALETTES
+        return BOKEH_PALETTES_DATA[name]
     elif provider == VEGA:
-        palettes = VEGA_PALETTES
+        return VEGA_PALETTES_DATA[name]
     else:
-        raise ValueError('Provider {} not recognised'.format(provider))
-
-    return to_discrete_palette(palettes[name], n=n, as_rgb=as_rgb)
+        raise ValueError('Provider "{}" not recognised'.format(provider))
 
 
-def continuous_palette(provider, name, n=6, as_rgb=False):
+def _is_continuous(name):
+    if name not in NAME_TO_PROVIDER_MAP:
+        raise ValueError('Palette name "{}" not recognised'.format(name))
+
+    provider = NAME_TO_PROVIDER_MAP[name]
+
     if provider == BOKEH:
-        palettes = BOKEH_PALETTES
-        continuous_palettes = BOKEH_CONTINUOUS_PALETTE_NAMES
+        return name in BOKEH_CONTINUOUS_PALETTE_NAMES
     elif provider == VEGA:
-        palettes = VEGA_PALETTES
-        continuous_palettes = VEGA_CONTINUOUS_PALETTE_NAMES
+        return name in VEGA_CONTINUOUS_PALETTE_NAMES
     else:
-        raise ValueError('Provider {} not recognised'.format(provider))
+        raise ValueError('Provider "{}" not recognised'.format(provider))
 
-    if name not in continuous_palettes:
+
+def discrete_palette(name, n=6, as_rgb=False):
+    return to_discrete_palette(_get_palette(name), n=n, as_rgb=as_rgb)
+
+
+def continuous_palette(name, n=6, as_rgb=False):
+    if not _is_continuous(name):
         raise ValueError('Generating continuous palettes of "{}" is not supported'.format(name))
 
-    return to_continuous_palette(palettes[name][256], n=n, as_rgb=as_rgb)
+    return to_continuous_palette(_get_palette(name)[256], n=n, as_rgb=as_rgb)

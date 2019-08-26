@@ -63,10 +63,10 @@ Generate a new palette as a subset of a given palette:
 Generate a new palette as a subset of a palette from a given provider:
 
 ```python
->>> from chrys.palettes import VEGA, continuous_palette, discrete_palette
->>> discrete_palette(VEGA, 'viridis', 6)
+>>> from chrys.palettes import continuous_palette, discrete_palette
+>>> discrete_palette('vega_viridis', 6)
 ['#46327f', '#375c8d', '#27808e', '#1fa187', '#4ac26d', '#9fda3a']
->>> continuous_palette(VEGA, 'viridis', 6)
+>>> continuous_palette('vega_viridis', 6)
 ['#440356', '#414587', '#2a788e', '#22a884', '#79d152', '#fbe724']
 ```
 

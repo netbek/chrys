@@ -102,28 +102,34 @@ const basename = _.snakeCase(
   path.basename(__filename, path.extname(__filename))
 );
 const file = path.join(__dirname, '../chrys/data/' + basename + '.py');
-const vars = {names: {}, palettes: {}};
+const vars = {names: {}, originalNames: {}, palettes: {}};
 let maxSize = 0;
 
 _.forEach(discrete, (palettes, name) => {
-  vars.palettes[name.toLowerCase()] = {};
-  vars.names[_.snakeCase('bokeh_' + name).toUpperCase()] = name.toLowerCase();
+  const paletteName = _.snakeCase('bokeh_' + name).toLowerCase();
+
+  vars.palettes[paletteName] = {};
+  vars.names[paletteName.toUpperCase()] = paletteName;
+  vars.originalNames[name] = paletteName.toUpperCase();
 
   _.forEach(palettes, palette => {
     maxSize = Math.max(maxSize, palette.length);
-    vars.palettes[name.toLowerCase()][palette.length] = palette.map(
+    vars.palettes[paletteName][palette.length] = palette.map(
       d => '#' + _.padStart(d.toString(16), 6, '0')
     );
   });
 });
 
 _.forEach(continuous, (palettes, name) => {
-  vars.palettes[name.toLowerCase()] = {};
-  vars.names[_.snakeCase('bokeh_' + name).toUpperCase()] = name.toLowerCase();
+  const paletteName = _.snakeCase('bokeh_' + name).toLowerCase();
+
+  vars.palettes[paletteName] = {};
+  vars.names[paletteName.toUpperCase()] = paletteName;
+  vars.originalNames[name] = paletteName.toUpperCase();
 
   _.forEach(palettes, palette => {
     maxSize = Math.max(maxSize, palette.length);
-    vars.palettes[name.toLowerCase()][palette.length] = palette.map(
+    vars.palettes[paletteName][palette.length] = palette.map(
       d => '#' + _.padStart(d.toString(16), 6, '0')
     );
   });
@@ -132,16 +138,29 @@ _.forEach(continuous, (palettes, name) => {
 // Serialise data
 let data = '';
 
+// Palettes
+data +=
+  (basename + '_data').toUpperCase() +
+  ' = ' +
+  JSON.stringify(vars.palettes, null, 2) +
+  '\n';
+_.times(maxSize, i => {
+  data = data.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
+});
+data += '\n';
+
+// Names
 _.forEach(vars.names, (v, k) => {
   data += k + ' = "' + v + '"\n';
 });
 data += '\n';
 
-data += basename.toUpperCase() + ' = ' + JSON.stringify(vars.palettes, null, 2);
-
-// Remove quotes from numeric keys
-_.times(maxSize, i => {
-  data = data.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
+// Original names
+data += `${basename.toUpperCase()} = {}\n`;
+_.forEach(vars.originalNames, (v, k) => {
+  data += `${basename.toUpperCase()}['${k}'] = ${(
+    basename + '_data'
+  ).toUpperCase()}[${v}]\n`;
 });
 
 fs.outputFile(file, data);
