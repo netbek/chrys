@@ -102,34 +102,36 @@ const basename = _.snakeCase(
   path.basename(__filename, path.extname(__filename))
 );
 const file = path.join(__dirname, '../chrys/data/' + basename + '.py');
-const vars = {names: {}, originalNames: {}, palettes: {}};
+const vars = {constantNames: {}, vendorNames: {}, palettes: {}};
 let maxSize = 0;
 
-_.forEach(discrete, (palettes, name) => {
-  const paletteName = _.snakeCase('bokeh_' + name).toLowerCase();
+_.forEach(discrete, (palettes, vendorName) => {
+  const uniqueName = 'bokeh_' + vendorName;
+  const constantName = _.snakeCase(uniqueName).toUpperCase();
 
-  vars.palettes[paletteName] = {};
-  vars.names[paletteName.toUpperCase()] = paletteName;
-  vars.originalNames[name] = paletteName.toUpperCase();
+  vars.constantNames[constantName] = uniqueName;
+  vars.vendorNames[vendorName] = constantName;
+  vars.palettes[uniqueName] = {};
 
   _.forEach(palettes, palette => {
     maxSize = Math.max(maxSize, palette.length);
-    vars.palettes[paletteName][palette.length] = palette.map(
+    vars.palettes[uniqueName][palette.length] = palette.map(
       d => '#' + _.padStart(d.toString(16), 6, '0')
     );
   });
 });
 
-_.forEach(continuous, (palettes, name) => {
-  const paletteName = _.snakeCase('bokeh_' + name).toLowerCase();
+_.forEach(continuous, (palettes, vendorName) => {
+  const uniqueName = 'bokeh_' + vendorName;
+  const constantName = _.snakeCase(uniqueName).toUpperCase();
 
-  vars.palettes[paletteName] = {};
-  vars.names[paletteName.toUpperCase()] = paletteName;
-  vars.originalNames[name] = paletteName.toUpperCase();
+  vars.constantNames[constantName] = uniqueName;
+  vars.vendorNames[vendorName] = constantName;
+  vars.palettes[uniqueName] = {};
 
   _.forEach(palettes, palette => {
     maxSize = Math.max(maxSize, palette.length);
-    vars.palettes[paletteName][palette.length] = palette.map(
+    vars.palettes[uniqueName][palette.length] = palette.map(
       d => '#' + _.padStart(d.toString(16), 6, '0')
     );
   });
@@ -150,14 +152,14 @@ _.times(maxSize, i => {
 data += '\n';
 
 // Names
-_.forEach(vars.names, (v, k) => {
+_.forEach(vars.constantNames, (v, k) => {
   data += k + ' = "' + v + '"\n';
 });
 data += '\n';
 
-// Original names
+// Vendor names
 data += `${basename.toUpperCase()} = {}\n`;
-_.forEach(vars.originalNames, (v, k) => {
+_.forEach(vars.vendorNames, (v, k) => {
   data += `${basename.toUpperCase()}['${k}'] = ${(
     basename + '_data'
   ).toUpperCase()}[${v}]\n`;

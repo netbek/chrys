@@ -1,5 +1,5 @@
 BOKEH_PALETTES_DATA = {
-  "bokeh_category_10": {
+  "bokeh_Category10": {
     3: [
       "#1f77b4",
       "#ff7f0e",
@@ -69,7 +69,7 @@ BOKEH_PALETTES_DATA = {
       "#17becf"
     ]
   },
-  "bokeh_category_20": {
+  "bokeh_Category20": {
     3: [
       "#1f77b4",
       "#aec7e8",
@@ -314,7 +314,7 @@ BOKEH_PALETTES_DATA = {
       "#9edae5"
     ]
   },
-  "bokeh_category_20_b": {
+  "bokeh_Category20b": {
     3: [
       "#393b79",
       "#5254a3",
@@ -559,7 +559,7 @@ BOKEH_PALETTES_DATA = {
       "#de9ed6"
     ]
   },
-  "bokeh_category_20_c": {
+  "bokeh_Category20c": {
     3: [
       "#3182bd",
       "#6baed6",
@@ -804,7 +804,7 @@ BOKEH_PALETTES_DATA = {
       "#d9d9d9"
     ]
   },
-  "bokeh_colorblind": {
+  "bokeh_Colorblind": {
     3: [
       "#0072b2",
       "#e69f00",
@@ -851,7 +851,7 @@ BOKEH_PALETTES_DATA = {
       "#000000"
     ]
   },
-  "bokeh_accent": {
+  "bokeh_Accent": {
     3: [
       "#7fc97f",
       "#beaed4",
@@ -898,7 +898,7 @@ BOKEH_PALETTES_DATA = {
       "#666666"
     ]
   },
-  "bokeh_dark_2": {
+  "bokeh_Dark2": {
     3: [
       "#1b9e77",
       "#d95f02",
@@ -945,7 +945,7 @@ BOKEH_PALETTES_DATA = {
       "#666666"
     ]
   },
-  "bokeh_paired": {
+  "bokeh_Paired": {
     3: [
       "#a6cee3",
       "#1f78b4",
@@ -1042,7 +1042,7 @@ BOKEH_PALETTES_DATA = {
       "#b15928"
     ]
   },
-  "bokeh_pastel_1": {
+  "bokeh_Pastel1": {
     3: [
       "#fbb4ae",
       "#b3cde3",
@@ -1100,7 +1100,7 @@ BOKEH_PALETTES_DATA = {
       "#f2f2f2"
     ]
   },
-  "bokeh_pastel_2": {
+  "bokeh_Pastel2": {
     3: [
       "#b3e2cd",
       "#fdcdac",
@@ -1147,7 +1147,7 @@ BOKEH_PALETTES_DATA = {
       "#cccccc"
     ]
   },
-  "bokeh_set_1": {
+  "bokeh_Set1": {
     3: [
       "#e41a1c",
       "#377eb8",
@@ -1205,7 +1205,7 @@ BOKEH_PALETTES_DATA = {
       "#999999"
     ]
   },
-  "bokeh_set_2": {
+  "bokeh_Set2": {
     3: [
       "#66c2a5",
       "#fc8d62",
@@ -1252,7 +1252,7 @@ BOKEH_PALETTES_DATA = {
       "#b3b3b3"
     ]
   },
-  "bokeh_set_3": {
+  "bokeh_Set3": {
     3: [
       "#8dd3c7",
       "#ffffb3",
@@ -1349,7 +1349,7 @@ BOKEH_PALETTES_DATA = {
       "#ffed6f"
     ]
   },
-  "bokeh_yl_gn": {
+  "bokeh_YlGn": {
     3: [
       "#31a354",
       "#addd8e",
@@ -1407,7 +1407,7 @@ BOKEH_PALETTES_DATA = {
       "#ffffe5"
     ]
   },
-  "bokeh_yl_gn_bu": {
+  "bokeh_YlGnBu": {
     3: [
       "#2c7fb8",
       "#7fcdbb",
@@ -1465,7 +1465,7 @@ BOKEH_PALETTES_DATA = {
       "#ffffd9"
     ]
   },
-  "bokeh_gn_bu": {
+  "bokeh_GnBu": {
     3: [
       "#43a2ca",
       "#a8ddb5",
@@ -1523,7 +1523,7 @@ BOKEH_PALETTES_DATA = {
       "#f7fcf0"
     ]
   },
-  "bokeh_bu_gn": {
+  "bokeh_BuGn": {
     3: [
       "#2ca25f",
       "#99d8c9",
@@ -1581,7 +1581,7 @@ BOKEH_PALETTES_DATA = {
       "#f7fcfd"
     ]
   },
-  "bokeh_pu_bu_gn": {
+  "bokeh_PuBuGn": {
     3: [
       "#1c9099",
       "#a6bddb",
@@ -1639,7 +1639,7 @@ BOKEH_PALETTES_DATA = {
       "#fff7fb"
     ]
   },
-  "bokeh_pu_bu": {
+  "bokeh_PuBu": {
     3: [
       "#2b8cbe",
       "#a6bddb",
@@ -1697,7 +1697,7 @@ BOKEH_PALETTES_DATA = {
       "#fff7fb"
     ]
   },
-  "bokeh_bu_pu": {
+  "bokeh_BuPu": {
     3: [
       "#8856a7",
       "#9ebcda",
@@ -1755,7 +1755,7 @@ BOKEH_PALETTES_DATA = {
       "#f7fcfd"
     ]
   },
-  "bokeh_rd_pu": {
+  "bokeh_RdPu": {
     3: [
       "#c51b8a",
       "#fa9fb5",
@@ -1813,7 +1813,7 @@ BOKEH_PALETTES_DATA = {
       "#fff7f3"
     ]
   },
-  "bokeh_pu_rd": {
+  "bokeh_PuRd": {
     3: [
       "#dd1c77",
       "#c994c7",
@@ -1871,7 +1871,7 @@ BOKEH_PALETTES_DATA = {
       "#f7f4f9"
     ]
   },
-  "bokeh_or_rd": {
+  "bokeh_OrRd": {
     3: [
       "#e34a33",
       "#fdbb84",
@@ -1929,7 +1929,7 @@ BOKEH_PALETTES_DATA = {
       "#fff7ec"
     ]
   },
-  "bokeh_yl_or_rd": {
+  "bokeh_YlOrRd": {
     3: [
       "#f03b20",
       "#feb24c",
@@ -1987,7 +1987,7 @@ BOKEH_PALETTES_DATA = {
       "#ffffcc"
     ]
   },
-  "bokeh_yl_or_br": {
+  "bokeh_YlOrBr": {
     3: [
       "#d95f0e",
       "#fec44f",
@@ -2045,7 +2045,7 @@ BOKEH_PALETTES_DATA = {
       "#ffffe5"
     ]
   },
-  "bokeh_purples": {
+  "bokeh_Purples": {
     3: [
       "#756bb1",
       "#bcbddc",
@@ -2103,7 +2103,7 @@ BOKEH_PALETTES_DATA = {
       "#fcfbfd"
     ]
   },
-  "bokeh_blues": {
+  "bokeh_Blues": {
     3: [
       "#3182bd",
       "#9ecae1",
@@ -2161,7 +2161,7 @@ BOKEH_PALETTES_DATA = {
       "#f7fbff"
     ]
   },
-  "bokeh_greens": {
+  "bokeh_Greens": {
     3: [
       "#31a354",
       "#a1d99b",
@@ -2219,7 +2219,7 @@ BOKEH_PALETTES_DATA = {
       "#f7fcf5"
     ]
   },
-  "bokeh_oranges": {
+  "bokeh_Oranges": {
     3: [
       "#e6550d",
       "#fdae6b",
@@ -2277,7 +2277,7 @@ BOKEH_PALETTES_DATA = {
       "#fff5eb"
     ]
   },
-  "bokeh_reds": {
+  "bokeh_Reds": {
     3: [
       "#de2d26",
       "#fc9272",
@@ -2335,7 +2335,7 @@ BOKEH_PALETTES_DATA = {
       "#fff5f0"
     ]
   },
-  "bokeh_greys": {
+  "bokeh_Greys": {
     3: [
       "#636363",
       "#bdbdbd",
@@ -2676,7 +2676,7 @@ BOKEH_PALETTES_DATA = {
       "#ffffff"
     ]
   },
-  "bokeh_pu_or": {
+  "bokeh_PuOr": {
     3: [
       "#998ec3",
       "#f7f7f7",
@@ -2759,7 +2759,7 @@ BOKEH_PALETTES_DATA = {
       "#7f3b08"
     ]
   },
-  "bokeh_br_bg": {
+  "bokeh_BrBG": {
     3: [
       "#5ab4ac",
       "#f5f5f5",
@@ -2842,7 +2842,7 @@ BOKEH_PALETTES_DATA = {
       "#543005"
     ]
   },
-  "bokeh_pr_gn": {
+  "bokeh_PRGn": {
     3: [
       "#7fbf7b",
       "#f7f7f7",
@@ -2925,7 +2925,7 @@ BOKEH_PALETTES_DATA = {
       "#40004b"
     ]
   },
-  "bokeh_pi_yg": {
+  "bokeh_PiYG": {
     3: [
       "#a1d76a",
       "#f7f7f7",
@@ -3008,7 +3008,7 @@ BOKEH_PALETTES_DATA = {
       "#8e0152"
     ]
   },
-  "bokeh_rd_bu": {
+  "bokeh_RdBu": {
     3: [
       "#67a9cf",
       "#f7f7f7",
@@ -3091,7 +3091,7 @@ BOKEH_PALETTES_DATA = {
       "#67001f"
     ]
   },
-  "bokeh_rd_gy": {
+  "bokeh_RdGy": {
     3: [
       "#999999",
       "#ffffff",
@@ -3174,7 +3174,7 @@ BOKEH_PALETTES_DATA = {
       "#67001f"
     ]
   },
-  "bokeh_rd_yl_bu": {
+  "bokeh_RdYlBu": {
     3: [
       "#91bfdb",
       "#ffffbf",
@@ -3257,7 +3257,7 @@ BOKEH_PALETTES_DATA = {
       "#a50026"
     ]
   },
-  "bokeh_spectral": {
+  "bokeh_Spectral": {
     3: [
       "#99d594",
       "#ffffbf",
@@ -3340,7 +3340,7 @@ BOKEH_PALETTES_DATA = {
       "#9e0142"
     ]
   },
-  "bokeh_rd_yl_gn": {
+  "bokeh_RdYlGn": {
     3: [
       "#91cf60",
       "#ffffbf",
@@ -3423,7 +3423,7 @@ BOKEH_PALETTES_DATA = {
       "#a50026"
     ]
   },
-  "bokeh_inferno": {
+  "bokeh_Inferno": {
     3: [
       "#440154",
       "#208f8c",
@@ -3764,7 +3764,7 @@ BOKEH_PALETTES_DATA = {
       "#fcfea4"
     ]
   },
-  "bokeh_magma": {
+  "bokeh_Magma": {
     3: [
       "#000003",
       "#b53679",
@@ -4105,7 +4105,7 @@ BOKEH_PALETTES_DATA = {
       "#fbfcbf"
     ]
   },
-  "bokeh_plasma": {
+  "bokeh_Plasma": {
     3: [
       "#0c0786",
       "#ca4678",
@@ -4446,7 +4446,7 @@ BOKEH_PALETTES_DATA = {
       "#eff821"
     ]
   },
-  "bokeh_viridis": {
+  "bokeh_Viridis": {
     3: [
       "#440154",
       "#208f8c",
@@ -4789,50 +4789,50 @@ BOKEH_PALETTES_DATA = {
   }
 }
 
-BOKEH_CATEGORY_10 = "bokeh_category_10"
-BOKEH_CATEGORY_20 = "bokeh_category_20"
-BOKEH_CATEGORY_20_B = "bokeh_category_20_b"
-BOKEH_CATEGORY_20_C = "bokeh_category_20_c"
-BOKEH_COLORBLIND = "bokeh_colorblind"
-BOKEH_ACCENT = "bokeh_accent"
-BOKEH_DARK_2 = "bokeh_dark_2"
-BOKEH_PAIRED = "bokeh_paired"
-BOKEH_PASTEL_1 = "bokeh_pastel_1"
-BOKEH_PASTEL_2 = "bokeh_pastel_2"
-BOKEH_SET_1 = "bokeh_set_1"
-BOKEH_SET_2 = "bokeh_set_2"
-BOKEH_SET_3 = "bokeh_set_3"
-BOKEH_YL_GN = "bokeh_yl_gn"
-BOKEH_YL_GN_BU = "bokeh_yl_gn_bu"
-BOKEH_GN_BU = "bokeh_gn_bu"
-BOKEH_BU_GN = "bokeh_bu_gn"
-BOKEH_PU_BU_GN = "bokeh_pu_bu_gn"
-BOKEH_PU_BU = "bokeh_pu_bu"
-BOKEH_BU_PU = "bokeh_bu_pu"
-BOKEH_RD_PU = "bokeh_rd_pu"
-BOKEH_PU_RD = "bokeh_pu_rd"
-BOKEH_OR_RD = "bokeh_or_rd"
-BOKEH_YL_OR_RD = "bokeh_yl_or_rd"
-BOKEH_YL_OR_BR = "bokeh_yl_or_br"
-BOKEH_PURPLES = "bokeh_purples"
-BOKEH_BLUES = "bokeh_blues"
-BOKEH_GREENS = "bokeh_greens"
-BOKEH_ORANGES = "bokeh_oranges"
-BOKEH_REDS = "bokeh_reds"
-BOKEH_GREYS = "bokeh_greys"
-BOKEH_PU_OR = "bokeh_pu_or"
-BOKEH_BR_BG = "bokeh_br_bg"
-BOKEH_PR_GN = "bokeh_pr_gn"
-BOKEH_PI_YG = "bokeh_pi_yg"
-BOKEH_RD_BU = "bokeh_rd_bu"
-BOKEH_RD_GY = "bokeh_rd_gy"
-BOKEH_RD_YL_BU = "bokeh_rd_yl_bu"
-BOKEH_SPECTRAL = "bokeh_spectral"
-BOKEH_RD_YL_GN = "bokeh_rd_yl_gn"
-BOKEH_INFERNO = "bokeh_inferno"
-BOKEH_MAGMA = "bokeh_magma"
-BOKEH_PLASMA = "bokeh_plasma"
-BOKEH_VIRIDIS = "bokeh_viridis"
+BOKEH_CATEGORY_10 = "bokeh_Category10"
+BOKEH_CATEGORY_20 = "bokeh_Category20"
+BOKEH_CATEGORY_20_B = "bokeh_Category20b"
+BOKEH_CATEGORY_20_C = "bokeh_Category20c"
+BOKEH_COLORBLIND = "bokeh_Colorblind"
+BOKEH_ACCENT = "bokeh_Accent"
+BOKEH_DARK_2 = "bokeh_Dark2"
+BOKEH_PAIRED = "bokeh_Paired"
+BOKEH_PASTEL_1 = "bokeh_Pastel1"
+BOKEH_PASTEL_2 = "bokeh_Pastel2"
+BOKEH_SET_1 = "bokeh_Set1"
+BOKEH_SET_2 = "bokeh_Set2"
+BOKEH_SET_3 = "bokeh_Set3"
+BOKEH_YL_GN = "bokeh_YlGn"
+BOKEH_YL_GN_BU = "bokeh_YlGnBu"
+BOKEH_GN_BU = "bokeh_GnBu"
+BOKEH_BU_GN = "bokeh_BuGn"
+BOKEH_PU_BU_GN = "bokeh_PuBuGn"
+BOKEH_PU_BU = "bokeh_PuBu"
+BOKEH_BU_PU = "bokeh_BuPu"
+BOKEH_RD_PU = "bokeh_RdPu"
+BOKEH_PU_RD = "bokeh_PuRd"
+BOKEH_OR_RD = "bokeh_OrRd"
+BOKEH_YL_OR_RD = "bokeh_YlOrRd"
+BOKEH_YL_OR_BR = "bokeh_YlOrBr"
+BOKEH_PURPLES = "bokeh_Purples"
+BOKEH_BLUES = "bokeh_Blues"
+BOKEH_GREENS = "bokeh_Greens"
+BOKEH_ORANGES = "bokeh_Oranges"
+BOKEH_REDS = "bokeh_Reds"
+BOKEH_GREYS = "bokeh_Greys"
+BOKEH_PU_OR = "bokeh_PuOr"
+BOKEH_BR_BG = "bokeh_BrBG"
+BOKEH_PR_GN = "bokeh_PRGn"
+BOKEH_PI_YG = "bokeh_PiYG"
+BOKEH_RD_BU = "bokeh_RdBu"
+BOKEH_RD_GY = "bokeh_RdGy"
+BOKEH_RD_YL_BU = "bokeh_RdYlBu"
+BOKEH_SPECTRAL = "bokeh_Spectral"
+BOKEH_RD_YL_GN = "bokeh_RdYlGn"
+BOKEH_INFERNO = "bokeh_Inferno"
+BOKEH_MAGMA = "bokeh_Magma"
+BOKEH_PLASMA = "bokeh_Plasma"
+BOKEH_VIRIDIS = "bokeh_Viridis"
 
 BOKEH_PALETTES = {}
 BOKEH_PALETTES['Category10'] = BOKEH_PALETTES_DATA[BOKEH_CATEGORY_10]
