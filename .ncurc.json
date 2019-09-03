@@ -1,7 +1,8 @@
 {
   "reject": [
     "eslint-scope",
-    "event-stream"
+    "event-stream",
+    "json-sass"
   ],
   "removeRange": true,
   "semverLevel": "major",
