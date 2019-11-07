@@ -13,7 +13,7 @@ venv/bin/pip install -r requirements.txt
 echo "Virtual environment updated"
 
 echo "Updating Python dependencies ..."
-pip install --user twine
+pip install --user setuptools==41.6.0 twine==1.15.0 wheel==0.33.6
 echo "Python dependencies updated"
 
 echo "Updating Node dependencies ..."
