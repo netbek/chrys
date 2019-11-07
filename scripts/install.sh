@@ -12,6 +12,10 @@ echo "Updating virtual environment ..."
 venv/bin/pip install -r requirements.txt
 echo "Virtual environment updated"
 
+echo "Updating Python dependencies ..."
+pip install --user twine
+echo "Python dependencies updated"
+
 echo "Updating Node dependencies ..."
 npm ci
 echo "Node dependencies updated"
