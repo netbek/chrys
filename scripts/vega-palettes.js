@@ -33,9 +33,9 @@ Object.keys(continuous).forEach(vendorName => {
   vars.constantNames[constantName] = uniqueName;
   vars.vendorNames[vendorName.toLowerCase()] = constantName;
   vars.palettes[uniqueName] = {};
-  maxSize = Math.max(maxSize, continuous[vendorName].length / 6);
+  maxSize = Math.max(maxSize, 11);
 
-  for (let i = 1; i <= 9; i++) {
+  for (let i = 1; i <= 11; i++) {
     vars.palettes[uniqueName][i] = quantizeInterpolator(
       scheme(vendorName),
       i
