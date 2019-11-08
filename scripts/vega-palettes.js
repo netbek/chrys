@@ -78,22 +78,23 @@ Object.keys(continuous).forEach(vendorName => {
 });
 
 // Serialise data
+const VEGA_PALETTES = 'VEGA_PALETTES';
+const VEGA_PALETTE_DATA = 'VEGA_PALETTE_DATA';
+const VEGA_PALETTE_NAMES = 'VEGA_PALETTE_NAMES';
+const VEGA_DOCS_PALETTES = 'VEGA_DOCS_PALETTES';
+const VEGA_DOCS_PALETTE_DATA = 'VEGA_DOCS_PALETTE_DATA';
+
 let data = '';
 
-// Palettes
 data +=
-  (basename + '_data').toUpperCase() +
-  ' = ' +
-  JSON.stringify(vars.palettes, null, 2) +
-  '\n';
+  VEGA_PALETTE_DATA + ' = ' + JSON.stringify(vars.palettes, null, 2) + '\n';
 _.times(maxSize, i => {
   data = data.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
 });
 data += '\n';
 
-// Documentation palettes
 data +=
-  (basename + '_docs_data').toUpperCase() +
+  VEGA_DOCS_PALETTE_DATA +
   ' = ' +
   JSON.stringify(vars.docsPalettes, null, 2) +
   '\n';
@@ -102,27 +103,26 @@ _.times(docsMaxSize, i => {
 });
 data += '\n';
 
-// Names
 _.forEach(vars.constantNames, (v, k) => {
   data += k + ' = "' + v + '"\n';
 });
 data += '\n';
 
-// Vendor names
-data += `${basename.toUpperCase()} = {}\n`;
-_.forEach(vars.vendorNames, (v, k) => {
-  data += `${basename.toUpperCase()}['${k}'] = ${(
-    basename + '_data'
-  ).toUpperCase()}[${v}]\n`;
+data += `${VEGA_PALETTE_NAMES} = {}\n`;
+_.forEach(vars.constantNames, (v, k) => {
+  data += `${VEGA_PALETTE_NAMES}['${k}'] = '${v}'\n`;
 });
 data += '\n';
 
-// Documentation palettes
-data += `${(basename + '_docs').toUpperCase()} = {}\n`;
+data += `${VEGA_PALETTES} = {}\n`;
 _.forEach(vars.vendorNames, (v, k) => {
-  data += `${(basename + '_docs').toUpperCase()}['${k}'] = ${(
-    basename + '_docs_data'
-  ).toUpperCase()}[${v}]\n`;
+  data += `${VEGA_PALETTES}['${k}'] = ${VEGA_PALETTE_DATA}[${v}]\n`;
+});
+data += '\n';
+
+data += `${VEGA_DOCS_PALETTES} = {}\n`;
+_.forEach(vars.vendorNames, (v, k) => {
+  data += `${VEGA_DOCS_PALETTES}['${k}'] = ${VEGA_DOCS_PALETTE_DATA}[${v}]\n`;
 });
 
 fs.outputFile(file, data);

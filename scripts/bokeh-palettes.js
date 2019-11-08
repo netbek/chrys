@@ -162,22 +162,23 @@ _.forEach(continuous, (palettes, vendorName) => {
 });
 
 // Serialise data
+const BOKEH_PALETTES = 'BOKEH_PALETTES';
+const BOKEH_PALETTE_DATA = 'BOKEH_PALETTE_DATA';
+const BOKEH_PALETTE_NAMES = 'BOKEH_PALETTE_NAMES';
+const BOKEH_DOCS_PALETTES = 'BOKEH_DOCS_PALETTES';
+const BOKEH_DOCS_PALETTE_DATA = 'BOKEH_DOCS_PALETTE_DATA';
+
 let data = '';
 
-// Palettes
 data +=
-  (basename + '_data').toUpperCase() +
-  ' = ' +
-  JSON.stringify(vars.palettes, null, 2) +
-  '\n';
+  BOKEH_PALETTE_DATA + ' = ' + JSON.stringify(vars.palettes, null, 2) + '\n';
 _.times(maxSize, i => {
   data = data.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
 });
 data += '\n';
 
-// Documentation palettes
 data +=
-  (basename + '_docs_data').toUpperCase() +
+  BOKEH_DOCS_PALETTE_DATA +
   ' = ' +
   JSON.stringify(vars.docsPalettes, null, 2) +
   '\n';
@@ -186,27 +187,26 @@ _.times(docsMaxSize, i => {
 });
 data += '\n';
 
-// Names
 _.forEach(vars.constantNames, (v, k) => {
   data += k + ' = "' + v + '"\n';
 });
 data += '\n';
 
-// Vendor names
-data += `${basename.toUpperCase()} = {}\n`;
-_.forEach(vars.vendorNames, (v, k) => {
-  data += `${basename.toUpperCase()}['${k}'] = ${(
-    basename + '_data'
-  ).toUpperCase()}[${v}]\n`;
+data += `${BOKEH_PALETTE_NAMES} = {}\n`;
+_.forEach(vars.constantNames, (v, k) => {
+  data += `${BOKEH_PALETTE_NAMES}['${k}'] = '${v}'\n`;
 });
 data += '\n';
 
-// Documentation palettes
-data += `${(basename + '_docs').toUpperCase()} = {}\n`;
+data += `${BOKEH_PALETTES} = {}\n`;
 _.forEach(vars.vendorNames, (v, k) => {
-  data += `${(basename + '_docs').toUpperCase()}['${k}'] = ${(
-    basename + '_docs_data'
-  ).toUpperCase()}[${v}]\n`;
+  data += `${BOKEH_PALETTES}['${k}'] = ${BOKEH_PALETTE_DATA}[${v}]\n`;
+});
+data += '\n';
+
+data += `${BOKEH_DOCS_PALETTES} = {}\n`;
+_.forEach(vars.vendorNames, (v, k) => {
+  data += `${BOKEH_DOCS_PALETTES}['${k}'] = ${BOKEH_DOCS_PALETTE_DATA}[${v}]\n`;
 });
 
 fs.outputFile(file, data);
