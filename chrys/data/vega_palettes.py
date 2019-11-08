@@ -6064,6 +6064,874 @@ VEGA_PALETTES_DATA = {
   }
 }
 
+VEGA_PALETTES_DOCS_DATA = {
+  "vega_category10": [
+    "#1f77b4",
+    "#ff7f0e",
+    "#2ca02c",
+    "#d62728",
+    "#9467bd",
+    "#8c564b",
+    "#e377c2",
+    "#7f7f7f",
+    "#bcbd22",
+    "#17becf"
+  ],
+  "vega_category20": [
+    "#1f77b4",
+    "#aec7e8",
+    "#ff7f0e",
+    "#ffbb78",
+    "#2ca02c",
+    "#98df8a",
+    "#d62728",
+    "#ff9896",
+    "#9467bd",
+    "#c5b0d5",
+    "#8c564b",
+    "#c49c94",
+    "#e377c2",
+    "#f7b6d2",
+    "#7f7f7f",
+    "#c7c7c7",
+    "#bcbd22",
+    "#dbdb8d",
+    "#17becf",
+    "#9edae5"
+  ],
+  "vega_category20b": [
+    "#393b79",
+    "#5254a3",
+    "#6b6ecf",
+    "#9c9ede",
+    "#637939",
+    "#8ca252",
+    "#b5cf6b",
+    "#cedb9c",
+    "#8c6d31",
+    "#bd9e39",
+    "#e7ba52",
+    "#e7cb94",
+    "#843c39",
+    "#ad494a",
+    "#d6616b",
+    "#e7969c",
+    "#7b4173",
+    "#a55194",
+    "#ce6dbd",
+    "#de9ed6"
+  ],
+  "vega_category20c": [
+    "#3182bd",
+    "#6baed6",
+    "#9ecae1",
+    "#c6dbef",
+    "#e6550d",
+    "#fd8d3c",
+    "#fdae6b",
+    "#fdd0a2",
+    "#31a354",
+    "#74c476",
+    "#a1d99b",
+    "#c7e9c0",
+    "#756bb1",
+    "#9e9ac8",
+    "#bcbddc",
+    "#dadaeb",
+    "#636363",
+    "#969696",
+    "#bdbdbd",
+    "#d9d9d9"
+  ],
+  "vega_tableau10": [
+    "#4c78a8",
+    "#f58518",
+    "#e45756",
+    "#72b7b2",
+    "#54a24b",
+    "#eeca3b",
+    "#b279a2",
+    "#ff9da6",
+    "#9d755d",
+    "#bab0ac"
+  ],
+  "vega_tableau20": [
+    "#4c78a8",
+    "#9ecae9",
+    "#f58518",
+    "#ffbf79",
+    "#54a24b",
+    "#88d27a",
+    "#b79a20",
+    "#f2cf5b",
+    "#439894",
+    "#83bcb6",
+    "#e45756",
+    "#ff9d98",
+    "#79706e",
+    "#bab0ac",
+    "#d67195",
+    "#fcbfd2",
+    "#b279a2",
+    "#d6a5c9",
+    "#9e765f",
+    "#d8b5a5"
+  ],
+  "vega_accent": [
+    "#7fc97f",
+    "#beaed4",
+    "#fdc086",
+    "#ffff99",
+    "#386cb0",
+    "#f0027f",
+    "#bf5b17",
+    "#666666"
+  ],
+  "vega_dark2": [
+    "#1b9e77",
+    "#d95f02",
+    "#7570b3",
+    "#e7298a",
+    "#66a61e",
+    "#e6ab02",
+    "#a6761d",
+    "#666666"
+  ],
+  "vega_paired": [
+    "#a6cee3",
+    "#1f78b4",
+    "#b2df8a",
+    "#33a02c",
+    "#fb9a99",
+    "#e31a1c",
+    "#fdbf6f",
+    "#ff7f00",
+    "#cab2d6",
+    "#6a3d9a",
+    "#ffff99",
+    "#b15928"
+  ],
+  "vega_pastel1": [
+    "#fbb4ae",
+    "#b3cde3",
+    "#ccebc5",
+    "#decbe4",
+    "#fed9a6",
+    "#ffffcc",
+    "#e5d8bd",
+    "#fddaec",
+    "#f2f2f2"
+  ],
+  "vega_pastel2": [
+    "#b3e2cd",
+    "#fdcdac",
+    "#cbd5e8",
+    "#f4cae4",
+    "#e6f5c9",
+    "#fff2ae",
+    "#f1e2cc",
+    "#cccccc"
+  ],
+  "vega_set1": [
+    "#e41a1c",
+    "#377eb8",
+    "#4daf4a",
+    "#984ea3",
+    "#ff7f00",
+    "#ffff33",
+    "#a65628",
+    "#f781bf",
+    "#999999"
+  ],
+  "vega_set2": [
+    "#66c2a5",
+    "#fc8d62",
+    "#8da0cb",
+    "#e78ac3",
+    "#a6d854",
+    "#ffd92f",
+    "#e5c494",
+    "#b3b3b3"
+  ],
+  "vega_set3": [
+    "#8dd3c7",
+    "#ffffb3",
+    "#bebada",
+    "#fb8072",
+    "#80b1d3",
+    "#fdb462",
+    "#b3de69",
+    "#fccde5",
+    "#d9d9d9",
+    "#bc80bd",
+    "#ccebc5",
+    "#ffed6f"
+  ],
+  "vega_blues": [
+    "#cfe1f2",
+    "#bed8ec",
+    "#a8cee5",
+    "#8fc1de",
+    "#74b2d7",
+    "#5ba3cf",
+    "#4592c6",
+    "#3181bd",
+    "#206fb2",
+    "#125ca4",
+    "#0a4a90"
+  ],
+  "vega_greens": [
+    "#d3eecd",
+    "#c0e6ba",
+    "#abdda5",
+    "#94d391",
+    "#7bc77d",
+    "#60ba6c",
+    "#46ab5e",
+    "#329a51",
+    "#208943",
+    "#0e7735",
+    "#036429"
+  ],
+  "vega_greys": [
+    "#e2e2e2",
+    "#d4d4d4",
+    "#c4c4c4",
+    "#b1b1b1",
+    "#9d9d9d",
+    "#888888",
+    "#757575",
+    "#626262",
+    "#4d4d4d",
+    "#353535",
+    "#1e1e1e"
+  ],
+  "vega_oranges": [
+    "#fdd8b3",
+    "#fdc998",
+    "#fdb87b",
+    "#fda55e",
+    "#fc9244",
+    "#f87f2c",
+    "#f06b18",
+    "#e4580b",
+    "#d14904",
+    "#b93d02",
+    "#9f3303"
+  ],
+  "vega_purples": [
+    "#e2e1ef",
+    "#d4d4e8",
+    "#c4c5e0",
+    "#b4b3d6",
+    "#a3a0cc",
+    "#928ec3",
+    "#827cb9",
+    "#7566ae",
+    "#684ea2",
+    "#5c3696",
+    "#501f8c"
+  ],
+  "vega_reds": [
+    "#fdc9b4",
+    "#fcb49a",
+    "#fc9e80",
+    "#fc8767",
+    "#fa7051",
+    "#f6573f",
+    "#ec3f2f",
+    "#dc2a25",
+    "#c81b1d",
+    "#b21218",
+    "#970b13"
+  ],
+  "vega_bluegreen": [
+    "#d5efed",
+    "#c1e8e0",
+    "#a7ddd1",
+    "#8bd2be",
+    "#70c6a9",
+    "#58ba91",
+    "#44ad77",
+    "#319c5d",
+    "#208946",
+    "#0e7736",
+    "#036429"
+  ],
+  "vega_bluepurple": [
+    "#ccddec",
+    "#bad0e4",
+    "#a8c2dd",
+    "#9ab0d4",
+    "#919cc9",
+    "#8d85be",
+    "#8b6db2",
+    "#8a55a6",
+    "#873c99",
+    "#822287",
+    "#730f71"
+  ],
+  "vega_greenblue": [
+    "#d3eece",
+    "#c5e8c3",
+    "#b1e1bb",
+    "#9bd8bb",
+    "#82cec2",
+    "#69c2ca",
+    "#51b2cd",
+    "#3c9fc7",
+    "#288abd",
+    "#1675b1",
+    "#0b60a1"
+  ],
+  "vega_orangered": [
+    "#fddcaf",
+    "#fdcf9b",
+    "#fdc18a",
+    "#fdad77",
+    "#fb9562",
+    "#f67d53",
+    "#ee6545",
+    "#e24932",
+    "#d32d1e",
+    "#bf130d",
+    "#a70403"
+  ],
+  "vega_purpleblue": [
+    "#dbdaeb",
+    "#c8cee4",
+    "#b1c3de",
+    "#97b7d8",
+    "#7bacd1",
+    "#5b9fc9",
+    "#3a90c0",
+    "#1e7fb7",
+    "#0b70ab",
+    "#056199",
+    "#045281"
+  ],
+  "vega_purplebluegreen": [
+    "#dbd8ea",
+    "#c8cee4",
+    "#b0c3de",
+    "#93b7d8",
+    "#72acd1",
+    "#549fc8",
+    "#3892bb",
+    "#1c88a3",
+    "#097f87",
+    "#02736b",
+    "#016353"
+  ],
+  "vega_purplered": [
+    "#dcc9e2",
+    "#d3b3d7",
+    "#ce9ecc",
+    "#d186c0",
+    "#da6bb2",
+    "#e14da0",
+    "#e23189",
+    "#d91e6f",
+    "#c61159",
+    "#ab0749",
+    "#8f023a"
+  ],
+  "vega_redpurple": [
+    "#fccfcc",
+    "#fcbec0",
+    "#faa9b8",
+    "#f98faf",
+    "#f571a5",
+    "#ec539d",
+    "#db3695",
+    "#c41b8a",
+    "#a90880",
+    "#8d0179",
+    "#700174"
+  ],
+  "vega_yellowgreen": [
+    "#e4f4ac",
+    "#d1eca0",
+    "#b9e294",
+    "#9ed688",
+    "#80c97c",
+    "#62bb6e",
+    "#47aa5e",
+    "#329750",
+    "#208344",
+    "#0e723b",
+    "#036034"
+  ],
+  "vega_yelloworangebrown": [
+    "#feeaa1",
+    "#fedd84",
+    "#fecc63",
+    "#feb746",
+    "#fca031",
+    "#f68921",
+    "#eb7215",
+    "#db5e0b",
+    "#c54c05",
+    "#ab3d03",
+    "#8f3204"
+  ],
+  "vega_yelloworangered": [
+    "#fee087",
+    "#fed16f",
+    "#febd59",
+    "#fea849",
+    "#fd903e",
+    "#fc7335",
+    "#f9522b",
+    "#ee3423",
+    "#de1b20",
+    "#ca0b22",
+    "#af0225"
+  ],
+  "vega_blueorange": [
+    "#134b85",
+    "#2f78b3",
+    "#5da2cb",
+    "#9dcae1",
+    "#d2e5ef",
+    "#f2f0eb",
+    "#fce0ba",
+    "#fbbf74",
+    "#e8932f",
+    "#c5690d",
+    "#994a07"
+  ],
+  "vega_brownbluegreen": [
+    "#704108",
+    "#a0651a",
+    "#c79548",
+    "#e3c78a",
+    "#f3e6c6",
+    "#eef1ea",
+    "#c9e9e4",
+    "#8ed1c7",
+    "#4da79e",
+    "#187a72",
+    "#025147"
+  ],
+  "vega_purplegreen": [
+    "#5b1667",
+    "#834792",
+    "#a67fb6",
+    "#c9aed3",
+    "#e6d6e8",
+    "#eff0ef",
+    "#d9efd5",
+    "#aedda9",
+    "#71bb75",
+    "#368e49",
+    "#0e5e29"
+  ],
+  "vega_purpleorange": [
+    "#411469",
+    "#664796",
+    "#8f83b7",
+    "#b9b4d6",
+    "#dadbeb",
+    "#f3eeea",
+    "#fce0ba",
+    "#fbbf74",
+    "#e8932f",
+    "#c5690d",
+    "#994a07"
+  ],
+  "vega_redblue": [
+    "#8c0d25",
+    "#bf363a",
+    "#df745e",
+    "#f4ae91",
+    "#fbdbc9",
+    "#f2efee",
+    "#d2e5ef",
+    "#9dcae1",
+    "#5da2cb",
+    "#2f78b3",
+    "#134b85"
+  ],
+  "vega_redgrey": [
+    "#8c0d25",
+    "#bf363a",
+    "#df745e",
+    "#f4ae91",
+    "#fcdccb",
+    "#faf4f1",
+    "#e2e2e2",
+    "#c0c0c0",
+    "#969696",
+    "#646464",
+    "#343434"
+  ],
+  "vega_yellowgreenblue": [
+    "#eff9bd",
+    "#dbf1b4",
+    "#bde5b5",
+    "#94d5b9",
+    "#69c5be",
+    "#45b4c2",
+    "#2c9ec0",
+    "#2182b8",
+    "#2163aa",
+    "#23479c",
+    "#1c3185"
+  ],
+  "vega_redyellowblue": [
+    "#a50026",
+    "#d4322c",
+    "#f16e43",
+    "#fcac64",
+    "#fedd90",
+    "#faf8c1",
+    "#dcf1ec",
+    "#abd6e8",
+    "#75abd0",
+    "#4a74b4",
+    "#313695"
+  ],
+  "vega_redyellowgreen": [
+    "#a50026",
+    "#d4322c",
+    "#f16e43",
+    "#fcac63",
+    "#fedd8d",
+    "#f9f7ae",
+    "#d7ee8e",
+    "#a4d86e",
+    "#64bc61",
+    "#22964f",
+    "#006837"
+  ],
+  "vega_pinkyellowgreen": [
+    "#8e0152",
+    "#c0267e",
+    "#dd72ad",
+    "#f0b3d6",
+    "#fadded",
+    "#f5f3ef",
+    "#e1f2ca",
+    "#b6de87",
+    "#80bb47",
+    "#4f9125",
+    "#276419"
+  ],
+  "vega_spectral": [
+    "#9e0142",
+    "#d13c4b",
+    "#f0704a",
+    "#fcac63",
+    "#fedd8d",
+    "#fbf8b0",
+    "#e0f3a1",
+    "#a9dda2",
+    "#69bda9",
+    "#4288b5",
+    "#5e4fa2"
+  ],
+  "vega_viridis": [
+    "#440154",
+    "#482575",
+    "#414487",
+    "#35608d",
+    "#2a788e",
+    "#21918d",
+    "#22a884",
+    "#43bf71",
+    "#7ad151",
+    "#bcdf27",
+    "#fde725"
+  ],
+  "vega_magma": [
+    "#000004",
+    "#150e37",
+    "#3b0f70",
+    "#651a80",
+    "#8c2981",
+    "#b6377a",
+    "#de4968",
+    "#f76f5c",
+    "#fe9f6d",
+    "#fece91",
+    "#fcfdbf"
+  ],
+  "vega_inferno": [
+    "#000004",
+    "#170c3b",
+    "#420a68",
+    "#6b176e",
+    "#932667",
+    "#bb3755",
+    "#dd513a",
+    "#f3771a",
+    "#fca50a",
+    "#f6d645",
+    "#fcffa4"
+  ],
+  "vega_plasma": [
+    "#0d0887",
+    "#42039d",
+    "#6a00a8",
+    "#900da4",
+    "#b12a90",
+    "#cb4779",
+    "#e16462",
+    "#f2834c",
+    "#fca636",
+    "#fcce25",
+    "#f0f921"
+  ],
+  "vega_rainbow": [
+    "#6e40aa",
+    "#bf3caf",
+    "#fe4b83",
+    "#ff7847",
+    "#e2b72f",
+    "#aff05b",
+    "#52f667",
+    "#1ddfa3",
+    "#23abd8",
+    "#4c6edb",
+    "#6e40aa"
+  ],
+  "vega_sinebow": [
+    "#ff4040",
+    "#e78d0b",
+    "#a7d503",
+    "#58fc2a",
+    "#18f472",
+    "#00bfbf",
+    "#1872f4",
+    "#582afc",
+    "#a703d5",
+    "#e70b8d",
+    "#ff4040"
+  ],
+  "vega_browns": [
+    "#eedbbd",
+    "#ecca96",
+    "#e9b97a",
+    "#e4a865",
+    "#dc9856",
+    "#d18954",
+    "#c7784c",
+    "#c0673f",
+    "#b85536",
+    "#ad4433",
+    "#9f3632"
+  ],
+  "vega_tealblues": [
+    "#bce4d8",
+    "#bce4d8",
+    "#9dd3d1",
+    "#81c3cb",
+    "#65b3c2",
+    "#45a2b9",
+    "#368fae",
+    "#347da0",
+    "#306a93",
+    "#2c5985",
+    "#2c5985"
+  ],
+  "vega_teals": [
+    "#bbdfdf",
+    "#a2d4d5",
+    "#8ac9c9",
+    "#75bcbb",
+    "#61b0af",
+    "#4da5a4",
+    "#379998",
+    "#2b8b8c",
+    "#1e7f7f",
+    "#127273",
+    "#006667"
+  ],
+  "vega_warmgreys": [
+    "#dcd4d0",
+    "#cec5c1",
+    "#c0b8b4",
+    "#b3aaa7",
+    "#a59c99",
+    "#98908c",
+    "#8b827f",
+    "#7e7673",
+    "#726866",
+    "#665c5a",
+    "#59504e"
+  ],
+  "vega_goldgreen": [
+    "#f4d166",
+    "#d5ca60",
+    "#b6c35c",
+    "#98bb59",
+    "#7cb257",
+    "#60a656",
+    "#4b9c53",
+    "#3f8f4f",
+    "#33834a",
+    "#257740",
+    "#146c36"
+  ],
+  "vega_goldorange": [
+    "#f4d166",
+    "#f8be5c",
+    "#f8aa4c",
+    "#f5983b",
+    "#f3852a",
+    "#ef701b",
+    "#e2621f",
+    "#d65322",
+    "#c54923",
+    "#b14223",
+    "#9e3a26"
+  ],
+  "vega_goldred": [
+    "#f4d166",
+    "#f6be59",
+    "#f9aa51",
+    "#fc964e",
+    "#f6834b",
+    "#ee734a",
+    "#e56249",
+    "#db5247",
+    "#cf4244",
+    "#c43141",
+    "#b71d3e"
+  ],
+  "vega_lightgreyred": [
+    "#efe9e6",
+    "#e1dad7",
+    "#d5cbc8",
+    "#c8bdb9",
+    "#bbaea9",
+    "#cd967d",
+    "#dc7b43",
+    "#e15f19",
+    "#df4011",
+    "#dc000b",
+    "#dc000b"
+  ],
+  "vega_lightgreyteal": [
+    "#e4eaea",
+    "#d6dcdd",
+    "#c8ced2",
+    "#b7c2c7",
+    "#a6b4bc",
+    "#64b0bf",
+    "#22a6c3",
+    "#2295c1",
+    "#1f85be",
+    "#1876bc",
+    "#1876bc"
+  ],
+  "vega_lightmulti": [
+    "#e0f1f2",
+    "#e0f1f2",
+    "#c4e9d0",
+    "#b0de9f",
+    "#d0e181",
+    "#f6e072",
+    "#f6c053",
+    "#f3993e",
+    "#f77440",
+    "#ef4a3c",
+    "#ef4a3c"
+  ],
+  "vega_lightorange": [
+    "#f2e7da",
+    "#f7d5ba",
+    "#f9c499",
+    "#fab184",
+    "#fa9c73",
+    "#f68967",
+    "#ef7860",
+    "#e8645b",
+    "#de515b",
+    "#d43d5b",
+    "#d43d5b"
+  ],
+  "vega_lighttealblue": [
+    "#e3e9e0",
+    "#c0dccf",
+    "#9aceca",
+    "#7abfc8",
+    "#59afc0",
+    "#389fb9",
+    "#328dad",
+    "#2f7ca0",
+    "#276b95",
+    "#255988",
+    "#255988"
+  ],
+  "vega_darkblue": [
+    "#323232",
+    "#2d4668",
+    "#1a5c93",
+    "#0074af",
+    "#008cbf",
+    "#05a7ce",
+    "#25c0dd",
+    "#38daed",
+    "#50f3fa",
+    "#ffffff",
+    "#ffffff"
+  ],
+  "vega_darkgold": [
+    "#3c3c3c",
+    "#584b37",
+    "#725e34",
+    "#8c7631",
+    "#ae8b2b",
+    "#cfa424",
+    "#ecc31e",
+    "#f9de30",
+    "#fff184",
+    "#ffffff",
+    "#ffffff"
+  ],
+  "vega_darkgreen": [
+    "#3a3a3a",
+    "#215748",
+    "#006f4d",
+    "#048942",
+    "#489e42",
+    "#76b340",
+    "#a6c63d",
+    "#d2d836",
+    "#ffeb2c",
+    "#ffffaa",
+    "#ffffaa"
+  ],
+  "vega_darkmulti": [
+    "#373737",
+    "#373737",
+    "#1f5287",
+    "#197d8c",
+    "#197d8c",
+    "#29a869",
+    "#95ce3f",
+    "#95ce3f",
+    "#ffe800",
+    "#ffffff",
+    "#ffffff"
+  ],
+  "vega_darkred": [
+    "#343434",
+    "#343434",
+    "#703633",
+    "#9e3c38",
+    "#cc4037",
+    "#e75d1e",
+    "#ec8620",
+    "#eeab29",
+    "#f0ce32",
+    "#ffeb2c",
+    "#ffeb2c"
+  ]
+}
+
 VEGA_CATEGORY_10 = "vega_category10"
 VEGA_CATEGORY_20 = "vega_category20"
 VEGA_CATEGORY_20_B = "vega_category20b"
@@ -6196,3 +7064,70 @@ VEGA_PALETTES['darkgold'] = VEGA_PALETTES_DATA[VEGA_DARK_GOLD]
 VEGA_PALETTES['darkgreen'] = VEGA_PALETTES_DATA[VEGA_DARK_GREEN]
 VEGA_PALETTES['darkmulti'] = VEGA_PALETTES_DATA[VEGA_DARK_MULTI]
 VEGA_PALETTES['darkred'] = VEGA_PALETTES_DATA[VEGA_DARK_RED]
+
+VEGA_PALETTES_DOCS = {}
+VEGA_PALETTES_DOCS['category10'] = VEGA_PALETTES_DOCS_DATA[VEGA_CATEGORY_10]
+VEGA_PALETTES_DOCS['category20'] = VEGA_PALETTES_DOCS_DATA[VEGA_CATEGORY_20]
+VEGA_PALETTES_DOCS['category20b'] = VEGA_PALETTES_DOCS_DATA[VEGA_CATEGORY_20_B]
+VEGA_PALETTES_DOCS['category20c'] = VEGA_PALETTES_DOCS_DATA[VEGA_CATEGORY_20_C]
+VEGA_PALETTES_DOCS['tableau10'] = VEGA_PALETTES_DOCS_DATA[VEGA_TABLEAU_10]
+VEGA_PALETTES_DOCS['tableau20'] = VEGA_PALETTES_DOCS_DATA[VEGA_TABLEAU_20]
+VEGA_PALETTES_DOCS['accent'] = VEGA_PALETTES_DOCS_DATA[VEGA_ACCENT]
+VEGA_PALETTES_DOCS['dark2'] = VEGA_PALETTES_DOCS_DATA[VEGA_DARK_2]
+VEGA_PALETTES_DOCS['paired'] = VEGA_PALETTES_DOCS_DATA[VEGA_PAIRED]
+VEGA_PALETTES_DOCS['pastel1'] = VEGA_PALETTES_DOCS_DATA[VEGA_PASTEL_1]
+VEGA_PALETTES_DOCS['pastel2'] = VEGA_PALETTES_DOCS_DATA[VEGA_PASTEL_2]
+VEGA_PALETTES_DOCS['set1'] = VEGA_PALETTES_DOCS_DATA[VEGA_SET_1]
+VEGA_PALETTES_DOCS['set2'] = VEGA_PALETTES_DOCS_DATA[VEGA_SET_2]
+VEGA_PALETTES_DOCS['set3'] = VEGA_PALETTES_DOCS_DATA[VEGA_SET_3]
+VEGA_PALETTES_DOCS['blues'] = VEGA_PALETTES_DOCS_DATA[VEGA_BLUES]
+VEGA_PALETTES_DOCS['greens'] = VEGA_PALETTES_DOCS_DATA[VEGA_GREENS]
+VEGA_PALETTES_DOCS['greys'] = VEGA_PALETTES_DOCS_DATA[VEGA_GREYS]
+VEGA_PALETTES_DOCS['oranges'] = VEGA_PALETTES_DOCS_DATA[VEGA_ORANGES]
+VEGA_PALETTES_DOCS['purples'] = VEGA_PALETTES_DOCS_DATA[VEGA_PURPLES]
+VEGA_PALETTES_DOCS['reds'] = VEGA_PALETTES_DOCS_DATA[VEGA_REDS]
+VEGA_PALETTES_DOCS['bluegreen'] = VEGA_PALETTES_DOCS_DATA[VEGA_BLUE_GREEN]
+VEGA_PALETTES_DOCS['bluepurple'] = VEGA_PALETTES_DOCS_DATA[VEGA_BLUE_PURPLE]
+VEGA_PALETTES_DOCS['greenblue'] = VEGA_PALETTES_DOCS_DATA[VEGA_GREEN_BLUE]
+VEGA_PALETTES_DOCS['orangered'] = VEGA_PALETTES_DOCS_DATA[VEGA_ORANGE_RED]
+VEGA_PALETTES_DOCS['purpleblue'] = VEGA_PALETTES_DOCS_DATA[VEGA_PURPLE_BLUE]
+VEGA_PALETTES_DOCS['purplebluegreen'] = VEGA_PALETTES_DOCS_DATA[VEGA_PURPLE_BLUE_GREEN]
+VEGA_PALETTES_DOCS['purplered'] = VEGA_PALETTES_DOCS_DATA[VEGA_PURPLE_RED]
+VEGA_PALETTES_DOCS['redpurple'] = VEGA_PALETTES_DOCS_DATA[VEGA_RED_PURPLE]
+VEGA_PALETTES_DOCS['yellowgreen'] = VEGA_PALETTES_DOCS_DATA[VEGA_YELLOW_GREEN]
+VEGA_PALETTES_DOCS['yelloworangebrown'] = VEGA_PALETTES_DOCS_DATA[VEGA_YELLOW_ORANGE_BROWN]
+VEGA_PALETTES_DOCS['yelloworangered'] = VEGA_PALETTES_DOCS_DATA[VEGA_YELLOW_ORANGE_RED]
+VEGA_PALETTES_DOCS['blueorange'] = VEGA_PALETTES_DOCS_DATA[VEGA_BLUE_ORANGE]
+VEGA_PALETTES_DOCS['brownbluegreen'] = VEGA_PALETTES_DOCS_DATA[VEGA_BROWN_BLUE_GREEN]
+VEGA_PALETTES_DOCS['purplegreen'] = VEGA_PALETTES_DOCS_DATA[VEGA_PURPLE_GREEN]
+VEGA_PALETTES_DOCS['purpleorange'] = VEGA_PALETTES_DOCS_DATA[VEGA_PURPLE_ORANGE]
+VEGA_PALETTES_DOCS['redblue'] = VEGA_PALETTES_DOCS_DATA[VEGA_RED_BLUE]
+VEGA_PALETTES_DOCS['redgrey'] = VEGA_PALETTES_DOCS_DATA[VEGA_RED_GREY]
+VEGA_PALETTES_DOCS['yellowgreenblue'] = VEGA_PALETTES_DOCS_DATA[VEGA_YELLOW_GREEN_BLUE]
+VEGA_PALETTES_DOCS['redyellowblue'] = VEGA_PALETTES_DOCS_DATA[VEGA_RED_YELLOW_BLUE]
+VEGA_PALETTES_DOCS['redyellowgreen'] = VEGA_PALETTES_DOCS_DATA[VEGA_RED_YELLOW_GREEN]
+VEGA_PALETTES_DOCS['pinkyellowgreen'] = VEGA_PALETTES_DOCS_DATA[VEGA_PINK_YELLOW_GREEN]
+VEGA_PALETTES_DOCS['spectral'] = VEGA_PALETTES_DOCS_DATA[VEGA_SPECTRAL]
+VEGA_PALETTES_DOCS['viridis'] = VEGA_PALETTES_DOCS_DATA[VEGA_VIRIDIS]
+VEGA_PALETTES_DOCS['magma'] = VEGA_PALETTES_DOCS_DATA[VEGA_MAGMA]
+VEGA_PALETTES_DOCS['inferno'] = VEGA_PALETTES_DOCS_DATA[VEGA_INFERNO]
+VEGA_PALETTES_DOCS['plasma'] = VEGA_PALETTES_DOCS_DATA[VEGA_PLASMA]
+VEGA_PALETTES_DOCS['rainbow'] = VEGA_PALETTES_DOCS_DATA[VEGA_RAINBOW]
+VEGA_PALETTES_DOCS['sinebow'] = VEGA_PALETTES_DOCS_DATA[VEGA_SINEBOW]
+VEGA_PALETTES_DOCS['browns'] = VEGA_PALETTES_DOCS_DATA[VEGA_BROWNS]
+VEGA_PALETTES_DOCS['tealblues'] = VEGA_PALETTES_DOCS_DATA[VEGA_TEAL_BLUES]
+VEGA_PALETTES_DOCS['teals'] = VEGA_PALETTES_DOCS_DATA[VEGA_TEALS]
+VEGA_PALETTES_DOCS['warmgreys'] = VEGA_PALETTES_DOCS_DATA[VEGA_WARM_GREYS]
+VEGA_PALETTES_DOCS['goldgreen'] = VEGA_PALETTES_DOCS_DATA[VEGA_GOLD_GREEN]
+VEGA_PALETTES_DOCS['goldorange'] = VEGA_PALETTES_DOCS_DATA[VEGA_GOLD_ORANGE]
+VEGA_PALETTES_DOCS['goldred'] = VEGA_PALETTES_DOCS_DATA[VEGA_GOLD_RED]
+VEGA_PALETTES_DOCS['lightgreyred'] = VEGA_PALETTES_DOCS_DATA[VEGA_LIGHT_GREY_RED]
+VEGA_PALETTES_DOCS['lightgreyteal'] = VEGA_PALETTES_DOCS_DATA[VEGA_LIGHT_GREY_TEAL]
+VEGA_PALETTES_DOCS['lightmulti'] = VEGA_PALETTES_DOCS_DATA[VEGA_LIGHT_MULTI]
+VEGA_PALETTES_DOCS['lightorange'] = VEGA_PALETTES_DOCS_DATA[VEGA_LIGHT_ORANGE]
+VEGA_PALETTES_DOCS['lighttealblue'] = VEGA_PALETTES_DOCS_DATA[VEGA_LIGHT_TEAL_BLUE]
+VEGA_PALETTES_DOCS['darkblue'] = VEGA_PALETTES_DOCS_DATA[VEGA_DARK_BLUE]
+VEGA_PALETTES_DOCS['darkgold'] = VEGA_PALETTES_DOCS_DATA[VEGA_DARK_GOLD]
+VEGA_PALETTES_DOCS['darkgreen'] = VEGA_PALETTES_DOCS_DATA[VEGA_DARK_GREEN]
+VEGA_PALETTES_DOCS['darkmulti'] = VEGA_PALETTES_DOCS_DATA[VEGA_DARK_MULTI]
+VEGA_PALETTES_DOCS['darkred'] = VEGA_PALETTES_DOCS_DATA[VEGA_DARK_RED]

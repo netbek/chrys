@@ -4789,6 +4789,590 @@ BOKEH_PALETTES_DATA = {
   }
 }
 
+BOKEH_PALETTES_DOCS_DATA = {
+  "bokeh_Category10": [
+    "#1f77b4",
+    "#ff7f0e",
+    "#2ca02c",
+    "#d62728",
+    "#9467bd",
+    "#8c564b",
+    "#e377c2",
+    "#7f7f7f",
+    "#bcbd22",
+    "#17becf"
+  ],
+  "bokeh_Category20": [
+    "#1f77b4",
+    "#aec7e8",
+    "#ff7f0e",
+    "#ffbb78",
+    "#2ca02c",
+    "#98df8a",
+    "#d62728",
+    "#ff9896",
+    "#9467bd",
+    "#c5b0d5",
+    "#8c564b",
+    "#c49c94",
+    "#e377c2",
+    "#f7b6d2",
+    "#7f7f7f",
+    "#c7c7c7",
+    "#bcbd22",
+    "#dbdb8d",
+    "#17becf",
+    "#9edae5"
+  ],
+  "bokeh_Category20b": [
+    "#393b79",
+    "#5254a3",
+    "#6b6ecf",
+    "#9c9ede",
+    "#637939",
+    "#8ca252",
+    "#b5cf6b",
+    "#cedb9c",
+    "#8c6d31",
+    "#bd9e39",
+    "#e7ba52",
+    "#e7cb94",
+    "#843c39",
+    "#ad494a",
+    "#d6616b",
+    "#e7969c",
+    "#7b4173",
+    "#a55194",
+    "#ce6dbd",
+    "#de9ed6"
+  ],
+  "bokeh_Category20c": [
+    "#3182bd",
+    "#6baed6",
+    "#9ecae1",
+    "#c6dbef",
+    "#e6550d",
+    "#fd8d3c",
+    "#fdae6b",
+    "#fdd0a2",
+    "#31a354",
+    "#74c476",
+    "#a1d99b",
+    "#c7e9c0",
+    "#756bb1",
+    "#9e9ac8",
+    "#bcbddc",
+    "#dadaeb",
+    "#636363",
+    "#969696",
+    "#bdbdbd",
+    "#d9d9d9"
+  ],
+  "bokeh_Colorblind": [
+    "#0072b2",
+    "#e69f00",
+    "#f0e442",
+    "#009e73",
+    "#56b4e9",
+    "#d55e00",
+    "#cc79a7",
+    "#000000"
+  ],
+  "bokeh_Accent": [
+    "#7fc97f",
+    "#beaed4",
+    "#fdc086",
+    "#ffff99",
+    "#386cb0",
+    "#f0027f",
+    "#bf5b17",
+    "#666666"
+  ],
+  "bokeh_Dark2": [
+    "#1b9e77",
+    "#d95f02",
+    "#7570b3",
+    "#e7298a",
+    "#66a61e",
+    "#e6ab02",
+    "#a6761d",
+    "#666666"
+  ],
+  "bokeh_Paired": [
+    "#a6cee3",
+    "#1f78b4",
+    "#b2df8a",
+    "#33a02c",
+    "#fb9a99",
+    "#e31a1c",
+    "#fdbf6f",
+    "#ff7f00",
+    "#cab2d6",
+    "#6a3d9a",
+    "#ffff99",
+    "#b15928"
+  ],
+  "bokeh_Pastel1": [
+    "#fbb4ae",
+    "#b3cde3",
+    "#ccebc5",
+    "#decbe4",
+    "#fed9a6",
+    "#ffffcc",
+    "#e5d8bd",
+    "#fddaec",
+    "#f2f2f2"
+  ],
+  "bokeh_Pastel2": [
+    "#b3e2cd",
+    "#fdcdac",
+    "#cbd5e8",
+    "#f4cae4",
+    "#e6f5c9",
+    "#fff2ae",
+    "#f1e2cc",
+    "#cccccc"
+  ],
+  "bokeh_Set1": [
+    "#e41a1c",
+    "#377eb8",
+    "#4daf4a",
+    "#984ea3",
+    "#ff7f00",
+    "#ffff33",
+    "#a65628",
+    "#f781bf",
+    "#999999"
+  ],
+  "bokeh_Set2": [
+    "#66c2a5",
+    "#fc8d62",
+    "#8da0cb",
+    "#e78ac3",
+    "#a6d854",
+    "#ffd92f",
+    "#e5c494",
+    "#b3b3b3"
+  ],
+  "bokeh_Set3": [
+    "#8dd3c7",
+    "#ffffb3",
+    "#bebada",
+    "#fb8072",
+    "#80b1d3",
+    "#fdb462",
+    "#b3de69",
+    "#fccde5",
+    "#d9d9d9",
+    "#bc80bd",
+    "#ccebc5",
+    "#ffed6f"
+  ],
+  "bokeh_YlGn": [
+    "#004529",
+    "#004529",
+    "#006837",
+    "#238443",
+    "#41ab5d",
+    "#78c679",
+    "#addd8e",
+    "#d9f0a3",
+    "#f7fcb9",
+    "#ffffe5",
+    "#ffffe5"
+  ],
+  "bokeh_YlGnBu": [
+    "#081d58",
+    "#081d58",
+    "#253494",
+    "#225ea8",
+    "#1d91c0",
+    "#41b6c4",
+    "#7fcdbb",
+    "#c7e9b4",
+    "#edf8b1",
+    "#ffffd9",
+    "#ffffd9"
+  ],
+  "bokeh_GnBu": [
+    "#084081",
+    "#084081",
+    "#0868ac",
+    "#2b8cbe",
+    "#4eb3d3",
+    "#7bccc4",
+    "#a8ddb5",
+    "#ccebc5",
+    "#e0f3db",
+    "#f7fcf0",
+    "#f7fcf0"
+  ],
+  "bokeh_BuGn": [
+    "#00441b",
+    "#00441b",
+    "#006d2c",
+    "#238b45",
+    "#41ae76",
+    "#66c2a4",
+    "#99d8c9",
+    "#ccece6",
+    "#e5f5f9",
+    "#f7fcfd",
+    "#f7fcfd"
+  ],
+  "bokeh_PuBuGn": [
+    "#014636",
+    "#014636",
+    "#016c59",
+    "#02818a",
+    "#3690c0",
+    "#67a9cf",
+    "#a6bddb",
+    "#d0d1e6",
+    "#ece2f0",
+    "#fff7fb",
+    "#fff7fb"
+  ],
+  "bokeh_PuBu": [
+    "#023858",
+    "#023858",
+    "#045a8d",
+    "#0570b0",
+    "#3690c0",
+    "#74a9cf",
+    "#a6bddb",
+    "#d0d1e6",
+    "#ece7f2",
+    "#fff7fb",
+    "#fff7fb"
+  ],
+  "bokeh_BuPu": [
+    "#4d004b",
+    "#4d004b",
+    "#810f7c",
+    "#88419d",
+    "#8c6bb1",
+    "#8c96c6",
+    "#9ebcda",
+    "#bfd3e6",
+    "#e0ecf4",
+    "#f7fcfd",
+    "#f7fcfd"
+  ],
+  "bokeh_RdPu": [
+    "#49006a",
+    "#49006a",
+    "#7a0177",
+    "#ae017e",
+    "#dd3497",
+    "#f768a1",
+    "#fa9fb5",
+    "#fcc5c0",
+    "#fde0dd",
+    "#fff7f3",
+    "#fff7f3"
+  ],
+  "bokeh_PuRd": [
+    "#67001f",
+    "#67001f",
+    "#980043",
+    "#ce1256",
+    "#e7298a",
+    "#df65b0",
+    "#c994c7",
+    "#d4b9da",
+    "#e7e1ef",
+    "#f7f4f9",
+    "#f7f4f9"
+  ],
+  "bokeh_OrRd": [
+    "#7f0000",
+    "#7f0000",
+    "#b30000",
+    "#d7301f",
+    "#ef6548",
+    "#fc8d59",
+    "#fdbb84",
+    "#fdd49e",
+    "#fee8c8",
+    "#fff7ec",
+    "#fff7ec"
+  ],
+  "bokeh_YlOrRd": [
+    "#800026",
+    "#800026",
+    "#bd0026",
+    "#e31a1c",
+    "#fc4e2a",
+    "#fd8d3c",
+    "#feb24c",
+    "#fed976",
+    "#ffeda0",
+    "#ffffcc",
+    "#ffffcc"
+  ],
+  "bokeh_YlOrBr": [
+    "#662506",
+    "#662506",
+    "#993404",
+    "#cc4c02",
+    "#ec7014",
+    "#fe9929",
+    "#fec44f",
+    "#fee391",
+    "#fff7bc",
+    "#ffffe5",
+    "#ffffe5"
+  ],
+  "bokeh_Purples": [
+    "#3f007d",
+    "#3f007d",
+    "#54278f",
+    "#6a51a3",
+    "#807dba",
+    "#9e9ac8",
+    "#bcbddc",
+    "#dadaeb",
+    "#efedf5",
+    "#fcfbfd",
+    "#fcfbfd"
+  ],
+  "bokeh_Blues": [
+    "#08306b",
+    "#08306b",
+    "#08519c",
+    "#2171b5",
+    "#4292c6",
+    "#6baed6",
+    "#9ecae1",
+    "#c6dbef",
+    "#deebf7",
+    "#f7fbff",
+    "#f7fbff"
+  ],
+  "bokeh_Greens": [
+    "#00441b",
+    "#00441b",
+    "#006d2c",
+    "#238b45",
+    "#41ab5d",
+    "#74c476",
+    "#a1d99b",
+    "#c7e9c0",
+    "#e5f5e0",
+    "#f7fcf5",
+    "#f7fcf5"
+  ],
+  "bokeh_Oranges": [
+    "#7f2704",
+    "#7f2704",
+    "#a63603",
+    "#d94801",
+    "#f16913",
+    "#fd8d3c",
+    "#fdae6b",
+    "#fdd0a2",
+    "#fee6ce",
+    "#fff5eb",
+    "#fff5eb"
+  ],
+  "bokeh_Reds": [
+    "#67000d",
+    "#67000d",
+    "#a50f15",
+    "#cb181d",
+    "#ef3b2c",
+    "#fb6a4a",
+    "#fc9272",
+    "#fcbba1",
+    "#fee0d2",
+    "#fff5f0",
+    "#fff5f0"
+  ],
+  "bokeh_Greys": [
+    "#000000",
+    "#191919",
+    "#333333",
+    "#4c4c4c",
+    "#666666",
+    "#808080",
+    "#999999",
+    "#b3b3b3",
+    "#cccccc",
+    "#e6e6e6",
+    "#ffffff"
+  ],
+  "bokeh_PuOr": [
+    "#2d004b",
+    "#542788",
+    "#8073ac",
+    "#b2abd2",
+    "#d8daeb",
+    "#f7f7f7",
+    "#fee0b6",
+    "#fdb863",
+    "#e08214",
+    "#b35806",
+    "#7f3b08"
+  ],
+  "bokeh_BrBG": [
+    "#003c30",
+    "#01665e",
+    "#35978f",
+    "#80cdc1",
+    "#c7eae5",
+    "#f5f5f5",
+    "#f6e8c3",
+    "#dfc27d",
+    "#bf812d",
+    "#8c510a",
+    "#543005"
+  ],
+  "bokeh_PRGn": [
+    "#00441b",
+    "#1b7837",
+    "#5aae61",
+    "#a6dba0",
+    "#d9f0d3",
+    "#f7f7f7",
+    "#e7d4e8",
+    "#c2a5cf",
+    "#9970ab",
+    "#762a83",
+    "#40004b"
+  ],
+  "bokeh_PiYG": [
+    "#276419",
+    "#4d9221",
+    "#7fbc41",
+    "#b8e186",
+    "#e6f5d0",
+    "#f7f7f7",
+    "#fde0ef",
+    "#f1b6da",
+    "#de77ae",
+    "#c51b7d",
+    "#8e0152"
+  ],
+  "bokeh_RdBu": [
+    "#053061",
+    "#2166ac",
+    "#4393c3",
+    "#92c5de",
+    "#d1e5f0",
+    "#f7f7f7",
+    "#fddbc7",
+    "#f4a582",
+    "#d6604d",
+    "#b2182b",
+    "#67001f"
+  ],
+  "bokeh_RdGy": [
+    "#1a1a1a",
+    "#4d4d4d",
+    "#878787",
+    "#bababa",
+    "#e0e0e0",
+    "#ffffff",
+    "#fddbc7",
+    "#f4a582",
+    "#d6604d",
+    "#b2182b",
+    "#67001f"
+  ],
+  "bokeh_RdYlBu": [
+    "#313695",
+    "#4575b4",
+    "#74add1",
+    "#abd9e9",
+    "#e0f3f8",
+    "#ffffbf",
+    "#fee090",
+    "#fdae61",
+    "#f46d43",
+    "#d73027",
+    "#a50026"
+  ],
+  "bokeh_Spectral": [
+    "#5e4fa2",
+    "#3288bd",
+    "#66c2a5",
+    "#abdda4",
+    "#e6f598",
+    "#ffffbf",
+    "#fee08b",
+    "#fdae61",
+    "#f46d43",
+    "#d53e4f",
+    "#9e0142"
+  ],
+  "bokeh_RdYlGn": [
+    "#006837",
+    "#1a9850",
+    "#66bd63",
+    "#a6d96a",
+    "#d9ef8b",
+    "#ffffbf",
+    "#fee08b",
+    "#fdae61",
+    "#f46d43",
+    "#d73027",
+    "#a50026"
+  ],
+  "bokeh_Inferno": [
+    "#000003",
+    "#160b39",
+    "#410967",
+    "#6a176e",
+    "#932567",
+    "#bb3754",
+    "#dc5039",
+    "#f37719",
+    "#fba40a",
+    "#f5d745",
+    "#fcfea4"
+  ],
+  "bokeh_Magma": [
+    "#000003",
+    "#140d35",
+    "#3b0f6f",
+    "#63197f",
+    "#8c2980",
+    "#b63679",
+    "#dd4968",
+    "#f6705b",
+    "#fd9f6c",
+    "#fdcf92",
+    "#fbfcbf"
+  ],
+  "bokeh_Plasma": [
+    "#0c0786",
+    "#40039c",
+    "#6a00a7",
+    "#8f0da3",
+    "#b02a8f",
+    "#cb4777",
+    "#e06461",
+    "#f2844b",
+    "#fca635",
+    "#fcce25",
+    "#eff821"
+  ],
+  "bokeh_Viridis": [
+    "#440154",
+    "#482374",
+    "#404387",
+    "#345e8d",
+    "#29788e",
+    "#20908c",
+    "#22a784",
+    "#44be70",
+    "#79d151",
+    "#bdde26",
+    "#fde724"
+  ]
+}
+
 BOKEH_CATEGORY_10 = "bokeh_Category10"
 BOKEH_CATEGORY_20 = "bokeh_Category20"
 BOKEH_CATEGORY_20_B = "bokeh_Category20b"
@@ -4879,3 +5463,49 @@ BOKEH_PALETTES['Inferno'] = BOKEH_PALETTES_DATA[BOKEH_INFERNO]
 BOKEH_PALETTES['Magma'] = BOKEH_PALETTES_DATA[BOKEH_MAGMA]
 BOKEH_PALETTES['Plasma'] = BOKEH_PALETTES_DATA[BOKEH_PLASMA]
 BOKEH_PALETTES['Viridis'] = BOKEH_PALETTES_DATA[BOKEH_VIRIDIS]
+
+BOKEH_PALETTES_DOCS = {}
+BOKEH_PALETTES_DOCS['Category10'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_CATEGORY_10]
+BOKEH_PALETTES_DOCS['Category20'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_CATEGORY_20]
+BOKEH_PALETTES_DOCS['Category20b'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_CATEGORY_20_B]
+BOKEH_PALETTES_DOCS['Category20c'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_CATEGORY_20_C]
+BOKEH_PALETTES_DOCS['Colorblind'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_COLORBLIND]
+BOKEH_PALETTES_DOCS['Accent'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_ACCENT]
+BOKEH_PALETTES_DOCS['Dark2'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_DARK_2]
+BOKEH_PALETTES_DOCS['Paired'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_PAIRED]
+BOKEH_PALETTES_DOCS['Pastel1'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_PASTEL_1]
+BOKEH_PALETTES_DOCS['Pastel2'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_PASTEL_2]
+BOKEH_PALETTES_DOCS['Set1'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_SET_1]
+BOKEH_PALETTES_DOCS['Set2'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_SET_2]
+BOKEH_PALETTES_DOCS['Set3'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_SET_3]
+BOKEH_PALETTES_DOCS['YlGn'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_YL_GN]
+BOKEH_PALETTES_DOCS['YlGnBu'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_YL_GN_BU]
+BOKEH_PALETTES_DOCS['GnBu'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_GN_BU]
+BOKEH_PALETTES_DOCS['BuGn'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_BU_GN]
+BOKEH_PALETTES_DOCS['PuBuGn'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_PU_BU_GN]
+BOKEH_PALETTES_DOCS['PuBu'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_PU_BU]
+BOKEH_PALETTES_DOCS['BuPu'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_BU_PU]
+BOKEH_PALETTES_DOCS['RdPu'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_RD_PU]
+BOKEH_PALETTES_DOCS['PuRd'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_PU_RD]
+BOKEH_PALETTES_DOCS['OrRd'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_OR_RD]
+BOKEH_PALETTES_DOCS['YlOrRd'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_YL_OR_RD]
+BOKEH_PALETTES_DOCS['YlOrBr'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_YL_OR_BR]
+BOKEH_PALETTES_DOCS['Purples'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_PURPLES]
+BOKEH_PALETTES_DOCS['Blues'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_BLUES]
+BOKEH_PALETTES_DOCS['Greens'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_GREENS]
+BOKEH_PALETTES_DOCS['Oranges'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_ORANGES]
+BOKEH_PALETTES_DOCS['Reds'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_REDS]
+BOKEH_PALETTES_DOCS['Greys'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_GREYS]
+BOKEH_PALETTES_DOCS['PuOr'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_PU_OR]
+BOKEH_PALETTES_DOCS['BrBG'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_BR_BG]
+BOKEH_PALETTES_DOCS['PRGn'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_PR_GN]
+BOKEH_PALETTES_DOCS['PiYG'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_PI_YG]
+BOKEH_PALETTES_DOCS['RdBu'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_RD_BU]
+BOKEH_PALETTES_DOCS['RdGy'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_RD_GY]
+BOKEH_PALETTES_DOCS['RdYlBu'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_RD_YL_BU]
+BOKEH_PALETTES_DOCS['Spectral'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_SPECTRAL]
+BOKEH_PALETTES_DOCS['RdYlGn'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_RD_YL_GN]
+BOKEH_PALETTES_DOCS['Inferno'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_INFERNO]
+BOKEH_PALETTES_DOCS['Magma'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_MAGMA]
+BOKEH_PALETTES_DOCS['Plasma'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_PLASMA]
+BOKEH_PALETTES_DOCS['Viridis'] = BOKEH_PALETTES_DOCS_DATA[BOKEH_VIRIDIS]
