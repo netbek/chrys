@@ -2,9 +2,9 @@ import _ from 'lodash';
 import fs from 'fs-extra';
 import path from 'path';
 import {color} from 'd3-color';
-import {scaleQuantile} from 'd3-scale';
 import {discrete, continuous} from 'vega-scale/src/palettes';
 import {scheme, quantizeInterpolator} from 'vega-scale';
+import {continuousPalette} from './utils';
 
 function getColors(palette) {
   var n = (palette.length / 6) | 0;
@@ -12,11 +12,6 @@ function getColors(palette) {
   var i = 0;
   while (i < n) c[i] = '#' + palette.slice(i * 6, ++i * 6);
   return c;
-}
-
-function continuousPalette(colors, count) {
-  const scale = scaleQuantile(_.times(count, i => i), colors);
-  return _.times(count, i => scale(i));
 }
 
 const basename = _.snakeCase(

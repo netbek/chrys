@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import fs from 'fs-extra';
 import path from 'path';
-import {scaleQuantile} from 'd3-scale';
 import {
   YlGn,
   YlGnBu,
@@ -48,6 +47,7 @@ import {
   Category20c,
   Colorblind
 } from 'bokehjs/build/js/lib/api/palettes';
+import {continuousPalette, bokehToVega} from './utils';
 
 const discrete = {
   Category10,
@@ -99,11 +99,6 @@ const continuous = {
   Viridis
 };
 
-function continuousPalette(colors, count) {
-  const scale = scaleQuantile(_.times(count, i => i), colors);
-  return _.times(count, i => scale(i));
-}
-
 const basename = _.snakeCase(
   path.basename(__filename, path.extname(__filename))
 );
@@ -119,7 +114,9 @@ const docsMaxSize = 11;
 
 _.forEach(discrete, (palettes, vendorName) => {
   const uniqueName = 'bokeh_' + vendorName;
-  const constantName = _.snakeCase('bokeh_' + vendorName).toUpperCase();
+  const constantName = _.snakeCase(
+    'bokeh_' + bokehToVega(vendorName)
+  ).toUpperCase();
 
   vars.constantNames[constantName] = uniqueName;
   vars.vendorNames[vendorName] = constantName;
@@ -141,7 +138,9 @@ _.forEach(discrete, (palettes, vendorName) => {
 
 _.forEach(continuous, (palettes, vendorName) => {
   const uniqueName = 'bokeh_' + vendorName;
-  const constantName = _.snakeCase('bokeh_' + vendorName).toUpperCase();
+  const constantName = _.snakeCase(
+    'bokeh_' + bokehToVega(vendorName)
+  ).toUpperCase();
 
   vars.constantNames[constantName] = uniqueName;
   vars.vendorNames[vendorName] = constantName;
