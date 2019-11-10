@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="chrys",
-    version="2.0.25",
+    version="2.0.26",
     author="Hein Bekker",
     author_email="hein@netbek.co.za",
     description="A collection of color palettes for mapping and visualisation",
