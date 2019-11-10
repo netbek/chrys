@@ -1,6 +1,6 @@
 {
   "name": "chrys",
-  "version": "2.0.25",
+  "version": "2.0.26",
   "description": "A collection of color palettes for mapping and visualisation",
   "main": "index.js",
   "repository": {
