@@ -190,7 +190,8 @@ def to_discrete_palette(palette, n=6, as_rgb=False):
     list[str]
         A list of RGB hex color strings or RGB tuples.
     """
-    n_clamped = min(len(palette), max(1, n))
+    sizes = palette.keys()
+    n_clamped = min(max(sizes), max(min(sizes), n))
     result = palette[n_clamped][:n]
 
     if as_rgb:
