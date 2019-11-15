@@ -4,7 +4,7 @@ import path from 'path';
 import {color} from 'd3-color';
 import {discrete, continuous} from 'vega-scale/src/palettes';
 import {scheme, quantizeInterpolator} from 'vega-scale';
-import {continuousPalette, pySerialize} from './utils';
+import {continuousPalette, jsSerialize, pySerialize} from './utils';
 
 function getColors(palette) {
   var n = (palette.length / 6) | 0;
@@ -14,11 +14,12 @@ function getColors(palette) {
   return c;
 }
 
-const basename = _.snakeCase(
-  path.basename(__filename, path.extname(__filename))
+const basename = path.basename(__filename, path.extname(__filename));
+const jsFile = path.join(__dirname, '../data/' + _.kebabCase(basename) + '.js');
+const pyFile = path.join(
+  __dirname,
+  '../chrys/data/' + _.snakeCase(basename) + '.py'
 );
-const jsFile = path.join(__dirname, '../data/' + basename + '.js');
-const pyFile = path.join(__dirname, '../chrys/data/' + basename + '.py');
 const vars = {
   constantNames: {},
   vendorNames: {},
@@ -73,4 +74,5 @@ Object.keys(continuous).forEach(vendorName => {
   vars.docsPalettes[uniqueName] = continuousPalette(docsPalette, docsMaxSize);
 });
 
+fs.outputFile(jsFile, jsSerialize('vega', vars, maxSize, docsMaxSize));
 fs.outputFile(pyFile, pySerialize('vega', vars, maxSize, docsMaxSize));

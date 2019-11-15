@@ -47,7 +47,12 @@ import {
   Category20c,
   Colorblind
 } from 'bokehjs/build/js/lib/api/palettes';
-import {continuousPalette, bokehToVega, pySerialize} from './utils';
+import {
+  continuousPalette,
+  bokehToVega,
+  jsSerialize,
+  pySerialize
+} from './utils';
 
 const discrete = {
   Category10,
@@ -99,11 +104,12 @@ const continuous = {
   Viridis
 };
 
-const basename = _.snakeCase(
-  path.basename(__filename, path.extname(__filename))
+const basename = path.basename(__filename, path.extname(__filename));
+const jsFile = path.join(__dirname, '../data/' + _.kebabCase(basename) + '.js');
+const pyFile = path.join(
+  __dirname,
+  '../chrys/data/' + _.snakeCase(basename) + '.py'
 );
-const jsFile = path.join(__dirname, '../data/' + basename + '.js');
-const pyFile = path.join(__dirname, '../chrys/data/' + basename + '.py');
 const vars = {
   constantNames: {},
   vendorNames: {},
@@ -161,4 +167,5 @@ _.forEach(continuous, (palettes, vendorName) => {
   vars.docsPalettes[uniqueName] = continuousPalette(docsPalette, docsMaxSize);
 });
 
+fs.outputFile(jsFile, jsSerialize('bokeh', vars, maxSize, docsMaxSize));
 fs.outputFile(pyFile, pySerialize('bokeh', vars, maxSize, docsMaxSize));
