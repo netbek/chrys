@@ -47,7 +47,7 @@ import {
   Category20c,
   Colorblind
 } from 'bokehjs/build/js/lib/api/palettes';
-import {continuousPalette, bokehToVega} from './utils';
+import {continuousPalette, bokehToVega, pySerialize} from './utils';
 
 const discrete = {
   Category10,
@@ -102,7 +102,8 @@ const continuous = {
 const basename = _.snakeCase(
   path.basename(__filename, path.extname(__filename))
 );
-const file = path.join(__dirname, '../chrys/data/' + basename + '.py');
+const jsFile = path.join(__dirname, '../data/' + basename + '.js');
+const pyFile = path.join(__dirname, '../chrys/data/' + basename + '.py');
 const vars = {
   constantNames: {},
   vendorNames: {},
@@ -160,52 +161,4 @@ _.forEach(continuous, (palettes, vendorName) => {
   vars.docsPalettes[uniqueName] = continuousPalette(docsPalette, docsMaxSize);
 });
 
-// Serialise data
-const BOKEH_PALETTES = 'BOKEH_PALETTES';
-const BOKEH_PALETTE_DATA = 'BOKEH_PALETTE_DATA';
-const BOKEH_PALETTE_NAMES = 'BOKEH_PALETTE_NAMES';
-const BOKEH_DOCS_PALETTES = 'BOKEH_DOCS_PALETTES';
-const BOKEH_DOCS_PALETTE_DATA = 'BOKEH_DOCS_PALETTE_DATA';
-
-let data = '';
-
-data +=
-  BOKEH_PALETTE_DATA + ' = ' + JSON.stringify(vars.palettes, null, 2) + '\n';
-_.times(maxSize, i => {
-  data = data.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
-});
-data += '\n';
-
-data +=
-  BOKEH_DOCS_PALETTE_DATA +
-  ' = ' +
-  JSON.stringify(vars.docsPalettes, null, 2) +
-  '\n';
-_.times(docsMaxSize, i => {
-  data = data.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
-});
-data += '\n';
-
-_.forEach(vars.constantNames, (v, k) => {
-  data += k + ' = "' + v + '"\n';
-});
-data += '\n';
-
-data += `${BOKEH_PALETTE_NAMES} = {}\n`;
-_.forEach(vars.constantNames, (v, k) => {
-  data += `${BOKEH_PALETTE_NAMES}['${k}'] = '${v}'\n`;
-});
-data += '\n';
-
-data += `${BOKEH_PALETTES} = {}\n`;
-_.forEach(vars.vendorNames, (v, k) => {
-  data += `${BOKEH_PALETTES}['${k}'] = ${BOKEH_PALETTE_DATA}[${v}]\n`;
-});
-data += '\n';
-
-data += `${BOKEH_DOCS_PALETTES} = {}\n`;
-_.forEach(vars.vendorNames, (v, k) => {
-  data += `${BOKEH_DOCS_PALETTES}['${k}'] = ${BOKEH_DOCS_PALETTE_DATA}[${v}]\n`;
-});
-
-fs.outputFile(file, data);
+fs.outputFile(pyFile, pySerialize('bokeh', vars, maxSize, docsMaxSize));

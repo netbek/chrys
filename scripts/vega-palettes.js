@@ -4,7 +4,7 @@ import path from 'path';
 import {color} from 'd3-color';
 import {discrete, continuous} from 'vega-scale/src/palettes';
 import {scheme, quantizeInterpolator} from 'vega-scale';
-import {continuousPalette} from './utils';
+import {continuousPalette, pySerialize} from './utils';
 
 function getColors(palette) {
   var n = (palette.length / 6) | 0;
@@ -17,7 +17,8 @@ function getColors(palette) {
 const basename = _.snakeCase(
   path.basename(__filename, path.extname(__filename))
 );
-const file = path.join(__dirname, '../chrys/data/' + basename + '.py');
+const jsFile = path.join(__dirname, '../data/' + basename + '.js');
+const pyFile = path.join(__dirname, '../chrys/data/' + basename + '.py');
 const vars = {
   constantNames: {},
   vendorNames: {},
@@ -72,52 +73,4 @@ Object.keys(continuous).forEach(vendorName => {
   vars.docsPalettes[uniqueName] = continuousPalette(docsPalette, docsMaxSize);
 });
 
-// Serialise data
-const VEGA_PALETTES = 'VEGA_PALETTES';
-const VEGA_PALETTE_DATA = 'VEGA_PALETTE_DATA';
-const VEGA_PALETTE_NAMES = 'VEGA_PALETTE_NAMES';
-const VEGA_DOCS_PALETTES = 'VEGA_DOCS_PALETTES';
-const VEGA_DOCS_PALETTE_DATA = 'VEGA_DOCS_PALETTE_DATA';
-
-let data = '';
-
-data +=
-  VEGA_PALETTE_DATA + ' = ' + JSON.stringify(vars.palettes, null, 2) + '\n';
-_.times(maxSize, i => {
-  data = data.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
-});
-data += '\n';
-
-data +=
-  VEGA_DOCS_PALETTE_DATA +
-  ' = ' +
-  JSON.stringify(vars.docsPalettes, null, 2) +
-  '\n';
-_.times(docsMaxSize, i => {
-  data = data.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
-});
-data += '\n';
-
-_.forEach(vars.constantNames, (v, k) => {
-  data += k + ' = "' + v + '"\n';
-});
-data += '\n';
-
-data += `${VEGA_PALETTE_NAMES} = {}\n`;
-_.forEach(vars.constantNames, (v, k) => {
-  data += `${VEGA_PALETTE_NAMES}['${k}'] = '${v}'\n`;
-});
-data += '\n';
-
-data += `${VEGA_PALETTES} = {}\n`;
-_.forEach(vars.vendorNames, (v, k) => {
-  data += `${VEGA_PALETTES}['${k}'] = ${VEGA_PALETTE_DATA}[${v}]\n`;
-});
-data += '\n';
-
-data += `${VEGA_DOCS_PALETTES} = {}\n`;
-_.forEach(vars.vendorNames, (v, k) => {
-  data += `${VEGA_DOCS_PALETTES}['${k}'] = ${VEGA_DOCS_PALETTE_DATA}[${v}]\n`;
-});
-
-fs.outputFile(file, data);
+fs.outputFile(pyFile, pySerialize('vega', vars, maxSize, docsMaxSize));

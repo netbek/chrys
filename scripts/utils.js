@@ -61,3 +61,54 @@ export function bokehToVega(name) {
 export function vegaToBokeh(name) {
   return VEGA_TO_BOKEH[name];
 }
+
+export function pySerialize(vendor, vars, maxSize, docsMaxSize) {
+  const VENDOR_PALETTES = `${vendor.toUpperCase()}_PALETTES`;
+  const VENDOR_PALETTE_DATA = `${vendor.toUpperCase()}_PALETTE_DATA`;
+  const VENDOR_PALETTE_NAMES = `${vendor.toUpperCase()}_PALETTE_NAMES`;
+  const VENDOR_DOCS_PALETTES = `${vendor.toUpperCase()}_DOCS_PALETTES`;
+  const VENDOR_DOCS_PALETTE_DATA = `${vendor.toUpperCase()}_DOCS_PALETTE_DATA`;
+
+  let result = '';
+
+  result +=
+    VENDOR_PALETTE_DATA + ' = ' + JSON.stringify(vars.palettes, null, 2) + '\n';
+  _.times(maxSize, i => {
+    result = result.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
+  });
+  result += '\n';
+
+  result +=
+    VENDOR_DOCS_PALETTE_DATA +
+    ' = ' +
+    JSON.stringify(vars.docsPalettes, null, 2) +
+    '\n';
+  _.times(docsMaxSize, i => {
+    result = result.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
+  });
+  result += '\n';
+
+  _.forEach(vars.constantNames, (v, k) => {
+    result += k + ' = "' + v + '"\n';
+  });
+  result += '\n';
+
+  result += `${VENDOR_PALETTE_NAMES} = {}\n`;
+  _.forEach(vars.constantNames, (v, k) => {
+    result += `${VENDOR_PALETTE_NAMES}['${k}'] = '${v}'\n`;
+  });
+  result += '\n';
+
+  result += `${VENDOR_PALETTES} = {}\n`;
+  _.forEach(vars.vendorNames, (v, k) => {
+    result += `${VENDOR_PALETTES}['${k}'] = ${VENDOR_PALETTE_DATA}[${v}]\n`;
+  });
+  result += '\n';
+
+  result += `${VENDOR_DOCS_PALETTES} = {}\n`;
+  _.forEach(vars.vendorNames, (v, k) => {
+    result += `${VENDOR_DOCS_PALETTES}['${k}'] = ${VENDOR_DOCS_PALETTE_DATA}[${v}]\n`;
+  });
+
+  return result;
+}
