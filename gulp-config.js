@@ -1,16 +1,10 @@
+const path = require('path');
+const {browserslist} = require('./package.json');
+const rootPath = path.resolve(__dirname) + '/';
+
 module.exports = {
   autoprefixer: {
-    browsers: [
-      'last 2 versions',
-      'ie >= 8',
-      'ff >= 5',
-      'chrome >= 20',
-      'opera >= 12',
-      'safari >= 4',
-      'ios >= 6',
-      'android >= 2',
-      'bb >= 6'
-    ]
+    browsers: browserslist
   },
   // Palette names as declared in `$chrys-color-map` in `src/css/_variables.scss`
   palettes: [
@@ -302,6 +296,13 @@ module.exports = {
       swatchRect: {
         textPosition: 0.125 // Value between 0 and 1
       }
+    }
+  },
+  module: {
+    src: rootPath + 'src/',
+    dist: {
+      cjs: rootPath + 'cjs/',
+      umd: rootPath + 'umd/'
     }
   },
   watchTasks: [
