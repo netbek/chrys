@@ -1,37 +1,44 @@
-var _ = require('lodash');
-var autoprefixer = require('autoprefixer');
-var bokehPalettes = require('bokehjs/build/js/lib/api/palettes');
-var chroma = require('chroma-js');
-var cssmin = require('gulp-cssmin');
-var fs = require('fs-extra');
-var ghPages = require('gulp-gh-pages');
-var gulp = require('gulp');
-var gulpPostcss = require('gulp-postcss');
-var illustratorSwatches = require('chrys-cli').illustratorSwatches;
-var jsonSass = require('json-sass');
-var livereload = require('livereload');
-var nunjucks = require('nunjucks');
-var open = require('open');
-var os = require('os');
-var path = require('path');
-var postcssColorRgbaFallback = require('postcss-color-rgba-fallback');
-var postcssOpacity = require('postcss-opacity');
-var Promise = require('bluebird');
-var rename = require('gulp-rename');
-var runSequence = require('run-sequence');
-var sass = require('gulp-sass');
-var webserver = require('gulp-webserver');
-var loadPalettes = require('./utils/loadPalettes');
+const _ = require('lodash');
+const autoprefixer = require('autoprefixer');
+const bokehPalettes = require('bokehjs/build/js/lib/api/palettes');
+const chroma = require('chroma-js');
+const cssmin = require('gulp-cssmin');
+const fs = require('fs-extra');
+const ghPages = require('gulp-gh-pages');
+const gulp = require('gulp');
+const gulpPostcss = require('gulp-postcss');
+const {illustratorSwatches} = require('chrys-cli');
+const jsonSass = require('json-sass');
+const livereload = require('livereload');
+const log = require('fancy-log');
+const nunjucks = require('nunjucks');
+const open = require('open');
+const os = require('os');
+const path = require('path');
+const postcssColorRgbaFallback = require('postcss-color-rgba-fallback');
+const postcssOpacity = require('postcss-opacity');
+const Promise = require('bluebird');
+const rename = require('gulp-rename');
+const runSequence = require('run-sequence');
+const sass = require('gulp-sass');
+const webpack = require('webpack');
+const webserver = require('gulp-webserver');
+const loadPalettes = require('./utils/loadPalettes');
 
 Promise.promisifyAll(fs);
 
-/*******************************************************************************
+/* -----------------------------------------------------------------------------
  * Config
- ******************************************************************************/
+ ---------------------------------------------------------------------------- */
 
-var gulpConfig = require('./gulp-config.js');
+const {name: packageName} = require('./package');
+const globalName = packageName;
 
-var livereloadOpen =
+const gulpConfig = require('./gulp-config.js');
+
+const webpackConfig = require('./webpack.config.prod');
+
+const livereloadOpen =
   (gulpConfig.webserver.https ? 'https' : 'http') +
   '://' +
   gulpConfig.webserver.host +
@@ -39,23 +46,23 @@ var livereloadOpen =
   gulpConfig.webserver.port +
   (gulpConfig.webserver.open ? gulpConfig.webserver.open : '/');
 
-/*******************************************************************************
+/* -----------------------------------------------------------------------------
  * Misc
- ******************************************************************************/
+ ---------------------------------------------------------------------------- */
 
-var flags = {
+const flags = {
   livereloadInit: false // Whether `livereload-init` task has been run
 };
-var server;
+let server;
 
 // Choose browser for node-open.
-var browser = gulpConfig.webserver.browsers.default;
-var platform = os.platform();
+let browser = gulpConfig.webserver.browsers.default;
+const platform = os.platform();
 if (_.has(gulpConfig.webserver.browsers, platform)) {
   browser = gulpConfig.webserver.browsers[platform];
 }
 
-var env = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
+const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
 
 /**
  * Adapted from https://github.com/voxpelli/sass-color-helpers/blob/a32cfd607ca6479318452461a70a7a9ffd886eb1/stylesheets/color-helpers/_contrast.scss#L35
@@ -91,9 +98,9 @@ env.addFilter('bestContrast', function(base, colors, tolerance) {
   return bestColor;
 });
 
-/*******************************************************************************
+/* -----------------------------------------------------------------------------
  * Functions
- ******************************************************************************/
+ ---------------------------------------------------------------------------- */
 
 /**
  *
@@ -131,6 +138,77 @@ function buildCss(src, dist) {
   });
 }
 
+function buildJs(config) {
+  return new Promise((resolve, reject) => {
+    webpack(config, function(err, stats) {
+      if (err) {
+        log('[webpack]', err);
+        reject();
+      } else {
+        log(
+          '[webpack]',
+          stats.toString({
+            cached: false,
+            cachedAssets: false,
+            children: true,
+            chunks: false,
+            chunkModules: false,
+            chunkOrigins: true,
+            colors: true,
+            entrypoints: false,
+            errorDetails: false,
+            hash: false,
+            modules: false,
+            performance: true,
+            reasons: true,
+            source: false,
+            timings: true,
+            version: true,
+            warnings: true
+          })
+        );
+        resolve();
+      }
+    });
+  });
+}
+
+/**
+ *
+ * @returns {Promise}
+ */
+function buildModuleJs() {
+  const configs = [
+    {
+      ...webpackConfig,
+      entry: {
+        [globalName]: path.join(gulpConfig.module.src, 'js/index.js'),
+        [globalName + '.min']: path.join(gulpConfig.module.src, 'js/index.js')
+      },
+      output: {
+        filename: '[name].js',
+        path: path.join(gulpConfig.module.dist.cjs),
+        libraryTarget: 'commonjs'
+      }
+    },
+    {
+      ...webpackConfig,
+      entry: {
+        [globalName]: path.join(gulpConfig.module.src, 'js/index.js'),
+        [globalName + '.min']: path.join(gulpConfig.module.src, 'js/index.js')
+      },
+      output: {
+        filename: '[name].js',
+        path: path.join(gulpConfig.module.dist.umd),
+        library: globalName,
+        libraryTarget: 'umd'
+      }
+    }
+  ];
+
+  return Promise.mapSeries(configs, config => buildJs(config));
+}
+
 /**
  * Start a watcher.
  *
@@ -148,9 +226,9 @@ function startWatch(files, tasks, livereload) {
   });
 }
 
-/*******************************************************************************
- * Livereload tasks
- ******************************************************************************/
+/* -----------------------------------------------------------------------------
+ * LiveReload tasks
+ ---------------------------------------------------------------------------- */
 
 // Start webserver.
 gulp.task('webserver-init', function(cb) {
@@ -180,15 +258,15 @@ gulp.task('livereload-reload', function(cb) {
   cb();
 });
 
-/*******************************************************************************
+/* -----------------------------------------------------------------------------
  * Tasks
- ******************************************************************************/
+ ---------------------------------------------------------------------------- */
 
 gulp.task('clean', function() {
   return Promise.mapSeries(
     [
+      gulpConfig.module.dist.cjs,
       'css/',
-      'data/',
       'demo/',
       'illustrator/',
       'src/css/background-color/',
@@ -444,9 +522,12 @@ gulp.task('build-illustrator', function() {
   });
 });
 
+gulp.task('build-module-js', () => buildModuleJs());
+
 gulp.task('build', function(cb) {
   runSequence(
     'clean',
+    'build-module-js',
     'build-vars',
     'build-sass',
     'build-css',
@@ -465,9 +546,9 @@ gulp.task('livereload', function() {
   runSequence('build', 'webserver-init', 'livereload-init', 'watch:livereload');
 });
 
-/*******************************************************************************
+/* -----------------------------------------------------------------------------
  * Watch tasks
- ******************************************************************************/
+ ---------------------------------------------------------------------------- */
 
 // Watch with livereload that doesn't rebuild docs
 gulp.task('watch:livereload', function(cb) {
@@ -480,8 +561,8 @@ gulp.task('watch:livereload', function(cb) {
   });
 });
 
-/*******************************************************************************
+/* -----------------------------------------------------------------------------
  * Default task
- ******************************************************************************/
+ ---------------------------------------------------------------------------- */
 
 gulp.task('default', ['build']);
