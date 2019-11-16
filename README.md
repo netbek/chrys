@@ -2,7 +2,7 @@
 
 A collection of color palettes for mapping and visualisation.
 
-## JavaScript
+## Node.js
 
 ### Installation
 
