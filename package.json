@@ -1,6 +1,6 @@
 {
   "name": "chrys",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A collection of color palettes for mapping and visualisation",
   "main": "umd/chrys-palettes.js",
   "repository": {
