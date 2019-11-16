@@ -2,10 +2,6 @@
 
 A collection of color palettes for mapping and visualisation.
 
-## Demo
-
-[netbek.github.io/chrys](https://netbek.github.io/chrys)
-
 ## Sass
 
 ### Installation
@@ -16,15 +12,13 @@ npm install chrys
 
 ### Usage
 
-See the [demo](https://netbek.github.io/chrys) for a list of palette names and sizes.
-
 ```scss
 @import 'node_modules/chrys/src/variables';
 
-// Get the first color of the `colorblind` palette, size 3
-$palette-name: 'colorblind';
+// Get the first color of the `bokeh-colorblind` palette, size 3
+$palette-name: 'bokeh-colorblind';
 $palette-size: 3;
-$palette:      map-get(map-get($chrys-color-map, $palette-name), $palette-size);
+$palette:      map-get(map-get($chrys-palettes, $palette-name), $palette-size);
 $color:        nth($palette, 1);
 
 div {
@@ -100,8 +94,8 @@ npm run publish
 
 Palettes from:
 
-* [Bokeh](https://bokeh.org) (BSD-3-Clause)
-* [Vega](https://vega.github.io/vega) (BSD-3-Clause)
+* [Bokeh](https://github.com/bokeh/bokeh) (BSD-3-Clause)
+* [Vega](https://github.com/vega/vega) (BSD-3-Clause)
 
 ## License
 
