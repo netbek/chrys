@@ -22,6 +22,13 @@ import {
   VEGA_PALETTE_NAMES
 } from '../cjs/chrys';
 
+// TODO Replace gulp
+const gulpCssmin = require('gulp-cssmin');
+const gulp = require('gulp');
+const gulpPostcss = require('gulp-postcss');
+const gulpRename = require('gulp-rename');
+const gulpSass = require('gulp-sass');
+
 const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
 
 /**
@@ -54,13 +61,6 @@ env.addFilter('bestContrast', function(
 
   return bestColor;
 });
-
-// TODO Replace gulp
-const gulpCssmin = require('gulp-cssmin');
-const gulp = require('gulp');
-const gulpPostcss = require('gulp-postcss');
-const gulpRename = require('gulp-rename');
-const gulpSass = require('gulp-sass');
 
 export function continuousPalette(colors, count) {
   const scale = scaleQuantile(
