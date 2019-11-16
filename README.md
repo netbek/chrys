@@ -72,22 +72,22 @@ Install Node and Python dependencies:
 ./scripts/install.sh
 ```
 
-Build palette data for JavaScript and Python:
+Build palette data:
 
 ```shell
 npm run build-data
 ```
 
-Build JavaScript modules and Python distribution package:
+Build JavaScript and Python distribution packages, Sass, CSS, Illustrator scripts:
 
 ```shell
 npm run build-dist
 ```
 
-Publish Python distribution package:
+Publish JavaScript and Python distribution packages:
 
 ```shell
-npm run publish
+npm publish
 ```
 
 ## Credit
