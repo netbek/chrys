@@ -8,11 +8,11 @@
     "url": "git://github.com/netbek/chrys"
   },
   "files": [
+    "cjs",
     "css",
-    "data",
     "illustrator",
     "src",
-    "utils"
+    "umd"
   ],
   "scripts": {
     "build-data": "node -r esm scripts/bokeh-palettes.js && node -r esm scripts/vega-palettes.js",
