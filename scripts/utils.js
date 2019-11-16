@@ -269,7 +269,7 @@ export function buildClean() {
   );
 }
 
-export function buildModuleJs() {
+export function buildJsModules() {
   const buildConfigs = [
     {
       ...webpackConfig,

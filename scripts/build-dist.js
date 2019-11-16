@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 import {
   buildClean,
-  buildModuleJs,
+  buildJsModules,
   buildSassVars,
   buildSassPartials,
   buildCss,
@@ -12,7 +12,7 @@ import {
 Promise.each(
   [
     buildClean,
-    buildModuleJs,
+    buildJsModules,
     buildSassVars,
     buildSassPartials,
     buildCss,
