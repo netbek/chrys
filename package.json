@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "py-build-data": "node -r esm scripts/bokeh-palettes.js && node -r esm scripts/vega-palettes.js",
-    "py-build-dist": "rm -fr build && rm -fr dist && python2.7 setup.py sdist bdist_wheel && twine check dist/*",
+    "py-build-dist": "node -r esm scripts/module-js.js && rm -fr build && rm -fr dist && python2.7 setup.py sdist bdist_wheel && twine check dist/*",
     "py-publish": "twine upload --verbose dist/*",
     "test": "make test"
   },
