@@ -378,7 +378,7 @@ export function buildSassPartials() {
       task =>
         new Promise((resolve, reject) => {
           nunjucks.render(
-            'src/templates/css/chrys-palettes-' + task[0] + '/index.scss.njk',
+            'src/templates/css/' + task[0] + '/index.scss.njk',
             {
               name: task[1]
             },
