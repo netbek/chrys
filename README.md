@@ -23,16 +23,16 @@ Generate a new palette as a subset of a given palette:
 Generate a new palette as a subset of a palette from a given provider:
 
 ```javascript
->>> import {discretePalette} from 'chrys';
->>> discretePalette('vega_viridis', 6)
+>>> import {VEGA_VIRIDIS, discretePalette} from 'chrys';
+>>> discretePalette(VEGA_VIRIDIS, 6)
 ['#46327f', '#375c8d', '#27808e', '#1fa187', '#4ac26d', '#9fda3a']
 ```
 
 Get the vendor library and palette names from a given name:
 
 ```javascript
->>> import {parsePaletteName} from 'chrys';
->>> parsePaletteName('vega_viridis')
+>>> import {VEGA_VIRIDIS, parsePaletteName} from 'chrys';
+>>> parsePaletteName(VEGA_VIRIDIS)
 {vendor: 'vega', palette: 'viridis'}
 ```
 
@@ -83,18 +83,18 @@ Generate a new palette as a subset of a given palette:
 Generate a new palette as a subset of a palette from a given provider:
 
 ```python
->>> from chrys.palettes import continuous_palette, discrete_palette
->>> discrete_palette('vega_viridis', 6)
+>>> from chrys.palettes import VEGA_VIRIDIS, continuous_palette, discrete_palette
+>>> discrete_palette(VEGA_VIRIDIS, 6)
 ['#46327f', '#375c8d', '#27808e', '#1fa187', '#4ac26d', '#9fda3a']
->>> continuous_palette('vega_viridis', 6)
+>>> continuous_palette(VEGA_VIRIDIS, 6)
 ['#440356', '#414587', '#2a788e', '#22a884', '#79d152', '#fbe724']
 ```
 
 Get the vendor library and palette names from a given name:
 
 ```python
->>> from chrys.palettes import parse_palette_name
->>> parse_palette_name('vega_viridis')
+>>> from chrys.palettes import VEGA_VIRIDIS, parse_palette_name
+>>> parse_palette_name(VEGA_VIRIDIS)
 ('vega', 'viridis')
 ```
 
