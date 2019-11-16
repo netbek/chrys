@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import {illustratorSwatches} from 'chrys-cli';
 import {scaleQuantile} from 'd3-scale';
-import * as bokehPalettes from 'bokehjs/build/js/lib/api/palettes';
 import autoprefixer from 'autoprefixer';
 import chroma from 'chroma-js';
 import fs from 'fs-extra';
@@ -13,7 +12,7 @@ import postcssColorRgbaFallback from 'postcss-color-rgba-fallback';
 import postcssOpacity from 'postcss-opacity';
 import Promise from 'bluebird';
 import webpack from 'webpack';
-import gulpConfig from '../gulp-config';
+import {BOKEH_TO_VEGA, VEGA_TO_BOKEH, config} from '../config';
 import webpackConfig from '../webpack.config.prod';
 import {name as globalName} from '../package';
 import {
@@ -23,7 +22,38 @@ import {
   VEGA_PALETTE_NAMES
 } from '../cjs/chrys';
 
-const loadPalettes = require('../utils/loadPalettes');
+const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
+
+/**
+ * Adapted from https://github.com/voxpelli/sass-color-helpers/blob/a32cfd607ca6479318452461a70a7a9ffd886eb1/stylesheets/color-helpers/_contrast.scss#L35
+ *
+ * @param   {String} base
+ * @param   {Array} colors
+ * @param   {Number} tolerance
+ * @returns {String}
+ */
+env.addFilter('bestContrast', function(
+  base,
+  colors = ['#000', '#fff'],
+  tolerance = 0
+) {
+  var bestColor = colors[0];
+  var bestContrast = chroma.contrast(base, bestColor);
+  var color;
+  var contrast;
+
+  for (var i = 1, il = colors.length; i < il; i++) {
+    color = colors[i];
+    contrast = chroma.contrast(base, color);
+
+    if (contrast - bestContrast > tolerance) {
+      bestColor = color;
+      bestContrast = contrast;
+    }
+  }
+
+  return bestColor;
+});
 
 // TODO Replace gulp
 const gulpCssmin = require('gulp-cssmin');
@@ -31,54 +61,6 @@ const gulp = require('gulp');
 const gulpPostcss = require('gulp-postcss');
 const gulpRename = require('gulp-rename');
 const gulpSass = require('gulp-sass');
-
-const BOKEH_TO_VEGA = {
-  YlGn: 'yellowGreen',
-  YlGnBu: 'yellowGreenBlue',
-  GnBu: 'greenBlue',
-  BuGn: 'blueGreen',
-  PuBuGn: 'purpleBlueGreen',
-  PuBu: 'purpleBlue',
-  BuPu: 'bluePurple',
-  RdPu: 'redPurple',
-  PuRd: 'purpleRed',
-  OrRd: 'orangeRed',
-  YlOrRd: 'yellowOrangeRed',
-  YlOrBr: 'yellowOrangeBrown',
-  Purples: 'purples',
-  Blues: 'blues',
-  Greens: 'greens',
-  Oranges: 'oranges',
-  Reds: 'reds',
-  Greys: 'greys',
-  PuOr: 'purpleOrange',
-  BrBG: 'brownBlueGreen',
-  PRGn: 'purpleGreen',
-  PiYG: 'pinkYellowGreen',
-  RdBu: 'redBlue',
-  RdGy: 'redGrey',
-  RdYlBu: 'redYellowBlue',
-  Spectral: 'spectral',
-  RdYlGn: 'redYellowGreen',
-  Inferno: 'inferno',
-  Magma: 'magma',
-  Plasma: 'plasma',
-  Viridis: 'viridis',
-  Accent: 'accent',
-  Dark2: 'dark2',
-  Paired: 'paired',
-  Pastel1: 'pastel1',
-  Pastel2: 'pastel2',
-  Set1: 'set1',
-  Set2: 'set2',
-  Set3: 'set3',
-  Category10: 'category10',
-  Category20: 'category20',
-  Category20b: 'category20b',
-  Category20c: 'category20c',
-  Colorblind: 'colorblind'
-};
-const VEGA_TO_BOKEH = _.invert(BOKEH_TO_VEGA);
 
 export function continuousPalette(colors, count) {
   const scale = scaleQuantile(
@@ -210,10 +192,10 @@ function _buildCss(src, dist) {
   return new Promise(function(resolve, reject) {
     gulp
       .src(src)
-      .pipe(gulpSass(gulpConfig.css.params).on('error', gulpSass.logError))
+      .pipe(gulpSass(config.css.params).on('error', gulpSass.logError))
       .pipe(
         gulpPostcss([
-          autoprefixer(gulpConfig.autoprefixer),
+          autoprefixer(config.autoprefixer),
           postcssColorRgbaFallback,
           postcssOpacity
         ])
@@ -236,9 +218,9 @@ function _buildCss(src, dist) {
   });
 }
 
-function _buildJs(config) {
+function _buildJs(buildConfig) {
   return new Promise((resolve, reject) => {
-    webpack(config, function(err, stats) {
+    webpack(buildConfig, function(err, stats) {
       if (err) {
         log('[webpack]', err);
         reject();
@@ -272,9 +254,9 @@ function _buildJs(config) {
 }
 
 export function buildClean() {
-  return Promise.mapSeries(
+  return Promise.each(
     [
-      gulpConfig.module.dist.cjs,
+      config.module.dist.cjs,
       'css/',
       'demo/',
       'illustrator/',
@@ -288,72 +270,41 @@ export function buildClean() {
 }
 
 export function buildModuleJs() {
-  const configs = [
+  const buildConfigs = [
     {
       ...webpackConfig,
       entry: {
-        [globalName]: path.join(gulpConfig.module.src, 'js/index.js'),
-        [globalName + '.min']: path.join(gulpConfig.module.src, 'js/index.js')
+        [globalName]: path.join(config.module.src, 'js/index.js'),
+        [globalName + '.min']: path.join(config.module.src, 'js/index.js')
       },
       output: {
         filename: '[name].js',
-        path: path.join(gulpConfig.module.dist.cjs),
+        path: path.join(config.module.dist.cjs),
         libraryTarget: 'commonjs'
       }
     },
     {
       ...webpackConfig,
       entry: {
-        [globalName]: path.join(gulpConfig.module.src, 'js/index.js'),
-        [globalName + '.min']: path.join(gulpConfig.module.src, 'js/index.js')
+        [globalName]: path.join(config.module.src, 'js/index.js'),
+        [globalName + '.min']: path.join(config.module.src, 'js/index.js')
       },
       output: {
         filename: '[name].js',
-        path: path.join(gulpConfig.module.dist.umd),
+        path: path.join(config.module.dist.umd),
         library: globalName,
         libraryTarget: 'umd'
       }
     }
   ];
 
-  return Promise.mapSeries(configs, config => _buildJs(config));
+  return Promise.each(buildConfigs, buildConfig => _buildJs(buildConfig));
 }
 
 export function buildSassVars() {
   const sassVars = {
-    // '$chrys-color-map': {}, // Deprecated
     '$chrys-palettes': {}
   };
-
-  // // Deprecated
-  // gulpConfig.palettes.forEach(function(palette) {
-  //   let bokehPalette = _.values(bokehPalettes[palette.bokehName]);
-
-  //   // Exclude palettes with 256 colors.
-  //   bokehPalette = bokehPalette.filter(function(value) {
-  //     return value.length < 256;
-  //   });
-
-  //   bokehPalette = _.sortBy(bokehPalette, function(values) {
-  //     return values.length;
-  //   });
-
-  //   sassVars['$chrys-' + palette.name] = _.last(bokehPalette).map(function(
-  //     value
-  //   ) {
-  //     return '#' + _.padStart(value.toString(16), 6, '0');
-  //   });
-
-  //   sassVars['$chrys-color-map'][palette.name] = {};
-
-  //   bokehPalette.forEach(function(values) {
-  //     var hexValues = values.map(function(value) {
-  //       return '#' + _.padStart(value.toString(16), 6, '0');
-  //     });
-
-  //     sassVars['$chrys-color-map'][palette.name][values.length] = hexValues;
-  //   });
-  // });
 
   Object.keys(BOKEH_PALETTE_NAMES).forEach(varName => {
     const sassName = _.kebabCase(varName);
@@ -392,105 +343,61 @@ export function buildSassPartials() {
     ...Object.keys(BOKEH_PALETTE_NAMES),
     ...Object.keys(VEGA_PALETTE_NAMES)
   ];
-  // const legacySassNames = gulpConfig.palettes.map(palette => palette.name); // Deprecated
   const sassNames = varNames.map(varName => _.kebabCase(varName));
 
-  return (
-    Promise.mapSeries(
-      ['background-color', 'color'],
+  return Promise.each(
+    ['background-color', 'color'],
+    task =>
+      new Promise((resolve, reject) => {
+        nunjucks.render(
+          'src/templates/css/' + task + '.scss.njk',
+          {
+            names: sassNames
+          },
+          (err, data) => {
+            if (err) {
+              console.log(err);
+              reject();
+            } else {
+              fs.outputFile('src/css/' + task + '.scss', data, 'utf-8').then(
+                resolve
+              );
+            }
+          }
+        );
+      })
+  ).then(() => {
+    const tasks = [];
+    sassNames.forEach(sassName => {
+      tasks.push(['color', sassName]);
+      tasks.push(['background-color', sassName]);
+    });
+
+    return Promise.each(
+      tasks,
       task =>
         new Promise((resolve, reject) => {
           nunjucks.render(
-            'src/templates/css/' + task + '.scss.njk',
+            'src/templates/css/chrys-palettes-' + task[0] + '/index.scss.njk',
             {
-              names: [
-                // ...legacySassNames,
-                ...sassNames
-              ]
+              name: task[1]
             },
             (err, data) => {
               if (err) {
                 console.log(err);
                 reject();
               } else {
-                fs.outputFile('src/css/' + task + '.scss', data, 'utf-8').then(
-                  resolve
-                );
+                fs.outputFile(
+                  'src/css/' + task[0] + '/' + task[1] + '.scss',
+                  data,
+                  'utf-8'
+                ).then(resolve);
               }
             }
           );
         })
-    )
-      // .then(() => {
-      //   // Deprecated
-      //   const tasks = [];
-      //   legacySassNames.forEach(sassName => {
-      //     tasks.push(['color', sassName]);
-      //     tasks.push(['background-color', sassName]);
-      //   });
-
-      //   return Promise.mapSeries(
-      //     tasks,
-      //     task =>
-      //       new Promise((resolve, reject) => {
-      //         nunjucks.render(
-      //           'src/templates/css/chrys-color-map-' +
-      //             task[0] +
-      //             '/index.scss.njk',
-      //           {
-      //             name: task[1]
-      //           },
-      //           (err, data) => {
-      //             if (err) {
-      //               console.log(err);
-      //               reject();
-      //             } else {
-      //               fs.outputFile(
-      //                 'src/css/' + task[0] + '/' + task[1] + '.scss',
-      //                 data,
-      //                 'utf-8'
-      //               ).then(resolve);
-      //             }
-      //           }
-      //         );
-      //       })
-      //   );
-      // })
-      .then(() => {
-        const tasks = [];
-        sassNames.forEach(sassName => {
-          tasks.push(['color', sassName]);
-          tasks.push(['background-color', sassName]);
-        });
-
-        return Promise.mapSeries(
-          tasks,
-          task =>
-            new Promise((resolve, reject) => {
-              nunjucks.render(
-                'src/templates/css/chrys-palettes-' +
-                  task[0] +
-                  '/index.scss.njk',
-                {
-                  name: task[1]
-                },
-                (err, data) => {
-                  if (err) {
-                    console.log(err);
-                    reject();
-                  } else {
-                    fs.outputFile(
-                      'src/css/' + task[0] + '/' + task[1] + '.scss',
-                      data,
-                      'utf-8'
-                    ).then(resolve);
-                  }
-                }
-              );
-            })
-        );
-      })
-  );
+    );
+  });
 }
 
 export function buildCss() {
@@ -498,71 +405,103 @@ export function buildCss() {
 }
 
 export function buildIllustrator() {
-  return loadPalettes().then(function(palettes) {
-    const illustratorPalettes = [];
+  const illustratorPalettes = [];
 
-    // Deprecated
-    // palettes.forEach(function(palette) {
-    //   palette.sizes.forEach(function(size) {
-    //     const group = palette.name + '-' + size.name;
+  Object.keys(BOKEH_PALETTE_NAMES).forEach(varName => {
+    const sassName = _.kebabCase(varName);
 
-    //     illustratorPalettes.push({
-    //       name: group,
-    //       colors: size.colors.map((color, index) => ({
-    //         group: group,
-    //         name: group + '-' + (index + 1),
-    //         rgb: chroma(color).rgb()
-    //       }))
-    //     });
-    //   });
-    // });
+    Object.values(BOKEH_PALETTE_DATA[BOKEH_PALETTE_NAMES[varName]]).forEach(
+      values => {
+        const group = sassName + '-' + values.length;
 
-    Object.keys(BOKEH_PALETTE_NAMES).forEach(varName => {
-      const sassName = _.kebabCase(varName);
+        illustratorPalettes.push({
+          name: group,
+          colors: values.map((color, index) => ({
+            group: group,
+            name: group + '-' + (index + 1),
+            rgb: chroma(color).rgb()
+          }))
+        });
+      }
+    );
+  });
 
-      Object.values(BOKEH_PALETTE_DATA[BOKEH_PALETTE_NAMES[varName]]).forEach(
-        values => {
-          const group = sassName + '-' + values.length;
+  Object.keys(VEGA_PALETTE_NAMES).forEach(varName => {
+    const sassName = _.kebabCase(varName);
 
-          illustratorPalettes.push({
-            name: group,
-            colors: values.map((color, index) => ({
-              group: group,
-              name: group + '-' + (index + 1),
-              rgb: chroma(color).rgb()
-            }))
-          });
-        }
-      );
-    });
+    Object.values(VEGA_PALETTE_DATA[VEGA_PALETTE_NAMES[varName]]).forEach(
+      values => {
+        const group = sassName + '-' + values.length;
 
-    Object.keys(VEGA_PALETTE_NAMES).forEach(varName => {
-      const sassName = _.kebabCase(varName);
+        illustratorPalettes.push({
+          name: group,
+          colors: values.map((color, index) => ({
+            group: group,
+            name: group + '-' + (index + 1),
+            rgb: chroma(color).rgb()
+          }))
+        });
+      }
+    );
+  });
 
-      Object.values(VEGA_PALETTE_DATA[VEGA_PALETTE_NAMES[varName]]).forEach(
-        values => {
-          const group = sassName + '-' + values.length;
+  return Promise.each(illustratorPalettes, palette => {
+    const illustratorConfig = _.cloneDeep(config.illustratorTasks.swatches);
+    illustratorConfig.document.mode = 'rgb';
+    illustratorConfig.colors = palette.colors;
 
-          illustratorPalettes.push({
-            name: group,
-            colors: values.map((color, index) => ({
-              group: group,
-              name: group + '-' + (index + 1),
-              rgb: chroma(color).rgb()
-            }))
-          });
-        }
-      );
-    });
+    const dist = path.resolve('illustrator/' + palette.name + '.js');
 
-    return Promise.mapSeries(illustratorPalettes, palette => {
-      const config = _.cloneDeep(gulpConfig.illustratorTasks.swatches);
-      config.document.mode = 'rgb';
-      config.colors = palette.colors;
-
-      const dist = path.resolve('illustrator/' + palette.name + '.js');
-
-      return illustratorSwatches(config, dist);
-    });
+    return illustratorSwatches(illustratorConfig, dist);
   });
 }
+
+// export function buildDemo() {
+//   var context = {};
+
+//   return fs
+//     .mkdirp('demo/')
+//     .then(loadPalettes)
+//     .then(function(palettes) {
+//       const collections = _.uniq(palettes.map(palette => palette.type));
+
+//       collections.sort();
+
+//       context.collections = collections.map(function(paletteType) {
+//         const filtered = palettes.filter(
+//           palette => paletteType === palette.type
+//         );
+
+//         const sorted = _.sortBy(filtered, [palette => palette.name]);
+
+//         return {
+//           name: paletteType,
+//           palettes: sorted
+//         };
+//       });
+
+//       return fs.readFile('src/demo/index.njk', 'utf-8');
+//     })
+//     .then(
+//       data =>
+//         new Promise((resolve, reject) => {
+//           env.renderString(data, context, (err, res) => {
+//             if (err) {
+//               reject(err);
+//             } else {
+//               fs.outputFile('demo/index.html', res, 'utf-8').then(resolve);
+//             }
+//           });
+//         })
+//     )
+//     .then(() => buildCss(['src/demo/css/**/*.scss'], 'demo/css/'))
+//     .then(
+//       () =>
+//         new Promise(resolve => {
+//           gulp
+//             .src(['node_modules/normalize-css/**/*.css', 'css/**/*'])
+//             .pipe(gulp.dest('demo/css/'))
+//             .on('end', resolve);
+//         })
+//     );
+// }

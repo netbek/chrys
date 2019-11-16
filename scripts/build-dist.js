@@ -6,6 +6,7 @@ import {
   buildSassPartials,
   buildCss,
   buildIllustrator
+  // buildDemo
 } from './utils';
 
 Promise.each(
@@ -16,6 +17,7 @@ Promise.each(
     buildSassPartials,
     buildCss,
     buildIllustrator
+    // buildDemo
   ],
   task => task()
 );
