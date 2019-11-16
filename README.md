@@ -32,14 +32,6 @@ div {
 }
 ```
 
-### Development
-
-Build distribution files:
-
-```shell
-gulp
-```
-
 ## Python
 
 ### Installation
@@ -78,7 +70,7 @@ Get the vendor library and palette names from a given name:
 ('vega', 'viridis')
 ```
 
-### Development
+## Development
 
 Install Node and Python dependencies:
 
@@ -86,22 +78,22 @@ Install Node and Python dependencies:
 ./scripts/install.sh
 ```
 
-Build palette data:
+Build palette data for JavaScript and Python:
 
 ```shell
-npm run py-build-data
+npm run build-data
 ```
 
-Build distribution package:
+Build JavaScript modules and Python distribution package:
 
 ```shell
-npm run py-build-dist
+npm run build-dist
 ```
 
-Publish distribution package:
+Publish Python distribution package:
 
 ```shell
-npm run py-publish
+npm run publish
 ```
 
 ## Credit
