@@ -1,12 +1,36 @@
 import _ from 'lodash';
+import {illustratorSwatches} from 'chrys-cli';
 import {scaleQuantile} from 'd3-scale';
+import * as bokehPalettes from 'bokehjs/build/js/lib/api/palettes';
+import autoprefixer from 'autoprefixer';
+import chroma from 'chroma-js';
+import fs from 'fs-extra';
+import jsonSass from 'json-sass';
 import log from 'fancy-log';
+import nunjucks from 'nunjucks';
 import path from 'path';
+import postcssColorRgbaFallback from 'postcss-color-rgba-fallback';
+import postcssOpacity from 'postcss-opacity';
 import Promise from 'bluebird';
 import webpack from 'webpack';
 import gulpConfig from '../gulp-config';
 import webpackConfig from '../webpack.config.prod';
 import {name as globalName} from '../package';
+import {
+  BOKEH_PALETTE_DATA,
+  BOKEH_PALETTE_NAMES,
+  VEGA_PALETTE_DATA,
+  VEGA_PALETTE_NAMES
+} from '../cjs/chrys';
+
+const loadPalettes = require('../utils/loadPalettes');
+
+// TODO Replace gulp
+const gulpCssmin = require('gulp-cssmin');
+const gulp = require('gulp');
+const gulpPostcss = require('gulp-postcss');
+const gulpRename = require('gulp-rename');
+const gulpSass = require('gulp-sass');
 
 const BOKEH_TO_VEGA = {
   YlGn: 'yellowGreen',
@@ -182,7 +206,37 @@ export function pySerialize(vendor, vars, maxSize, docsMaxSize) {
   return result;
 }
 
-export function buildJs(config) {
+function _buildCss(src, dist) {
+  return new Promise(function(resolve, reject) {
+    gulp
+      .src(src)
+      .pipe(gulpSass(gulpConfig.css.params).on('error', gulpSass.logError))
+      .pipe(
+        gulpPostcss([
+          autoprefixer(gulpConfig.autoprefixer),
+          postcssColorRgbaFallback,
+          postcssOpacity
+        ])
+      )
+      .pipe(gulp.dest(dist))
+      .pipe(
+        gulpCssmin({
+          advanced: false
+        })
+      )
+      .pipe(
+        gulpRename({
+          suffix: '.min'
+        })
+      )
+      .pipe(gulp.dest(dist))
+      .on('end', function() {
+        resolve();
+      });
+  });
+}
+
+function _buildJs(config) {
   return new Promise((resolve, reject) => {
     webpack(config, function(err, stats) {
       if (err) {
@@ -217,10 +271,22 @@ export function buildJs(config) {
   });
 }
 
-/**
- *
- * @returns {Promise}
- */
+export function buildClean() {
+  return Promise.mapSeries(
+    [
+      gulpConfig.module.dist.cjs,
+      'css/',
+      'demo/',
+      'illustrator/',
+      'src/css/background-color/',
+      'src/css/color/',
+      'src/css/background-color.scss',
+      'src/css/color.scss'
+    ],
+    file => fs.remove(file)
+  );
+}
+
 export function buildModuleJs() {
   const configs = [
     {
@@ -250,5 +316,253 @@ export function buildModuleJs() {
     }
   ];
 
-  return Promise.mapSeries(configs, config => buildJs(config));
+  return Promise.mapSeries(configs, config => _buildJs(config));
+}
+
+export function buildSassVars() {
+  const sassVars = {
+    // '$chrys-color-map': {}, // Deprecated
+    '$chrys-palettes': {}
+  };
+
+  // // Deprecated
+  // gulpConfig.palettes.forEach(function(palette) {
+  //   let bokehPalette = _.values(bokehPalettes[palette.bokehName]);
+
+  //   // Exclude palettes with 256 colors.
+  //   bokehPalette = bokehPalette.filter(function(value) {
+  //     return value.length < 256;
+  //   });
+
+  //   bokehPalette = _.sortBy(bokehPalette, function(values) {
+  //     return values.length;
+  //   });
+
+  //   sassVars['$chrys-' + palette.name] = _.last(bokehPalette).map(function(
+  //     value
+  //   ) {
+  //     return '#' + _.padStart(value.toString(16), 6, '0');
+  //   });
+
+  //   sassVars['$chrys-color-map'][palette.name] = {};
+
+  //   bokehPalette.forEach(function(values) {
+  //     var hexValues = values.map(function(value) {
+  //       return '#' + _.padStart(value.toString(16), 6, '0');
+  //     });
+
+  //     sassVars['$chrys-color-map'][palette.name][values.length] = hexValues;
+  //   });
+  // });
+
+  Object.keys(BOKEH_PALETTE_NAMES).forEach(varName => {
+    const sassName = _.kebabCase(varName);
+
+    sassVars['$chrys-palettes'][sassName] = {};
+
+    Object.values(BOKEH_PALETTE_DATA[BOKEH_PALETTE_NAMES[varName]]).forEach(
+      values => {
+        sassVars['$chrys-palettes'][sassName][values.length] = values;
+      }
+    );
+  });
+
+  Object.keys(VEGA_PALETTE_NAMES).forEach(varName => {
+    const sassName = _.kebabCase(varName);
+
+    sassVars['$chrys-palettes'][sassName] = {};
+
+    Object.values(VEGA_PALETTE_DATA[VEGA_PALETTE_NAMES[varName]]).forEach(
+      values => {
+        sassVars['$chrys-palettes'][sassName][values.length] = values;
+      }
+    );
+  });
+
+  const sassData = _.map(
+    sassVars,
+    (value, name) => name + ': ' + jsonSass.convertJs(value) + ';'
+  ).join('\n\n');
+
+  return fs.outputFile('src/css/_variables.scss', sassData, 'utf-8');
+}
+
+export function buildSassPartials() {
+  const varNames = [
+    ...Object.keys(BOKEH_PALETTE_NAMES),
+    ...Object.keys(VEGA_PALETTE_NAMES)
+  ];
+  // const legacySassNames = gulpConfig.palettes.map(palette => palette.name); // Deprecated
+  const sassNames = varNames.map(varName => _.kebabCase(varName));
+
+  return (
+    Promise.mapSeries(
+      ['background-color', 'color'],
+      task =>
+        new Promise((resolve, reject) => {
+          nunjucks.render(
+            'src/templates/css/' + task + '.scss.njk',
+            {
+              names: [
+                // ...legacySassNames,
+                ...sassNames
+              ]
+            },
+            (err, data) => {
+              if (err) {
+                console.log(err);
+                reject();
+              } else {
+                fs.outputFile('src/css/' + task + '.scss', data, 'utf-8').then(
+                  resolve
+                );
+              }
+            }
+          );
+        })
+    )
+      // .then(() => {
+      //   // Deprecated
+      //   const tasks = [];
+      //   legacySassNames.forEach(sassName => {
+      //     tasks.push(['color', sassName]);
+      //     tasks.push(['background-color', sassName]);
+      //   });
+
+      //   return Promise.mapSeries(
+      //     tasks,
+      //     task =>
+      //       new Promise((resolve, reject) => {
+      //         nunjucks.render(
+      //           'src/templates/css/chrys-color-map-' +
+      //             task[0] +
+      //             '/index.scss.njk',
+      //           {
+      //             name: task[1]
+      //           },
+      //           (err, data) => {
+      //             if (err) {
+      //               console.log(err);
+      //               reject();
+      //             } else {
+      //               fs.outputFile(
+      //                 'src/css/' + task[0] + '/' + task[1] + '.scss',
+      //                 data,
+      //                 'utf-8'
+      //               ).then(resolve);
+      //             }
+      //           }
+      //         );
+      //       })
+      //   );
+      // })
+      .then(() => {
+        const tasks = [];
+        sassNames.forEach(sassName => {
+          tasks.push(['color', sassName]);
+          tasks.push(['background-color', sassName]);
+        });
+
+        return Promise.mapSeries(
+          tasks,
+          task =>
+            new Promise((resolve, reject) => {
+              nunjucks.render(
+                'src/templates/css/chrys-palettes-' +
+                  task[0] +
+                  '/index.scss.njk',
+                {
+                  name: task[1]
+                },
+                (err, data) => {
+                  if (err) {
+                    console.log(err);
+                    reject();
+                  } else {
+                    fs.outputFile(
+                      'src/css/' + task[0] + '/' + task[1] + '.scss',
+                      data,
+                      'utf-8'
+                    ).then(resolve);
+                  }
+                }
+              );
+            })
+        );
+      })
+  );
+}
+
+export function buildCss() {
+  return _buildCss(['src/css/**/*.scss'], 'css/');
+}
+
+export function buildIllustrator() {
+  return loadPalettes().then(function(palettes) {
+    const illustratorPalettes = [];
+
+    // Deprecated
+    // palettes.forEach(function(palette) {
+    //   palette.sizes.forEach(function(size) {
+    //     const group = palette.name + '-' + size.name;
+
+    //     illustratorPalettes.push({
+    //       name: group,
+    //       colors: size.colors.map((color, index) => ({
+    //         group: group,
+    //         name: group + '-' + (index + 1),
+    //         rgb: chroma(color).rgb()
+    //       }))
+    //     });
+    //   });
+    // });
+
+    Object.keys(BOKEH_PALETTE_NAMES).forEach(varName => {
+      const sassName = _.kebabCase(varName);
+
+      Object.values(BOKEH_PALETTE_DATA[BOKEH_PALETTE_NAMES[varName]]).forEach(
+        values => {
+          const group = sassName + '-' + values.length;
+
+          illustratorPalettes.push({
+            name: group,
+            colors: values.map((color, index) => ({
+              group: group,
+              name: group + '-' + (index + 1),
+              rgb: chroma(color).rgb()
+            }))
+          });
+        }
+      );
+    });
+
+    Object.keys(VEGA_PALETTE_NAMES).forEach(varName => {
+      const sassName = _.kebabCase(varName);
+
+      Object.values(VEGA_PALETTE_DATA[VEGA_PALETTE_NAMES[varName]]).forEach(
+        values => {
+          const group = sassName + '-' + values.length;
+
+          illustratorPalettes.push({
+            name: group,
+            colors: values.map((color, index) => ({
+              group: group,
+              name: group + '-' + (index + 1),
+              rgb: chroma(color).rgb()
+            }))
+          });
+        }
+      );
+    });
+
+    return Promise.mapSeries(illustratorPalettes, palette => {
+      const config = _.cloneDeep(gulpConfig.illustratorTasks.swatches);
+      config.document.mode = 'rgb';
+      config.colors = palette.colors;
+
+      const dist = path.resolve('illustrator/' + palette.name + '.js');
+
+      return illustratorSwatches(config, dist);
+    });
+  });
 }

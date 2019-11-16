@@ -311,7 +311,7 @@ gulp.task('build-sass', function() {
     return Promise.mapSeries(tasks, function(task) {
       return new Promise(function(resolve, reject) {
         var res = nunjucks.render(
-          'src/templates/css/' + task[0] + '/index.scss.njk',
+          'src/templates/css/chrys-color-map-' + task[0] + '/index.scss.njk',
           {
             name: task[1]
           },
