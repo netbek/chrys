@@ -1,5 +1,12 @@
 import _ from 'lodash';
 import {scaleQuantile} from 'd3-scale';
+import log from 'fancy-log';
+import path from 'path';
+import Promise from 'bluebird';
+import webpack from 'webpack';
+import gulpConfig from '../gulp-config';
+import webpackConfig from '../webpack.config.prod';
+import {name as globalName} from '../package';
 
 const BOKEH_TO_VEGA = {
   YlGn: 'yellowGreen',
@@ -50,7 +57,10 @@ const BOKEH_TO_VEGA = {
 const VEGA_TO_BOKEH = _.invert(BOKEH_TO_VEGA);
 
 export function continuousPalette(colors, count) {
-  const scale = scaleQuantile(_.times(count, i => i), colors);
+  const scale = scaleQuantile(
+    _.times(count, i => i),
+    colors
+  );
   return _.times(count, i => scale(i));
 }
 
@@ -170,4 +180,75 @@ export function pySerialize(vendor, vars, maxSize, docsMaxSize) {
   });
 
   return result;
+}
+
+export function buildJs(config) {
+  return new Promise((resolve, reject) => {
+    webpack(config, function(err, stats) {
+      if (err) {
+        log('[webpack]', err);
+        reject();
+      } else {
+        log(
+          '[webpack]',
+          stats.toString({
+            cached: false,
+            cachedAssets: false,
+            children: true,
+            chunks: false,
+            chunkModules: false,
+            chunkOrigins: true,
+            colors: true,
+            entrypoints: false,
+            errorDetails: false,
+            hash: false,
+            modules: false,
+            performance: true,
+            reasons: true,
+            source: false,
+            timings: true,
+            version: true,
+            warnings: true
+          })
+        );
+        resolve();
+      }
+    });
+  });
+}
+
+/**
+ *
+ * @returns {Promise}
+ */
+export function buildModuleJs() {
+  const configs = [
+    {
+      ...webpackConfig,
+      entry: {
+        [globalName]: path.join(gulpConfig.module.src, 'js/index.js'),
+        [globalName + '.min']: path.join(gulpConfig.module.src, 'js/index.js')
+      },
+      output: {
+        filename: '[name].js',
+        path: path.join(gulpConfig.module.dist.cjs),
+        libraryTarget: 'commonjs'
+      }
+    },
+    {
+      ...webpackConfig,
+      entry: {
+        [globalName]: path.join(gulpConfig.module.src, 'js/index.js'),
+        [globalName + '.min']: path.join(gulpConfig.module.src, 'js/index.js')
+      },
+      output: {
+        filename: '[name].js',
+        path: path.join(gulpConfig.module.dist.umd),
+        library: globalName,
+        libraryTarget: 'umd'
+      }
+    }
+  ];
+
+  return Promise.mapSeries(configs, config => buildJs(config));
 }

@@ -10,7 +10,6 @@ const gulpPostcss = require('gulp-postcss');
 const {illustratorSwatches} = require('chrys-cli');
 const jsonSass = require('json-sass');
 const livereload = require('livereload');
-const log = require('fancy-log');
 const nunjucks = require('nunjucks');
 const open = require('open');
 const os = require('os');
@@ -21,7 +20,6 @@ const Promise = require('bluebird');
 const rename = require('gulp-rename');
 const runSequence = require('run-sequence');
 const sass = require('gulp-sass');
-const webpack = require('webpack');
 const webserver = require('gulp-webserver');
 const loadPalettes = require('./utils/loadPalettes');
 
@@ -31,12 +29,7 @@ Promise.promisifyAll(fs);
  * Config
  ---------------------------------------------------------------------------- */
 
-const {name: packageName} = require('./package');
-const globalName = packageName;
-
 const gulpConfig = require('./gulp-config.js');
-
-const webpackConfig = require('./webpack.config.prod');
 
 const livereloadOpen =
   (gulpConfig.webserver.https ? 'https' : 'http') +
@@ -136,77 +129,6 @@ function buildCss(src, dist) {
         resolve();
       });
   });
-}
-
-function buildJs(config) {
-  return new Promise((resolve, reject) => {
-    webpack(config, function(err, stats) {
-      if (err) {
-        log('[webpack]', err);
-        reject();
-      } else {
-        log(
-          '[webpack]',
-          stats.toString({
-            cached: false,
-            cachedAssets: false,
-            children: true,
-            chunks: false,
-            chunkModules: false,
-            chunkOrigins: true,
-            colors: true,
-            entrypoints: false,
-            errorDetails: false,
-            hash: false,
-            modules: false,
-            performance: true,
-            reasons: true,
-            source: false,
-            timings: true,
-            version: true,
-            warnings: true
-          })
-        );
-        resolve();
-      }
-    });
-  });
-}
-
-/**
- *
- * @returns {Promise}
- */
-function buildModuleJs() {
-  const configs = [
-    {
-      ...webpackConfig,
-      entry: {
-        [globalName]: path.join(gulpConfig.module.src, 'js/index.js'),
-        [globalName + '.min']: path.join(gulpConfig.module.src, 'js/index.js')
-      },
-      output: {
-        filename: '[name].js',
-        path: path.join(gulpConfig.module.dist.cjs),
-        libraryTarget: 'commonjs'
-      }
-    },
-    {
-      ...webpackConfig,
-      entry: {
-        [globalName]: path.join(gulpConfig.module.src, 'js/index.js'),
-        [globalName + '.min']: path.join(gulpConfig.module.src, 'js/index.js')
-      },
-      output: {
-        filename: '[name].js',
-        path: path.join(gulpConfig.module.dist.umd),
-        library: globalName,
-        libraryTarget: 'umd'
-      }
-    }
-  ];
-
-  return Promise.mapSeries(configs, config => buildJs(config));
 }
 
 /**
@@ -522,12 +444,9 @@ gulp.task('build-illustrator', function() {
   });
 });
 
-gulp.task('build-module-js', () => buildModuleJs());
-
 gulp.task('build', function(cb) {
   runSequence(
     'clean',
-    'build-module-js',
     'build-vars',
     'build-sass',
     'build-css',
