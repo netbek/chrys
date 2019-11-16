@@ -46,14 +46,8 @@ function buildJsModules() {
     {
       ...webpackConfig,
       entry: {
-        [packageName + '-palettes']: path.join(
-          config.module.src,
-          'js/index.js'
-        ),
-        [packageName + '-palettes.min']: path.join(
-          config.module.src,
-          'js/index.js'
-        )
+        index: path.join(config.module.src, 'js/index.js'),
+        'index.min': path.join(config.module.src, 'js/index.js')
       },
       output: {
         filename: '[name].js',
@@ -64,14 +58,8 @@ function buildJsModules() {
     {
       ...webpackConfig,
       entry: {
-        [packageName + '-palettes']: path.join(
-          config.module.src,
-          'js/index.js'
-        ),
-        [packageName + '-palettes.min']: path.join(
-          config.module.src,
-          'js/index.js'
-        )
+        index: path.join(config.module.src, 'js/index.js'),
+        'index.min': path.join(config.module.src, 'js/index.js')
       },
       output: {
         filename: '[name].js',

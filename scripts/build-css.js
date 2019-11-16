@@ -12,7 +12,7 @@ import {
   BOKEH_PALETTE_NAMES,
   VEGA_PALETTE_DATA,
   VEGA_PALETTE_NAMES
-} from '../cjs/chrys-palettes';
+} from '../cjs';
 
 // TODO Replace gulp
 const gulpCssmin = require('gulp-cssmin');
