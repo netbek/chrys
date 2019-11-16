@@ -2,7 +2,7 @@
   "name": "chrys",
   "version": "3.0.4",
   "description": "A collection of color palettes for mapping and visualisation",
-  "main": "umd/index.js",
+  "main": "cjs/index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/netbek/chrys"
