@@ -16,7 +16,7 @@ Generate a new palette as a subset of a given palette:
 
 ```javascript
 >>> import {VEGA_PALETTES, toDiscretePalette} from 'chrys';
->>> toDiscretePalette(VEGA_PALETTES['viridis'], 6)
+>>> toDiscretePalette(VEGA_PALETTES['viridis'], 6);
 ['#46327f', '#375c8d', '#27808e', '#1fa187', '#4ac26d', '#9fda3a']
 ```
 
@@ -24,7 +24,7 @@ Generate a new palette as a subset of a palette from a given provider:
 
 ```javascript
 >>> import {VEGA_VIRIDIS, discretePalette} from 'chrys';
->>> discretePalette(VEGA_VIRIDIS, 6)
+>>> discretePalette(VEGA_VIRIDIS, 6);
 ['#46327f', '#375c8d', '#27808e', '#1fa187', '#4ac26d', '#9fda3a']
 ```
 
@@ -32,7 +32,7 @@ Get the vendor library and palette names from a given name:
 
 ```javascript
 >>> import {VEGA_VIRIDIS, parsePaletteName} from 'chrys';
->>> parsePaletteName(VEGA_VIRIDIS)
+>>> parsePaletteName(VEGA_VIRIDIS);
 {vendor: 'vega', palette: 'viridis'}
 ```
 
