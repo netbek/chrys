@@ -18,4 +18,4 @@ jobs:
           command: |
             npm test
             . venv/bin/activate
-            nosetests --verbosity=1
+            nosetests -v tests
