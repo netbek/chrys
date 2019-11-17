@@ -2,6 +2,7 @@ import math
 import matplotlib as mpl
 import numpy as np
 
+from collections import namedtuple
 from chrys.data.bokeh_palettes import BOKEH_PALETTE_DATA, BOKEH_PALETTES, BOKEH_PALETTE_NAMES, \
     BOKEH_DOCS_PALETTE_DATA, BOKEH_DOCS_PALETTES, BOKEH_CATEGORY_10, BOKEH_CATEGORY_20, \
     BOKEH_CATEGORY_20_B, BOKEH_CATEGORY_20_C, BOKEH_COLORBLIND, BOKEH_ACCENT, BOKEH_DARK_2, \
@@ -130,6 +131,9 @@ VEGA_CONTINUOUS_PALETTE_NAMES = [name for name, palette in VEGA_PALETTE_DATA.ite
                                  if filter(lambda x: x == 256, palette.keys())]
 
 
+PaletteName = namedtuple('PaletteName', ['vendor', 'palette'])
+
+
 def parse_palette_name(name):
     if name not in PALETTE_TO_VENDOR_MAP:
         raise ValueError('Palette name "{}" not recognized'.format(name))
@@ -137,7 +141,7 @@ def parse_palette_name(name):
     vendor = PALETTE_TO_VENDOR_MAP[name]
     palette = name[len(vendor)+1:]
 
-    return (vendor, palette)
+    return PaletteName._make([vendor, palette])
 
 
 def _get_palette(name):
