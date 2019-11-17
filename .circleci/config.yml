@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:2.7.15-stretch-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            sudo npm install -g bower grunt-cli gulp-cli
+            npm i
+            virtualenv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+      - run:
+          name: Run tests
+          command: |
+            npm test
+            . venv/bin/activate
+            nosetests -v tests

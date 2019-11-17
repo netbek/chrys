@@ -18,7 +18,7 @@
     "build-data": "node -r esm scripts/bokeh-palettes.js && node -r esm scripts/vega-palettes.js",
     "build-dist": "node -r esm scripts/clean.js && node -r esm scripts/build-js.js && node -r esm scripts/build-css.js && node -r esm scripts/build-illustrator.js && rm -fr build && rm -fr dist && python2.7 setup.py sdist bdist_wheel && twine check dist/*",
     "publish": "twine upload --verbose dist/*",
-    "test": "make test"
+    "test": "mocha --require tests/js/setup.js --require babel-core/register tests/js/*.spec.js"
   },
   "author": {
     "name": "Hein Bekker",
@@ -66,6 +66,8 @@
     "babel-preset-stage-2": "6.24.1",
     "bluebird": "3.7.1",
     "bokehjs": "1.4.0",
+    "chai": "4.2.0",
+    "chai-as-promised": "7.1.1",
     "chroma-js": "1.4.1",
     "chrys-cli": "1.0.9",
     "d3-color": "1.4.0",
@@ -96,6 +98,7 @@
     "json-sass": "1.2.1",
     "livereload": "0.8.2",
     "lodash": "4.17.15",
+    "mocha": "6.2.2",
     "node-sass": "4.13.0",
     "nunjucks": "3.2.0",
     "open": "0.0.5",
