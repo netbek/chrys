@@ -97,7 +97,7 @@ Get the vendor library and palette names from a given name:
 ```python
 >>> from chrys.palettes import VEGA_VIRIDIS, parse_palette_name
 >>> parse_palette_name(VEGA_VIRIDIS)
-('vega', 'viridis')
+PaletteName(vendor='vega', palette='viridis')
 ```
 
 ## Development
