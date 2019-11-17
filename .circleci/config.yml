@@ -17,4 +17,4 @@ jobs:
           command: |
             npm test
             . venv/bin/activate
-            nosetests -v tests
+            nosetests -v tests/py
