@@ -14,9 +14,9 @@ setuptools.setup(
     license='BSD-3-Clause',
     url="https://github.com/netbek/chrys",
     install_requires=[
-        'matplotlib == 2.2.4',
-        'nose == 1.3.7',
-        'numpy == 1.7.1',
+        'matplotlib == 2.2.4, == 2.*',
+        'nose >= 1.3.7, == 1.*',
+        'numpy >= 1.7.1, == 1.*',
         'wcag-contrast-ratio == 0.9',
     ],
     packages=setuptools.find_packages(),
