@@ -1,3 +1,5 @@
+import chroma from 'chroma-js';
+
 import {
   BOKEH_PALETTE_DATA,
   BOKEH_PALETTES,
@@ -401,4 +403,41 @@ export function docsPalette(name, asRgb = false) {
   const result = getDocsPalette(name);
 
   return result;
+}
+
+export function passesAA(contrast, large = false) {
+  if (large) {
+    return contrast > 3;
+  }
+  return contrast > 4.5;
+}
+
+export function passesAAA(contrast, large = false) {
+  if (large) {
+    return contrast > 4.5;
+  }
+  return contrast > 7;
+}
+
+function scoreContrast(a, b, large, AAA) {
+  const contrast = chroma.contrast(a, b); // Between 1 and 21
+
+  return (
+    contrast +
+    Number(AAA && passesAAA(contrast, large)) * 100 +
+    Number(!AAA && passesAA(contrast, large)) * 100
+  );
+}
+
+export function bestColorContrast(
+  bgColor,
+  fgColors,
+  large = false,
+  AAA = false
+) {
+  const scores = fgColors.map(fgColor =>
+    scoreContrast(bgColor, fgColor, large, AAA)
+  );
+
+  return fgColors[scores.indexOf(Math.max(...scores))];
 }

@@ -3,6 +3,7 @@ const {assert} = chai;
 const chaiAsPromised = require('chai-as-promised');
 const {
   VEGA_ACCENT,
+  bestColorContrast,
   discretePalette,
   parsePaletteName
 } = require('../../src/js');
@@ -10,6 +11,12 @@ const {
 chai.use(chaiAsPromised);
 
 describe('chrys', () => {
+  describe('bestColorContrast', () => {
+    it('Should choose black on red', () => {
+      assert.equal(bestColorContrast('#f00', ['#000', '#fff']), '#000');
+    });
+  });
+
   describe('parsePaletteName', () => {
     it('Should parse a valid palette name', () => {
       assert.deepEqual(parsePaletteName(VEGA_ACCENT), {
