@@ -1,3 +1,4 @@
+import globby from 'globby';
 import log from 'fancy-log';
 import path from 'path';
 import Promise from 'bluebird';
@@ -42,35 +43,51 @@ function _buildJs(buildConfig) {
 }
 
 function buildJsModules() {
-  const buildConfigs = [
-    {
-      ...webpackConfig,
-      entry: {
-        index: path.join(config.module.src, 'js/index.js'),
-        'index.min': path.join(config.module.src, 'js/index.js')
-      },
-      output: {
-        filename: '[name].js',
-        path: path.resolve(config.module.dist.cjs),
-        libraryTarget: 'commonjs'
-      }
-    },
-    {
-      ...webpackConfig,
-      entry: {
-        index: path.join(config.module.src, 'js/index.js'),
-        'index.min': path.join(config.module.src, 'js/index.js')
-      },
-      output: {
-        filename: '[name].js',
-        path: path.resolve(config.module.dist.umd),
-        library: packageName,
-        libraryTarget: 'umd'
-      }
-    }
-  ];
+  return globby([path.join(config.module.src, 'js/*.js')])
+    .then(files =>
+      files.reduce((result, file) => {
+        const basename = path.basename(file, path.extname(file));
 
-  return Promise.each(buildConfigs, buildConfig => _buildJs(buildConfig));
+        return result.concat([
+          {
+            ...webpackConfig,
+            entry: {
+              [basename]: path.join(config.module.src, 'js', basename + '.js'),
+              [basename + '.min']: path.join(
+                config.module.src,
+                'js',
+                basename + '.js'
+              )
+            },
+            output: {
+              filename: '[name].js',
+              path: path.resolve(config.module.dist.cjs),
+              libraryTarget: 'commonjs'
+            }
+          },
+          {
+            ...webpackConfig,
+            entry: {
+              [basename]: path.join(config.module.src, 'js', basename + '.js'),
+              [basename + '.min']: path.join(
+                config.module.src,
+                'js',
+                basename + '.js'
+              )
+            },
+            output: {
+              filename: '[name].js',
+              path: path.resolve(config.module.dist.umd),
+              library: packageName,
+              libraryTarget: 'umd'
+            }
+          }
+        ]);
+      }, [])
+    )
+    .then(buildConfigs =>
+      Promise.each(buildConfigs, buildConfig => _buildJs(buildConfig))
+    );
 }
 
 Promise.each([buildJsModules], task => task());
