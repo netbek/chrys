@@ -19,9 +19,11 @@ setuptools.setup(
         'numpy >= 1.7.1, == 1.*',
         'wcag-contrast-ratio == 0.9',
     ],
+    python_requires='>=2.7',
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 2.7",
+        'Programming Language :: Python :: 3.6',
         "License :: OSI Approved :: BSD License",
         "Operating System :: POSIX :: Linux",
     ],
