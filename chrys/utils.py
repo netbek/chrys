@@ -30,6 +30,6 @@ def best_color_contrast(bg_color, fg_colors, large=False, AAA=False):
     Text color in hexadecimal format.
     """
     bg_rgb = mpl.colors.to_rgb(bg_color)
-    scores = map(lambda x: score_contrast(bg_rgb, mpl.colors.to_rgb(x), large, AAA), fg_colors)
+    scores = [score_contrast(bg_rgb, mpl.colors.to_rgb(x), large, AAA) for x in fg_colors]
 
     return fg_colors[scores.index(max(scores))]

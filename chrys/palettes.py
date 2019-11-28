@@ -120,15 +120,15 @@ mappings = (DIVERGING_PALETTE_VENDORS, CATEGORICAL_PALETTE_VENDORS,
             SEQUENTIAL_PALETTE_VENDORS, CYCLICAL_PALETTE_VENDORS)
 for mapping in mappings:
     for palette in mapping:
-        for vendor, name in palette.iteritems():
+        for vendor, name in palette.items():
             if name:
                 PALETTE_TO_VENDOR_MAP[name] = vendor
 
-BOKEH_CONTINUOUS_PALETTE_NAMES = [name for name, palette in BOKEH_PALETTE_DATA.iteritems()
-                                  if filter(lambda x: x == 256, palette.keys())]
+BOKEH_CONTINUOUS_PALETTE_NAMES = [name for name, palette in BOKEH_PALETTE_DATA.items()
+                                  if [x for x in list(palette.keys()) if x == 256]]
 
-VEGA_CONTINUOUS_PALETTE_NAMES = [name for name, palette in VEGA_PALETTE_DATA.iteritems()
-                                 if filter(lambda x: x == 256, palette.keys())]
+VEGA_CONTINUOUS_PALETTE_NAMES = [name for name, palette in VEGA_PALETTE_DATA.items()
+                                 if [x for x in list(palette.keys()) if x == 256]]
 
 
 PaletteName = namedtuple('PaletteName', ['vendor', 'palette'])
@@ -195,7 +195,7 @@ def to_discrete_palette(palette, n=6, as_rgb=False):
     list[str]
         A list of RGB hex color strings or RGB tuples.
     """
-    sizes = palette.keys()
+    sizes = list(palette.keys())
     n_clamped = min(max(sizes), max(min(sizes), n))
     result = palette[n_clamped][:n]
 
