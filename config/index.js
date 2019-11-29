@@ -88,5 +88,21 @@ export const config = {
       cjs: rootPath + 'cjs/',
       umd: rootPath + 'umd/'
     }
+  },
+  webserver: {
+    host: 'localhost',
+    port: 8000,
+    path: '/',
+    livereload: false,
+    directoryListing: false,
+    open: '/demo/',
+    https: false,
+    fallback: 'demo/index.html', // For SPAs that manipulate browser history
+    browsers: {
+      default: 'firefox',
+      darwin: 'google chrome',
+      linux: 'google-chrome',
+      win32: 'chrome'
+    }
   }
 };
