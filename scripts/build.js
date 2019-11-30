@@ -21,7 +21,7 @@ import {
 
 const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
 
-env.addFilter('bestColorContrast', bestColorContrast);
+env.addFilter('best_color_contrast', bestColorContrast);
 
 export function buildDemo() {
   const rootPath = path.resolve(__dirname, '..');
@@ -39,7 +39,15 @@ export function buildDemo() {
       destBase: 'vendor'
     },
     {
-      patterns: [path.join(rootPath, 'node_modules/tailwindcss/dist/*.css')],
+      patterns: [
+        path.join(rootPath, 'node_modules/prismjs/**/*.js'),
+        path.join(rootPath, 'node_modules/prismjs/themes/*.css')
+      ],
+      base: 'node_modules',
+      destBase: 'vendor'
+    },
+    {
+      patterns: [path.join(rootPath, 'node_modules/prism-themes/themes/*.css')],
       base: 'node_modules',
       destBase: 'vendor'
     },
