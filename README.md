@@ -4,6 +4,10 @@
 
 A collection of color palettes for mapping and visualisation.
 
+## Demo
+
+[netbek.github.io/chrys](https://netbek.github.io/chrys)
+
 ## Node.js
 
 ### Installation
