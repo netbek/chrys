@@ -14,6 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>chrys</title>
     <link rel="stylesheet" href="vendor/normalize-css/normalize.css"/>
+    <link rel="stylesheet" href="vendor/prism-themes/themes/prism-ghcolors.css"/>
     <link rel="stylesheet" href="css/demo.css"/>
   </head>
   <body>
@@ -24,15 +25,159 @@
     </svg>
 
     <main class="nb-main">
-      <h1 class="text-5xl">chrys</h1>
+      <h1>chrys</h1>
 
-      <section>
-        <h1>Installation and usage</h1>
+      <section id="installation">
+        <h1>Installation</h1>
 
-        See the <a href="https://github.com/netbek/chrys/blob/master/README.md">README</a> for instructions.
+        <section>
+          <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
+
+          <pre><code class="language-shell-session">
+npm install chrys
+          </code></pre>
+        </section>
+
+        <section>
+          <h1><svg width="16" height="16"><use href="#logo-python" /></svg> Python</h1>
+
+          <pre><code class="language-shell-session">
+pip install chrys
+          </code></pre>
+        </section>
+
+        <section>
+          <h1><svg width="16" height="16"><use href="#logo-sass" /></svg> Sass</h1>
+
+          <pre><code class="language-shell-session">
+npm install chrys
+          </code></pre>
+        </section>
       </section>
 
-      <section>
+      <section id="usage">
+        <h1>Usage</h1>
+
+        <section>
+          <h1>Get a list of discrete colours</h1>
+          <p>The maximum number of colours varies by palette, but most can return up to 9 colours.</p>
+
+          <section>
+            <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
+
+            <pre><code class="language-javascript">
+import {VEGA_ACCENT, discretePalette} from 'chrys/umd';
+
+const palette = discretePalette(VEGA_ACCENT, 5);
+            </code></pre>
+
+            <pre><code class="language-javascript">
+["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0"]
+            </code></pre>
+          </section>
+
+          <section>
+            <h1><svg width="16" height="16"><use href="#logo-python" /></svg> Python</h1>
+
+            <pre><code class="language-python">
+from chrys.palettes import VEGA_ACCENT, discrete_palette
+
+hex_palette = discrete_palette(VEGA_ACCENT, 5)
+rgb_palette = discrete_palette(VEGA_ACCENT, 5, as_rgb=True)
+            </code></pre>
+
+            <pre><code class="language-python">
+["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0"]
+[(0.4980392156862745, 0.788235294117647, 0.4980392156862745), ...]
+            </code></pre>
+          </section>
+
+          <section>
+            <h1><svg width="16" height="16"><use href="#logo-sass" /></svg> Sass</h1>
+
+            <pre><code class="language-sass">
+@import 'node_modules/chrys/src/variables';
+
+$palette: map-get(map-get($chrys-palettes, 'vega-accent'), 5);
+            </code></pre>
+
+            <pre><code class="language-sass">
+["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0"]
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h1>Get a list of palette names</h1>
+
+          <section>
+            <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
+
+            <pre><code class="language-javascript">
+import {VEGA_PALETTE_NAMES} from 'chrys/umd';
+
+const variables = Object.keys(VEGA_PALETTE_NAMES);
+const names = Object.values(VEGA_PALETTE_NAMES);
+            </code></pre>
+
+            <pre><code class="language-javascript">
+["VEGA_GREENS", "VEGA_YELLOW_GREEN", "VEGA_GOLD_GREEN", ...]
+["vega_greens", "vega_yellowgreen", "vega_goldgreen", ...]
+            </code></pre>
+          </section>
+
+          <section>
+            <h1><svg width="16" height="16"><use href="#logo-python" /></svg> Python</h1>
+
+            <pre><code class="language-python">
+from chrys.palettes import VEGA_PALETTE_NAMES
+
+variables = VEGA_PALETTE_NAMES.keys()
+names = VEGA_PALETTE_NAMES.values()
+            </code></pre>
+
+            <pre><code class="language-python">
+["VEGA_GREENS", "VEGA_YELLOW_GREEN", "VEGA_GOLD_GREEN", ...]
+["vega_greens", "vega_yellowgreen", "vega_goldgreen", ...]
+            </code></pre>
+          </section>
+        </section>
+
+        <section>
+          <h1>Parse a palette name</h1>
+          <p>Get the name of the vendor and the palette name used internally by the vendor. For example, in Altair and Vega, this is the scheme name.</p>
+
+          <section>
+            <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
+
+            <pre><code class="language-javascript">
+import {VEGA_ACCENT, parsePaletteName} from 'chrys/umd';
+
+parsePaletteName(VEGA_ACCENT);
+            </code></pre>
+
+            <pre><code class="language-javascript">
+{vendor: "vega", palette: "accent"}
+            </code></pre>
+          </section>
+
+          <section>
+            <h1><svg width="16" height="16"><use href="#logo-python" /></svg> Python</h1>
+
+            <pre><code class="language-python">
+from chrys.palettes import VEGA_CATEGORY_10, parse_palette_name
+
+vendor, name = parse_palette_name(VEGA_CATEGORY_10)
+            </code></pre>
+
+            <pre><code class="language-python">
+("vega", "category10")
+            </code></pre>
+          </section>
+        </section>
+      </section>
+
+      <section id="colour-schemes">
         <h1>Colour schemes</h1>
 
         <section>
@@ -15334,6 +15479,9 @@
       </section>
     </main>
 
+    <script src="vendor/prismjs/prism.js"></script>
+    <script src="vendor/prismjs/components/prism-python.js"></script>
+    <script src="vendor/prismjs/components/prism-sass.js"></script>
     <script src="vendor/jquery/dist/jquery.slim.min.js"></script>
     <script src="js/demo.js"></script>
   </body>

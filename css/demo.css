@@ -22,7 +22,19 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0.875em 0;
 }
 
-code {
+pre,
+pre[class*="language-"] {
+  margin: 1.5em auto;
+  padding-top: 0;
+  padding-bottom: 0;
+  border: 1px solid #ddd;
+  background: #f8f8f8;
+}
+
+code,
+code[class*="language-"] {
+  margin: 0;
+  padding: 0;
   font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
   font-size: 13px;
 }
@@ -47,6 +59,14 @@ section h1 {
 section section h1 {
   font-size: 1.5rem;
   border-bottom: 0;
+}
+
+h1 svg {
+  vertical-align: middle;
+}
+
+h1 svg:last-child {
+  margin-right: 0.25em;
 }
 
 table {
