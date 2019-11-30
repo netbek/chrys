@@ -145,6 +145,10 @@ table tbody tr td {
   white-space: nowrap;
 }
 
+.nb-table--palettes .variables tbody tr td svg {
+  vertical-align: middle;
+}
+
 .nb-table--palettes .variables tbody tr td:nth-child(1) {
   padding-right: 0.5em;
   text-align: right;
