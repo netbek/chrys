@@ -127,7 +127,7 @@ npm run build-dist
 Deploy documentation to GitHub Pages:
 
 ```shell
-npm deploy
+npm run deploy
 ```
 
 Publish JavaScript and Python distribution packages:
