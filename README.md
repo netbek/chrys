@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/netbek/chrys.svg?style=svg)](https://circleci.com/gh/netbek/chrys)
 
-A collection of color palettes for mapping and visualisation.
+A collection of color palettes for visualisation in JavaScript, Python and Sass.
 
 ## Demo
 
