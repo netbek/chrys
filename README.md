@@ -140,8 +140,8 @@ npm publish
 
 Palettes from:
 
-* [Bokeh](https://github.com/bokeh/bokeh) (BSD-3-Clause)
-* [Vega](https://github.com/vega/vega) (BSD-3-Clause)
+* [Bokeh](https://github.com/bokeh/bokeh) (BSD 3-Clause)
+* [Vega](https://github.com/vega/vega) (BSD 3-Clause)
 
 ## License
 
