@@ -124,6 +124,12 @@ Build JavaScript and Python distribution packages, Sass, CSS, Illustrator script
 npm run build-dist
 ```
 
+Deploy documentation to GitHub Pages:
+
+```shell
+npm deploy
+```
+
 Publish JavaScript and Python distribution packages:
 
 ```shell
