@@ -46,7 +46,7 @@ import {
   Category20b,
   Category20c,
   Colorblind
-} from 'bokehjs/build/js/lib/api/palettes';
+} from '@bokeh/bokehjs/build/js/lib/api/palettes';
 import {
   continuousPalette,
   bokehToVega,
