@@ -101,7 +101,7 @@
     "gulp-rename": "1.4.0",
     "gulp-sass": "4.0.2",
     "gulp-webserver": "0.9.1",
-    "jquery": "3.4.1",
+    "jquery": "3.5.0",
     "json-sass": "1.2.1",
     "livereload": "0.9.1",
     "lodash": "4.17.15",
