@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6-stretch-node-browsers
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            npm i
+            virtualenv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+      - run:
+          name: Run tests
+          command: |
+            npm test
+            . venv/bin/activate
+            nosetests -v tests/py
