@@ -86,31 +86,45 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 exports.__esModule = true;
 exports.passesAA = passesAA;
-function passesAA(contrast) {
-  var large = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+function passesAA(contrast, large) {
+  if (large === void 0) {
+    large = false;
+  }
 
   if (large) {
     return contrast > 3;
   }
+
   return contrast > 4.5;
 }
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 exports.__esModule = true;
 exports.passesAAA = passesAAA;
-function passesAAA(contrast) {
-  var large = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+function passesAAA(contrast, large) {
+  if (large === void 0) {
+    large = false;
+  }
 
   if (large) {
     return contrast > 4.5;
   }
+
   return contrast > 7;
 }
 
@@ -118,105 +132,103 @@ function passesAAA(contrast) {
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
 exports.__esModule = true;
-exports.CYCLICAL_PALETTE_VENDORS = exports.SEQUENTIAL_PALETTE_VENDORS = exports.DIVERGING_PALETTE_VENDORS = exports.CATEGORICAL_PALETTE_VENDORS = exports.VEGA = exports.BOKEH = exports.bestColorContrast = exports.passesAAA = exports.passesAA = undefined;
-
-var _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9, _ref10, _ref11, _ref12, _ref13, _ref14, _ref15, _ref16, _ref17, _ref18, _ref19, _ref20, _ref21, _ref22, _ref23, _ref24, _ref25, _ref26, _ref27, _ref28, _ref29, _ref30, _ref31, _ref32, _ref33, _ref34, _ref35, _ref36, _ref37, _ref38, _ref39, _ref40, _ref41, _ref42, _ref43, _ref44, _ref45, _ref46, _ref47, _ref48, _ref49, _ref50, _ref51, _ref52, _ref53, _ref54, _ref55, _ref56, _ref57, _ref58, _ref59, _ref60, _ref61, _ref62, _ref63, _ref64, _ref65, _ref66;
-
-var _passesAA = __webpack_require__(0);
-
-Object.defineProperty(exports, 'passesAA', {
-  enumerable: true,
-  get: function get() {
-    return _passesAA.passesAA;
-  }
-});
-
-var _passesAAA = __webpack_require__(1);
-
-Object.defineProperty(exports, 'passesAAA', {
-  enumerable: true,
-  get: function get() {
-    return _passesAAA.passesAAA;
-  }
-});
-
-var _bestColorContrast = __webpack_require__(3);
-
-Object.defineProperty(exports, 'bestColorContrast', {
-  enumerable: true,
-  get: function get() {
-    return _bestColorContrast.bestColorContrast;
-  }
-});
-
-var _vegaPalettes = __webpack_require__(5);
-
-Object.keys(_vegaPalettes).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _vegaPalettes[key];
-    }
-  });
-});
-
-var _bokehPalettes = __webpack_require__(6);
-
-Object.keys(_bokehPalettes).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _bokehPalettes[key];
-    }
-  });
-});
+var _exportNames = {
+  passesAA: true,
+  passesAAA: true,
+  bestColorContrast: true,
+  BOKEH: true,
+  VEGA: true,
+  CATEGORICAL_PALETTE_VENDORS: true,
+  DIVERGING_PALETTE_VENDORS: true,
+  SEQUENTIAL_PALETTE_VENDORS: true,
+  CYCLICAL_PALETTE_VENDORS: true,
+  parsePaletteName: true,
+  toDiscretePalette: true,
+  discretePalette: true,
+  docsPalette: true
+};
 exports.parsePaletteName = parsePaletteName;
 exports.toDiscretePalette = toDiscretePalette;
 exports.discretePalette = discretePalette;
 exports.docsPalette = docsPalette;
-var BOKEH = exports.BOKEH = 'bokeh';
-var VEGA = exports.VEGA = 'vega';
+exports.CYCLICAL_PALETTE_VENDORS = exports.SEQUENTIAL_PALETTE_VENDORS = exports.DIVERGING_PALETTE_VENDORS = exports.CATEGORICAL_PALETTE_VENDORS = exports.VEGA = exports.BOKEH = exports.bestColorContrast = exports.passesAAA = exports.passesAA = void 0;
 
-var CATEGORICAL_PALETTE_VENDORS = exports.CATEGORICAL_PALETTE_VENDORS = [(_ref = {}, _ref[BOKEH] = _bokehPalettes.BOKEH_ACCENT, _ref[VEGA] = _vegaPalettes.VEGA_ACCENT, _ref), (_ref2 = {}, _ref2[BOKEH] = _bokehPalettes.BOKEH_CATEGORY_10, _ref2[VEGA] = _vegaPalettes.VEGA_CATEGORY_10, _ref2), (_ref3 = {}, _ref3[BOKEH] = _bokehPalettes.BOKEH_CATEGORY_20, _ref3[VEGA] = _vegaPalettes.VEGA_CATEGORY_20, _ref3), (_ref4 = {}, _ref4[BOKEH] = _bokehPalettes.BOKEH_CATEGORY_20_B, _ref4[VEGA] = _vegaPalettes.VEGA_CATEGORY_20_B, _ref4), (_ref5 = {}, _ref5[BOKEH] = _bokehPalettes.BOKEH_CATEGORY_20_C, _ref5[VEGA] = _vegaPalettes.VEGA_CATEGORY_20_C, _ref5), (_ref6 = {}, _ref6[BOKEH] = _bokehPalettes.BOKEH_DARK_2, _ref6[VEGA] = _vegaPalettes.VEGA_DARK_2, _ref6), (_ref7 = {}, _ref7[BOKEH] = _bokehPalettes.BOKEH_PAIRED, _ref7[VEGA] = _vegaPalettes.VEGA_PAIRED, _ref7), (_ref8 = {}, _ref8[BOKEH] = _bokehPalettes.BOKEH_PASTEL_1, _ref8[VEGA] = _vegaPalettes.VEGA_PASTEL_1, _ref8), (_ref9 = {}, _ref9[BOKEH] = _bokehPalettes.BOKEH_PASTEL_2, _ref9[VEGA] = _vegaPalettes.VEGA_PASTEL_2, _ref9), (_ref10 = {}, _ref10[BOKEH] = _bokehPalettes.BOKEH_SET_1, _ref10[VEGA] = _vegaPalettes.VEGA_SET_1, _ref10), (_ref11 = {}, _ref11[BOKEH] = _bokehPalettes.BOKEH_SET_2, _ref11[VEGA] = _vegaPalettes.VEGA_SET_2, _ref11), (_ref12 = {}, _ref12[BOKEH] = _bokehPalettes.BOKEH_SET_3, _ref12[VEGA] = _vegaPalettes.VEGA_SET_3, _ref12), (_ref13 = {}, _ref13[BOKEH] = undefined, _ref13[VEGA] = _vegaPalettes.VEGA_TABLEAU_10, _ref13), (_ref14 = {}, _ref14[BOKEH] = undefined, _ref14[VEGA] = _vegaPalettes.VEGA_TABLEAU_20, _ref14), (_ref15 = {}, _ref15[BOKEH] = _bokehPalettes.BOKEH_COLORBLIND, _ref15[VEGA] = undefined, _ref15)];
+var _passesAA = __webpack_require__(0);
 
-var DIVERGING_PALETTE_VENDORS = exports.DIVERGING_PALETTE_VENDORS = [(_ref16 = {}, _ref16[BOKEH] = undefined, _ref16[VEGA] = _vegaPalettes.VEGA_BLUE_ORANGE, _ref16), (_ref17 = {}, _ref17[BOKEH] = _bokehPalettes.BOKEH_BROWN_BLUE_GREEN, _ref17[VEGA] = _vegaPalettes.VEGA_BROWN_BLUE_GREEN, _ref17), (_ref18 = {}, _ref18[BOKEH] = _bokehPalettes.BOKEH_PURPLE_GREEN, _ref18[VEGA] = _vegaPalettes.VEGA_PURPLE_GREEN, _ref18), (_ref19 = {}, _ref19[BOKEH] = _bokehPalettes.BOKEH_PINK_YELLOW_GREEN, _ref19[VEGA] = _vegaPalettes.VEGA_PINK_YELLOW_GREEN, _ref19), (_ref20 = {}, _ref20[BOKEH] = _bokehPalettes.BOKEH_PURPLE_ORANGE, _ref20[VEGA] = _vegaPalettes.VEGA_PURPLE_ORANGE, _ref20), (_ref21 = {}, _ref21[BOKEH] = _bokehPalettes.BOKEH_RED_BLUE, _ref21[VEGA] = _vegaPalettes.VEGA_RED_BLUE, _ref21), (_ref22 = {}, _ref22[BOKEH] = _bokehPalettes.BOKEH_RED_GREY, _ref22[VEGA] = _vegaPalettes.VEGA_RED_GREY, _ref22), (_ref23 = {}, _ref23[BOKEH] = _bokehPalettes.BOKEH_RED_YELLOW_BLUE, _ref23[VEGA] = _vegaPalettes.VEGA_RED_YELLOW_BLUE, _ref23), (_ref24 = {}, _ref24[BOKEH] = _bokehPalettes.BOKEH_RED_YELLOW_GREEN, _ref24[VEGA] = _vegaPalettes.VEGA_RED_YELLOW_GREEN, _ref24), (_ref25 = {}, _ref25[BOKEH] = _bokehPalettes.BOKEH_SPECTRAL, _ref25[VEGA] = _vegaPalettes.VEGA_SPECTRAL, _ref25)];
+exports.passesAA = _passesAA.passesAA;
 
-var SEQUENTIAL_PALETTE_VENDORS = exports.SEQUENTIAL_PALETTE_VENDORS = [(_ref26 = {}, _ref26[BOKEH] = _bokehPalettes.BOKEH_BLUES, _ref26[VEGA] = _vegaPalettes.VEGA_BLUES, _ref26), (_ref27 = {}, _ref27[BOKEH] = undefined, _ref27[VEGA] = _vegaPalettes.VEGA_TEAL_BLUES, _ref27), (_ref28 = {}, _ref28[BOKEH] = undefined, _ref28[VEGA] = _vegaPalettes.VEGA_TEALS, _ref28), (_ref29 = {}, _ref29[BOKEH] = _bokehPalettes.BOKEH_GREENS, _ref29[VEGA] = _vegaPalettes.VEGA_GREENS, _ref29), (_ref30 = {}, _ref30[BOKEH] = undefined, _ref30[VEGA] = _vegaPalettes.VEGA_BROWNS, _ref30), (_ref31 = {}, _ref31[BOKEH] = _bokehPalettes.BOKEH_ORANGES, _ref31[VEGA] = _vegaPalettes.VEGA_ORANGES, _ref31), (_ref32 = {}, _ref32[BOKEH] = _bokehPalettes.BOKEH_REDS, _ref32[VEGA] = _vegaPalettes.VEGA_REDS, _ref32), (_ref33 = {}, _ref33[BOKEH] = _bokehPalettes.BOKEH_PURPLES, _ref33[VEGA] = _vegaPalettes.VEGA_PURPLES, _ref33), (_ref34 = {}, _ref34[BOKEH] = undefined, _ref34[VEGA] = _vegaPalettes.VEGA_WARM_GREYS, _ref34), (_ref35 = {}, _ref35[BOKEH] = _bokehPalettes.BOKEH_GREYS, _ref35[VEGA] = _vegaPalettes.VEGA_GREYS, _ref35), (_ref36 = {}, _ref36[BOKEH] = _bokehPalettes.BOKEH_VIRIDIS, _ref36[VEGA] = _vegaPalettes.VEGA_VIRIDIS, _ref36), (_ref37 = {}, _ref37[BOKEH] = _bokehPalettes.BOKEH_MAGMA, _ref37[VEGA] = _vegaPalettes.VEGA_MAGMA, _ref37), (_ref38 = {}, _ref38[BOKEH] = _bokehPalettes.BOKEH_INFERNO, _ref38[VEGA] = _vegaPalettes.VEGA_INFERNO, _ref38), (_ref39 = {}, _ref39[BOKEH] = _bokehPalettes.BOKEH_PLASMA, _ref39[VEGA] = _vegaPalettes.VEGA_PLASMA, _ref39), (_ref40 = {}, _ref40[BOKEH] = _bokehPalettes.BOKEH_BLUE_GREEN, _ref40[VEGA] = _vegaPalettes.VEGA_BLUE_GREEN, _ref40), (_ref41 = {}, _ref41[BOKEH] = _bokehPalettes.BOKEH_BLUE_PURPLE, _ref41[VEGA] = _vegaPalettes.VEGA_BLUE_PURPLE, _ref41), (_ref42 = {}, _ref42[BOKEH] = undefined, _ref42[VEGA] = _vegaPalettes.VEGA_GOLD_GREEN, _ref42), (_ref43 = {}, _ref43[BOKEH] = undefined, _ref43[VEGA] = _vegaPalettes.VEGA_GOLD_ORANGE, _ref43), (_ref44 = {}, _ref44[BOKEH] = undefined, _ref44[VEGA] = _vegaPalettes.VEGA_GOLD_RED, _ref44), (_ref45 = {}, _ref45[BOKEH] = _bokehPalettes.BOKEH_GREEN_BLUE, _ref45[VEGA] = _vegaPalettes.VEGA_GREEN_BLUE, _ref45), (_ref46 = {}, _ref46[BOKEH] = _bokehPalettes.BOKEH_ORANGE_RED, _ref46[VEGA] = _vegaPalettes.VEGA_ORANGE_RED, _ref46), (_ref47 = {}, _ref47[BOKEH] = _bokehPalettes.BOKEH_PURPLE_BLUE_GREEN, _ref47[VEGA] = _vegaPalettes.VEGA_PURPLE_BLUE_GREEN, _ref47), (_ref48 = {}, _ref48[BOKEH] = _bokehPalettes.BOKEH_PURPLE_BLUE, _ref48[VEGA] = _vegaPalettes.VEGA_PURPLE_BLUE, _ref48), (_ref49 = {}, _ref49[BOKEH] = _bokehPalettes.BOKEH_PURPLE_RED, _ref49[VEGA] = _vegaPalettes.VEGA_PURPLE_RED, _ref49), (_ref50 = {}, _ref50[BOKEH] = _bokehPalettes.BOKEH_RED_PURPLE, _ref50[VEGA] = _vegaPalettes.VEGA_RED_PURPLE, _ref50), (_ref51 = {}, _ref51[BOKEH] = _bokehPalettes.BOKEH_YELLOW_GREEN_BLUE, _ref51[VEGA] = _vegaPalettes.VEGA_YELLOW_GREEN_BLUE, _ref51), (_ref52 = {}, _ref52[BOKEH] = _bokehPalettes.BOKEH_YELLOW_GREEN, _ref52[VEGA] = _vegaPalettes.VEGA_YELLOW_GREEN, _ref52), (_ref53 = {}, _ref53[BOKEH] = _bokehPalettes.BOKEH_YELLOW_ORANGE_BROWN, _ref53[VEGA] = _vegaPalettes.VEGA_YELLOW_ORANGE_BROWN, _ref53), (_ref54 = {}, _ref54[BOKEH] = _bokehPalettes.BOKEH_YELLOW_ORANGE_RED, _ref54[VEGA] = _vegaPalettes.VEGA_YELLOW_ORANGE_RED, _ref54), (_ref55 = {}, _ref55[BOKEH] = undefined, _ref55[VEGA] = _vegaPalettes.VEGA_DARK_BLUE, _ref55), (_ref56 = {}, _ref56[BOKEH] = undefined, _ref56[VEGA] = _vegaPalettes.VEGA_DARK_GOLD, _ref56), (_ref57 = {}, _ref57[BOKEH] = undefined, _ref57[VEGA] = _vegaPalettes.VEGA_DARK_GREEN, _ref57), (_ref58 = {}, _ref58[BOKEH] = undefined, _ref58[VEGA] = _vegaPalettes.VEGA_DARK_MULTI, _ref58), (_ref59 = {}, _ref59[BOKEH] = undefined, _ref59[VEGA] = _vegaPalettes.VEGA_DARK_RED, _ref59), (_ref60 = {}, _ref60[BOKEH] = undefined, _ref60[VEGA] = _vegaPalettes.VEGA_LIGHT_GREY_RED, _ref60), (_ref61 = {}, _ref61[BOKEH] = undefined, _ref61[VEGA] = _vegaPalettes.VEGA_LIGHT_GREY_TEAL, _ref61), (_ref62 = {}, _ref62[BOKEH] = undefined, _ref62[VEGA] = _vegaPalettes.VEGA_LIGHT_MULTI, _ref62), (_ref63 = {}, _ref63[BOKEH] = undefined, _ref63[VEGA] = _vegaPalettes.VEGA_LIGHT_ORANGE, _ref63), (_ref64 = {}, _ref64[BOKEH] = undefined, _ref64[VEGA] = _vegaPalettes.VEGA_LIGHT_TEAL_BLUE, _ref64)];
+var _passesAAA = __webpack_require__(1);
 
-var CYCLICAL_PALETTE_VENDORS = exports.CYCLICAL_PALETTE_VENDORS = [(_ref65 = {}, _ref65[BOKEH] = undefined, _ref65[VEGA] = _vegaPalettes.VEGA_RAINBOW, _ref65), (_ref66 = {}, _ref66[BOKEH] = undefined, _ref66[VEGA] = _vegaPalettes.VEGA_SINEBOW, _ref66)];
+exports.passesAAA = _passesAAA.passesAAA;
 
+var _bestColorContrast = __webpack_require__(3);
+
+exports.bestColorContrast = _bestColorContrast.bestColorContrast;
+
+var _bokehPalettes = __webpack_require__(5);
+
+Object.keys(_bokehPalettes).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _bokehPalettes[key];
+});
+
+var _vegaPalettes = __webpack_require__(6);
+
+Object.keys(_vegaPalettes).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  exports[key] = _vegaPalettes[key];
+});
+
+var _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9, _ref10, _ref11, _ref12, _ref13, _ref14, _ref15, _ref16, _ref17, _ref18, _ref19, _ref20, _ref21, _ref22, _ref23, _ref24, _ref25, _ref26, _ref27, _ref28, _ref29, _ref30, _ref31, _ref32, _ref33, _ref34, _ref35, _ref36, _ref37, _ref38, _ref39, _ref40, _ref41, _ref42, _ref43, _ref44, _ref45, _ref46, _ref47, _ref48, _ref49, _ref50, _ref51, _ref52, _ref53, _ref54, _ref55, _ref56, _ref57, _ref58, _ref59, _ref60, _ref61, _ref62, _ref63, _ref64, _ref65, _ref66;
+
+var BOKEH = 'bokeh';
+exports.BOKEH = BOKEH;
+var VEGA = 'vega';
+exports.VEGA = VEGA;
+var CATEGORICAL_PALETTE_VENDORS = [(_ref = {}, _ref[BOKEH] = _bokehPalettes.BOKEH_ACCENT, _ref[VEGA] = _vegaPalettes.VEGA_ACCENT, _ref), (_ref2 = {}, _ref2[BOKEH] = _bokehPalettes.BOKEH_CATEGORY_10, _ref2[VEGA] = _vegaPalettes.VEGA_CATEGORY_10, _ref2), (_ref3 = {}, _ref3[BOKEH] = _bokehPalettes.BOKEH_CATEGORY_20, _ref3[VEGA] = _vegaPalettes.VEGA_CATEGORY_20, _ref3), (_ref4 = {}, _ref4[BOKEH] = _bokehPalettes.BOKEH_CATEGORY_20_B, _ref4[VEGA] = _vegaPalettes.VEGA_CATEGORY_20_B, _ref4), (_ref5 = {}, _ref5[BOKEH] = _bokehPalettes.BOKEH_CATEGORY_20_C, _ref5[VEGA] = _vegaPalettes.VEGA_CATEGORY_20_C, _ref5), (_ref6 = {}, _ref6[BOKEH] = _bokehPalettes.BOKEH_DARK_2, _ref6[VEGA] = _vegaPalettes.VEGA_DARK_2, _ref6), (_ref7 = {}, _ref7[BOKEH] = _bokehPalettes.BOKEH_PAIRED, _ref7[VEGA] = _vegaPalettes.VEGA_PAIRED, _ref7), (_ref8 = {}, _ref8[BOKEH] = _bokehPalettes.BOKEH_PASTEL_1, _ref8[VEGA] = _vegaPalettes.VEGA_PASTEL_1, _ref8), (_ref9 = {}, _ref9[BOKEH] = _bokehPalettes.BOKEH_PASTEL_2, _ref9[VEGA] = _vegaPalettes.VEGA_PASTEL_2, _ref9), (_ref10 = {}, _ref10[BOKEH] = _bokehPalettes.BOKEH_SET_1, _ref10[VEGA] = _vegaPalettes.VEGA_SET_1, _ref10), (_ref11 = {}, _ref11[BOKEH] = _bokehPalettes.BOKEH_SET_2, _ref11[VEGA] = _vegaPalettes.VEGA_SET_2, _ref11), (_ref12 = {}, _ref12[BOKEH] = _bokehPalettes.BOKEH_SET_3, _ref12[VEGA] = _vegaPalettes.VEGA_SET_3, _ref12), (_ref13 = {}, _ref13[BOKEH] = undefined, _ref13[VEGA] = _vegaPalettes.VEGA_TABLEAU_10, _ref13), (_ref14 = {}, _ref14[BOKEH] = undefined, _ref14[VEGA] = _vegaPalettes.VEGA_TABLEAU_20, _ref14), (_ref15 = {}, _ref15[BOKEH] = _bokehPalettes.BOKEH_COLORBLIND, _ref15[VEGA] = undefined, _ref15)];
+exports.CATEGORICAL_PALETTE_VENDORS = CATEGORICAL_PALETTE_VENDORS;
+var DIVERGING_PALETTE_VENDORS = [(_ref16 = {}, _ref16[BOKEH] = undefined, _ref16[VEGA] = _vegaPalettes.VEGA_BLUE_ORANGE, _ref16), (_ref17 = {}, _ref17[BOKEH] = _bokehPalettes.BOKEH_BROWN_BLUE_GREEN, _ref17[VEGA] = _vegaPalettes.VEGA_BROWN_BLUE_GREEN, _ref17), (_ref18 = {}, _ref18[BOKEH] = _bokehPalettes.BOKEH_PURPLE_GREEN, _ref18[VEGA] = _vegaPalettes.VEGA_PURPLE_GREEN, _ref18), (_ref19 = {}, _ref19[BOKEH] = _bokehPalettes.BOKEH_PINK_YELLOW_GREEN, _ref19[VEGA] = _vegaPalettes.VEGA_PINK_YELLOW_GREEN, _ref19), (_ref20 = {}, _ref20[BOKEH] = _bokehPalettes.BOKEH_PURPLE_ORANGE, _ref20[VEGA] = _vegaPalettes.VEGA_PURPLE_ORANGE, _ref20), (_ref21 = {}, _ref21[BOKEH] = _bokehPalettes.BOKEH_RED_BLUE, _ref21[VEGA] = _vegaPalettes.VEGA_RED_BLUE, _ref21), (_ref22 = {}, _ref22[BOKEH] = _bokehPalettes.BOKEH_RED_GREY, _ref22[VEGA] = _vegaPalettes.VEGA_RED_GREY, _ref22), (_ref23 = {}, _ref23[BOKEH] = _bokehPalettes.BOKEH_RED_YELLOW_BLUE, _ref23[VEGA] = _vegaPalettes.VEGA_RED_YELLOW_BLUE, _ref23), (_ref24 = {}, _ref24[BOKEH] = _bokehPalettes.BOKEH_RED_YELLOW_GREEN, _ref24[VEGA] = _vegaPalettes.VEGA_RED_YELLOW_GREEN, _ref24), (_ref25 = {}, _ref25[BOKEH] = _bokehPalettes.BOKEH_SPECTRAL, _ref25[VEGA] = _vegaPalettes.VEGA_SPECTRAL, _ref25)];
+exports.DIVERGING_PALETTE_VENDORS = DIVERGING_PALETTE_VENDORS;
+var SEQUENTIAL_PALETTE_VENDORS = [(_ref26 = {}, _ref26[BOKEH] = _bokehPalettes.BOKEH_BLUES, _ref26[VEGA] = _vegaPalettes.VEGA_BLUES, _ref26), (_ref27 = {}, _ref27[BOKEH] = undefined, _ref27[VEGA] = _vegaPalettes.VEGA_TEAL_BLUES, _ref27), (_ref28 = {}, _ref28[BOKEH] = undefined, _ref28[VEGA] = _vegaPalettes.VEGA_TEALS, _ref28), (_ref29 = {}, _ref29[BOKEH] = _bokehPalettes.BOKEH_GREENS, _ref29[VEGA] = _vegaPalettes.VEGA_GREENS, _ref29), (_ref30 = {}, _ref30[BOKEH] = undefined, _ref30[VEGA] = _vegaPalettes.VEGA_BROWNS, _ref30), (_ref31 = {}, _ref31[BOKEH] = _bokehPalettes.BOKEH_ORANGES, _ref31[VEGA] = _vegaPalettes.VEGA_ORANGES, _ref31), (_ref32 = {}, _ref32[BOKEH] = _bokehPalettes.BOKEH_REDS, _ref32[VEGA] = _vegaPalettes.VEGA_REDS, _ref32), (_ref33 = {}, _ref33[BOKEH] = _bokehPalettes.BOKEH_PURPLES, _ref33[VEGA] = _vegaPalettes.VEGA_PURPLES, _ref33), (_ref34 = {}, _ref34[BOKEH] = undefined, _ref34[VEGA] = _vegaPalettes.VEGA_WARM_GREYS, _ref34), (_ref35 = {}, _ref35[BOKEH] = _bokehPalettes.BOKEH_GREYS, _ref35[VEGA] = _vegaPalettes.VEGA_GREYS, _ref35), (_ref36 = {}, _ref36[BOKEH] = _bokehPalettes.BOKEH_VIRIDIS, _ref36[VEGA] = _vegaPalettes.VEGA_VIRIDIS, _ref36), (_ref37 = {}, _ref37[BOKEH] = _bokehPalettes.BOKEH_MAGMA, _ref37[VEGA] = _vegaPalettes.VEGA_MAGMA, _ref37), (_ref38 = {}, _ref38[BOKEH] = _bokehPalettes.BOKEH_INFERNO, _ref38[VEGA] = _vegaPalettes.VEGA_INFERNO, _ref38), (_ref39 = {}, _ref39[BOKEH] = _bokehPalettes.BOKEH_PLASMA, _ref39[VEGA] = _vegaPalettes.VEGA_PLASMA, _ref39), (_ref40 = {}, _ref40[BOKEH] = _bokehPalettes.BOKEH_BLUE_GREEN, _ref40[VEGA] = _vegaPalettes.VEGA_BLUE_GREEN, _ref40), (_ref41 = {}, _ref41[BOKEH] = _bokehPalettes.BOKEH_BLUE_PURPLE, _ref41[VEGA] = _vegaPalettes.VEGA_BLUE_PURPLE, _ref41), (_ref42 = {}, _ref42[BOKEH] = undefined, _ref42[VEGA] = _vegaPalettes.VEGA_GOLD_GREEN, _ref42), (_ref43 = {}, _ref43[BOKEH] = undefined, _ref43[VEGA] = _vegaPalettes.VEGA_GOLD_ORANGE, _ref43), (_ref44 = {}, _ref44[BOKEH] = undefined, _ref44[VEGA] = _vegaPalettes.VEGA_GOLD_RED, _ref44), (_ref45 = {}, _ref45[BOKEH] = _bokehPalettes.BOKEH_GREEN_BLUE, _ref45[VEGA] = _vegaPalettes.VEGA_GREEN_BLUE, _ref45), (_ref46 = {}, _ref46[BOKEH] = _bokehPalettes.BOKEH_ORANGE_RED, _ref46[VEGA] = _vegaPalettes.VEGA_ORANGE_RED, _ref46), (_ref47 = {}, _ref47[BOKEH] = _bokehPalettes.BOKEH_PURPLE_BLUE_GREEN, _ref47[VEGA] = _vegaPalettes.VEGA_PURPLE_BLUE_GREEN, _ref47), (_ref48 = {}, _ref48[BOKEH] = _bokehPalettes.BOKEH_PURPLE_BLUE, _ref48[VEGA] = _vegaPalettes.VEGA_PURPLE_BLUE, _ref48), (_ref49 = {}, _ref49[BOKEH] = _bokehPalettes.BOKEH_PURPLE_RED, _ref49[VEGA] = _vegaPalettes.VEGA_PURPLE_RED, _ref49), (_ref50 = {}, _ref50[BOKEH] = _bokehPalettes.BOKEH_RED_PURPLE, _ref50[VEGA] = _vegaPalettes.VEGA_RED_PURPLE, _ref50), (_ref51 = {}, _ref51[BOKEH] = _bokehPalettes.BOKEH_YELLOW_GREEN_BLUE, _ref51[VEGA] = _vegaPalettes.VEGA_YELLOW_GREEN_BLUE, _ref51), (_ref52 = {}, _ref52[BOKEH] = _bokehPalettes.BOKEH_YELLOW_GREEN, _ref52[VEGA] = _vegaPalettes.VEGA_YELLOW_GREEN, _ref52), (_ref53 = {}, _ref53[BOKEH] = _bokehPalettes.BOKEH_YELLOW_ORANGE_BROWN, _ref53[VEGA] = _vegaPalettes.VEGA_YELLOW_ORANGE_BROWN, _ref53), (_ref54 = {}, _ref54[BOKEH] = _bokehPalettes.BOKEH_YELLOW_ORANGE_RED, _ref54[VEGA] = _vegaPalettes.VEGA_YELLOW_ORANGE_RED, _ref54), (_ref55 = {}, _ref55[BOKEH] = undefined, _ref55[VEGA] = _vegaPalettes.VEGA_DARK_BLUE, _ref55), (_ref56 = {}, _ref56[BOKEH] = undefined, _ref56[VEGA] = _vegaPalettes.VEGA_DARK_GOLD, _ref56), (_ref57 = {}, _ref57[BOKEH] = undefined, _ref57[VEGA] = _vegaPalettes.VEGA_DARK_GREEN, _ref57), (_ref58 = {}, _ref58[BOKEH] = undefined, _ref58[VEGA] = _vegaPalettes.VEGA_DARK_MULTI, _ref58), (_ref59 = {}, _ref59[BOKEH] = undefined, _ref59[VEGA] = _vegaPalettes.VEGA_DARK_RED, _ref59), (_ref60 = {}, _ref60[BOKEH] = undefined, _ref60[VEGA] = _vegaPalettes.VEGA_LIGHT_GREY_RED, _ref60), (_ref61 = {}, _ref61[BOKEH] = undefined, _ref61[VEGA] = _vegaPalettes.VEGA_LIGHT_GREY_TEAL, _ref61), (_ref62 = {}, _ref62[BOKEH] = undefined, _ref62[VEGA] = _vegaPalettes.VEGA_LIGHT_MULTI, _ref62), (_ref63 = {}, _ref63[BOKEH] = undefined, _ref63[VEGA] = _vegaPalettes.VEGA_LIGHT_ORANGE, _ref63), (_ref64 = {}, _ref64[BOKEH] = undefined, _ref64[VEGA] = _vegaPalettes.VEGA_LIGHT_TEAL_BLUE, _ref64)];
+exports.SEQUENTIAL_PALETTE_VENDORS = SEQUENTIAL_PALETTE_VENDORS;
+var CYCLICAL_PALETTE_VENDORS = [(_ref65 = {}, _ref65[BOKEH] = undefined, _ref65[VEGA] = _vegaPalettes.VEGA_RAINBOW, _ref65), (_ref66 = {}, _ref66[BOKEH] = undefined, _ref66[VEGA] = _vegaPalettes.VEGA_SINEBOW, _ref66)];
+exports.CYCLICAL_PALETTE_VENDORS = CYCLICAL_PALETTE_VENDORS;
 var PALETTE_TO_VENDOR_MAP = {};
 [DIVERGING_PALETTE_VENDORS, CATEGORICAL_PALETTE_VENDORS, SEQUENTIAL_PALETTE_VENDORS, CYCLICAL_PALETTE_VENDORS].forEach(function (mappings) {
   mappings.forEach(function (mapping) {
     Object.keys(mapping).forEach(function (vendor) {
       var name = mapping[vendor];
+
       if (name) {
         PALETTE_TO_VENDOR_MAP[name] = vendor;
       }
     });
   });
 });
-
 var BOKEH_CONTINUOUS_PALETTE_NAMES = Object.keys(_bokehPalettes.BOKEH_PALETTE_DATA).filter(function (name) {
   return ~Object.keys(_bokehPalettes.BOKEH_PALETTE_DATA[name]).indexOf(256);
 });
-
 var VEGA_CONTINUOUS_PALETTE_NAMES = Object.keys(_vegaPalettes.VEGA_PALETTE_DATA).filter(function (name) {
   return ~Object.keys(_vegaPalettes.VEGA_PALETTE_DATA[name]).indexOf(256);
 });
 
 function parsePaletteName(name) {
   if (!Object.prototype.hasOwnProperty.call(PALETTE_TO_VENDOR_MAP, name)) {
-    throw new Error('Palette name "' + name + '" no recognized.');
+    throw new Error("Palette name \"" + name + "\" no recognized.");
   }
 
   var vendor = PALETTE_TO_VENDOR_MAP[name];
   var palette = name.substring(vendor.length + 1);
-
-  return { vendor: vendor, palette: palette };
+  return {
+    vendor: vendor,
+    palette: palette
+  };
 }
 
 function getPalette(name) {
@@ -229,7 +241,7 @@ function getPalette(name) {
     return _vegaPalettes.VEGA_PALETTE_DATA[name];
   }
 
-  throw new Error('Vendor "' + vendor + '" no recognized.');
+  throw new Error("Vendor \"" + vendor + "\" no recognized.");
 }
 
 function getDocsPalette(name) {
@@ -242,7 +254,7 @@ function getDocsPalette(name) {
     return _vegaPalettes.VEGA_DOCS_PALETTE_DATA[name];
   }
 
-  throw new Error('Vendor "' + vendor + '" no recognized.');
+  throw new Error("Vendor \"" + vendor + "\" no recognized.");
 }
 
 function isContinuous(name) {
@@ -255,32 +267,42 @@ function isContinuous(name) {
     return Object.prototype.hasOwnProperty.call(VEGA_CONTINUOUS_PALETTE_NAMES, name);
   }
 
-  throw new Error('Vendor "' + vendor + '" no recognized.');
+  throw new Error("Vendor \"" + vendor + "\" no recognized.");
 }
 
-function toDiscretePalette(palette) {
-  var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 6;
-  var asRgb = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+function toDiscretePalette(palette, n, asRgb) {
+  if (n === void 0) {
+    n = 6;
+  }
+
+  if (asRgb === void 0) {
+    asRgb = false;
+  }
 
   var sizes = Object.keys(palette).map(Number);
   var nClamped = Math.min(Math.max.apply(Math, sizes), Math.max(Math.min.apply(Math, sizes), n));
   var result = palette[nClamped + ''].slice(0, n);
-
   return result;
 }
 
-function discretePalette(name) {
-  var n = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 6;
-  var asRgb = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+function discretePalette(name, n, asRgb) {
+  if (n === void 0) {
+    n = 6;
+  }
+
+  if (asRgb === void 0) {
+    asRgb = false;
+  }
 
   return toDiscretePalette(getPalette(name), n, asRgb);
 }
 
-function docsPalette(name) {
-  var asRgb = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+function docsPalette(name, asRgb) {
+  if (asRgb === void 0) {
+    asRgb = false;
+  }
 
   var result = getDocsPalette(name);
-
   return result;
 }
 
@@ -288,33 +310,38 @@ function docsPalette(name) {
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
 exports.__esModule = true;
 exports.bestColorContrast = bestColorContrast;
 
-var _chromaJs = __webpack_require__(4);
-
-var _chromaJs2 = _interopRequireDefault(_chromaJs);
+var _chromaJs = _interopRequireDefault(__webpack_require__(4));
 
 var _passesAA = __webpack_require__(0);
 
 var _passesAAA = __webpack_require__(1);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function scoreContrast(a, b, large, AAA) {
-  var contrast = _chromaJs2.default.contrast(a, b);
+  var contrast = _chromaJs["default"].contrast(a, b);
 
   return contrast + Number(AAA && (0, _passesAAA.passesAAA)(contrast, large)) * 100 + Number(!AAA && (0, _passesAA.passesAA)(contrast, large)) * 100;
 }
 
-function bestColorContrast(bgColor, fgColors) {
-  var large = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-  var AAA = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+function bestColorContrast(bgColor, fgColors, large, AAA) {
+  if (large === void 0) {
+    large = false;
+  }
+
+  if (AAA === void 0) {
+    AAA = false;
+  }
 
   var scores = fgColors.map(function (fgColor) {
     return scoreContrast(bgColor, fgColor, large, AAA);
   });
-
   return fgColors[scores.indexOf(Math.max.apply(Math, scores))];
 }
 
@@ -322,7 +349,8 @@ function bestColorContrast(bgColor, fgColors) {
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+"use strict";
+
 
 /**
  * chroma.js - JavaScript library for color conversions
@@ -380,3129 +408,4233 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = 
  *
  * @preserve
  */
-
 (function (global, factory) {
-    ( false ? undefined : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? module.exports = factory() :  true ? !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-				__WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : undefined;
-})(undefined, function () {
-    'use strict';
+   true ? module.exports = factory() : undefined;
+})(void 0, function () {
+  'use strict';
 
-    var limit = function limit(x, min, max) {
-        if (min === void 0) min = 0;
-        if (max === void 0) max = 1;
+  var limit = function limit(x, min, max) {
+    if (min === void 0) min = 0;
+    if (max === void 0) max = 1;
+    return x < min ? min : x > max ? max : x;
+  };
 
-        return x < min ? min : x > max ? max : x;
-    };
+  var clip_rgb = function clip_rgb(rgb) {
+    rgb._clipped = false;
+    rgb._unclipped = rgb.slice(0);
 
-    var clip_rgb = function clip_rgb(rgb) {
-        rgb._clipped = false;
-        rgb._unclipped = rgb.slice(0);
-        for (var i = 0; i <= 3; i++) {
-            if (i < 3) {
-                if (rgb[i] < 0 || rgb[i] > 255) {
-                    rgb._clipped = true;
-                }
-                rgb[i] = limit(rgb[i], 0, 255);
-            } else if (i === 3) {
-                rgb[i] = limit(rgb[i], 0, 1);
-            }
+    for (var i = 0; i <= 3; i++) {
+      if (i < 3) {
+        if (rgb[i] < 0 || rgb[i] > 255) {
+          rgb._clipped = true;
         }
-        return rgb;
-    };
 
-    var classToType = {};
-    for (var i = 0, list = ['Boolean', 'Number', 'String', 'Function', 'Array', 'Date', 'RegExp', 'Undefined', 'Null']; i < list.length; i += 1) {
-        var name = list[i];
-
-        classToType["[object " + name + "]"] = name.toLowerCase();
+        rgb[i] = limit(rgb[i], 0, 255);
+      } else if (i === 3) {
+        rgb[i] = limit(rgb[i], 0, 1);
+      }
     }
-    var type = function type(obj) {
-        return classToType[Object.prototype.toString.call(obj)] || "object";
-    };
 
-    var unpack = function unpack(args, keyOrder) {
-        if (keyOrder === void 0) keyOrder = null;
+    return rgb;
+  };
 
-        if (args.length >= 3) {
-            return Array.prototype.slice.call(args);
+  var classToType = {};
+
+  for (var i = 0, list = ['Boolean', 'Number', 'String', 'Function', 'Array', 'Date', 'RegExp', 'Undefined', 'Null']; i < list.length; i += 1) {
+    var name = list[i];
+    classToType["[object " + name + "]"] = name.toLowerCase();
+  }
+
+  var type = function type(obj) {
+    return classToType[Object.prototype.toString.call(obj)] || "object";
+  };
+
+  var unpack = function unpack(args, keyOrder) {
+    if (keyOrder === void 0) keyOrder = null;
+
+    if (args.length >= 3) {
+      return Array.prototype.slice.call(args);
+    }
+
+    if (type(args[0]) == 'object' && keyOrder) {
+      return keyOrder.split('').filter(function (k) {
+        return args[0][k] !== undefined;
+      }).map(function (k) {
+        return args[0][k];
+      });
+    }
+
+    return args[0];
+  };
+
+  var last = function last(args) {
+    if (args.length < 2) {
+      return null;
+    }
+
+    var l = args.length - 1;
+
+    if (type(args[l]) == 'string') {
+      return args[l].toLowerCase();
+    }
+
+    return null;
+  };
+
+  var PI = Math.PI;
+  var utils = {
+    clip_rgb: clip_rgb,
+    limit: limit,
+    type: type,
+    unpack: unpack,
+    last: last,
+    PI: PI,
+    TWOPI: PI * 2,
+    PITHIRD: PI / 3,
+    DEG2RAD: PI / 180,
+    RAD2DEG: 180 / PI
+  };
+  var input = {
+    format: {},
+    autodetect: []
+  };
+  var last$1 = utils.last;
+  var clip_rgb$1 = utils.clip_rgb;
+  var type$1 = utils.type;
+
+  var Color = function Color() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var me = this;
+
+    if (type$1(args[0]) === 'object' && args[0].constructor && args[0].constructor === this.constructor) {
+      return args[0];
+    }
+
+    var mode = last$1(args);
+    var autodetect = false;
+
+    if (!mode) {
+      autodetect = true;
+
+      if (!input.sorted) {
+        input.autodetect = input.autodetect.sort(function (a, b) {
+          return b.p - a.p;
+        });
+        input.sorted = true;
+      }
+
+      for (var i = 0, list = input.autodetect; i < list.length; i += 1) {
+        var chk = list[i];
+        mode = chk.test.apply(chk, args);
+
+        if (mode) {
+          break;
+        }
+      }
+    }
+
+    if (input.format[mode]) {
+      var rgb = input.format[mode].apply(null, autodetect ? args : args.slice(0, -1));
+      me._rgb = clip_rgb$1(rgb);
+    } else {
+      throw new Error('unknown format: ' + args);
+    }
+
+    if (me._rgb.length === 3) {
+      me._rgb.push(1);
+    }
+  };
+
+  Color.prototype.toString = function toString() {
+    if (type$1(this.hex) == 'function') {
+      return this.hex();
+    }
+
+    return "[" + this._rgb.join(',') + "]";
+  };
+
+  var Color_1 = Color;
+
+  var chroma = function chroma() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    return new (Function.prototype.bind.apply(chroma.Color, [null].concat(args)))();
+  };
+
+  chroma.Color = Color_1;
+  chroma.version = '2.1.0';
+  var chroma_1 = chroma;
+  var unpack$1 = utils.unpack;
+  var max = Math.max;
+
+  var rgb2cmyk = function rgb2cmyk() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var ref = unpack$1(args, 'rgb');
+    var r = ref[0];
+    var g = ref[1];
+    var b = ref[2];
+    r = r / 255;
+    g = g / 255;
+    b = b / 255;
+    var k = 1 - max(r, max(g, b));
+    var f = k < 1 ? 1 / (1 - k) : 0;
+    var c = (1 - r - k) * f;
+    var m = (1 - g - k) * f;
+    var y = (1 - b - k) * f;
+    return [c, m, y, k];
+  };
+
+  var rgb2cmyk_1 = rgb2cmyk;
+  var unpack$2 = utils.unpack;
+
+  var cmyk2rgb = function cmyk2rgb() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    args = unpack$2(args, 'cmyk');
+    var c = args[0];
+    var m = args[1];
+    var y = args[2];
+    var k = args[3];
+    var alpha = args.length > 4 ? args[4] : 1;
+
+    if (k === 1) {
+      return [0, 0, 0, alpha];
+    }
+
+    return [c >= 1 ? 0 : 255 * (1 - c) * (1 - k), m >= 1 ? 0 : 255 * (1 - m) * (1 - k), y >= 1 ? 0 : 255 * (1 - y) * (1 - k), alpha];
+  };
+
+  var cmyk2rgb_1 = cmyk2rgb;
+  var unpack$3 = utils.unpack;
+  var type$2 = utils.type;
+
+  Color_1.prototype.cmyk = function () {
+    return rgb2cmyk_1(this._rgb);
+  };
+
+  chroma_1.cmyk = function () {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['cmyk'])))();
+  };
+
+  input.format.cmyk = cmyk2rgb_1;
+  input.autodetect.push({
+    p: 2,
+    test: function test() {
+      var args = [],
+          len = arguments.length;
+
+      while (len--) {
+        args[len] = arguments[len];
+      }
+
+      args = unpack$3(args, 'cmyk');
+
+      if (type$2(args) === 'array' && args.length === 4) {
+        return 'cmyk';
+      }
+    }
+  });
+  var unpack$4 = utils.unpack;
+  var last$2 = utils.last;
+
+  var rnd = function rnd(a) {
+    return Math.round(a * 100) / 100;
+  };
+
+  var hsl2css = function hsl2css() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var hsla = unpack$4(args, 'hsla');
+    var mode = last$2(args) || 'lsa';
+    hsla[0] = rnd(hsla[0] || 0);
+    hsla[1] = rnd(hsla[1] * 100) + '%';
+    hsla[2] = rnd(hsla[2] * 100) + '%';
+
+    if (mode === 'hsla' || hsla.length > 3 && hsla[3] < 1) {
+      hsla[3] = hsla.length > 3 ? hsla[3] : 1;
+      mode = 'hsla';
+    } else {
+      hsla.length = 3;
+    }
+
+    return mode + "(" + hsla.join(',') + ")";
+  };
+
+  var hsl2css_1 = hsl2css;
+  var unpack$5 = utils.unpack;
+
+  var rgb2hsl = function rgb2hsl() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    args = unpack$5(args, 'rgba');
+    var r = args[0];
+    var g = args[1];
+    var b = args[2];
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    var min = Math.min(r, g, b);
+    var max = Math.max(r, g, b);
+    var l = (max + min) / 2;
+    var s, h;
+
+    if (max === min) {
+      s = 0;
+      h = Number.NaN;
+    } else {
+      s = l < 0.5 ? (max - min) / (max + min) : (max - min) / (2 - max - min);
+    }
+
+    if (r == max) {
+      h = (g - b) / (max - min);
+    } else if (g == max) {
+      h = 2 + (b - r) / (max - min);
+    } else if (b == max) {
+      h = 4 + (r - g) / (max - min);
+    }
+
+    h *= 60;
+
+    if (h < 0) {
+      h += 360;
+    }
+
+    if (args.length > 3 && args[3] !== undefined) {
+      return [h, s, l, args[3]];
+    }
+
+    return [h, s, l];
+  };
+
+  var rgb2hsl_1 = rgb2hsl;
+  var unpack$6 = utils.unpack;
+  var last$3 = utils.last;
+  var round = Math.round;
+
+  var rgb2css = function rgb2css() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var rgba = unpack$6(args, 'rgba');
+    var mode = last$3(args) || 'rgb';
+
+    if (mode.substr(0, 3) == 'hsl') {
+      return hsl2css_1(rgb2hsl_1(rgba), mode);
+    }
+
+    rgba[0] = round(rgba[0]);
+    rgba[1] = round(rgba[1]);
+    rgba[2] = round(rgba[2]);
+
+    if (mode === 'rgba' || rgba.length > 3 && rgba[3] < 1) {
+      rgba[3] = rgba.length > 3 ? rgba[3] : 1;
+      mode = 'rgba';
+    }
+
+    return mode + "(" + rgba.slice(0, mode === 'rgb' ? 3 : 4).join(',') + ")";
+  };
+
+  var rgb2css_1 = rgb2css;
+  var unpack$7 = utils.unpack;
+  var round$1 = Math.round;
+
+  var hsl2rgb = function hsl2rgb() {
+    var assign;
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    args = unpack$7(args, 'hsl');
+    var h = args[0];
+    var s = args[1];
+    var l = args[2];
+    var r, g, b;
+
+    if (s === 0) {
+      r = g = b = l * 255;
+    } else {
+      var t3 = [0, 0, 0];
+      var c = [0, 0, 0];
+      var t2 = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      var t1 = 2 * l - t2;
+      var h_ = h / 360;
+      t3[0] = h_ + 1 / 3;
+      t3[1] = h_;
+      t3[2] = h_ - 1 / 3;
+
+      for (var i = 0; i < 3; i++) {
+        if (t3[i] < 0) {
+          t3[i] += 1;
         }
 
-        if (type(args[0]) == 'object' && keyOrder) {
-            return keyOrder.split('').filter(function (k) {
-                return args[0][k] !== undefined;
-            }).map(function (k) {
-                return args[0][k];
-            });
+        if (t3[i] > 1) {
+          t3[i] -= 1;
         }
 
-        return args[0];
-    };
-
-    var last = function last(args) {
-        if (args.length < 2) {
-            return null;
-        }
-        var l = args.length - 1;
-        if (type(args[l]) == 'string') {
-            return args[l].toLowerCase();
-        }
-        return null;
-    };
-
-    var PI = Math.PI;
-
-    var utils = {
-        clip_rgb: clip_rgb,
-        limit: limit,
-        type: type,
-        unpack: unpack,
-        last: last,
-        PI: PI,
-        TWOPI: PI * 2,
-        PITHIRD: PI / 3,
-        DEG2RAD: PI / 180,
-        RAD2DEG: 180 / PI
-    };
-
-    var input = {
-        format: {},
-        autodetect: []
-    };
-
-    var last$1 = utils.last;
-    var clip_rgb$1 = utils.clip_rgb;
-    var type$1 = utils.type;
-
-    var Color = function Color() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var me = this;
-        if (type$1(args[0]) === 'object' && args[0].constructor && args[0].constructor === this.constructor) {
-            return args[0];
-        }
-
-        var mode = last$1(args);
-        var autodetect = false;
-
-        if (!mode) {
-            autodetect = true;
-            if (!input.sorted) {
-                input.autodetect = input.autodetect.sort(function (a, b) {
-                    return b.p - a.p;
-                });
-                input.sorted = true;
-            }
-
-            for (var i = 0, list = input.autodetect; i < list.length; i += 1) {
-                var chk = list[i];
-
-                mode = chk.test.apply(chk, args);
-                if (mode) {
-                    break;
-                }
-            }
-        }
-
-        if (input.format[mode]) {
-            var rgb = input.format[mode].apply(null, autodetect ? args : args.slice(0, -1));
-            me._rgb = clip_rgb$1(rgb);
+        if (6 * t3[i] < 1) {
+          c[i] = t1 + (t2 - t1) * 6 * t3[i];
+        } else if (2 * t3[i] < 1) {
+          c[i] = t2;
+        } else if (3 * t3[i] < 2) {
+          c[i] = t1 + (t2 - t1) * (2 / 3 - t3[i]) * 6;
         } else {
-            throw new Error('unknown format: ' + args);
+          c[i] = t1;
         }
+      }
 
-        if (me._rgb.length === 3) {
-            me._rgb.push(1);
-        }
-    };
+      assign = [round$1(c[0] * 255), round$1(c[1] * 255), round$1(c[2] * 255)], r = assign[0], g = assign[1], b = assign[2];
+    }
 
-    Color.prototype.toString = function toString() {
-        if (type$1(this.hex) == 'function') {
-            return this.hex();
-        }
-        return "[" + this._rgb.join(',') + "]";
-    };
+    if (args.length > 3) {
+      return [r, g, b, args[3]];
+    }
 
-    var Color_1 = Color;
+    return [r, g, b, 1];
+  };
 
-    var chroma = function chroma() {
+  var hsl2rgb_1 = hsl2rgb;
+  var RE_RGB = /^rgb\(\s*(-?\d+),\s*(-?\d+)\s*,\s*(-?\d+)\s*\)$/;
+  var RE_RGBA = /^rgba\(\s*(-?\d+),\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*([01]|[01]?\.\d+)\)$/;
+  var RE_RGB_PCT = /^rgb\(\s*(-?\d+(?:\.\d+)?)%,\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*\)$/;
+  var RE_RGBA_PCT = /^rgba\(\s*(-?\d+(?:\.\d+)?)%,\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*,\s*([01]|[01]?\.\d+)\)$/;
+  var RE_HSL = /^hsl\(\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*\)$/;
+  var RE_HSLA = /^hsla\(\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*,\s*([01]|[01]?\.\d+)\)$/;
+  var round$2 = Math.round;
+
+  var css2rgb = function css2rgb(css) {
+    css = css.toLowerCase().trim();
+    var m;
+
+    if (input.format.named) {
+      try {
+        return input.format.named(css);
+      } catch (e) {}
+    }
+
+    if (m = css.match(RE_RGB)) {
+      var rgb = m.slice(1, 4);
+
+      for (var i = 0; i < 3; i++) {
+        rgb[i] = +rgb[i];
+      }
+
+      rgb[3] = 1;
+      return rgb;
+    }
+
+    if (m = css.match(RE_RGBA)) {
+      var rgb$1 = m.slice(1, 5);
+
+      for (var i$1 = 0; i$1 < 4; i$1++) {
+        rgb$1[i$1] = +rgb$1[i$1];
+      }
+
+      return rgb$1;
+    }
+
+    if (m = css.match(RE_RGB_PCT)) {
+      var rgb$2 = m.slice(1, 4);
+
+      for (var i$2 = 0; i$2 < 3; i$2++) {
+        rgb$2[i$2] = round$2(rgb$2[i$2] * 2.55);
+      }
+
+      rgb$2[3] = 1;
+      return rgb$2;
+    }
+
+    if (m = css.match(RE_RGBA_PCT)) {
+      var rgb$3 = m.slice(1, 5);
+
+      for (var i$3 = 0; i$3 < 3; i$3++) {
+        rgb$3[i$3] = round$2(rgb$3[i$3] * 2.55);
+      }
+
+      rgb$3[3] = +rgb$3[3];
+      return rgb$3;
+    }
+
+    if (m = css.match(RE_HSL)) {
+      var hsl = m.slice(1, 4);
+      hsl[1] *= 0.01;
+      hsl[2] *= 0.01;
+      var rgb$4 = hsl2rgb_1(hsl);
+      rgb$4[3] = 1;
+      return rgb$4;
+    }
+
+    if (m = css.match(RE_HSLA)) {
+      var hsl$1 = m.slice(1, 4);
+      hsl$1[1] *= 0.01;
+      hsl$1[2] *= 0.01;
+      var rgb$5 = hsl2rgb_1(hsl$1);
+      rgb$5[3] = +m[4];
+      return rgb$5;
+    }
+  };
+
+  css2rgb.test = function (s) {
+    return RE_RGB.test(s) || RE_RGBA.test(s) || RE_RGB_PCT.test(s) || RE_RGBA_PCT.test(s) || RE_HSL.test(s) || RE_HSLA.test(s);
+  };
+
+  var css2rgb_1 = css2rgb;
+  var type$3 = utils.type;
+
+  Color_1.prototype.css = function (mode) {
+    return rgb2css_1(this._rgb, mode);
+  };
+
+  chroma_1.css = function () {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['css'])))();
+  };
+
+  input.format.css = css2rgb_1;
+  input.autodetect.push({
+    p: 5,
+    test: function test(h) {
+      var rest = [],
+          len = arguments.length - 1;
+
+      while (len-- > 0) {
+        rest[len] = arguments[len + 1];
+      }
+
+      if (!rest.length && type$3(h) === 'string' && css2rgb_1.test(h)) {
+        return 'css';
+      }
+    }
+  });
+  var unpack$8 = utils.unpack;
+
+  input.format.gl = function () {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var rgb = unpack$8(args, 'rgba');
+    rgb[0] *= 255;
+    rgb[1] *= 255;
+    rgb[2] *= 255;
+    return rgb;
+  };
+
+  chroma_1.gl = function () {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['gl'])))();
+  };
+
+  Color_1.prototype.gl = function () {
+    var rgb = this._rgb;
+    return [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, rgb[3]];
+  };
+
+  var unpack$9 = utils.unpack;
+
+  var rgb2hcg = function rgb2hcg() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var ref = unpack$9(args, 'rgb');
+    var r = ref[0];
+    var g = ref[1];
+    var b = ref[2];
+    var min = Math.min(r, g, b);
+    var max = Math.max(r, g, b);
+    var delta = max - min;
+    var c = delta * 100 / 255;
+
+    var _g = min / (255 - delta) * 100;
+
+    var h;
+
+    if (delta === 0) {
+      h = Number.NaN;
+    } else {
+      if (r === max) {
+        h = (g - b) / delta;
+      }
+
+      if (g === max) {
+        h = 2 + (b - r) / delta;
+      }
+
+      if (b === max) {
+        h = 4 + (r - g) / delta;
+      }
+
+      h *= 60;
+
+      if (h < 0) {
+        h += 360;
+      }
+    }
+
+    return [h, c, _g];
+  };
+
+  var rgb2hcg_1 = rgb2hcg;
+  var unpack$a = utils.unpack;
+  var floor = Math.floor;
+
+  var hcg2rgb = function hcg2rgb() {
+    var assign, assign$1, assign$2, assign$3, assign$4, assign$5;
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    args = unpack$a(args, 'hcg');
+    var h = args[0];
+    var c = args[1];
+    var _g = args[2];
+    var r, g, b;
+    _g = _g * 255;
+
+    var _c = c * 255;
+
+    if (c === 0) {
+      r = g = b = _g;
+    } else {
+      if (h === 360) {
+        h = 0;
+      }
+
+      if (h > 360) {
+        h -= 360;
+      }
+
+      if (h < 0) {
+        h += 360;
+      }
+
+      h /= 60;
+      var i = floor(h);
+      var f = h - i;
+      var p = _g * (1 - c);
+      var q = p + _c * (1 - f);
+      var t = p + _c * f;
+      var v = p + _c;
+
+      switch (i) {
+        case 0:
+          assign = [v, t, p], r = assign[0], g = assign[1], b = assign[2];
+          break;
+
+        case 1:
+          assign$1 = [q, v, p], r = assign$1[0], g = assign$1[1], b = assign$1[2];
+          break;
+
+        case 2:
+          assign$2 = [p, v, t], r = assign$2[0], g = assign$2[1], b = assign$2[2];
+          break;
+
+        case 3:
+          assign$3 = [p, q, v], r = assign$3[0], g = assign$3[1], b = assign$3[2];
+          break;
+
+        case 4:
+          assign$4 = [t, p, v], r = assign$4[0], g = assign$4[1], b = assign$4[2];
+          break;
+
+        case 5:
+          assign$5 = [v, p, q], r = assign$5[0], g = assign$5[1], b = assign$5[2];
+          break;
+      }
+    }
+
+    return [r, g, b, args.length > 3 ? args[3] : 1];
+  };
+
+  var hcg2rgb_1 = hcg2rgb;
+  var unpack$b = utils.unpack;
+  var type$4 = utils.type;
+
+  Color_1.prototype.hcg = function () {
+    return rgb2hcg_1(this._rgb);
+  };
+
+  chroma_1.hcg = function () {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['hcg'])))();
+  };
+
+  input.format.hcg = hcg2rgb_1;
+  input.autodetect.push({
+    p: 1,
+    test: function test() {
+      var args = [],
+          len = arguments.length;
+
+      while (len--) {
+        args[len] = arguments[len];
+      }
+
+      args = unpack$b(args, 'hcg');
+
+      if (type$4(args) === 'array' && args.length === 3) {
+        return 'hcg';
+      }
+    }
+  });
+  var unpack$c = utils.unpack;
+  var last$4 = utils.last;
+  var round$3 = Math.round;
+
+  var rgb2hex = function rgb2hex() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var ref = unpack$c(args, 'rgba');
+    var r = ref[0];
+    var g = ref[1];
+    var b = ref[2];
+    var a = ref[3];
+    var mode = last$4(args) || 'auto';
+
+    if (a === undefined) {
+      a = 1;
+    }
+
+    if (mode === 'auto') {
+      mode = a < 1 ? 'rgba' : 'rgb';
+    }
+
+    r = round$3(r);
+    g = round$3(g);
+    b = round$3(b);
+    var u = r << 16 | g << 8 | b;
+    var str = "000000" + u.toString(16);
+    str = str.substr(str.length - 6);
+    var hxa = '0' + round$3(a * 255).toString(16);
+    hxa = hxa.substr(hxa.length - 2);
+
+    switch (mode.toLowerCase()) {
+      case 'rgba':
+        return "#" + str + hxa;
+
+      case 'argb':
+        return "#" + hxa + str;
+
+      default:
+        return "#" + str;
+    }
+  };
+
+  var rgb2hex_1 = rgb2hex;
+  var RE_HEX = /^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+  var RE_HEXA = /^#?([A-Fa-f0-9]{8}|[A-Fa-f0-9]{4})$/;
+
+  var hex2rgb = function hex2rgb(hex) {
+    if (hex.match(RE_HEX)) {
+      if (hex.length === 4 || hex.length === 7) {
+        hex = hex.substr(1);
+      }
+
+      if (hex.length === 3) {
+        hex = hex.split('');
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+      }
+
+      var u = parseInt(hex, 16);
+      var r = u >> 16;
+      var g = u >> 8 & 0xFF;
+      var b = u & 0xFF;
+      return [r, g, b, 1];
+    }
+
+    if (hex.match(RE_HEXA)) {
+      if (hex.length === 5 || hex.length === 9) {
+        hex = hex.substr(1);
+      }
+
+      if (hex.length === 4) {
+        hex = hex.split('');
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
+      }
+
+      var u$1 = parseInt(hex, 16);
+      var r$1 = u$1 >> 24 & 0xFF;
+      var g$1 = u$1 >> 16 & 0xFF;
+      var b$1 = u$1 >> 8 & 0xFF;
+      var a = Math.round((u$1 & 0xFF) / 0xFF * 100) / 100;
+      return [r$1, g$1, b$1, a];
+    }
+
+    throw new Error("unknown hex color: " + hex);
+  };
+
+  var hex2rgb_1 = hex2rgb;
+  var type$5 = utils.type;
+
+  Color_1.prototype.hex = function (mode) {
+    return rgb2hex_1(this._rgb, mode);
+  };
+
+  chroma_1.hex = function () {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['hex'])))();
+  };
+
+  input.format.hex = hex2rgb_1;
+  input.autodetect.push({
+    p: 4,
+    test: function test(h) {
+      var rest = [],
+          len = arguments.length - 1;
+
+      while (len-- > 0) {
+        rest[len] = arguments[len + 1];
+      }
+
+      if (!rest.length && type$5(h) === 'string' && [3, 4, 5, 6, 7, 8, 9].indexOf(h.length) >= 0) {
+        return 'hex';
+      }
+    }
+  });
+  var unpack$d = utils.unpack;
+  var TWOPI = utils.TWOPI;
+  var min = Math.min;
+  var sqrt = Math.sqrt;
+  var acos = Math.acos;
+
+  var rgb2hsi = function rgb2hsi() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var ref = unpack$d(args, 'rgb');
+    var r = ref[0];
+    var g = ref[1];
+    var b = ref[2];
+    r /= 255;
+    g /= 255;
+    b /= 255;
+    var h;
+    var min_ = min(r, g, b);
+    var i = (r + g + b) / 3;
+    var s = i > 0 ? 1 - min_ / i : 0;
+
+    if (s === 0) {
+      h = NaN;
+    } else {
+      h = (r - g + (r - b)) / 2;
+      h /= sqrt((r - g) * (r - g) + (r - b) * (g - b));
+      h = acos(h);
+
+      if (b > g) {
+        h = TWOPI - h;
+      }
+
+      h /= TWOPI;
+    }
+
+    return [h * 360, s, i];
+  };
+
+  var rgb2hsi_1 = rgb2hsi;
+  var unpack$e = utils.unpack;
+  var limit$1 = utils.limit;
+  var TWOPI$1 = utils.TWOPI;
+  var PITHIRD = utils.PITHIRD;
+  var cos = Math.cos;
+
+  var hsi2rgb = function hsi2rgb() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    args = unpack$e(args, 'hsi');
+    var h = args[0];
+    var s = args[1];
+    var i = args[2];
+    var r, g, b;
+
+    if (isNaN(h)) {
+      h = 0;
+    }
+
+    if (isNaN(s)) {
+      s = 0;
+    }
+
+    if (h > 360) {
+      h -= 360;
+    }
+
+    if (h < 0) {
+      h += 360;
+    }
+
+    h /= 360;
+
+    if (h < 1 / 3) {
+      b = (1 - s) / 3;
+      r = (1 + s * cos(TWOPI$1 * h) / cos(PITHIRD - TWOPI$1 * h)) / 3;
+      g = 1 - (b + r);
+    } else if (h < 2 / 3) {
+      h -= 1 / 3;
+      r = (1 - s) / 3;
+      g = (1 + s * cos(TWOPI$1 * h) / cos(PITHIRD - TWOPI$1 * h)) / 3;
+      b = 1 - (r + g);
+    } else {
+      h -= 2 / 3;
+      g = (1 - s) / 3;
+      b = (1 + s * cos(TWOPI$1 * h) / cos(PITHIRD - TWOPI$1 * h)) / 3;
+      r = 1 - (g + b);
+    }
+
+    r = limit$1(i * r * 3);
+    g = limit$1(i * g * 3);
+    b = limit$1(i * b * 3);
+    return [r * 255, g * 255, b * 255, args.length > 3 ? args[3] : 1];
+  };
+
+  var hsi2rgb_1 = hsi2rgb;
+  var unpack$f = utils.unpack;
+  var type$6 = utils.type;
+
+  Color_1.prototype.hsi = function () {
+    return rgb2hsi_1(this._rgb);
+  };
+
+  chroma_1.hsi = function () {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['hsi'])))();
+  };
+
+  input.format.hsi = hsi2rgb_1;
+  input.autodetect.push({
+    p: 2,
+    test: function test() {
+      var args = [],
+          len = arguments.length;
+
+      while (len--) {
+        args[len] = arguments[len];
+      }
+
+      args = unpack$f(args, 'hsi');
+
+      if (type$6(args) === 'array' && args.length === 3) {
+        return 'hsi';
+      }
+    }
+  });
+  var unpack$g = utils.unpack;
+  var type$7 = utils.type;
+
+  Color_1.prototype.hsl = function () {
+    return rgb2hsl_1(this._rgb);
+  };
+
+  chroma_1.hsl = function () {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['hsl'])))();
+  };
+
+  input.format.hsl = hsl2rgb_1;
+  input.autodetect.push({
+    p: 2,
+    test: function test() {
+      var args = [],
+          len = arguments.length;
+
+      while (len--) {
+        args[len] = arguments[len];
+      }
+
+      args = unpack$g(args, 'hsl');
+
+      if (type$7(args) === 'array' && args.length === 3) {
+        return 'hsl';
+      }
+    }
+  });
+  var unpack$h = utils.unpack;
+  var min$1 = Math.min;
+  var max$1 = Math.max;
+
+  var rgb2hsl$1 = function rgb2hsl$1() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    args = unpack$h(args, 'rgb');
+    var r = args[0];
+    var g = args[1];
+    var b = args[2];
+    var min_ = min$1(r, g, b);
+    var max_ = max$1(r, g, b);
+    var delta = max_ - min_;
+    var h, s, v;
+    v = max_ / 255.0;
+
+    if (max_ === 0) {
+      h = Number.NaN;
+      s = 0;
+    } else {
+      s = delta / max_;
+
+      if (r === max_) {
+        h = (g - b) / delta;
+      }
+
+      if (g === max_) {
+        h = 2 + (b - r) / delta;
+      }
+
+      if (b === max_) {
+        h = 4 + (r - g) / delta;
+      }
+
+      h *= 60;
+
+      if (h < 0) {
+        h += 360;
+      }
+    }
+
+    return [h, s, v];
+  };
+
+  var rgb2hsv = rgb2hsl$1;
+  var unpack$i = utils.unpack;
+  var floor$1 = Math.floor;
+
+  var hsv2rgb = function hsv2rgb() {
+    var assign, assign$1, assign$2, assign$3, assign$4, assign$5;
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    args = unpack$i(args, 'hsv');
+    var h = args[0];
+    var s = args[1];
+    var v = args[2];
+    var r, g, b;
+    v *= 255;
+
+    if (s === 0) {
+      r = g = b = v;
+    } else {
+      if (h === 360) {
+        h = 0;
+      }
+
+      if (h > 360) {
+        h -= 360;
+      }
+
+      if (h < 0) {
+        h += 360;
+      }
+
+      h /= 60;
+      var i = floor$1(h);
+      var f = h - i;
+      var p = v * (1 - s);
+      var q = v * (1 - s * f);
+      var t = v * (1 - s * (1 - f));
+
+      switch (i) {
+        case 0:
+          assign = [v, t, p], r = assign[0], g = assign[1], b = assign[2];
+          break;
+
+        case 1:
+          assign$1 = [q, v, p], r = assign$1[0], g = assign$1[1], b = assign$1[2];
+          break;
+
+        case 2:
+          assign$2 = [p, v, t], r = assign$2[0], g = assign$2[1], b = assign$2[2];
+          break;
+
+        case 3:
+          assign$3 = [p, q, v], r = assign$3[0], g = assign$3[1], b = assign$3[2];
+          break;
+
+        case 4:
+          assign$4 = [t, p, v], r = assign$4[0], g = assign$4[1], b = assign$4[2];
+          break;
+
+        case 5:
+          assign$5 = [v, p, q], r = assign$5[0], g = assign$5[1], b = assign$5[2];
+          break;
+      }
+    }
+
+    return [r, g, b, args.length > 3 ? args[3] : 1];
+  };
+
+  var hsv2rgb_1 = hsv2rgb;
+  var unpack$j = utils.unpack;
+  var type$8 = utils.type;
+
+  Color_1.prototype.hsv = function () {
+    return rgb2hsv(this._rgb);
+  };
+
+  chroma_1.hsv = function () {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['hsv'])))();
+  };
+
+  input.format.hsv = hsv2rgb_1;
+  input.autodetect.push({
+    p: 2,
+    test: function test() {
+      var args = [],
+          len = arguments.length;
+
+      while (len--) {
+        args[len] = arguments[len];
+      }
+
+      args = unpack$j(args, 'hsv');
+
+      if (type$8(args) === 'array' && args.length === 3) {
+        return 'hsv';
+      }
+    }
+  });
+  var labConstants = {
+    Kn: 18,
+    Xn: 0.950470,
+    Yn: 1,
+    Zn: 1.088830,
+    t0: 0.137931034,
+    t1: 0.206896552,
+    t2: 0.12841855,
+    t3: 0.008856452
+  };
+  var unpack$k = utils.unpack;
+  var pow = Math.pow;
+
+  var rgb2lab = function rgb2lab() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var ref = unpack$k(args, 'rgb');
+    var r = ref[0];
+    var g = ref[1];
+    var b = ref[2];
+    var ref$1 = rgb2xyz(r, g, b);
+    var x = ref$1[0];
+    var y = ref$1[1];
+    var z = ref$1[2];
+    var l = 116 * y - 16;
+    return [l < 0 ? 0 : l, 500 * (x - y), 200 * (y - z)];
+  };
+
+  var rgb_xyz = function rgb_xyz(r) {
+    if ((r /= 255) <= 0.04045) {
+      return r / 12.92;
+    }
+
+    return pow((r + 0.055) / 1.055, 2.4);
+  };
+
+  var xyz_lab = function xyz_lab(t) {
+    if (t > labConstants.t3) {
+      return pow(t, 1 / 3);
+    }
+
+    return t / labConstants.t2 + labConstants.t0;
+  };
+
+  var rgb2xyz = function rgb2xyz(r, g, b) {
+    r = rgb_xyz(r);
+    g = rgb_xyz(g);
+    b = rgb_xyz(b);
+    var x = xyz_lab((0.4124564 * r + 0.3575761 * g + 0.1804375 * b) / labConstants.Xn);
+    var y = xyz_lab((0.2126729 * r + 0.7151522 * g + 0.0721750 * b) / labConstants.Yn);
+    var z = xyz_lab((0.0193339 * r + 0.1191920 * g + 0.9503041 * b) / labConstants.Zn);
+    return [x, y, z];
+  };
+
+  var rgb2lab_1 = rgb2lab;
+  var unpack$l = utils.unpack;
+  var pow$1 = Math.pow;
+
+  var lab2rgb = function lab2rgb() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    args = unpack$l(args, 'lab');
+    var l = args[0];
+    var a = args[1];
+    var b = args[2];
+    var x, y, z, r, g, b_;
+    y = (l + 16) / 116;
+    x = isNaN(a) ? y : y + a / 500;
+    z = isNaN(b) ? y : y - b / 200;
+    y = labConstants.Yn * lab_xyz(y);
+    x = labConstants.Xn * lab_xyz(x);
+    z = labConstants.Zn * lab_xyz(z);
+    r = xyz_rgb(3.2404542 * x - 1.5371385 * y - 0.4985314 * z);
+    g = xyz_rgb(-0.9692660 * x + 1.8760108 * y + 0.0415560 * z);
+    b_ = xyz_rgb(0.0556434 * x - 0.2040259 * y + 1.0572252 * z);
+    return [r, g, b_, args.length > 3 ? args[3] : 1];
+  };
+
+  var xyz_rgb = function xyz_rgb(r) {
+    return 255 * (r <= 0.00304 ? 12.92 * r : 1.055 * pow$1(r, 1 / 2.4) - 0.055);
+  };
+
+  var lab_xyz = function lab_xyz(t) {
+    return t > labConstants.t1 ? t * t * t : labConstants.t2 * (t - labConstants.t0);
+  };
+
+  var lab2rgb_1 = lab2rgb;
+  var unpack$m = utils.unpack;
+  var type$9 = utils.type;
+
+  Color_1.prototype.lab = function () {
+    return rgb2lab_1(this._rgb);
+  };
+
+  chroma_1.lab = function () {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['lab'])))();
+  };
+
+  input.format.lab = lab2rgb_1;
+  input.autodetect.push({
+    p: 2,
+    test: function test() {
+      var args = [],
+          len = arguments.length;
+
+      while (len--) {
+        args[len] = arguments[len];
+      }
+
+      args = unpack$m(args, 'lab');
+
+      if (type$9(args) === 'array' && args.length === 3) {
+        return 'lab';
+      }
+    }
+  });
+  var unpack$n = utils.unpack;
+  var RAD2DEG = utils.RAD2DEG;
+  var sqrt$1 = Math.sqrt;
+  var atan2 = Math.atan2;
+  var round$4 = Math.round;
+
+  var lab2lch = function lab2lch() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var ref = unpack$n(args, 'lab');
+    var l = ref[0];
+    var a = ref[1];
+    var b = ref[2];
+    var c = sqrt$1(a * a + b * b);
+    var h = (atan2(b, a) * RAD2DEG + 360) % 360;
+
+    if (round$4(c * 10000) === 0) {
+      h = Number.NaN;
+    }
+
+    return [l, c, h];
+  };
+
+  var lab2lch_1 = lab2lch;
+  var unpack$o = utils.unpack;
+
+  var rgb2lch = function rgb2lch() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var ref = unpack$o(args, 'rgb');
+    var r = ref[0];
+    var g = ref[1];
+    var b = ref[2];
+    var ref$1 = rgb2lab_1(r, g, b);
+    var l = ref$1[0];
+    var a = ref$1[1];
+    var b_ = ref$1[2];
+    return lab2lch_1(l, a, b_);
+  };
+
+  var rgb2lch_1 = rgb2lch;
+  var unpack$p = utils.unpack;
+  var DEG2RAD = utils.DEG2RAD;
+  var sin = Math.sin;
+  var cos$1 = Math.cos;
+
+  var lch2lab = function lch2lab() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var ref = unpack$p(args, 'lch');
+    var l = ref[0];
+    var c = ref[1];
+    var h = ref[2];
+
+    if (isNaN(h)) {
+      h = 0;
+    }
+
+    h = h * DEG2RAD;
+    return [l, cos$1(h) * c, sin(h) * c];
+  };
+
+  var lch2lab_1 = lch2lab;
+  var unpack$q = utils.unpack;
+
+  var lch2rgb = function lch2rgb() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    args = unpack$q(args, 'lch');
+    var l = args[0];
+    var c = args[1];
+    var h = args[2];
+    var ref = lch2lab_1(l, c, h);
+    var L = ref[0];
+    var a = ref[1];
+    var b_ = ref[2];
+    var ref$1 = lab2rgb_1(L, a, b_);
+    var r = ref$1[0];
+    var g = ref$1[1];
+    var b = ref$1[2];
+    return [r, g, b, args.length > 3 ? args[3] : 1];
+  };
+
+  var lch2rgb_1 = lch2rgb;
+  var unpack$r = utils.unpack;
+
+  var hcl2rgb = function hcl2rgb() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var hcl = unpack$r(args, 'hcl').reverse();
+    return lch2rgb_1.apply(void 0, hcl);
+  };
+
+  var hcl2rgb_1 = hcl2rgb;
+  var unpack$s = utils.unpack;
+  var type$a = utils.type;
+
+  Color_1.prototype.lch = function () {
+    return rgb2lch_1(this._rgb);
+  };
+
+  Color_1.prototype.hcl = function () {
+    return rgb2lch_1(this._rgb).reverse();
+  };
+
+  chroma_1.lch = function () {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['lch'])))();
+  };
+
+  chroma_1.hcl = function () {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['hcl'])))();
+  };
+
+  input.format.lch = lch2rgb_1;
+  input.format.hcl = hcl2rgb_1;
+  ['lch', 'hcl'].forEach(function (m) {
+    return input.autodetect.push({
+      p: 2,
+      test: function test() {
         var args = [],
             len = arguments.length;
+
         while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(chroma.Color, [null].concat(args)))();
-    };
-
-    chroma.Color = Color_1;
-    chroma.version = '2.1.0';
-
-    var chroma_1 = chroma;
-
-    var unpack$1 = utils.unpack;
-    var max = Math.max;
-
-    var rgb2cmyk = function rgb2cmyk() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var ref = unpack$1(args, 'rgb');
-        var r = ref[0];
-        var g = ref[1];
-        var b = ref[2];
-        r = r / 255;
-        g = g / 255;
-        b = b / 255;
-        var k = 1 - max(r, max(g, b));
-        var f = k < 1 ? 1 / (1 - k) : 0;
-        var c = (1 - r - k) * f;
-        var m = (1 - g - k) * f;
-        var y = (1 - b - k) * f;
-        return [c, m, y, k];
-    };
-
-    var rgb2cmyk_1 = rgb2cmyk;
-
-    var unpack$2 = utils.unpack;
-
-    var cmyk2rgb = function cmyk2rgb() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }args = unpack$2(args, 'cmyk');
-        var c = args[0];
-        var m = args[1];
-        var y = args[2];
-        var k = args[3];
-        var alpha = args.length > 4 ? args[4] : 1;
-        if (k === 1) {
-            return [0, 0, 0, alpha];
+          args[len] = arguments[len];
         }
-        return [c >= 1 ? 0 : 255 * (1 - c) * (1 - k), m >= 1 ? 0 : 255 * (1 - m) * (1 - k), y >= 1 ? 0 : 255 * (1 - y) * (1 - k), alpha];
-    };
 
-    var cmyk2rgb_1 = cmyk2rgb;
+        args = unpack$s(args, m);
 
-    var unpack$3 = utils.unpack;
-    var type$2 = utils.type;
-
-    Color_1.prototype.cmyk = function () {
-        return rgb2cmyk_1(this._rgb);
-    };
-
-    chroma_1.cmyk = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['cmyk'])))();
-    };
-
-    input.format.cmyk = cmyk2rgb_1;
-
-    input.autodetect.push({
-        p: 2,
-        test: function test() {
-            var args = [],
-                len = arguments.length;
-            while (len--) {
-                args[len] = arguments[len];
-            }args = unpack$3(args, 'cmyk');
-            if (type$2(args) === 'array' && args.length === 4) {
-                return 'cmyk';
-            }
+        if (type$a(args) === 'array' && args.length === 3) {
+          return m;
         }
+      }
     });
+  });
+  var w3cx11 = {
+    aliceblue: '#f0f8ff',
+    antiquewhite: '#faebd7',
+    aqua: '#00ffff',
+    aquamarine: '#7fffd4',
+    azure: '#f0ffff',
+    beige: '#f5f5dc',
+    bisque: '#ffe4c4',
+    black: '#000000',
+    blanchedalmond: '#ffebcd',
+    blue: '#0000ff',
+    blueviolet: '#8a2be2',
+    brown: '#a52a2a',
+    burlywood: '#deb887',
+    cadetblue: '#5f9ea0',
+    chartreuse: '#7fff00',
+    chocolate: '#d2691e',
+    coral: '#ff7f50',
+    cornflower: '#6495ed',
+    cornflowerblue: '#6495ed',
+    cornsilk: '#fff8dc',
+    crimson: '#dc143c',
+    cyan: '#00ffff',
+    darkblue: '#00008b',
+    darkcyan: '#008b8b',
+    darkgoldenrod: '#b8860b',
+    darkgray: '#a9a9a9',
+    darkgreen: '#006400',
+    darkgrey: '#a9a9a9',
+    darkkhaki: '#bdb76b',
+    darkmagenta: '#8b008b',
+    darkolivegreen: '#556b2f',
+    darkorange: '#ff8c00',
+    darkorchid: '#9932cc',
+    darkred: '#8b0000',
+    darksalmon: '#e9967a',
+    darkseagreen: '#8fbc8f',
+    darkslateblue: '#483d8b',
+    darkslategray: '#2f4f4f',
+    darkslategrey: '#2f4f4f',
+    darkturquoise: '#00ced1',
+    darkviolet: '#9400d3',
+    deeppink: '#ff1493',
+    deepskyblue: '#00bfff',
+    dimgray: '#696969',
+    dimgrey: '#696969',
+    dodgerblue: '#1e90ff',
+    firebrick: '#b22222',
+    floralwhite: '#fffaf0',
+    forestgreen: '#228b22',
+    fuchsia: '#ff00ff',
+    gainsboro: '#dcdcdc',
+    ghostwhite: '#f8f8ff',
+    gold: '#ffd700',
+    goldenrod: '#daa520',
+    gray: '#808080',
+    green: '#008000',
+    greenyellow: '#adff2f',
+    grey: '#808080',
+    honeydew: '#f0fff0',
+    hotpink: '#ff69b4',
+    indianred: '#cd5c5c',
+    indigo: '#4b0082',
+    ivory: '#fffff0',
+    khaki: '#f0e68c',
+    laserlemon: '#ffff54',
+    lavender: '#e6e6fa',
+    lavenderblush: '#fff0f5',
+    lawngreen: '#7cfc00',
+    lemonchiffon: '#fffacd',
+    lightblue: '#add8e6',
+    lightcoral: '#f08080',
+    lightcyan: '#e0ffff',
+    lightgoldenrod: '#fafad2',
+    lightgoldenrodyellow: '#fafad2',
+    lightgray: '#d3d3d3',
+    lightgreen: '#90ee90',
+    lightgrey: '#d3d3d3',
+    lightpink: '#ffb6c1',
+    lightsalmon: '#ffa07a',
+    lightseagreen: '#20b2aa',
+    lightskyblue: '#87cefa',
+    lightslategray: '#778899',
+    lightslategrey: '#778899',
+    lightsteelblue: '#b0c4de',
+    lightyellow: '#ffffe0',
+    lime: '#00ff00',
+    limegreen: '#32cd32',
+    linen: '#faf0e6',
+    magenta: '#ff00ff',
+    maroon: '#800000',
+    maroon2: '#7f0000',
+    maroon3: '#b03060',
+    mediumaquamarine: '#66cdaa',
+    mediumblue: '#0000cd',
+    mediumorchid: '#ba55d3',
+    mediumpurple: '#9370db',
+    mediumseagreen: '#3cb371',
+    mediumslateblue: '#7b68ee',
+    mediumspringgreen: '#00fa9a',
+    mediumturquoise: '#48d1cc',
+    mediumvioletred: '#c71585',
+    midnightblue: '#191970',
+    mintcream: '#f5fffa',
+    mistyrose: '#ffe4e1',
+    moccasin: '#ffe4b5',
+    navajowhite: '#ffdead',
+    navy: '#000080',
+    oldlace: '#fdf5e6',
+    olive: '#808000',
+    olivedrab: '#6b8e23',
+    orange: '#ffa500',
+    orangered: '#ff4500',
+    orchid: '#da70d6',
+    palegoldenrod: '#eee8aa',
+    palegreen: '#98fb98',
+    paleturquoise: '#afeeee',
+    palevioletred: '#db7093',
+    papayawhip: '#ffefd5',
+    peachpuff: '#ffdab9',
+    peru: '#cd853f',
+    pink: '#ffc0cb',
+    plum: '#dda0dd',
+    powderblue: '#b0e0e6',
+    purple: '#800080',
+    purple2: '#7f007f',
+    purple3: '#a020f0',
+    rebeccapurple: '#663399',
+    red: '#ff0000',
+    rosybrown: '#bc8f8f',
+    royalblue: '#4169e1',
+    saddlebrown: '#8b4513',
+    salmon: '#fa8072',
+    sandybrown: '#f4a460',
+    seagreen: '#2e8b57',
+    seashell: '#fff5ee',
+    sienna: '#a0522d',
+    silver: '#c0c0c0',
+    skyblue: '#87ceeb',
+    slateblue: '#6a5acd',
+    slategray: '#708090',
+    slategrey: '#708090',
+    snow: '#fffafa',
+    springgreen: '#00ff7f',
+    steelblue: '#4682b4',
+    tan: '#d2b48c',
+    teal: '#008080',
+    thistle: '#d8bfd8',
+    tomato: '#ff6347',
+    turquoise: '#40e0d0',
+    violet: '#ee82ee',
+    wheat: '#f5deb3',
+    white: '#ffffff',
+    whitesmoke: '#f5f5f5',
+    yellow: '#ffff00',
+    yellowgreen: '#9acd32'
+  };
+  var w3cx11_1 = w3cx11;
+  var type$b = utils.type;
 
-    var unpack$4 = utils.unpack;
-    var last$2 = utils.last;
-    var rnd = function rnd(a) {
-        return Math.round(a * 100) / 100;
-    };
+  Color_1.prototype.name = function () {
+    var hex = rgb2hex_1(this._rgb, 'rgb');
 
-    var hsl2css = function hsl2css() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var hsla = unpack$4(args, 'hsla');
-        var mode = last$2(args) || 'lsa';
-        hsla[0] = rnd(hsla[0] || 0);
-        hsla[1] = rnd(hsla[1] * 100) + '%';
-        hsla[2] = rnd(hsla[2] * 100) + '%';
-        if (mode === 'hsla' || hsla.length > 3 && hsla[3] < 1) {
-            hsla[3] = hsla.length > 3 ? hsla[3] : 1;
-            mode = 'hsla';
-        } else {
-            hsla.length = 3;
-        }
-        return mode + "(" + hsla.join(',') + ")";
-    };
+    for (var i = 0, list = Object.keys(w3cx11_1); i < list.length; i += 1) {
+      var n = list[i];
 
-    var hsl2css_1 = hsl2css;
+      if (w3cx11_1[n] === hex) {
+        return n.toLowerCase();
+      }
+    }
 
-    var unpack$5 = utils.unpack;
+    return hex;
+  };
 
-    var rgb2hsl = function rgb2hsl() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }args = unpack$5(args, 'rgba');
-        var r = args[0];
-        var g = args[1];
-        var b = args[2];
+  input.format.named = function (name) {
+    name = name.toLowerCase();
 
-        r /= 255;
-        g /= 255;
-        b /= 255;
+    if (w3cx11_1[name]) {
+      return hex2rgb_1(w3cx11_1[name]);
+    }
 
-        var min = Math.min(r, g, b);
-        var max = Math.max(r, g, b);
+    throw new Error('unknown color name: ' + name);
+  };
 
-        var l = (max + min) / 2;
-        var s, h;
+  input.autodetect.push({
+    p: 5,
+    test: function test(h) {
+      var rest = [],
+          len = arguments.length - 1;
 
-        if (max === min) {
-            s = 0;
-            h = Number.NaN;
-        } else {
-            s = l < 0.5 ? (max - min) / (max + min) : (max - min) / (2 - max - min);
-        }
+      while (len-- > 0) {
+        rest[len] = arguments[len + 1];
+      }
 
-        if (r == max) {
-            h = (g - b) / (max - min);
-        } else if (g == max) {
-            h = 2 + (b - r) / (max - min);
-        } else if (b == max) {
-            h = 4 + (r - g) / (max - min);
-        }
+      if (!rest.length && type$b(h) === 'string' && w3cx11_1[h.toLowerCase()]) {
+        return 'named';
+      }
+    }
+  });
+  var unpack$t = utils.unpack;
 
-        h *= 60;
-        if (h < 0) {
-            h += 360;
-        }
-        if (args.length > 3 && args[3] !== undefined) {
-            return [h, s, l, args[3]];
-        }
-        return [h, s, l];
-    };
+  var rgb2num = function rgb2num() {
+    var args = [],
+        len = arguments.length;
 
-    var rgb2hsl_1 = rgb2hsl;
+    while (len--) {
+      args[len] = arguments[len];
+    }
 
-    var unpack$6 = utils.unpack;
-    var last$3 = utils.last;
+    var ref = unpack$t(args, 'rgb');
+    var r = ref[0];
+    var g = ref[1];
+    var b = ref[2];
+    return (r << 16) + (g << 8) + b;
+  };
 
-    var round = Math.round;
+  var rgb2num_1 = rgb2num;
+  var type$c = utils.type;
 
-    var rgb2css = function rgb2css() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var rgba = unpack$6(args, 'rgba');
-        var mode = last$3(args) || 'rgb';
-        if (mode.substr(0, 3) == 'hsl') {
-            return hsl2css_1(rgb2hsl_1(rgba), mode);
-        }
-        rgba[0] = round(rgba[0]);
-        rgba[1] = round(rgba[1]);
-        rgba[2] = round(rgba[2]);
-        if (mode === 'rgba' || rgba.length > 3 && rgba[3] < 1) {
-            rgba[3] = rgba.length > 3 ? rgba[3] : 1;
-            mode = 'rgba';
-        }
-        return mode + "(" + rgba.slice(0, mode === 'rgb' ? 3 : 4).join(',') + ")";
-    };
+  var num2rgb = function num2rgb(num) {
+    if (type$c(num) == "number" && num >= 0 && num <= 0xFFFFFF) {
+      var r = num >> 16;
+      var g = num >> 8 & 0xFF;
+      var b = num & 0xFF;
+      return [r, g, b, 1];
+    }
 
-    var rgb2css_1 = rgb2css;
+    throw new Error("unknown num color: " + num);
+  };
 
-    var unpack$7 = utils.unpack;
-    var round$1 = Math.round;
+  var num2rgb_1 = num2rgb;
+  var type$d = utils.type;
 
-    var hsl2rgb = function hsl2rgb() {
-        var assign;
+  Color_1.prototype.num = function () {
+    return rgb2num_1(this._rgb);
+  };
 
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }args = unpack$7(args, 'hsl');
-        var h = args[0];
-        var s = args[1];
-        var l = args[2];
-        var r, g, b;
-        if (s === 0) {
-            r = g = b = l * 255;
-        } else {
-            var t3 = [0, 0, 0];
-            var c = [0, 0, 0];
-            var t2 = l < 0.5 ? l * (1 + s) : l + s - l * s;
-            var t1 = 2 * l - t2;
-            var h_ = h / 360;
-            t3[0] = h_ + 1 / 3;
-            t3[1] = h_;
-            t3[2] = h_ - 1 / 3;
-            for (var i = 0; i < 3; i++) {
-                if (t3[i] < 0) {
-                    t3[i] += 1;
-                }
-                if (t3[i] > 1) {
-                    t3[i] -= 1;
-                }
-                if (6 * t3[i] < 1) {
-                    c[i] = t1 + (t2 - t1) * 6 * t3[i];
-                } else if (2 * t3[i] < 1) {
-                    c[i] = t2;
-                } else if (3 * t3[i] < 2) {
-                    c[i] = t1 + (t2 - t1) * (2 / 3 - t3[i]) * 6;
-                } else {
-                    c[i] = t1;
-                }
-            }
-            assign = [round$1(c[0] * 255), round$1(c[1] * 255), round$1(c[2] * 255)], r = assign[0], g = assign[1], b = assign[2];
-        }
-        if (args.length > 3) {
-            return [r, g, b, args[3]];
-        }
-        return [r, g, b, 1];
-    };
+  chroma_1.num = function () {
+    var args = [],
+        len = arguments.length;
 
-    var hsl2rgb_1 = hsl2rgb;
+    while (len--) {
+      args[len] = arguments[len];
+    }
 
-    var RE_RGB = /^rgb\(\s*(-?\d+),\s*(-?\d+)\s*,\s*(-?\d+)\s*\)$/;
-    var RE_RGBA = /^rgba\(\s*(-?\d+),\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*([01]|[01]?\.\d+)\)$/;
-    var RE_RGB_PCT = /^rgb\(\s*(-?\d+(?:\.\d+)?)%,\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*\)$/;
-    var RE_RGBA_PCT = /^rgba\(\s*(-?\d+(?:\.\d+)?)%,\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*,\s*([01]|[01]?\.\d+)\)$/;
-    var RE_HSL = /^hsl\(\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*\)$/;
-    var RE_HSLA = /^hsla\(\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*,\s*([01]|[01]?\.\d+)\)$/;
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['num'])))();
+  };
 
-    var round$2 = Math.round;
+  input.format.num = num2rgb_1;
+  input.autodetect.push({
+    p: 5,
+    test: function test() {
+      var args = [],
+          len = arguments.length;
 
-    var css2rgb = function css2rgb(css) {
-        css = css.toLowerCase().trim();
-        var m;
+      while (len--) {
+        args[len] = arguments[len];
+      }
 
-        if (input.format.named) {
-            try {
-                return input.format.named(css);
-            } catch (e) {}
-        }
+      if (args.length === 1 && type$d(args[0]) === 'number' && args[0] >= 0 && args[0] <= 0xFFFFFF) {
+        return 'num';
+      }
+    }
+  });
+  var unpack$u = utils.unpack;
+  var type$e = utils.type;
+  var round$5 = Math.round;
 
-        if (m = css.match(RE_RGB)) {
-            var rgb = m.slice(1, 4);
-            for (var i = 0; i < 3; i++) {
-                rgb[i] = +rgb[i];
-            }
-            rgb[3] = 1;
-            return rgb;
-        }
+  Color_1.prototype.rgb = function (rnd) {
+    if (rnd === void 0) rnd = true;
 
-        if (m = css.match(RE_RGBA)) {
-            var rgb$1 = m.slice(1, 5);
-            for (var i$1 = 0; i$1 < 4; i$1++) {
-                rgb$1[i$1] = +rgb$1[i$1];
-            }
-            return rgb$1;
-        }
+    if (rnd === false) {
+      return this._rgb.slice(0, 3);
+    }
 
-        if (m = css.match(RE_RGB_PCT)) {
-            var rgb$2 = m.slice(1, 4);
-            for (var i$2 = 0; i$2 < 3; i$2++) {
-                rgb$2[i$2] = round$2(rgb$2[i$2] * 2.55);
-            }
-            rgb$2[3] = 1;
-            return rgb$2;
-        }
+    return this._rgb.slice(0, 3).map(round$5);
+  };
 
-        if (m = css.match(RE_RGBA_PCT)) {
-            var rgb$3 = m.slice(1, 5);
-            for (var i$3 = 0; i$3 < 3; i$3++) {
-                rgb$3[i$3] = round$2(rgb$3[i$3] * 2.55);
-            }
-            rgb$3[3] = +rgb$3[3];
-            return rgb$3;
-        }
-
-        if (m = css.match(RE_HSL)) {
-            var hsl = m.slice(1, 4);
-            hsl[1] *= 0.01;
-            hsl[2] *= 0.01;
-            var rgb$4 = hsl2rgb_1(hsl);
-            rgb$4[3] = 1;
-            return rgb$4;
-        }
-
-        if (m = css.match(RE_HSLA)) {
-            var hsl$1 = m.slice(1, 4);
-            hsl$1[1] *= 0.01;
-            hsl$1[2] *= 0.01;
-            var rgb$5 = hsl2rgb_1(hsl$1);
-            rgb$5[3] = +m[4];
-            return rgb$5;
-        }
-    };
-
-    css2rgb.test = function (s) {
-        return RE_RGB.test(s) || RE_RGBA.test(s) || RE_RGB_PCT.test(s) || RE_RGBA_PCT.test(s) || RE_HSL.test(s) || RE_HSLA.test(s);
-    };
-
-    var css2rgb_1 = css2rgb;
-
-    var type$3 = utils.type;
-
-    Color_1.prototype.css = function (mode) {
-        return rgb2css_1(this._rgb, mode);
-    };
-
-    chroma_1.css = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['css'])))();
-    };
-
-    input.format.css = css2rgb_1;
-
-    input.autodetect.push({
-        p: 5,
-        test: function test(h) {
-            var rest = [],
-                len = arguments.length - 1;
-            while (len-- > 0) {
-                rest[len] = arguments[len + 1];
-            }if (!rest.length && type$3(h) === 'string' && css2rgb_1.test(h)) {
-                return 'css';
-            }
-        }
+  Color_1.prototype.rgba = function (rnd) {
+    if (rnd === void 0) rnd = true;
+    return this._rgb.slice(0, 4).map(function (v, i) {
+      return i < 3 ? rnd === false ? v : round$5(v) : v;
     });
+  };
 
-    var unpack$8 = utils.unpack;
+  chroma_1.rgb = function () {
+    var args = [],
+        len = arguments.length;
 
-    input.format.gl = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var rgb = unpack$8(args, 'rgba');
-        rgb[0] *= 255;
-        rgb[1] *= 255;
-        rgb[2] *= 255;
-        return rgb;
-    };
+    while (len--) {
+      args[len] = arguments[len];
+    }
 
-    chroma_1.gl = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['gl'])))();
-    };
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['rgb'])))();
+  };
 
-    Color_1.prototype.gl = function () {
-        var rgb = this._rgb;
-        return [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, rgb[3]];
-    };
+  input.format.rgb = function () {
+    var args = [],
+        len = arguments.length;
 
-    var unpack$9 = utils.unpack;
+    while (len--) {
+      args[len] = arguments[len];
+    }
 
-    var rgb2hcg = function rgb2hcg() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var ref = unpack$9(args, 'rgb');
-        var r = ref[0];
-        var g = ref[1];
-        var b = ref[2];
-        var min = Math.min(r, g, b);
-        var max = Math.max(r, g, b);
-        var delta = max - min;
-        var c = delta * 100 / 255;
-        var _g = min / (255 - delta) * 100;
-        var h;
-        if (delta === 0) {
-            h = Number.NaN;
-        } else {
-            if (r === max) {
-                h = (g - b) / delta;
-            }
-            if (g === max) {
-                h = 2 + (b - r) / delta;
-            }
-            if (b === max) {
-                h = 4 + (r - g) / delta;
-            }
-            h *= 60;
-            if (h < 0) {
-                h += 360;
-            }
+    var rgba = unpack$u(args, 'rgba');
+
+    if (rgba[3] === undefined) {
+      rgba[3] = 1;
+    }
+
+    return rgba;
+  };
+
+  input.autodetect.push({
+    p: 3,
+    test: function test() {
+      var args = [],
+          len = arguments.length;
+
+      while (len--) {
+        args[len] = arguments[len];
+      }
+
+      args = unpack$u(args, 'rgba');
+
+      if (type$e(args) === 'array' && (args.length === 3 || args.length === 4 && type$e(args[3]) == 'number' && args[3] >= 0 && args[3] <= 1)) {
+        return 'rgb';
+      }
+    }
+  });
+  var log = Math.log;
+
+  var temperature2rgb = function temperature2rgb(kelvin) {
+    var temp = kelvin / 100;
+    var r, g, b;
+
+    if (temp < 66) {
+      r = 255;
+      g = -155.25485562709179 - 0.44596950469579133 * (g = temp - 2) + 104.49216199393888 * log(g);
+      b = temp < 20 ? 0 : -254.76935184120902 + 0.8274096064007395 * (b = temp - 10) + 115.67994401066147 * log(b);
+    } else {
+      r = 351.97690566805693 + 0.114206453784165 * (r = temp - 55) - 40.25366309332127 * log(r);
+      g = 325.4494125711974 + 0.07943456536662342 * (g = temp - 50) - 28.0852963507957 * log(g);
+      b = 255;
+    }
+
+    return [r, g, b, 1];
+  };
+
+  var temperature2rgb_1 = temperature2rgb;
+  var unpack$v = utils.unpack;
+  var round$6 = Math.round;
+
+  var rgb2temperature = function rgb2temperature() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    var rgb = unpack$v(args, 'rgb');
+    var r = rgb[0],
+        b = rgb[2];
+    var minTemp = 1000;
+    var maxTemp = 40000;
+    var eps = 0.4;
+    var temp;
+
+    while (maxTemp - minTemp > eps) {
+      temp = (maxTemp + minTemp) * 0.5;
+      var rgb$1 = temperature2rgb_1(temp);
+
+      if (rgb$1[2] / rgb$1[0] >= b / r) {
+        maxTemp = temp;
+      } else {
+        minTemp = temp;
+      }
+    }
+
+    return round$6(temp);
+  };
+
+  var rgb2temperature_1 = rgb2temperature;
+
+  Color_1.prototype.temp = Color_1.prototype.kelvin = Color_1.prototype.temperature = function () {
+    return rgb2temperature_1(this._rgb);
+  };
+
+  chroma_1.temp = chroma_1.kelvin = chroma_1.temperature = function () {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['temp'])))();
+  };
+
+  input.format.temp = input.format.kelvin = input.format.temperature = temperature2rgb_1;
+  var type$f = utils.type;
+
+  Color_1.prototype.alpha = function (a, mutate) {
+    if (mutate === void 0) mutate = false;
+
+    if (a !== undefined && type$f(a) === 'number') {
+      if (mutate) {
+        this._rgb[3] = a;
+        return this;
+      }
+
+      return new Color_1([this._rgb[0], this._rgb[1], this._rgb[2], a], 'rgb');
+    }
+
+    return this._rgb[3];
+  };
+
+  Color_1.prototype.clipped = function () {
+    return this._rgb._clipped || false;
+  };
+
+  Color_1.prototype.darken = function (amount) {
+    if (amount === void 0) amount = 1;
+    var me = this;
+    var lab = me.lab();
+    lab[0] -= labConstants.Kn * amount;
+    return new Color_1(lab, 'lab').alpha(me.alpha(), true);
+  };
+
+  Color_1.prototype.brighten = function (amount) {
+    if (amount === void 0) amount = 1;
+    return this.darken(-amount);
+  };
+
+  Color_1.prototype.darker = Color_1.prototype.darken;
+  Color_1.prototype.brighter = Color_1.prototype.brighten;
+
+  Color_1.prototype.get = function (mc) {
+    var ref = mc.split('.');
+    var mode = ref[0];
+    var channel = ref[1];
+    var src = this[mode]();
+
+    if (channel) {
+      var i = mode.indexOf(channel);
+
+      if (i > -1) {
+        return src[i];
+      }
+
+      throw new Error("unknown channel " + channel + " in mode " + mode);
+    } else {
+      return src;
+    }
+  };
+
+  var type$g = utils.type;
+  var pow$2 = Math.pow;
+  var EPS = 1e-7;
+  var MAX_ITER = 20;
+
+  Color_1.prototype.luminance = function (lum) {
+    if (lum !== undefined && type$g(lum) === 'number') {
+      if (lum === 0) {
+        return new Color_1([0, 0, 0, this._rgb[3]], 'rgb');
+      }
+
+      if (lum === 1) {
+        return new Color_1([255, 255, 255, this._rgb[3]], 'rgb');
+      }
+
+      var cur_lum = this.luminance();
+      var mode = 'rgb';
+      var max_iter = MAX_ITER;
+
+      var test = function test(low, high) {
+        var mid = low.interpolate(high, 0.5, mode);
+        var lm = mid.luminance();
+
+        if (Math.abs(lum - lm) < EPS || !max_iter--) {
+          return mid;
         }
-        return [h, c, _g];
-    };
 
-    var rgb2hcg_1 = rgb2hcg;
+        return lm > lum ? test(low, mid) : test(mid, high);
+      };
 
-    var unpack$a = utils.unpack;
-    var floor = Math.floor;
+      var rgb = (cur_lum > lum ? test(new Color_1([0, 0, 0]), this) : test(this, new Color_1([255, 255, 255]))).rgb();
+      return new Color_1(rgb.concat([this._rgb[3]]));
+    }
 
-    var hcg2rgb = function hcg2rgb() {
-        var assign, assign$1, assign$2, assign$3, assign$4, assign$5;
+    return rgb2luminance.apply(void 0, this._rgb.slice(0, 3));
+  };
 
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }args = unpack$a(args, 'hcg');
-        var h = args[0];
-        var c = args[1];
-        var _g = args[2];
-        var r, g, b;
-        _g = _g * 255;
-        var _c = c * 255;
-        if (c === 0) {
-            r = g = b = _g;
-        } else {
-            if (h === 360) {
-                h = 0;
-            }
-            if (h > 360) {
-                h -= 360;
-            }
-            if (h < 0) {
-                h += 360;
-            }
-            h /= 60;
-            var i = floor(h);
-            var f = h - i;
-            var p = _g * (1 - c);
-            var q = p + _c * (1 - f);
-            var t = p + _c * f;
-            var v = p + _c;
-            switch (i) {
-                case 0:
-                    assign = [v, t, p], r = assign[0], g = assign[1], b = assign[2];break;
-                case 1:
-                    assign$1 = [q, v, p], r = assign$1[0], g = assign$1[1], b = assign$1[2];break;
-                case 2:
-                    assign$2 = [p, v, t], r = assign$2[0], g = assign$2[1], b = assign$2[2];break;
-                case 3:
-                    assign$3 = [p, q, v], r = assign$3[0], g = assign$3[1], b = assign$3[2];break;
-                case 4:
-                    assign$4 = [t, p, v], r = assign$4[0], g = assign$4[1], b = assign$4[2];break;
-                case 5:
-                    assign$5 = [v, p, q], r = assign$5[0], g = assign$5[1], b = assign$5[2];break;
-            }
-        }
-        return [r, g, b, args.length > 3 ? args[3] : 1];
-    };
+  var rgb2luminance = function rgb2luminance(r, g, b) {
+    r = luminance_x(r);
+    g = luminance_x(g);
+    b = luminance_x(b);
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
 
-    var hcg2rgb_1 = hcg2rgb;
+  var luminance_x = function luminance_x(x) {
+    x /= 255;
+    return x <= 0.03928 ? x / 12.92 : pow$2((x + 0.055) / 1.055, 2.4);
+  };
 
-    var unpack$b = utils.unpack;
-    var type$4 = utils.type;
+  var interpolator = {};
+  var type$h = utils.type;
 
-    Color_1.prototype.hcg = function () {
-        return rgb2hcg_1(this._rgb);
-    };
+  var mix = function mix(col1, col2, f) {
+    if (f === void 0) f = 0.5;
+    var rest = [],
+        len = arguments.length - 3;
 
-    chroma_1.hcg = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['hcg'])))();
-    };
+    while (len-- > 0) {
+      rest[len] = arguments[len + 3];
+    }
 
-    input.format.hcg = hcg2rgb_1;
+    var mode = rest[0] || 'lrgb';
 
-    input.autodetect.push({
-        p: 1,
-        test: function test() {
-            var args = [],
-                len = arguments.length;
-            while (len--) {
-                args[len] = arguments[len];
-            }args = unpack$b(args, 'hcg');
-            if (type$4(args) === 'array' && args.length === 3) {
-                return 'hcg';
-            }
-        }
-    });
+    if (!interpolator[mode] && !rest.length) {
+      mode = Object.keys(interpolator)[0];
+    }
 
-    var unpack$c = utils.unpack;
-    var last$4 = utils.last;
-    var round$3 = Math.round;
+    if (!interpolator[mode]) {
+      throw new Error("interpolation mode " + mode + " is not defined");
+    }
 
-    var rgb2hex = function rgb2hex() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var ref = unpack$c(args, 'rgba');
-        var r = ref[0];
-        var g = ref[1];
-        var b = ref[2];
-        var a = ref[3];
-        var mode = last$4(args) || 'auto';
-        if (a === undefined) {
-            a = 1;
-        }
-        if (mode === 'auto') {
-            mode = a < 1 ? 'rgba' : 'rgb';
-        }
-        r = round$3(r);
-        g = round$3(g);
-        b = round$3(b);
-        var u = r << 16 | g << 8 | b;
-        var str = "000000" + u.toString(16);
-        str = str.substr(str.length - 6);
-        var hxa = '0' + round$3(a * 255).toString(16);
-        hxa = hxa.substr(hxa.length - 2);
-        switch (mode.toLowerCase()) {
-            case 'rgba':
-                return "#" + str + hxa;
-            case 'argb':
-                return "#" + hxa + str;
+    if (type$h(col1) !== 'object') {
+      col1 = new Color_1(col1);
+    }
+
+    if (type$h(col2) !== 'object') {
+      col2 = new Color_1(col2);
+    }
+
+    return interpolator[mode](col1, col2, f).alpha(col1.alpha() + f * (col2.alpha() - col1.alpha()));
+  };
+
+  Color_1.prototype.mix = Color_1.prototype.interpolate = function (col2, f) {
+    if (f === void 0) f = 0.5;
+    var rest = [],
+        len = arguments.length - 2;
+
+    while (len-- > 0) {
+      rest[len] = arguments[len + 2];
+    }
+
+    return mix.apply(void 0, [this, col2, f].concat(rest));
+  };
+
+  Color_1.prototype.premultiply = function (mutate) {
+    if (mutate === void 0) mutate = false;
+    var rgb = this._rgb;
+    var a = rgb[3];
+
+    if (mutate) {
+      this._rgb = [rgb[0] * a, rgb[1] * a, rgb[2] * a, a];
+      return this;
+    } else {
+      return new Color_1([rgb[0] * a, rgb[1] * a, rgb[2] * a, a], 'rgb');
+    }
+  };
+
+  Color_1.prototype.saturate = function (amount) {
+    if (amount === void 0) amount = 1;
+    var me = this;
+    var lch = me.lch();
+    lch[1] += labConstants.Kn * amount;
+
+    if (lch[1] < 0) {
+      lch[1] = 0;
+    }
+
+    return new Color_1(lch, 'lch').alpha(me.alpha(), true);
+  };
+
+  Color_1.prototype.desaturate = function (amount) {
+    if (amount === void 0) amount = 1;
+    return this.saturate(-amount);
+  };
+
+  var type$i = utils.type;
+
+  Color_1.prototype.set = function (mc, value, mutate) {
+    if (mutate === void 0) mutate = false;
+    var ref = mc.split('.');
+    var mode = ref[0];
+    var channel = ref[1];
+    var src = this[mode]();
+
+    if (channel) {
+      var i = mode.indexOf(channel);
+
+      if (i > -1) {
+        if (type$i(value) == 'string') {
+          switch (value.charAt(0)) {
+            case '+':
+              src[i] += +value;
+              break;
+
+            case '-':
+              src[i] += +value;
+              break;
+
+            case '*':
+              src[i] *= +value.substr(1);
+              break;
+
+            case '/':
+              src[i] /= +value.substr(1);
+              break;
+
             default:
-                return "#" + str;
-        }
-    };
-
-    var rgb2hex_1 = rgb2hex;
-
-    var RE_HEX = /^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
-    var RE_HEXA = /^#?([A-Fa-f0-9]{8}|[A-Fa-f0-9]{4})$/;
-
-    var hex2rgb = function hex2rgb(hex) {
-        if (hex.match(RE_HEX)) {
-            if (hex.length === 4 || hex.length === 7) {
-                hex = hex.substr(1);
-            }
-
-            if (hex.length === 3) {
-                hex = hex.split('');
-                hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-            }
-            var u = parseInt(hex, 16);
-            var r = u >> 16;
-            var g = u >> 8 & 0xFF;
-            var b = u & 0xFF;
-            return [r, g, b, 1];
-        }
-
-        if (hex.match(RE_HEXA)) {
-            if (hex.length === 5 || hex.length === 9) {
-                hex = hex.substr(1);
-            }
-
-            if (hex.length === 4) {
-                hex = hex.split('');
-                hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
-            }
-            var u$1 = parseInt(hex, 16);
-            var r$1 = u$1 >> 24 & 0xFF;
-            var g$1 = u$1 >> 16 & 0xFF;
-            var b$1 = u$1 >> 8 & 0xFF;
-            var a = Math.round((u$1 & 0xFF) / 0xFF * 100) / 100;
-            return [r$1, g$1, b$1, a];
-        }
-
-        throw new Error("unknown hex color: " + hex);
-    };
-
-    var hex2rgb_1 = hex2rgb;
-
-    var type$5 = utils.type;
-
-    Color_1.prototype.hex = function (mode) {
-        return rgb2hex_1(this._rgb, mode);
-    };
-
-    chroma_1.hex = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['hex'])))();
-    };
-
-    input.format.hex = hex2rgb_1;
-    input.autodetect.push({
-        p: 4,
-        test: function test(h) {
-            var rest = [],
-                len = arguments.length - 1;
-            while (len-- > 0) {
-                rest[len] = arguments[len + 1];
-            }if (!rest.length && type$5(h) === 'string' && [3, 4, 5, 6, 7, 8, 9].indexOf(h.length) >= 0) {
-                return 'hex';
-            }
-        }
-    });
-
-    var unpack$d = utils.unpack;
-    var TWOPI = utils.TWOPI;
-    var min = Math.min;
-    var sqrt = Math.sqrt;
-    var acos = Math.acos;
-
-    var rgb2hsi = function rgb2hsi() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }
-        var ref = unpack$d(args, 'rgb');
-        var r = ref[0];
-        var g = ref[1];
-        var b = ref[2];
-        r /= 255;
-        g /= 255;
-        b /= 255;
-        var h;
-        var min_ = min(r, g, b);
-        var i = (r + g + b) / 3;
-        var s = i > 0 ? 1 - min_ / i : 0;
-        if (s === 0) {
-            h = NaN;
+              src[i] = +value;
+          }
+        } else if (type$i(value) === 'number') {
+          src[i] = value;
         } else {
-            h = (r - g + (r - b)) / 2;
-            h /= sqrt((r - g) * (r - g) + (r - b) * (g - b));
-            h = acos(h);
-            if (b > g) {
-                h = TWOPI - h;
-            }
-            h /= TWOPI;
-        }
-        return [h * 360, s, i];
-    };
-
-    var rgb2hsi_1 = rgb2hsi;
-
-    var unpack$e = utils.unpack;
-    var limit$1 = utils.limit;
-    var TWOPI$1 = utils.TWOPI;
-    var PITHIRD = utils.PITHIRD;
-    var cos = Math.cos;
-
-    var hsi2rgb = function hsi2rgb() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }
-        args = unpack$e(args, 'hsi');
-        var h = args[0];
-        var s = args[1];
-        var i = args[2];
-        var r, g, b;
-
-        if (isNaN(h)) {
-            h = 0;
-        }
-        if (isNaN(s)) {
-            s = 0;
+          throw new Error("unsupported value for Color.set");
         }
 
-        if (h > 360) {
-            h -= 360;
-        }
-        if (h < 0) {
-            h += 360;
-        }
-        h /= 360;
-        if (h < 1 / 3) {
-            b = (1 - s) / 3;
-            r = (1 + s * cos(TWOPI$1 * h) / cos(PITHIRD - TWOPI$1 * h)) / 3;
-            g = 1 - (b + r);
-        } else if (h < 2 / 3) {
-            h -= 1 / 3;
-            r = (1 - s) / 3;
-            g = (1 + s * cos(TWOPI$1 * h) / cos(PITHIRD - TWOPI$1 * h)) / 3;
-            b = 1 - (r + g);
-        } else {
-            h -= 2 / 3;
-            g = (1 - s) / 3;
-            b = (1 + s * cos(TWOPI$1 * h) / cos(PITHIRD - TWOPI$1 * h)) / 3;
-            r = 1 - (g + b);
-        }
-        r = limit$1(i * r * 3);
-        g = limit$1(i * g * 3);
-        b = limit$1(i * b * 3);
-        return [r * 255, g * 255, b * 255, args.length > 3 ? args[3] : 1];
-    };
+        var out = new Color_1(src, mode);
 
-    var hsi2rgb_1 = hsi2rgb;
-
-    var unpack$f = utils.unpack;
-    var type$6 = utils.type;
-
-    Color_1.prototype.hsi = function () {
-        return rgb2hsi_1(this._rgb);
-    };
-
-    chroma_1.hsi = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['hsi'])))();
-    };
-
-    input.format.hsi = hsi2rgb_1;
-
-    input.autodetect.push({
-        p: 2,
-        test: function test() {
-            var args = [],
-                len = arguments.length;
-            while (len--) {
-                args[len] = arguments[len];
-            }args = unpack$f(args, 'hsi');
-            if (type$6(args) === 'array' && args.length === 3) {
-                return 'hsi';
-            }
-        }
-    });
-
-    var unpack$g = utils.unpack;
-    var type$7 = utils.type;
-
-    Color_1.prototype.hsl = function () {
-        return rgb2hsl_1(this._rgb);
-    };
-
-    chroma_1.hsl = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['hsl'])))();
-    };
-
-    input.format.hsl = hsl2rgb_1;
-
-    input.autodetect.push({
-        p: 2,
-        test: function test() {
-            var args = [],
-                len = arguments.length;
-            while (len--) {
-                args[len] = arguments[len];
-            }args = unpack$g(args, 'hsl');
-            if (type$7(args) === 'array' && args.length === 3) {
-                return 'hsl';
-            }
-        }
-    });
-
-    var unpack$h = utils.unpack;
-    var min$1 = Math.min;
-    var max$1 = Math.max;
-
-    var rgb2hsl$1 = function rgb2hsl$1() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }args = unpack$h(args, 'rgb');
-        var r = args[0];
-        var g = args[1];
-        var b = args[2];
-        var min_ = min$1(r, g, b);
-        var max_ = max$1(r, g, b);
-        var delta = max_ - min_;
-        var h, s, v;
-        v = max_ / 255.0;
-        if (max_ === 0) {
-            h = Number.NaN;
-            s = 0;
-        } else {
-            s = delta / max_;
-            if (r === max_) {
-                h = (g - b) / delta;
-            }
-            if (g === max_) {
-                h = 2 + (b - r) / delta;
-            }
-            if (b === max_) {
-                h = 4 + (r - g) / delta;
-            }
-            h *= 60;
-            if (h < 0) {
-                h += 360;
-            }
-        }
-        return [h, s, v];
-    };
-
-    var rgb2hsv = rgb2hsl$1;
-
-    var unpack$i = utils.unpack;
-    var floor$1 = Math.floor;
-
-    var hsv2rgb = function hsv2rgb() {
-        var assign, assign$1, assign$2, assign$3, assign$4, assign$5;
-
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }args = unpack$i(args, 'hsv');
-        var h = args[0];
-        var s = args[1];
-        var v = args[2];
-        var r, g, b;
-        v *= 255;
-        if (s === 0) {
-            r = g = b = v;
-        } else {
-            if (h === 360) {
-                h = 0;
-            }
-            if (h > 360) {
-                h -= 360;
-            }
-            if (h < 0) {
-                h += 360;
-            }
-            h /= 60;
-
-            var i = floor$1(h);
-            var f = h - i;
-            var p = v * (1 - s);
-            var q = v * (1 - s * f);
-            var t = v * (1 - s * (1 - f));
-
-            switch (i) {
-                case 0:
-                    assign = [v, t, p], r = assign[0], g = assign[1], b = assign[2];break;
-                case 1:
-                    assign$1 = [q, v, p], r = assign$1[0], g = assign$1[1], b = assign$1[2];break;
-                case 2:
-                    assign$2 = [p, v, t], r = assign$2[0], g = assign$2[1], b = assign$2[2];break;
-                case 3:
-                    assign$3 = [p, q, v], r = assign$3[0], g = assign$3[1], b = assign$3[2];break;
-                case 4:
-                    assign$4 = [t, p, v], r = assign$4[0], g = assign$4[1], b = assign$4[2];break;
-                case 5:
-                    assign$5 = [v, p, q], r = assign$5[0], g = assign$5[1], b = assign$5[2];break;
-            }
-        }
-        return [r, g, b, args.length > 3 ? args[3] : 1];
-    };
-
-    var hsv2rgb_1 = hsv2rgb;
-
-    var unpack$j = utils.unpack;
-    var type$8 = utils.type;
-
-    Color_1.prototype.hsv = function () {
-        return rgb2hsv(this._rgb);
-    };
-
-    chroma_1.hsv = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['hsv'])))();
-    };
-
-    input.format.hsv = hsv2rgb_1;
-
-    input.autodetect.push({
-        p: 2,
-        test: function test() {
-            var args = [],
-                len = arguments.length;
-            while (len--) {
-                args[len] = arguments[len];
-            }args = unpack$j(args, 'hsv');
-            if (type$8(args) === 'array' && args.length === 3) {
-                return 'hsv';
-            }
-        }
-    });
-
-    var labConstants = {
-        Kn: 18,
-
-        Xn: 0.950470,
-        Yn: 1,
-        Zn: 1.088830,
-
-        t0: 0.137931034,
-        t1: 0.206896552,
-        t2: 0.12841855,
-        t3: 0.008856452 };
-
-    var unpack$k = utils.unpack;
-    var pow = Math.pow;
-
-    var rgb2lab = function rgb2lab() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var ref = unpack$k(args, 'rgb');
-        var r = ref[0];
-        var g = ref[1];
-        var b = ref[2];
-        var ref$1 = rgb2xyz(r, g, b);
-        var x = ref$1[0];
-        var y = ref$1[1];
-        var z = ref$1[2];
-        var l = 116 * y - 16;
-        return [l < 0 ? 0 : l, 500 * (x - y), 200 * (y - z)];
-    };
-
-    var rgb_xyz = function rgb_xyz(r) {
-        if ((r /= 255) <= 0.04045) {
-            return r / 12.92;
-        }
-        return pow((r + 0.055) / 1.055, 2.4);
-    };
-
-    var xyz_lab = function xyz_lab(t) {
-        if (t > labConstants.t3) {
-            return pow(t, 1 / 3);
-        }
-        return t / labConstants.t2 + labConstants.t0;
-    };
-
-    var rgb2xyz = function rgb2xyz(r, g, b) {
-        r = rgb_xyz(r);
-        g = rgb_xyz(g);
-        b = rgb_xyz(b);
-        var x = xyz_lab((0.4124564 * r + 0.3575761 * g + 0.1804375 * b) / labConstants.Xn);
-        var y = xyz_lab((0.2126729 * r + 0.7151522 * g + 0.0721750 * b) / labConstants.Yn);
-        var z = xyz_lab((0.0193339 * r + 0.1191920 * g + 0.9503041 * b) / labConstants.Zn);
-        return [x, y, z];
-    };
-
-    var rgb2lab_1 = rgb2lab;
-
-    var unpack$l = utils.unpack;
-    var pow$1 = Math.pow;
-
-    var lab2rgb = function lab2rgb() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }args = unpack$l(args, 'lab');
-        var l = args[0];
-        var a = args[1];
-        var b = args[2];
-        var x, y, z, r, g, b_;
-
-        y = (l + 16) / 116;
-        x = isNaN(a) ? y : y + a / 500;
-        z = isNaN(b) ? y : y - b / 200;
-
-        y = labConstants.Yn * lab_xyz(y);
-        x = labConstants.Xn * lab_xyz(x);
-        z = labConstants.Zn * lab_xyz(z);
-
-        r = xyz_rgb(3.2404542 * x - 1.5371385 * y - 0.4985314 * z);
-        g = xyz_rgb(-0.9692660 * x + 1.8760108 * y + 0.0415560 * z);
-        b_ = xyz_rgb(0.0556434 * x - 0.2040259 * y + 1.0572252 * z);
-
-        return [r, g, b_, args.length > 3 ? args[3] : 1];
-    };
-
-    var xyz_rgb = function xyz_rgb(r) {
-        return 255 * (r <= 0.00304 ? 12.92 * r : 1.055 * pow$1(r, 1 / 2.4) - 0.055);
-    };
-
-    var lab_xyz = function lab_xyz(t) {
-        return t > labConstants.t1 ? t * t * t : labConstants.t2 * (t - labConstants.t0);
-    };
-
-    var lab2rgb_1 = lab2rgb;
-
-    var unpack$m = utils.unpack;
-    var type$9 = utils.type;
-
-    Color_1.prototype.lab = function () {
-        return rgb2lab_1(this._rgb);
-    };
-
-    chroma_1.lab = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['lab'])))();
-    };
-
-    input.format.lab = lab2rgb_1;
-
-    input.autodetect.push({
-        p: 2,
-        test: function test() {
-            var args = [],
-                len = arguments.length;
-            while (len--) {
-                args[len] = arguments[len];
-            }args = unpack$m(args, 'lab');
-            if (type$9(args) === 'array' && args.length === 3) {
-                return 'lab';
-            }
-        }
-    });
-
-    var unpack$n = utils.unpack;
-    var RAD2DEG = utils.RAD2DEG;
-    var sqrt$1 = Math.sqrt;
-    var atan2 = Math.atan2;
-    var round$4 = Math.round;
-
-    var lab2lch = function lab2lch() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var ref = unpack$n(args, 'lab');
-        var l = ref[0];
-        var a = ref[1];
-        var b = ref[2];
-        var c = sqrt$1(a * a + b * b);
-        var h = (atan2(b, a) * RAD2DEG + 360) % 360;
-        if (round$4(c * 10000) === 0) {
-            h = Number.NaN;
-        }
-        return [l, c, h];
-    };
-
-    var lab2lch_1 = lab2lch;
-
-    var unpack$o = utils.unpack;
-
-    var rgb2lch = function rgb2lch() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var ref = unpack$o(args, 'rgb');
-        var r = ref[0];
-        var g = ref[1];
-        var b = ref[2];
-        var ref$1 = rgb2lab_1(r, g, b);
-        var l = ref$1[0];
-        var a = ref$1[1];
-        var b_ = ref$1[2];
-        return lab2lch_1(l, a, b_);
-    };
-
-    var rgb2lch_1 = rgb2lch;
-
-    var unpack$p = utils.unpack;
-    var DEG2RAD = utils.DEG2RAD;
-    var sin = Math.sin;
-    var cos$1 = Math.cos;
-
-    var lch2lab = function lch2lab() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }
-        var ref = unpack$p(args, 'lch');
-        var l = ref[0];
-        var c = ref[1];
-        var h = ref[2];
-        if (isNaN(h)) {
-            h = 0;
-        }
-        h = h * DEG2RAD;
-        return [l, cos$1(h) * c, sin(h) * c];
-    };
-
-    var lch2lab_1 = lch2lab;
-
-    var unpack$q = utils.unpack;
-
-    var lch2rgb = function lch2rgb() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }args = unpack$q(args, 'lch');
-        var l = args[0];
-        var c = args[1];
-        var h = args[2];
-        var ref = lch2lab_1(l, c, h);
-        var L = ref[0];
-        var a = ref[1];
-        var b_ = ref[2];
-        var ref$1 = lab2rgb_1(L, a, b_);
-        var r = ref$1[0];
-        var g = ref$1[1];
-        var b = ref$1[2];
-        return [r, g, b, args.length > 3 ? args[3] : 1];
-    };
-
-    var lch2rgb_1 = lch2rgb;
-
-    var unpack$r = utils.unpack;
-
-    var hcl2rgb = function hcl2rgb() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var hcl = unpack$r(args, 'hcl').reverse();
-        return lch2rgb_1.apply(void 0, hcl);
-    };
-
-    var hcl2rgb_1 = hcl2rgb;
-
-    var unpack$s = utils.unpack;
-    var type$a = utils.type;
-
-    Color_1.prototype.lch = function () {
-        return rgb2lch_1(this._rgb);
-    };
-    Color_1.prototype.hcl = function () {
-        return rgb2lch_1(this._rgb).reverse();
-    };
-
-    chroma_1.lch = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['lch'])))();
-    };
-    chroma_1.hcl = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['hcl'])))();
-    };
-
-    input.format.lch = lch2rgb_1;
-    input.format.hcl = hcl2rgb_1;
-
-    ['lch', 'hcl'].forEach(function (m) {
-        return input.autodetect.push({
-            p: 2,
-            test: function test() {
-                var args = [],
-                    len = arguments.length;
-                while (len--) {
-                    args[len] = arguments[len];
-                }args = unpack$s(args, m);
-                if (type$a(args) === 'array' && args.length === 3) {
-                    return m;
-                }
-            }
-        });
-    });
-
-    var w3cx11 = {
-        aliceblue: '#f0f8ff',
-        antiquewhite: '#faebd7',
-        aqua: '#00ffff',
-        aquamarine: '#7fffd4',
-        azure: '#f0ffff',
-        beige: '#f5f5dc',
-        bisque: '#ffe4c4',
-        black: '#000000',
-        blanchedalmond: '#ffebcd',
-        blue: '#0000ff',
-        blueviolet: '#8a2be2',
-        brown: '#a52a2a',
-        burlywood: '#deb887',
-        cadetblue: '#5f9ea0',
-        chartreuse: '#7fff00',
-        chocolate: '#d2691e',
-        coral: '#ff7f50',
-        cornflower: '#6495ed',
-        cornflowerblue: '#6495ed',
-        cornsilk: '#fff8dc',
-        crimson: '#dc143c',
-        cyan: '#00ffff',
-        darkblue: '#00008b',
-        darkcyan: '#008b8b',
-        darkgoldenrod: '#b8860b',
-        darkgray: '#a9a9a9',
-        darkgreen: '#006400',
-        darkgrey: '#a9a9a9',
-        darkkhaki: '#bdb76b',
-        darkmagenta: '#8b008b',
-        darkolivegreen: '#556b2f',
-        darkorange: '#ff8c00',
-        darkorchid: '#9932cc',
-        darkred: '#8b0000',
-        darksalmon: '#e9967a',
-        darkseagreen: '#8fbc8f',
-        darkslateblue: '#483d8b',
-        darkslategray: '#2f4f4f',
-        darkslategrey: '#2f4f4f',
-        darkturquoise: '#00ced1',
-        darkviolet: '#9400d3',
-        deeppink: '#ff1493',
-        deepskyblue: '#00bfff',
-        dimgray: '#696969',
-        dimgrey: '#696969',
-        dodgerblue: '#1e90ff',
-        firebrick: '#b22222',
-        floralwhite: '#fffaf0',
-        forestgreen: '#228b22',
-        fuchsia: '#ff00ff',
-        gainsboro: '#dcdcdc',
-        ghostwhite: '#f8f8ff',
-        gold: '#ffd700',
-        goldenrod: '#daa520',
-        gray: '#808080',
-        green: '#008000',
-        greenyellow: '#adff2f',
-        grey: '#808080',
-        honeydew: '#f0fff0',
-        hotpink: '#ff69b4',
-        indianred: '#cd5c5c',
-        indigo: '#4b0082',
-        ivory: '#fffff0',
-        khaki: '#f0e68c',
-        laserlemon: '#ffff54',
-        lavender: '#e6e6fa',
-        lavenderblush: '#fff0f5',
-        lawngreen: '#7cfc00',
-        lemonchiffon: '#fffacd',
-        lightblue: '#add8e6',
-        lightcoral: '#f08080',
-        lightcyan: '#e0ffff',
-        lightgoldenrod: '#fafad2',
-        lightgoldenrodyellow: '#fafad2',
-        lightgray: '#d3d3d3',
-        lightgreen: '#90ee90',
-        lightgrey: '#d3d3d3',
-        lightpink: '#ffb6c1',
-        lightsalmon: '#ffa07a',
-        lightseagreen: '#20b2aa',
-        lightskyblue: '#87cefa',
-        lightslategray: '#778899',
-        lightslategrey: '#778899',
-        lightsteelblue: '#b0c4de',
-        lightyellow: '#ffffe0',
-        lime: '#00ff00',
-        limegreen: '#32cd32',
-        linen: '#faf0e6',
-        magenta: '#ff00ff',
-        maroon: '#800000',
-        maroon2: '#7f0000',
-        maroon3: '#b03060',
-        mediumaquamarine: '#66cdaa',
-        mediumblue: '#0000cd',
-        mediumorchid: '#ba55d3',
-        mediumpurple: '#9370db',
-        mediumseagreen: '#3cb371',
-        mediumslateblue: '#7b68ee',
-        mediumspringgreen: '#00fa9a',
-        mediumturquoise: '#48d1cc',
-        mediumvioletred: '#c71585',
-        midnightblue: '#191970',
-        mintcream: '#f5fffa',
-        mistyrose: '#ffe4e1',
-        moccasin: '#ffe4b5',
-        navajowhite: '#ffdead',
-        navy: '#000080',
-        oldlace: '#fdf5e6',
-        olive: '#808000',
-        olivedrab: '#6b8e23',
-        orange: '#ffa500',
-        orangered: '#ff4500',
-        orchid: '#da70d6',
-        palegoldenrod: '#eee8aa',
-        palegreen: '#98fb98',
-        paleturquoise: '#afeeee',
-        palevioletred: '#db7093',
-        papayawhip: '#ffefd5',
-        peachpuff: '#ffdab9',
-        peru: '#cd853f',
-        pink: '#ffc0cb',
-        plum: '#dda0dd',
-        powderblue: '#b0e0e6',
-        purple: '#800080',
-        purple2: '#7f007f',
-        purple3: '#a020f0',
-        rebeccapurple: '#663399',
-        red: '#ff0000',
-        rosybrown: '#bc8f8f',
-        royalblue: '#4169e1',
-        saddlebrown: '#8b4513',
-        salmon: '#fa8072',
-        sandybrown: '#f4a460',
-        seagreen: '#2e8b57',
-        seashell: '#fff5ee',
-        sienna: '#a0522d',
-        silver: '#c0c0c0',
-        skyblue: '#87ceeb',
-        slateblue: '#6a5acd',
-        slategray: '#708090',
-        slategrey: '#708090',
-        snow: '#fffafa',
-        springgreen: '#00ff7f',
-        steelblue: '#4682b4',
-        tan: '#d2b48c',
-        teal: '#008080',
-        thistle: '#d8bfd8',
-        tomato: '#ff6347',
-        turquoise: '#40e0d0',
-        violet: '#ee82ee',
-        wheat: '#f5deb3',
-        white: '#ffffff',
-        whitesmoke: '#f5f5f5',
-        yellow: '#ffff00',
-        yellowgreen: '#9acd32'
-    };
-
-    var w3cx11_1 = w3cx11;
-
-    var type$b = utils.type;
-
-    Color_1.prototype.name = function () {
-        var hex = rgb2hex_1(this._rgb, 'rgb');
-        for (var i = 0, list = Object.keys(w3cx11_1); i < list.length; i += 1) {
-            var n = list[i];
-
-            if (w3cx11_1[n] === hex) {
-                return n.toLowerCase();
-            }
-        }
-        return hex;
-    };
-
-    input.format.named = function (name) {
-        name = name.toLowerCase();
-        if (w3cx11_1[name]) {
-            return hex2rgb_1(w3cx11_1[name]);
-        }
-        throw new Error('unknown color name: ' + name);
-    };
-
-    input.autodetect.push({
-        p: 5,
-        test: function test(h) {
-            var rest = [],
-                len = arguments.length - 1;
-            while (len-- > 0) {
-                rest[len] = arguments[len + 1];
-            }if (!rest.length && type$b(h) === 'string' && w3cx11_1[h.toLowerCase()]) {
-                return 'named';
-            }
-        }
-    });
-
-    var unpack$t = utils.unpack;
-
-    var rgb2num = function rgb2num() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var ref = unpack$t(args, 'rgb');
-        var r = ref[0];
-        var g = ref[1];
-        var b = ref[2];
-        return (r << 16) + (g << 8) + b;
-    };
-
-    var rgb2num_1 = rgb2num;
-
-    var type$c = utils.type;
-
-    var num2rgb = function num2rgb(num) {
-        if (type$c(num) == "number" && num >= 0 && num <= 0xFFFFFF) {
-            var r = num >> 16;
-            var g = num >> 8 & 0xFF;
-            var b = num & 0xFF;
-            return [r, g, b, 1];
-        }
-        throw new Error("unknown num color: " + num);
-    };
-
-    var num2rgb_1 = num2rgb;
-
-    var type$d = utils.type;
-
-    Color_1.prototype.num = function () {
-        return rgb2num_1(this._rgb);
-    };
-
-    chroma_1.num = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['num'])))();
-    };
-
-    input.format.num = num2rgb_1;
-
-    input.autodetect.push({
-        p: 5,
-        test: function test() {
-            var args = [],
-                len = arguments.length;
-            while (len--) {
-                args[len] = arguments[len];
-            }if (args.length === 1 && type$d(args[0]) === 'number' && args[0] >= 0 && args[0] <= 0xFFFFFF) {
-                return 'num';
-            }
-        }
-    });
-
-    var unpack$u = utils.unpack;
-    var type$e = utils.type;
-    var round$5 = Math.round;
-
-    Color_1.prototype.rgb = function (rnd) {
-        if (rnd === void 0) rnd = true;
-
-        if (rnd === false) {
-            return this._rgb.slice(0, 3);
-        }
-        return this._rgb.slice(0, 3).map(round$5);
-    };
-
-    Color_1.prototype.rgba = function (rnd) {
-        if (rnd === void 0) rnd = true;
-
-        return this._rgb.slice(0, 4).map(function (v, i) {
-            return i < 3 ? rnd === false ? v : round$5(v) : v;
-        });
-    };
-
-    chroma_1.rgb = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['rgb'])))();
-    };
-
-    input.format.rgb = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var rgba = unpack$u(args, 'rgba');
-        if (rgba[3] === undefined) {
-            rgba[3] = 1;
-        }
-        return rgba;
-    };
-
-    input.autodetect.push({
-        p: 3,
-        test: function test() {
-            var args = [],
-                len = arguments.length;
-            while (len--) {
-                args[len] = arguments[len];
-            }args = unpack$u(args, 'rgba');
-            if (type$e(args) === 'array' && (args.length === 3 || args.length === 4 && type$e(args[3]) == 'number' && args[3] >= 0 && args[3] <= 1)) {
-                return 'rgb';
-            }
-        }
-    });
-
-    var log = Math.log;
-
-    var temperature2rgb = function temperature2rgb(kelvin) {
-        var temp = kelvin / 100;
-        var r, g, b;
-        if (temp < 66) {
-            r = 255;
-            g = -155.25485562709179 - 0.44596950469579133 * (g = temp - 2) + 104.49216199393888 * log(g);
-            b = temp < 20 ? 0 : -254.76935184120902 + 0.8274096064007395 * (b = temp - 10) + 115.67994401066147 * log(b);
-        } else {
-            r = 351.97690566805693 + 0.114206453784165 * (r = temp - 55) - 40.25366309332127 * log(r);
-            g = 325.4494125711974 + 0.07943456536662342 * (g = temp - 50) - 28.0852963507957 * log(g);
-            b = 255;
-        }
-        return [r, g, b, 1];
-    };
-
-    var temperature2rgb_1 = temperature2rgb;
-
-    var unpack$v = utils.unpack;
-    var round$6 = Math.round;
-
-    var rgb2temperature = function rgb2temperature() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }var rgb = unpack$v(args, 'rgb');
-        var r = rgb[0],
-            b = rgb[2];
-        var minTemp = 1000;
-        var maxTemp = 40000;
-        var eps = 0.4;
-        var temp;
-        while (maxTemp - minTemp > eps) {
-            temp = (maxTemp + minTemp) * 0.5;
-            var rgb$1 = temperature2rgb_1(temp);
-            if (rgb$1[2] / rgb$1[0] >= b / r) {
-                maxTemp = temp;
-            } else {
-                minTemp = temp;
-            }
-        }
-        return round$6(temp);
-    };
-
-    var rgb2temperature_1 = rgb2temperature;
-
-    Color_1.prototype.temp = Color_1.prototype.kelvin = Color_1.prototype.temperature = function () {
-        return rgb2temperature_1(this._rgb);
-    };
-
-    chroma_1.temp = chroma_1.kelvin = chroma_1.temperature = function () {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }return new (Function.prototype.bind.apply(Color_1, [null].concat(args, ['temp'])))();
-    };
-
-    input.format.temp = input.format.kelvin = input.format.temperature = temperature2rgb_1;
-
-    var type$f = utils.type;
-
-    Color_1.prototype.alpha = function (a, mutate) {
-        if (mutate === void 0) mutate = false;
-
-        if (a !== undefined && type$f(a) === 'number') {
-            if (mutate) {
-                this._rgb[3] = a;
-                return this;
-            }
-            return new Color_1([this._rgb[0], this._rgb[1], this._rgb[2], a], 'rgb');
-        }
-        return this._rgb[3];
-    };
-
-    Color_1.prototype.clipped = function () {
-        return this._rgb._clipped || false;
-    };
-
-    Color_1.prototype.darken = function (amount) {
-        if (amount === void 0) amount = 1;
-
-        var me = this;
-        var lab = me.lab();
-        lab[0] -= labConstants.Kn * amount;
-        return new Color_1(lab, 'lab').alpha(me.alpha(), true);
-    };
-
-    Color_1.prototype.brighten = function (amount) {
-        if (amount === void 0) amount = 1;
-
-        return this.darken(-amount);
-    };
-
-    Color_1.prototype.darker = Color_1.prototype.darken;
-    Color_1.prototype.brighter = Color_1.prototype.brighten;
-
-    Color_1.prototype.get = function (mc) {
-        var ref = mc.split('.');
-        var mode = ref[0];
-        var channel = ref[1];
-        var src = this[mode]();
-        if (channel) {
-            var i = mode.indexOf(channel);
-            if (i > -1) {
-                return src[i];
-            }
-            throw new Error("unknown channel " + channel + " in mode " + mode);
-        } else {
-            return src;
-        }
-    };
-
-    var type$g = utils.type;
-    var pow$2 = Math.pow;
-
-    var EPS = 1e-7;
-    var MAX_ITER = 20;
-
-    Color_1.prototype.luminance = function (lum) {
-        if (lum !== undefined && type$g(lum) === 'number') {
-            if (lum === 0) {
-                return new Color_1([0, 0, 0, this._rgb[3]], 'rgb');
-            }
-            if (lum === 1) {
-                return new Color_1([255, 255, 255, this._rgb[3]], 'rgb');
-            }
-
-            var cur_lum = this.luminance();
-            var mode = 'rgb';
-            var max_iter = MAX_ITER;
-
-            var test = function test(low, high) {
-                var mid = low.interpolate(high, 0.5, mode);
-                var lm = mid.luminance();
-                if (Math.abs(lum - lm) < EPS || !max_iter--) {
-                    return mid;
-                }
-                return lm > lum ? test(low, mid) : test(mid, high);
-            };
-
-            var rgb = (cur_lum > lum ? test(new Color_1([0, 0, 0]), this) : test(this, new Color_1([255, 255, 255]))).rgb();
-            return new Color_1(rgb.concat([this._rgb[3]]));
-        }
-        return rgb2luminance.apply(void 0, this._rgb.slice(0, 3));
-    };
-
-    var rgb2luminance = function rgb2luminance(r, g, b) {
-        r = luminance_x(r);
-        g = luminance_x(g);
-        b = luminance_x(b);
-        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-    };
-
-    var luminance_x = function luminance_x(x) {
-        x /= 255;
-        return x <= 0.03928 ? x / 12.92 : pow$2((x + 0.055) / 1.055, 2.4);
-    };
-
-    var interpolator = {};
-
-    var type$h = utils.type;
-
-    var mix = function mix(col1, col2, f) {
-        if (f === void 0) f = 0.5;
-        var rest = [],
-            len = arguments.length - 3;
-        while (len-- > 0) {
-            rest[len] = arguments[len + 3];
-        }var mode = rest[0] || 'lrgb';
-        if (!interpolator[mode] && !rest.length) {
-            mode = Object.keys(interpolator)[0];
-        }
-        if (!interpolator[mode]) {
-            throw new Error("interpolation mode " + mode + " is not defined");
-        }
-        if (type$h(col1) !== 'object') {
-            col1 = new Color_1(col1);
-        }
-        if (type$h(col2) !== 'object') {
-            col2 = new Color_1(col2);
-        }
-        return interpolator[mode](col1, col2, f).alpha(col1.alpha() + f * (col2.alpha() - col1.alpha()));
-    };
-
-    Color_1.prototype.mix = Color_1.prototype.interpolate = function (col2, f) {
-        if (f === void 0) f = 0.5;
-        var rest = [],
-            len = arguments.length - 2;
-        while (len-- > 0) {
-            rest[len] = arguments[len + 2];
-        }return mix.apply(void 0, [this, col2, f].concat(rest));
-    };
-
-    Color_1.prototype.premultiply = function (mutate) {
-        if (mutate === void 0) mutate = false;
-
-        var rgb = this._rgb;
-        var a = rgb[3];
         if (mutate) {
-            this._rgb = [rgb[0] * a, rgb[1] * a, rgb[2] * a, a];
-            return this;
-        } else {
-            return new Color_1([rgb[0] * a, rgb[1] * a, rgb[2] * a, a], 'rgb');
-        }
-    };
-
-    Color_1.prototype.saturate = function (amount) {
-        if (amount === void 0) amount = 1;
-
-        var me = this;
-        var lch = me.lch();
-        lch[1] += labConstants.Kn * amount;
-        if (lch[1] < 0) {
-            lch[1] = 0;
-        }
-        return new Color_1(lch, 'lch').alpha(me.alpha(), true);
-    };
-
-    Color_1.prototype.desaturate = function (amount) {
-        if (amount === void 0) amount = 1;
-
-        return this.saturate(-amount);
-    };
-
-    var type$i = utils.type;
-
-    Color_1.prototype.set = function (mc, value, mutate) {
-        if (mutate === void 0) mutate = false;
-
-        var ref = mc.split('.');
-        var mode = ref[0];
-        var channel = ref[1];
-        var src = this[mode]();
-        if (channel) {
-            var i = mode.indexOf(channel);
-            if (i > -1) {
-                if (type$i(value) == 'string') {
-                    switch (value.charAt(0)) {
-                        case '+':
-                            src[i] += +value;break;
-                        case '-':
-                            src[i] += +value;break;
-                        case '*':
-                            src[i] *= +value.substr(1);break;
-                        case '/':
-                            src[i] /= +value.substr(1);break;
-                        default:
-                            src[i] = +value;
-                    }
-                } else if (type$i(value) === 'number') {
-                    src[i] = value;
-                } else {
-                    throw new Error("unsupported value for Color.set");
-                }
-                var out = new Color_1(src, mode);
-                if (mutate) {
-                    this._rgb = out._rgb;
-                    return this;
-                }
-                return out;
-            }
-            throw new Error("unknown channel " + channel + " in mode " + mode);
-        } else {
-            return src;
-        }
-    };
-
-    var rgb$1 = function rgb$1(col1, col2, f) {
-        var xyz0 = col1._rgb;
-        var xyz1 = col2._rgb;
-        return new Color_1(xyz0[0] + f * (xyz1[0] - xyz0[0]), xyz0[1] + f * (xyz1[1] - xyz0[1]), xyz0[2] + f * (xyz1[2] - xyz0[2]), 'rgb');
-    };
-
-    interpolator.rgb = rgb$1;
-
-    var sqrt$2 = Math.sqrt;
-    var pow$3 = Math.pow;
-
-    var lrgb = function lrgb(col1, col2, f) {
-        var ref = col1._rgb;
-        var x1 = ref[0];
-        var y1 = ref[1];
-        var z1 = ref[2];
-        var ref$1 = col2._rgb;
-        var x2 = ref$1[0];
-        var y2 = ref$1[1];
-        var z2 = ref$1[2];
-        return new Color_1(sqrt$2(pow$3(x1, 2) * (1 - f) + pow$3(x2, 2) * f), sqrt$2(pow$3(y1, 2) * (1 - f) + pow$3(y2, 2) * f), sqrt$2(pow$3(z1, 2) * (1 - f) + pow$3(z2, 2) * f), 'rgb');
-    };
-
-    interpolator.lrgb = lrgb;
-
-    var lab$1 = function lab$1(col1, col2, f) {
-        var xyz0 = col1.lab();
-        var xyz1 = col2.lab();
-        return new Color_1(xyz0[0] + f * (xyz1[0] - xyz0[0]), xyz0[1] + f * (xyz1[1] - xyz0[1]), xyz0[2] + f * (xyz1[2] - xyz0[2]), 'lab');
-    };
-
-    interpolator.lab = lab$1;
-
-    var _hsx = function _hsx(col1, col2, f, m) {
-        var assign, assign$1;
-
-        var xyz0, xyz1;
-        if (m === 'hsl') {
-            xyz0 = col1.hsl();
-            xyz1 = col2.hsl();
-        } else if (m === 'hsv') {
-            xyz0 = col1.hsv();
-            xyz1 = col2.hsv();
-        } else if (m === 'hcg') {
-            xyz0 = col1.hcg();
-            xyz1 = col2.hcg();
-        } else if (m === 'hsi') {
-            xyz0 = col1.hsi();
-            xyz1 = col2.hsi();
-        } else if (m === 'lch' || m === 'hcl') {
-            m = 'hcl';
-            xyz0 = col1.hcl();
-            xyz1 = col2.hcl();
+          this._rgb = out._rgb;
+          return this;
         }
 
-        var hue0, hue1, sat0, sat1, lbv0, lbv1;
-        if (m.substr(0, 1) === 'h') {
-            assign = xyz0, hue0 = assign[0], sat0 = assign[1], lbv0 = assign[2];
-            assign$1 = xyz1, hue1 = assign$1[0], sat1 = assign$1[1], lbv1 = assign$1[2];
-        }
+        return out;
+      }
 
-        var sat, hue, lbv, dh;
+      throw new Error("unknown channel " + channel + " in mode " + mode);
+    } else {
+      return src;
+    }
+  };
 
-        if (!isNaN(hue0) && !isNaN(hue1)) {
-            if (hue1 > hue0 && hue1 - hue0 > 180) {
-                dh = hue1 - (hue0 + 360);
-            } else if (hue1 < hue0 && hue0 - hue1 > 180) {
-                dh = hue1 + 360 - hue0;
-            } else {
-                dh = hue1 - hue0;
-            }
-            hue = hue0 + f * dh;
-        } else if (!isNaN(hue0)) {
-            hue = hue0;
-            if ((lbv1 == 1 || lbv1 == 0) && m != 'hsv') {
-                sat = sat0;
-            }
-        } else if (!isNaN(hue1)) {
-            hue = hue1;
-            if ((lbv0 == 1 || lbv0 == 0) && m != 'hsv') {
-                sat = sat1;
-            }
-        } else {
-            hue = Number.NaN;
-        }
+  var rgb$1 = function rgb$1(col1, col2, f) {
+    var xyz0 = col1._rgb;
+    var xyz1 = col2._rgb;
+    return new Color_1(xyz0[0] + f * (xyz1[0] - xyz0[0]), xyz0[1] + f * (xyz1[1] - xyz0[1]), xyz0[2] + f * (xyz1[2] - xyz0[2]), 'rgb');
+  };
 
-        if (sat === undefined) {
-            sat = sat0 + f * (sat1 - sat0);
-        }
-        lbv = lbv0 + f * (lbv1 - lbv0);
-        return new Color_1([hue, sat, lbv], m);
-    };
+  interpolator.rgb = rgb$1;
+  var sqrt$2 = Math.sqrt;
+  var pow$3 = Math.pow;
 
-    var lch$1 = function lch$1(col1, col2, f) {
-        return _hsx(col1, col2, f, 'lch');
-    };
+  var lrgb = function lrgb(col1, col2, f) {
+    var ref = col1._rgb;
+    var x1 = ref[0];
+    var y1 = ref[1];
+    var z1 = ref[2];
+    var ref$1 = col2._rgb;
+    var x2 = ref$1[0];
+    var y2 = ref$1[1];
+    var z2 = ref$1[2];
+    return new Color_1(sqrt$2(pow$3(x1, 2) * (1 - f) + pow$3(x2, 2) * f), sqrt$2(pow$3(y1, 2) * (1 - f) + pow$3(y2, 2) * f), sqrt$2(pow$3(z1, 2) * (1 - f) + pow$3(z2, 2) * f), 'rgb');
+  };
 
-    interpolator.lch = lch$1;
-    interpolator.hcl = lch$1;
+  interpolator.lrgb = lrgb;
 
-    var num$1 = function num$1(col1, col2, f) {
-        var c1 = col1.num();
-        var c2 = col2.num();
-        return new Color_1(c1 + f * (c2 - c1), 'num');
-    };
+  var lab$1 = function lab$1(col1, col2, f) {
+    var xyz0 = col1.lab();
+    var xyz1 = col2.lab();
+    return new Color_1(xyz0[0] + f * (xyz1[0] - xyz0[0]), xyz0[1] + f * (xyz1[1] - xyz0[1]), xyz0[2] + f * (xyz1[2] - xyz0[2]), 'lab');
+  };
 
-    interpolator.num = num$1;
+  interpolator.lab = lab$1;
 
-    var hcg$1 = function hcg$1(col1, col2, f) {
-        return _hsx(col1, col2, f, 'hcg');
-    };
+  var _hsx = function _hsx(col1, col2, f, m) {
+    var assign, assign$1;
+    var xyz0, xyz1;
 
-    interpolator.hcg = hcg$1;
-
-    var hsi$1 = function hsi$1(col1, col2, f) {
-        return _hsx(col1, col2, f, 'hsi');
-    };
-
-    interpolator.hsi = hsi$1;
-
-    var hsl$1 = function hsl$1(col1, col2, f) {
-        return _hsx(col1, col2, f, 'hsl');
-    };
-
-    interpolator.hsl = hsl$1;
-
-    var hsv$1 = function hsv$1(col1, col2, f) {
-        return _hsx(col1, col2, f, 'hsv');
-    };
-
-    interpolator.hsv = hsv$1;
-
-    var clip_rgb$2 = utils.clip_rgb;
-    var pow$4 = Math.pow;
-    var sqrt$3 = Math.sqrt;
-    var PI$1 = Math.PI;
-    var cos$2 = Math.cos;
-    var sin$1 = Math.sin;
-    var atan2$1 = Math.atan2;
-
-    var average = function average(colors, mode, weights) {
-        if (mode === void 0) mode = 'lrgb';
-        if (weights === void 0) weights = null;
-
-        var l = colors.length;
-        if (!weights) {
-            weights = Array.from(new Array(l)).map(function () {
-                return 1;
-            });
-        }
-
-        var k = l / weights.reduce(function (a, b) {
-            return a + b;
-        });
-        weights.forEach(function (w, i) {
-            weights[i] *= k;
-        });
-
-        colors = colors.map(function (c) {
-            return new Color_1(c);
-        });
-        if (mode === 'lrgb') {
-            return _average_lrgb(colors, weights);
-        }
-        var first = colors.shift();
-        var xyz = first.get(mode);
-        var cnt = [];
-        var dx = 0;
-        var dy = 0;
-
-        for (var i = 0; i < xyz.length; i++) {
-            xyz[i] = (xyz[i] || 0) * weights[0];
-            cnt.push(isNaN(xyz[i]) ? 0 : weights[0]);
-            if (mode.charAt(i) === 'h' && !isNaN(xyz[i])) {
-                var A = xyz[i] / 180 * PI$1;
-                dx += cos$2(A) * weights[0];
-                dy += sin$1(A) * weights[0];
-            }
-        }
-
-        var alpha = first.alpha() * weights[0];
-        colors.forEach(function (c, ci) {
-            var xyz2 = c.get(mode);
-            alpha += c.alpha() * weights[ci + 1];
-            for (var i = 0; i < xyz.length; i++) {
-                if (!isNaN(xyz2[i])) {
-                    cnt[i] += weights[ci + 1];
-                    if (mode.charAt(i) === 'h') {
-                        var A = xyz2[i] / 180 * PI$1;
-                        dx += cos$2(A) * weights[ci + 1];
-                        dy += sin$1(A) * weights[ci + 1];
-                    } else {
-                        xyz[i] += xyz2[i] * weights[ci + 1];
-                    }
-                }
-            }
-        });
-
-        for (var i$1 = 0; i$1 < xyz.length; i$1++) {
-            if (mode.charAt(i$1) === 'h') {
-                var A$1 = atan2$1(dy / cnt[i$1], dx / cnt[i$1]) / PI$1 * 180;
-                while (A$1 < 0) {
-                    A$1 += 360;
-                }
-                while (A$1 >= 360) {
-                    A$1 -= 360;
-                }
-                xyz[i$1] = A$1;
-            } else {
-                xyz[i$1] = xyz[i$1] / cnt[i$1];
-            }
-        }
-        alpha /= l;
-        return new Color_1(xyz, mode).alpha(alpha > 0.99999 ? 1 : alpha, true);
-    };
-
-    var _average_lrgb = function _average_lrgb(colors, weights) {
-        var l = colors.length;
-        var xyz = [0, 0, 0, 0];
-        for (var i = 0; i < colors.length; i++) {
-            var col = colors[i];
-            var f = weights[i] / l;
-            var rgb = col._rgb;
-            xyz[0] += pow$4(rgb[0], 2) * f;
-            xyz[1] += pow$4(rgb[1], 2) * f;
-            xyz[2] += pow$4(rgb[2], 2) * f;
-            xyz[3] += rgb[3] * f;
-        }
-        xyz[0] = sqrt$3(xyz[0]);
-        xyz[1] = sqrt$3(xyz[1]);
-        xyz[2] = sqrt$3(xyz[2]);
-        if (xyz[3] > 0.9999999) {
-            xyz[3] = 1;
-        }
-        return new Color_1(clip_rgb$2(xyz));
-    };
-
-    var type$j = utils.type;
-
-    var pow$5 = Math.pow;
-
-    var scale = function scale(colors) {
-        var _mode = 'rgb';
-        var _nacol = chroma_1('#ccc');
-        var _spread = 0;
-
-        var _domain = [0, 1];
-        var _pos = [];
-        var _padding = [0, 0];
-        var _classes = false;
-        var _colors = [];
-        var _out = false;
-        var _min = 0;
-        var _max = 1;
-        var _correctLightness = false;
-        var _colorCache = {};
-        var _useCache = true;
-        var _gamma = 1;
-
-        var setColors = function setColors(colors) {
-            colors = colors || ['#fff', '#000'];
-            if (colors && type$j(colors) === 'string' && chroma_1.brewer && chroma_1.brewer[colors.toLowerCase()]) {
-                colors = chroma_1.brewer[colors.toLowerCase()];
-            }
-            if (type$j(colors) === 'array') {
-                if (colors.length === 1) {
-                    colors = [colors[0], colors[0]];
-                }
-
-                colors = colors.slice(0);
-
-                for (var c = 0; c < colors.length; c++) {
-                    colors[c] = chroma_1(colors[c]);
-                }
-
-                _pos.length = 0;
-                for (var c$1 = 0; c$1 < colors.length; c$1++) {
-                    _pos.push(c$1 / (colors.length - 1));
-                }
-            }
-            resetCache();
-            return _colors = colors;
-        };
-
-        var getClass = function getClass(value) {
-            if (_classes != null) {
-                var n = _classes.length - 1;
-                var i = 0;
-                while (i < n && value >= _classes[i]) {
-                    i++;
-                }
-                return i - 1;
-            }
-            return 0;
-        };
-
-        var tMapLightness = function tMapLightness(t) {
-            return t;
-        };
-        var tMapDomain = function tMapDomain(t) {
-            return t;
-        };
-
-        var getColor = function getColor(val, bypassMap) {
-            var col, t;
-            if (bypassMap == null) {
-                bypassMap = false;
-            }
-            if (isNaN(val) || val === null) {
-                return _nacol;
-            }
-            if (!bypassMap) {
-                if (_classes && _classes.length > 2) {
-                    var c = getClass(val);
-                    t = c / (_classes.length - 2);
-                } else if (_max !== _min) {
-                    t = (val - _min) / (_max - _min);
-                } else {
-                    t = 1;
-                }
-            } else {
-                t = val;
-            }
-
-            t = tMapDomain(t);
-
-            if (!bypassMap) {
-                t = tMapLightness(t);
-            }
-
-            if (_gamma !== 1) {
-                t = pow$5(t, _gamma);
-            }
-
-            t = _padding[0] + t * (1 - _padding[0] - _padding[1]);
-
-            t = Math.min(1, Math.max(0, t));
-
-            var k = Math.floor(t * 10000);
-
-            if (_useCache && _colorCache[k]) {
-                col = _colorCache[k];
-            } else {
-                if (type$j(_colors) === 'array') {
-                    for (var i = 0; i < _pos.length; i++) {
-                        var p = _pos[i];
-                        if (t <= p) {
-                            col = _colors[i];
-                            break;
-                        }
-                        if (t >= p && i === _pos.length - 1) {
-                            col = _colors[i];
-                            break;
-                        }
-                        if (t > p && t < _pos[i + 1]) {
-                            t = (t - p) / (_pos[i + 1] - p);
-                            col = chroma_1.interpolate(_colors[i], _colors[i + 1], t, _mode);
-                            break;
-                        }
-                    }
-                } else if (type$j(_colors) === 'function') {
-                    col = _colors(t);
-                }
-                if (_useCache) {
-                    _colorCache[k] = col;
-                }
-            }
-            return col;
-        };
-
-        var resetCache = function resetCache() {
-            return _colorCache = {};
-        };
-
-        setColors(colors);
-
-        var f = function f(v) {
-            var c = chroma_1(getColor(v));
-            if (_out && c[_out]) {
-                return c[_out]();
-            } else {
-                return c;
-            }
-        };
-
-        f.classes = function (classes) {
-            if (classes != null) {
-                if (type$j(classes) === 'array') {
-                    _classes = classes;
-                    _domain = [classes[0], classes[classes.length - 1]];
-                } else {
-                    var d = chroma_1.analyze(_domain);
-                    if (classes === 0) {
-                        _classes = [d.min, d.max];
-                    } else {
-                        _classes = chroma_1.limits(d, 'e', classes);
-                    }
-                }
-                return f;
-            }
-            return _classes;
-        };
-
-        f.domain = function (domain) {
-            if (!arguments.length) {
-                return _domain;
-            }
-            _min = domain[0];
-            _max = domain[domain.length - 1];
-            _pos = [];
-            var k = _colors.length;
-            if (domain.length === k && _min !== _max) {
-                for (var i = 0, list = Array.from(domain); i < list.length; i += 1) {
-                    var d = list[i];
-
-                    _pos.push((d - _min) / (_max - _min));
-                }
-            } else {
-                for (var c = 0; c < k; c++) {
-                    _pos.push(c / (k - 1));
-                }
-                if (domain.length > 2) {
-                    var tOut = domain.map(function (d, i) {
-                        return i / (domain.length - 1);
-                    });
-                    var tBreaks = domain.map(function (d) {
-                        return (d - _min) / (_max - _min);
-                    });
-                    if (!tBreaks.every(function (val, i) {
-                        return tOut[i] === val;
-                    })) {
-                        tMapDomain = function tMapDomain(t) {
-                            if (t <= 0 || t >= 1) {
-                                return t;
-                            }
-                            var i = 0;
-                            while (t >= tBreaks[i + 1]) {
-                                i++;
-                            }
-                            var f = (t - tBreaks[i]) / (tBreaks[i + 1] - tBreaks[i]);
-                            var out = tOut[i] + f * (tOut[i + 1] - tOut[i]);
-                            return out;
-                        };
-                    }
-                }
-            }
-            _domain = [_min, _max];
-            return f;
-        };
-
-        f.mode = function (_m) {
-            if (!arguments.length) {
-                return _mode;
-            }
-            _mode = _m;
-            resetCache();
-            return f;
-        };
-
-        f.range = function (colors, _pos) {
-            setColors(colors, _pos);
-            return f;
-        };
-
-        f.out = function (_o) {
-            _out = _o;
-            return f;
-        };
-
-        f.spread = function (val) {
-            if (!arguments.length) {
-                return _spread;
-            }
-            _spread = val;
-            return f;
-        };
-
-        f.correctLightness = function (v) {
-            if (v == null) {
-                v = true;
-            }
-            _correctLightness = v;
-            resetCache();
-            if (_correctLightness) {
-                tMapLightness = function tMapLightness(t) {
-                    var L0 = getColor(0, true).lab()[0];
-                    var L1 = getColor(1, true).lab()[0];
-                    var pol = L0 > L1;
-                    var L_actual = getColor(t, true).lab()[0];
-                    var L_ideal = L0 + (L1 - L0) * t;
-                    var L_diff = L_actual - L_ideal;
-                    var t0 = 0;
-                    var t1 = 1;
-                    var max_iter = 20;
-                    while (Math.abs(L_diff) > 1e-2 && max_iter-- > 0) {
-                        (function () {
-                            if (pol) {
-                                L_diff *= -1;
-                            }
-                            if (L_diff < 0) {
-                                t0 = t;
-                                t += (t1 - t) * 0.5;
-                            } else {
-                                t1 = t;
-                                t += (t0 - t) * 0.5;
-                            }
-                            L_actual = getColor(t, true).lab()[0];
-                            return L_diff = L_actual - L_ideal;
-                        })();
-                    }
-                    return t;
-                };
-            } else {
-                tMapLightness = function tMapLightness(t) {
-                    return t;
-                };
-            }
-            return f;
-        };
-
-        f.padding = function (p) {
-            if (p != null) {
-                if (type$j(p) === 'number') {
-                    p = [p, p];
-                }
-                _padding = p;
-                return f;
-            } else {
-                return _padding;
-            }
-        };
-
-        f.colors = function (numColors, out) {
-            if (arguments.length < 2) {
-                out = 'hex';
-            }
-            var result = [];
-
-            if (arguments.length === 0) {
-                result = _colors.slice(0);
-            } else if (numColors === 1) {
-                result = [f(0.5)];
-            } else if (numColors > 1) {
-                var dm = _domain[0];
-                var dd = _domain[1] - dm;
-                result = __range__(0, numColors, false).map(function (i) {
-                    return f(dm + i / (numColors - 1) * dd);
-                });
-            } else {
-                colors = [];
-                var samples = [];
-                if (_classes && _classes.length > 2) {
-                    for (var i = 1, end = _classes.length, asc = 1 <= end; asc ? i < end : i > end; asc ? i++ : i--) {
-                        samples.push((_classes[i - 1] + _classes[i]) * 0.5);
-                    }
-                } else {
-                    samples = _domain;
-                }
-                result = samples.map(function (v) {
-                    return f(v);
-                });
-            }
-
-            if (chroma_1[out]) {
-                result = result.map(function (c) {
-                    return c[out]();
-                });
-            }
-            return result;
-        };
-
-        f.cache = function (c) {
-            if (c != null) {
-                _useCache = c;
-                return f;
-            } else {
-                return _useCache;
-            }
-        };
-
-        f.gamma = function (g) {
-            if (g != null) {
-                _gamma = g;
-                return f;
-            } else {
-                return _gamma;
-            }
-        };
-
-        f.nodata = function (d) {
-            if (d != null) {
-                _nacol = chroma_1(d);
-                return f;
-            } else {
-                return _nacol;
-            }
-        };
-
-        return f;
-    };
-
-    function __range__(left, right, inclusive) {
-        var range = [];
-        var ascending = left < right;
-        var end = !inclusive ? right : ascending ? right + 1 : right - 1;
-        for (var i = left; ascending ? i < end : i > end; ascending ? i++ : i--) {
-            range.push(i);
-        }
-        return range;
+    if (m === 'hsl') {
+      xyz0 = col1.hsl();
+      xyz1 = col2.hsl();
+    } else if (m === 'hsv') {
+      xyz0 = col1.hsv();
+      xyz1 = col2.hsv();
+    } else if (m === 'hcg') {
+      xyz0 = col1.hcg();
+      xyz1 = col2.hcg();
+    } else if (m === 'hsi') {
+      xyz0 = col1.hsi();
+      xyz1 = col2.hsi();
+    } else if (m === 'lch' || m === 'hcl') {
+      m = 'hcl';
+      xyz0 = col1.hcl();
+      xyz1 = col2.hcl();
     }
 
-    var bezier = function bezier(colors) {
-        var assign, assign$1, assign$2;
+    var hue0, hue1, sat0, sat1, lbv0, lbv1;
 
-        var I, lab0, lab1, lab2;
-        colors = colors.map(function (c) {
-            return new Color_1(c);
-        });
-        if (colors.length === 2) {
-            assign = colors.map(function (c) {
-                return c.lab();
-            }), lab0 = assign[0], lab1 = assign[1];
-            I = function I(t) {
-                var lab = [0, 1, 2].map(function (i) {
-                    return lab0[i] + t * (lab1[i] - lab0[i]);
-                });
-                return new Color_1(lab, 'lab');
-            };
-        } else if (colors.length === 3) {
-            assign$1 = colors.map(function (c) {
-                return c.lab();
-            }), lab0 = assign$1[0], lab1 = assign$1[1], lab2 = assign$1[2];
-            I = function I(t) {
-                var lab = [0, 1, 2].map(function (i) {
-                    return (1 - t) * (1 - t) * lab0[i] + 2 * (1 - t) * t * lab1[i] + t * t * lab2[i];
-                });
-                return new Color_1(lab, 'lab');
-            };
-        } else if (colors.length === 4) {
-            var lab3;
-            assign$2 = colors.map(function (c) {
-                return c.lab();
-            }), lab0 = assign$2[0], lab1 = assign$2[1], lab2 = assign$2[2], lab3 = assign$2[3];
-            I = function I(t) {
-                var lab = [0, 1, 2].map(function (i) {
-                    return (1 - t) * (1 - t) * (1 - t) * lab0[i] + 3 * (1 - t) * (1 - t) * t * lab1[i] + 3 * (1 - t) * t * t * lab2[i] + t * t * t * lab3[i];
-                });
-                return new Color_1(lab, 'lab');
-            };
-        } else if (colors.length === 5) {
-            var I0 = bezier(colors.slice(0, 3));
-            var I1 = bezier(colors.slice(2, 5));
-            I = function I(t) {
-                if (t < 0.5) {
-                    return I0(t * 2);
-                } else {
-                    return I1((t - 0.5) * 2);
-                }
-            };
-        }
-        return I;
-    };
-
-    var bezier_1 = function bezier_1(colors) {
-        var f = bezier(colors);
-        f.scale = function () {
-            return scale(f);
-        };
-        return f;
-    };
-
-    var blend = function blend(bottom, top, mode) {
-        if (!blend[mode]) {
-            throw new Error('unknown blend mode ' + mode);
-        }
-        return blend[mode](bottom, top);
-    };
-
-    var blend_f = function blend_f(f) {
-        return function (bottom, top) {
-            var c0 = chroma_1(top).rgb();
-            var c1 = chroma_1(bottom).rgb();
-            return chroma_1.rgb(f(c0, c1));
-        };
-    };
-
-    var each = function each(f) {
-        return function (c0, c1) {
-            var out = [];
-            out[0] = f(c0[0], c1[0]);
-            out[1] = f(c0[1], c1[1]);
-            out[2] = f(c0[2], c1[2]);
-            return out;
-        };
-    };
-
-    var normal = function normal(a) {
-        return a;
-    };
-    var multiply = function multiply(a, b) {
-        return a * b / 255;
-    };
-    var darken$1 = function darken$1(a, b) {
-        return a > b ? b : a;
-    };
-    var lighten = function lighten(a, b) {
-        return a > b ? a : b;
-    };
-    var screen = function screen(a, b) {
-        return 255 * (1 - (1 - a / 255) * (1 - b / 255));
-    };
-    var overlay = function overlay(a, b) {
-        return b < 128 ? 2 * a * b / 255 : 255 * (1 - 2 * (1 - a / 255) * (1 - b / 255));
-    };
-    var burn = function burn(a, b) {
-        return 255 * (1 - (1 - b / 255) / (a / 255));
-    };
-    var dodge = function dodge(a, b) {
-        if (a === 255) {
-            return 255;
-        }
-        a = 255 * (b / 255) / (1 - a / 255);
-        return a > 255 ? 255 : a;
-    };
-
-    blend.normal = blend_f(each(normal));
-    blend.multiply = blend_f(each(multiply));
-    blend.screen = blend_f(each(screen));
-    blend.overlay = blend_f(each(overlay));
-    blend.darken = blend_f(each(darken$1));
-    blend.lighten = blend_f(each(lighten));
-    blend.dodge = blend_f(each(dodge));
-    blend.burn = blend_f(each(burn));
-
-
-    var blend_1 = blend;
-
-    var type$k = utils.type;
-    var clip_rgb$3 = utils.clip_rgb;
-    var TWOPI$2 = utils.TWOPI;
-    var pow$6 = Math.pow;
-    var sin$2 = Math.sin;
-    var cos$3 = Math.cos;
-
-    var cubehelix = function cubehelix(start, rotations, hue, gamma, lightness) {
-        if (start === void 0) start = 300;
-        if (rotations === void 0) rotations = -1.5;
-        if (hue === void 0) hue = 1;
-        if (gamma === void 0) gamma = 1;
-        if (lightness === void 0) lightness = [0, 1];
-
-        var dh = 0,
-            dl;
-        if (type$k(lightness) === 'array') {
-            dl = lightness[1] - lightness[0];
-        } else {
-            dl = 0;
-            lightness = [lightness, lightness];
-        }
-
-        var f = function f(fract) {
-            var a = TWOPI$2 * ((start + 120) / 360 + rotations * fract);
-            var l = pow$6(lightness[0] + dl * fract, gamma);
-            var h = dh !== 0 ? hue[0] + fract * dh : hue;
-            var amp = h * l * (1 - l) / 2;
-            var cos_a = cos$3(a);
-            var sin_a = sin$2(a);
-            var r = l + amp * (-0.14861 * cos_a + 1.78277 * sin_a);
-            var g = l + amp * (-0.29227 * cos_a - 0.90649 * sin_a);
-            var b = l + amp * (+1.97294 * cos_a);
-            return chroma_1(clip_rgb$3([r * 255, g * 255, b * 255, 1]));
-        };
-
-        f.start = function (s) {
-            if (s == null) {
-                return start;
-            }
-            start = s;
-            return f;
-        };
-
-        f.rotations = function (r) {
-            if (r == null) {
-                return rotations;
-            }
-            rotations = r;
-            return f;
-        };
-
-        f.gamma = function (g) {
-            if (g == null) {
-                return gamma;
-            }
-            gamma = g;
-            return f;
-        };
-
-        f.hue = function (h) {
-            if (h == null) {
-                return hue;
-            }
-            hue = h;
-            if (type$k(hue) === 'array') {
-                dh = hue[1] - hue[0];
-                if (dh === 0) {
-                    hue = hue[1];
-                }
-            } else {
-                dh = 0;
-            }
-            return f;
-        };
-
-        f.lightness = function (h) {
-            if (h == null) {
-                return lightness;
-            }
-            if (type$k(h) === 'array') {
-                lightness = h;
-                dl = h[1] - h[0];
-            } else {
-                lightness = [h, h];
-                dl = 0;
-            }
-            return f;
-        };
-
-        f.scale = function () {
-            return chroma_1.scale(f);
-        };
-
-        f.hue(hue);
-
-        return f;
-    };
-
-    var digits = '0123456789abcdef';
-
-    var floor$2 = Math.floor;
-    var random = Math.random;
-
-    var random_1 = function random_1() {
-        var code = '#';
-        for (var i = 0; i < 6; i++) {
-            code += digits.charAt(floor$2(random() * 16));
-        }
-        return new Color_1(code, 'hex');
-    };
-
-    var log$1 = Math.log;
-    var pow$7 = Math.pow;
-    var floor$3 = Math.floor;
-    var abs = Math.abs;
-
-    var analyze = function analyze(data, key) {
-        if (key === void 0) key = null;
-
-        var r = {
-            min: Number.MAX_VALUE,
-            max: Number.MAX_VALUE * -1,
-            sum: 0,
-            values: [],
-            count: 0
-        };
-        if (type(data) === 'object') {
-            data = Object.values(data);
-        }
-        data.forEach(function (val) {
-            if (key && type(val) === 'object') {
-                val = val[key];
-            }
-            if (val !== undefined && val !== null && !isNaN(val)) {
-                r.values.push(val);
-                r.sum += val;
-                if (val < r.min) {
-                    r.min = val;
-                }
-                if (val > r.max) {
-                    r.max = val;
-                }
-                r.count += 1;
-            }
-        });
-
-        r.domain = [r.min, r.max];
-
-        r.limits = function (mode, num) {
-            return limits(r, mode, num);
-        };
-
-        return r;
-    };
-
-    var limits = function limits(data, mode, num) {
-        if (mode === void 0) mode = 'equal';
-        if (num === void 0) num = 7;
-
-        if (type(data) == 'array') {
-            data = analyze(data);
-        }
-        var min = data.min;
-        var max = data.max;
-        var values = data.values.sort(function (a, b) {
-            return a - b;
-        });
-
-        if (num === 1) {
-            return [min, max];
-        }
-
-        var limits = [];
-
-        if (mode.substr(0, 1) === 'c') {
-            limits.push(min);
-            limits.push(max);
-        }
-
-        if (mode.substr(0, 1) === 'e') {
-            limits.push(min);
-            for (var i = 1; i < num; i++) {
-                limits.push(min + i / num * (max - min));
-            }
-            limits.push(max);
-        } else if (mode.substr(0, 1) === 'l') {
-            if (min <= 0) {
-                throw new Error('Logarithmic scales are only possible for values > 0');
-            }
-            var min_log = Math.LOG10E * log$1(min);
-            var max_log = Math.LOG10E * log$1(max);
-            limits.push(min);
-            for (var i$1 = 1; i$1 < num; i$1++) {
-                limits.push(pow$7(10, min_log + i$1 / num * (max_log - min_log)));
-            }
-            limits.push(max);
-        } else if (mode.substr(0, 1) === 'q') {
-            limits.push(min);
-            for (var i$2 = 1; i$2 < num; i$2++) {
-                var p = (values.length - 1) * i$2 / num;
-                var pb = floor$3(p);
-                if (pb === p) {
-                    limits.push(values[pb]);
-                } else {
-                    var pr = p - pb;
-                    limits.push(values[pb] * (1 - pr) + values[pb + 1] * pr);
-                }
-            }
-            limits.push(max);
-        } else if (mode.substr(0, 1) === 'k') {
-            var cluster;
-            var n = values.length;
-            var assignments = new Array(n);
-            var clusterSizes = new Array(num);
-            var repeat = true;
-            var nb_iters = 0;
-            var centroids = null;
-
-            centroids = [];
-            centroids.push(min);
-            for (var i$3 = 1; i$3 < num; i$3++) {
-                centroids.push(min + i$3 / num * (max - min));
-            }
-            centroids.push(max);
-
-            while (repeat) {
-                for (var j = 0; j < num; j++) {
-                    clusterSizes[j] = 0;
-                }
-                for (var i$4 = 0; i$4 < n; i$4++) {
-                    var value = values[i$4];
-                    var mindist = Number.MAX_VALUE;
-                    var best = void 0;
-                    for (var j$1 = 0; j$1 < num; j$1++) {
-                        var dist = abs(centroids[j$1] - value);
-                        if (dist < mindist) {
-                            mindist = dist;
-                            best = j$1;
-                        }
-                        clusterSizes[best]++;
-                        assignments[i$4] = best;
-                    }
-                }
-
-                var newCentroids = new Array(num);
-                for (var j$2 = 0; j$2 < num; j$2++) {
-                    newCentroids[j$2] = null;
-                }
-                for (var i$5 = 0; i$5 < n; i$5++) {
-                    cluster = assignments[i$5];
-                    if (newCentroids[cluster] === null) {
-                        newCentroids[cluster] = values[i$5];
-                    } else {
-                        newCentroids[cluster] += values[i$5];
-                    }
-                }
-                for (var j$3 = 0; j$3 < num; j$3++) {
-                    newCentroids[j$3] *= 1 / clusterSizes[j$3];
-                }
-
-                repeat = false;
-                for (var j$4 = 0; j$4 < num; j$4++) {
-                    if (newCentroids[j$4] !== centroids[j$4]) {
-                        repeat = true;
-                        break;
-                    }
-                }
-
-                centroids = newCentroids;
-                nb_iters++;
-
-                if (nb_iters > 200) {
-                    repeat = false;
-                }
-            }
-
-            var kClusters = {};
-            for (var j$5 = 0; j$5 < num; j$5++) {
-                kClusters[j$5] = [];
-            }
-            for (var i$6 = 0; i$6 < n; i$6++) {
-                cluster = assignments[i$6];
-                kClusters[cluster].push(values[i$6]);
-            }
-            var tmpKMeansBreaks = [];
-            for (var j$6 = 0; j$6 < num; j$6++) {
-                tmpKMeansBreaks.push(kClusters[j$6][0]);
-                tmpKMeansBreaks.push(kClusters[j$6][kClusters[j$6].length - 1]);
-            }
-            tmpKMeansBreaks = tmpKMeansBreaks.sort(function (a, b) {
-                return a - b;
-            });
-            limits.push(tmpKMeansBreaks[0]);
-            for (var i$7 = 1; i$7 < tmpKMeansBreaks.length; i$7 += 2) {
-                var v = tmpKMeansBreaks[i$7];
-                if (!isNaN(v) && limits.indexOf(v) === -1) {
-                    limits.push(v);
-                }
-            }
-        }
-        return limits;
-    };
-
-    var analyze_1 = { analyze: analyze, limits: limits };
-
-    var contrast = function contrast(a, b) {
-        a = new Color_1(a);
-        b = new Color_1(b);
-        var l1 = a.luminance();
-        var l2 = b.luminance();
-        return l1 > l2 ? (l1 + 0.05) / (l2 + 0.05) : (l2 + 0.05) / (l1 + 0.05);
-    };
-
-    var sqrt$4 = Math.sqrt;
-    var atan2$2 = Math.atan2;
-    var abs$1 = Math.abs;
-    var cos$4 = Math.cos;
-    var PI$2 = Math.PI;
-
-    var deltaE = function deltaE(a, b, L, C) {
-        if (L === void 0) L = 1;
-        if (C === void 0) C = 1;
-
-        a = new Color_1(a);
-        b = new Color_1(b);
-        var ref = Array.from(a.lab());
-        var L1 = ref[0];
-        var a1 = ref[1];
-        var b1 = ref[2];
-        var ref$1 = Array.from(b.lab());
-        var L2 = ref$1[0];
-        var a2 = ref$1[1];
-        var b2 = ref$1[2];
-        var c1 = sqrt$4(a1 * a1 + b1 * b1);
-        var c2 = sqrt$4(a2 * a2 + b2 * b2);
-        var sl = L1 < 16.0 ? 0.511 : 0.040975 * L1 / (1.0 + 0.01765 * L1);
-        var sc = 0.0638 * c1 / (1.0 + 0.0131 * c1) + 0.638;
-        var h1 = c1 < 0.000001 ? 0.0 : atan2$2(b1, a1) * 180.0 / PI$2;
-        while (h1 < 0) {
-            h1 += 360;
-        }
-        while (h1 >= 360) {
-            h1 -= 360;
-        }
-        var t = h1 >= 164.0 && h1 <= 345.0 ? 0.56 + abs$1(0.2 * cos$4(PI$2 * (h1 + 168.0) / 180.0)) : 0.36 + abs$1(0.4 * cos$4(PI$2 * (h1 + 35.0) / 180.0));
-        var c4 = c1 * c1 * c1 * c1;
-        var f = sqrt$4(c4 / (c4 + 1900.0));
-        var sh = sc * (f * t + 1.0 - f);
-        var delL = L1 - L2;
-        var delC = c1 - c2;
-        var delA = a1 - a2;
-        var delB = b1 - b2;
-        var dH2 = delA * delA + delB * delB - delC * delC;
-        var v1 = delL / (L * sl);
-        var v2 = delC / (C * sc);
-        var v3 = sh;
-        return sqrt$4(v1 * v1 + v2 * v2 + dH2 / (v3 * v3));
-    };
-
-    var distance = function distance(a, b, mode) {
-        if (mode === void 0) mode = 'lab';
-
-        a = new Color_1(a);
-        b = new Color_1(b);
-        var l1 = a.get(mode);
-        var l2 = b.get(mode);
-        var sum_sq = 0;
-        for (var i in l1) {
-            var d = (l1[i] || 0) - (l2[i] || 0);
-            sum_sq += d * d;
-        }
-        return Math.sqrt(sum_sq);
-    };
-
-    var valid = function valid() {
-        var args = [],
-            len = arguments.length;
-        while (len--) {
-            args[len] = arguments[len];
-        }try {
-            new (Function.prototype.bind.apply(Color_1, [null].concat(args)))();
-            return true;
-        } catch (e) {
-            return false;
-        }
-    };
-
-    var scales = {
-        cool: function cool() {
-            return scale([chroma_1.hsl(180, 1, .9), chroma_1.hsl(250, .7, .4)]);
-        },
-        hot: function hot() {
-            return scale(['#000', '#f00', '#ff0', '#fff'], [0, .25, .75, 1]).mode('rgb');
-        }
-    };
-
-    var colorbrewer = {
-        OrRd: ['#fff7ec', '#fee8c8', '#fdd49e', '#fdbb84', '#fc8d59', '#ef6548', '#d7301f', '#b30000', '#7f0000'],
-        PuBu: ['#fff7fb', '#ece7f2', '#d0d1e6', '#a6bddb', '#74a9cf', '#3690c0', '#0570b0', '#045a8d', '#023858'],
-        BuPu: ['#f7fcfd', '#e0ecf4', '#bfd3e6', '#9ebcda', '#8c96c6', '#8c6bb1', '#88419d', '#810f7c', '#4d004b'],
-        Oranges: ['#fff5eb', '#fee6ce', '#fdd0a2', '#fdae6b', '#fd8d3c', '#f16913', '#d94801', '#a63603', '#7f2704'],
-        BuGn: ['#f7fcfd', '#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'],
-        YlOrBr: ['#ffffe5', '#fff7bc', '#fee391', '#fec44f', '#fe9929', '#ec7014', '#cc4c02', '#993404', '#662506'],
-        YlGn: ['#ffffe5', '#f7fcb9', '#d9f0a3', '#addd8e', '#78c679', '#41ab5d', '#238443', '#006837', '#004529'],
-        Reds: ['#fff5f0', '#fee0d2', '#fcbba1', '#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'],
-        RdPu: ['#fff7f3', '#fde0dd', '#fcc5c0', '#fa9fb5', '#f768a1', '#dd3497', '#ae017e', '#7a0177', '#49006a'],
-        Greens: ['#f7fcf5', '#e5f5e0', '#c7e9c0', '#a1d99b', '#74c476', '#41ab5d', '#238b45', '#006d2c', '#00441b'],
-        YlGnBu: ['#ffffd9', '#edf8b1', '#c7e9b4', '#7fcdbb', '#41b6c4', '#1d91c0', '#225ea8', '#253494', '#081d58'],
-        Purples: ['#fcfbfd', '#efedf5', '#dadaeb', '#bcbddc', '#9e9ac8', '#807dba', '#6a51a3', '#54278f', '#3f007d'],
-        GnBu: ['#f7fcf0', '#e0f3db', '#ccebc5', '#a8ddb5', '#7bccc4', '#4eb3d3', '#2b8cbe', '#0868ac', '#084081'],
-        Greys: ['#ffffff', '#f0f0f0', '#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252', '#252525', '#000000'],
-        YlOrRd: ['#ffffcc', '#ffeda0', '#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c', '#bd0026', '#800026'],
-        PuRd: ['#f7f4f9', '#e7e1ef', '#d4b9da', '#c994c7', '#df65b0', '#e7298a', '#ce1256', '#980043', '#67001f'],
-        Blues: ['#f7fbff', '#deebf7', '#c6dbef', '#9ecae1', '#6baed6', '#4292c6', '#2171b5', '#08519c', '#08306b'],
-        PuBuGn: ['#fff7fb', '#ece2f0', '#d0d1e6', '#a6bddb', '#67a9cf', '#3690c0', '#02818a', '#016c59', '#014636'],
-        Viridis: ['#440154', '#482777', '#3f4a8a', '#31678e', '#26838f', '#1f9d8a', '#6cce5a', '#b6de2b', '#fee825'],
-
-        Spectral: ['#9e0142', '#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#ffffbf', '#e6f598', '#abdda4', '#66c2a5', '#3288bd', '#5e4fa2'],
-        RdYlGn: ['#a50026', '#d73027', '#f46d43', '#fdae61', '#fee08b', '#ffffbf', '#d9ef8b', '#a6d96a', '#66bd63', '#1a9850', '#006837'],
-        RdBu: ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#f7f7f7', '#d1e5f0', '#92c5de', '#4393c3', '#2166ac', '#053061'],
-        PiYG: ['#8e0152', '#c51b7d', '#de77ae', '#f1b6da', '#fde0ef', '#f7f7f7', '#e6f5d0', '#b8e186', '#7fbc41', '#4d9221', '#276419'],
-        PRGn: ['#40004b', '#762a83', '#9970ab', '#c2a5cf', '#e7d4e8', '#f7f7f7', '#d9f0d3', '#a6dba0', '#5aae61', '#1b7837', '#00441b'],
-        RdYlBu: ['#a50026', '#d73027', '#f46d43', '#fdae61', '#fee090', '#ffffbf', '#e0f3f8', '#abd9e9', '#74add1', '#4575b4', '#313695'],
-        BrBG: ['#543005', '#8c510a', '#bf812d', '#dfc27d', '#f6e8c3', '#f5f5f5', '#c7eae5', '#80cdc1', '#35978f', '#01665e', '#003c30'],
-        RdGy: ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#ffffff', '#e0e0e0', '#bababa', '#878787', '#4d4d4d', '#1a1a1a'],
-        PuOr: ['#7f3b08', '#b35806', '#e08214', '#fdb863', '#fee0b6', '#f7f7f7', '#d8daeb', '#b2abd2', '#8073ac', '#542788', '#2d004b'],
-
-        Set2: ['#66c2a5', '#fc8d62', '#8da0cb', '#e78ac3', '#a6d854', '#ffd92f', '#e5c494', '#b3b3b3'],
-        Accent: ['#7fc97f', '#beaed4', '#fdc086', '#ffff99', '#386cb0', '#f0027f', '#bf5b17', '#666666'],
-        Set1: ['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33', '#a65628', '#f781bf', '#999999'],
-        Set3: ['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3', '#fdb462', '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd', '#ccebc5', '#ffed6f'],
-        Dark2: ['#1b9e77', '#d95f02', '#7570b3', '#e7298a', '#66a61e', '#e6ab02', '#a6761d', '#666666'],
-        Paired: ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#ffff99', '#b15928'],
-        Pastel2: ['#b3e2cd', '#fdcdac', '#cbd5e8', '#f4cae4', '#e6f5c9', '#fff2ae', '#f1e2cc', '#cccccc'],
-        Pastel1: ['#fbb4ae', '#b3cde3', '#ccebc5', '#decbe4', '#fed9a6', '#ffffcc', '#e5d8bd', '#fddaec', '#f2f2f2']
-    };
-
-    for (var i$1 = 0, list$1 = Object.keys(colorbrewer); i$1 < list$1.length; i$1 += 1) {
-        var key = list$1[i$1];
-
-        colorbrewer[key.toLowerCase()] = colorbrewer[key];
+    if (m.substr(0, 1) === 'h') {
+      assign = xyz0, hue0 = assign[0], sat0 = assign[1], lbv0 = assign[2];
+      assign$1 = xyz1, hue1 = assign$1[0], sat1 = assign$1[1], lbv1 = assign$1[2];
     }
 
-    var colorbrewer_1 = colorbrewer;
+    var sat, hue, lbv, dh;
 
-    chroma_1.average = average;
-    chroma_1.bezier = bezier_1;
-    chroma_1.blend = blend_1;
-    chroma_1.cubehelix = cubehelix;
-    chroma_1.mix = chroma_1.interpolate = mix;
-    chroma_1.random = random_1;
-    chroma_1.scale = scale;
+    if (!isNaN(hue0) && !isNaN(hue1)) {
+      if (hue1 > hue0 && hue1 - hue0 > 180) {
+        dh = hue1 - (hue0 + 360);
+      } else if (hue1 < hue0 && hue0 - hue1 > 180) {
+        dh = hue1 + 360 - hue0;
+      } else {
+        dh = hue1 - hue0;
+      }
 
-    chroma_1.analyze = analyze_1.analyze;
-    chroma_1.contrast = contrast;
-    chroma_1.deltaE = deltaE;
-    chroma_1.distance = distance;
-    chroma_1.limits = analyze_1.limits;
-    chroma_1.valid = valid;
+      hue = hue0 + f * dh;
+    } else if (!isNaN(hue0)) {
+      hue = hue0;
 
-    chroma_1.scales = scales;
+      if ((lbv1 == 1 || lbv1 == 0) && m != 'hsv') {
+        sat = sat0;
+      }
+    } else if (!isNaN(hue1)) {
+      hue = hue1;
 
-    chroma_1.colors = w3cx11_1;
-    chroma_1.brewer = colorbrewer_1;
+      if ((lbv0 == 1 || lbv0 == 0) && m != 'hsv') {
+        sat = sat1;
+      }
+    } else {
+      hue = Number.NaN;
+    }
 
-    var chroma_js = chroma_1;
+    if (sat === undefined) {
+      sat = sat0 + f * (sat1 - sat0);
+    }
 
-    return chroma_js;
+    lbv = lbv0 + f * (lbv1 - lbv0);
+    return new Color_1([hue, sat, lbv], m);
+  };
+
+  var lch$1 = function lch$1(col1, col2, f) {
+    return _hsx(col1, col2, f, 'lch');
+  };
+
+  interpolator.lch = lch$1;
+  interpolator.hcl = lch$1;
+
+  var num$1 = function num$1(col1, col2, f) {
+    var c1 = col1.num();
+    var c2 = col2.num();
+    return new Color_1(c1 + f * (c2 - c1), 'num');
+  };
+
+  interpolator.num = num$1;
+
+  var hcg$1 = function hcg$1(col1, col2, f) {
+    return _hsx(col1, col2, f, 'hcg');
+  };
+
+  interpolator.hcg = hcg$1;
+
+  var hsi$1 = function hsi$1(col1, col2, f) {
+    return _hsx(col1, col2, f, 'hsi');
+  };
+
+  interpolator.hsi = hsi$1;
+
+  var hsl$1 = function hsl$1(col1, col2, f) {
+    return _hsx(col1, col2, f, 'hsl');
+  };
+
+  interpolator.hsl = hsl$1;
+
+  var hsv$1 = function hsv$1(col1, col2, f) {
+    return _hsx(col1, col2, f, 'hsv');
+  };
+
+  interpolator.hsv = hsv$1;
+  var clip_rgb$2 = utils.clip_rgb;
+  var pow$4 = Math.pow;
+  var sqrt$3 = Math.sqrt;
+  var PI$1 = Math.PI;
+  var cos$2 = Math.cos;
+  var sin$1 = Math.sin;
+  var atan2$1 = Math.atan2;
+
+  var average = function average(colors, mode, weights) {
+    if (mode === void 0) mode = 'lrgb';
+    if (weights === void 0) weights = null;
+    var l = colors.length;
+
+    if (!weights) {
+      weights = Array.from(new Array(l)).map(function () {
+        return 1;
+      });
+    }
+
+    var k = l / weights.reduce(function (a, b) {
+      return a + b;
+    });
+    weights.forEach(function (w, i) {
+      weights[i] *= k;
+    });
+    colors = colors.map(function (c) {
+      return new Color_1(c);
+    });
+
+    if (mode === 'lrgb') {
+      return _average_lrgb(colors, weights);
+    }
+
+    var first = colors.shift();
+    var xyz = first.get(mode);
+    var cnt = [];
+    var dx = 0;
+    var dy = 0;
+
+    for (var i = 0; i < xyz.length; i++) {
+      xyz[i] = (xyz[i] || 0) * weights[0];
+      cnt.push(isNaN(xyz[i]) ? 0 : weights[0]);
+
+      if (mode.charAt(i) === 'h' && !isNaN(xyz[i])) {
+        var A = xyz[i] / 180 * PI$1;
+        dx += cos$2(A) * weights[0];
+        dy += sin$1(A) * weights[0];
+      }
+    }
+
+    var alpha = first.alpha() * weights[0];
+    colors.forEach(function (c, ci) {
+      var xyz2 = c.get(mode);
+      alpha += c.alpha() * weights[ci + 1];
+
+      for (var i = 0; i < xyz.length; i++) {
+        if (!isNaN(xyz2[i])) {
+          cnt[i] += weights[ci + 1];
+
+          if (mode.charAt(i) === 'h') {
+            var A = xyz2[i] / 180 * PI$1;
+            dx += cos$2(A) * weights[ci + 1];
+            dy += sin$1(A) * weights[ci + 1];
+          } else {
+            xyz[i] += xyz2[i] * weights[ci + 1];
+          }
+        }
+      }
+    });
+
+    for (var i$1 = 0; i$1 < xyz.length; i$1++) {
+      if (mode.charAt(i$1) === 'h') {
+        var A$1 = atan2$1(dy / cnt[i$1], dx / cnt[i$1]) / PI$1 * 180;
+
+        while (A$1 < 0) {
+          A$1 += 360;
+        }
+
+        while (A$1 >= 360) {
+          A$1 -= 360;
+        }
+
+        xyz[i$1] = A$1;
+      } else {
+        xyz[i$1] = xyz[i$1] / cnt[i$1];
+      }
+    }
+
+    alpha /= l;
+    return new Color_1(xyz, mode).alpha(alpha > 0.99999 ? 1 : alpha, true);
+  };
+
+  var _average_lrgb = function _average_lrgb(colors, weights) {
+    var l = colors.length;
+    var xyz = [0, 0, 0, 0];
+
+    for (var i = 0; i < colors.length; i++) {
+      var col = colors[i];
+      var f = weights[i] / l;
+      var rgb = col._rgb;
+      xyz[0] += pow$4(rgb[0], 2) * f;
+      xyz[1] += pow$4(rgb[1], 2) * f;
+      xyz[2] += pow$4(rgb[2], 2) * f;
+      xyz[3] += rgb[3] * f;
+    }
+
+    xyz[0] = sqrt$3(xyz[0]);
+    xyz[1] = sqrt$3(xyz[1]);
+    xyz[2] = sqrt$3(xyz[2]);
+
+    if (xyz[3] > 0.9999999) {
+      xyz[3] = 1;
+    }
+
+    return new Color_1(clip_rgb$2(xyz));
+  };
+
+  var type$j = utils.type;
+  var pow$5 = Math.pow;
+
+  var scale = function scale(colors) {
+    var _mode = 'rgb';
+
+    var _nacol = chroma_1('#ccc');
+
+    var _spread = 0;
+    var _domain = [0, 1];
+    var _pos = [];
+    var _padding = [0, 0];
+    var _classes = false;
+    var _colors = [];
+    var _out = false;
+    var _min = 0;
+    var _max = 1;
+    var _correctLightness = false;
+    var _colorCache = {};
+    var _useCache = true;
+    var _gamma = 1;
+
+    var setColors = function setColors(colors) {
+      colors = colors || ['#fff', '#000'];
+
+      if (colors && type$j(colors) === 'string' && chroma_1.brewer && chroma_1.brewer[colors.toLowerCase()]) {
+        colors = chroma_1.brewer[colors.toLowerCase()];
+      }
+
+      if (type$j(colors) === 'array') {
+        if (colors.length === 1) {
+          colors = [colors[0], colors[0]];
+        }
+
+        colors = colors.slice(0);
+
+        for (var c = 0; c < colors.length; c++) {
+          colors[c] = chroma_1(colors[c]);
+        }
+
+        _pos.length = 0;
+
+        for (var c$1 = 0; c$1 < colors.length; c$1++) {
+          _pos.push(c$1 / (colors.length - 1));
+        }
+      }
+
+      resetCache();
+      return _colors = colors;
+    };
+
+    var getClass = function getClass(value) {
+      if (_classes != null) {
+        var n = _classes.length - 1;
+        var i = 0;
+
+        while (i < n && value >= _classes[i]) {
+          i++;
+        }
+
+        return i - 1;
+      }
+
+      return 0;
+    };
+
+    var tMapLightness = function tMapLightness(t) {
+      return t;
+    };
+
+    var tMapDomain = function tMapDomain(t) {
+      return t;
+    };
+
+    var getColor = function getColor(val, bypassMap) {
+      var col, t;
+
+      if (bypassMap == null) {
+        bypassMap = false;
+      }
+
+      if (isNaN(val) || val === null) {
+        return _nacol;
+      }
+
+      if (!bypassMap) {
+        if (_classes && _classes.length > 2) {
+          var c = getClass(val);
+          t = c / (_classes.length - 2);
+        } else if (_max !== _min) {
+          t = (val - _min) / (_max - _min);
+        } else {
+          t = 1;
+        }
+      } else {
+        t = val;
+      }
+
+      t = tMapDomain(t);
+
+      if (!bypassMap) {
+        t = tMapLightness(t);
+      }
+
+      if (_gamma !== 1) {
+        t = pow$5(t, _gamma);
+      }
+
+      t = _padding[0] + t * (1 - _padding[0] - _padding[1]);
+      t = Math.min(1, Math.max(0, t));
+      var k = Math.floor(t * 10000);
+
+      if (_useCache && _colorCache[k]) {
+        col = _colorCache[k];
+      } else {
+        if (type$j(_colors) === 'array') {
+          for (var i = 0; i < _pos.length; i++) {
+            var p = _pos[i];
+
+            if (t <= p) {
+              col = _colors[i];
+              break;
+            }
+
+            if (t >= p && i === _pos.length - 1) {
+              col = _colors[i];
+              break;
+            }
+
+            if (t > p && t < _pos[i + 1]) {
+              t = (t - p) / (_pos[i + 1] - p);
+              col = chroma_1.interpolate(_colors[i], _colors[i + 1], t, _mode);
+              break;
+            }
+          }
+        } else if (type$j(_colors) === 'function') {
+          col = _colors(t);
+        }
+
+        if (_useCache) {
+          _colorCache[k] = col;
+        }
+      }
+
+      return col;
+    };
+
+    var resetCache = function resetCache() {
+      return _colorCache = {};
+    };
+
+    setColors(colors);
+
+    var f = function f(v) {
+      var c = chroma_1(getColor(v));
+
+      if (_out && c[_out]) {
+        return c[_out]();
+      } else {
+        return c;
+      }
+    };
+
+    f.classes = function (classes) {
+      if (classes != null) {
+        if (type$j(classes) === 'array') {
+          _classes = classes;
+          _domain = [classes[0], classes[classes.length - 1]];
+        } else {
+          var d = chroma_1.analyze(_domain);
+
+          if (classes === 0) {
+            _classes = [d.min, d.max];
+          } else {
+            _classes = chroma_1.limits(d, 'e', classes);
+          }
+        }
+
+        return f;
+      }
+
+      return _classes;
+    };
+
+    f.domain = function (domain) {
+      if (!arguments.length) {
+        return _domain;
+      }
+
+      _min = domain[0];
+      _max = domain[domain.length - 1];
+      _pos = [];
+      var k = _colors.length;
+
+      if (domain.length === k && _min !== _max) {
+        for (var i = 0, list = Array.from(domain); i < list.length; i += 1) {
+          var d = list[i];
+
+          _pos.push((d - _min) / (_max - _min));
+        }
+      } else {
+        for (var c = 0; c < k; c++) {
+          _pos.push(c / (k - 1));
+        }
+
+        if (domain.length > 2) {
+          var tOut = domain.map(function (d, i) {
+            return i / (domain.length - 1);
+          });
+          var tBreaks = domain.map(function (d) {
+            return (d - _min) / (_max - _min);
+          });
+
+          if (!tBreaks.every(function (val, i) {
+            return tOut[i] === val;
+          })) {
+            tMapDomain = function tMapDomain(t) {
+              if (t <= 0 || t >= 1) {
+                return t;
+              }
+
+              var i = 0;
+
+              while (t >= tBreaks[i + 1]) {
+                i++;
+              }
+
+              var f = (t - tBreaks[i]) / (tBreaks[i + 1] - tBreaks[i]);
+              var out = tOut[i] + f * (tOut[i + 1] - tOut[i]);
+              return out;
+            };
+          }
+        }
+      }
+
+      _domain = [_min, _max];
+      return f;
+    };
+
+    f.mode = function (_m) {
+      if (!arguments.length) {
+        return _mode;
+      }
+
+      _mode = _m;
+      resetCache();
+      return f;
+    };
+
+    f.range = function (colors, _pos) {
+      setColors(colors, _pos);
+      return f;
+    };
+
+    f.out = function (_o) {
+      _out = _o;
+      return f;
+    };
+
+    f.spread = function (val) {
+      if (!arguments.length) {
+        return _spread;
+      }
+
+      _spread = val;
+      return f;
+    };
+
+    f.correctLightness = function (v) {
+      if (v == null) {
+        v = true;
+      }
+
+      _correctLightness = v;
+      resetCache();
+
+      if (_correctLightness) {
+        tMapLightness = function tMapLightness(t) {
+          var L0 = getColor(0, true).lab()[0];
+          var L1 = getColor(1, true).lab()[0];
+          var pol = L0 > L1;
+          var L_actual = getColor(t, true).lab()[0];
+          var L_ideal = L0 + (L1 - L0) * t;
+          var L_diff = L_actual - L_ideal;
+          var t0 = 0;
+          var t1 = 1;
+          var max_iter = 20;
+
+          while (Math.abs(L_diff) > 1e-2 && max_iter-- > 0) {
+            (function () {
+              if (pol) {
+                L_diff *= -1;
+              }
+
+              if (L_diff < 0) {
+                t0 = t;
+                t += (t1 - t) * 0.5;
+              } else {
+                t1 = t;
+                t += (t0 - t) * 0.5;
+              }
+
+              L_actual = getColor(t, true).lab()[0];
+              return L_diff = L_actual - L_ideal;
+            })();
+          }
+
+          return t;
+        };
+      } else {
+        tMapLightness = function tMapLightness(t) {
+          return t;
+        };
+      }
+
+      return f;
+    };
+
+    f.padding = function (p) {
+      if (p != null) {
+        if (type$j(p) === 'number') {
+          p = [p, p];
+        }
+
+        _padding = p;
+        return f;
+      } else {
+        return _padding;
+      }
+    };
+
+    f.colors = function (numColors, out) {
+      if (arguments.length < 2) {
+        out = 'hex';
+      }
+
+      var result = [];
+
+      if (arguments.length === 0) {
+        result = _colors.slice(0);
+      } else if (numColors === 1) {
+        result = [f(0.5)];
+      } else if (numColors > 1) {
+        var dm = _domain[0];
+        var dd = _domain[1] - dm;
+        result = __range__(0, numColors, false).map(function (i) {
+          return f(dm + i / (numColors - 1) * dd);
+        });
+      } else {
+        colors = [];
+        var samples = [];
+
+        if (_classes && _classes.length > 2) {
+          for (var i = 1, end = _classes.length, asc = 1 <= end; asc ? i < end : i > end; asc ? i++ : i--) {
+            samples.push((_classes[i - 1] + _classes[i]) * 0.5);
+          }
+        } else {
+          samples = _domain;
+        }
+
+        result = samples.map(function (v) {
+          return f(v);
+        });
+      }
+
+      if (chroma_1[out]) {
+        result = result.map(function (c) {
+          return c[out]();
+        });
+      }
+
+      return result;
+    };
+
+    f.cache = function (c) {
+      if (c != null) {
+        _useCache = c;
+        return f;
+      } else {
+        return _useCache;
+      }
+    };
+
+    f.gamma = function (g) {
+      if (g != null) {
+        _gamma = g;
+        return f;
+      } else {
+        return _gamma;
+      }
+    };
+
+    f.nodata = function (d) {
+      if (d != null) {
+        _nacol = chroma_1(d);
+        return f;
+      } else {
+        return _nacol;
+      }
+    };
+
+    return f;
+  };
+
+  function __range__(left, right, inclusive) {
+    var range = [];
+    var ascending = left < right;
+    var end = !inclusive ? right : ascending ? right + 1 : right - 1;
+
+    for (var i = left; ascending ? i < end : i > end; ascending ? i++ : i--) {
+      range.push(i);
+    }
+
+    return range;
+  }
+
+  var bezier = function bezier(colors) {
+    var assign, assign$1, assign$2;
+    var I, lab0, lab1, lab2;
+    colors = colors.map(function (c) {
+      return new Color_1(c);
+    });
+
+    if (colors.length === 2) {
+      assign = colors.map(function (c) {
+        return c.lab();
+      }), lab0 = assign[0], lab1 = assign[1];
+
+      I = function I(t) {
+        var lab = [0, 1, 2].map(function (i) {
+          return lab0[i] + t * (lab1[i] - lab0[i]);
+        });
+        return new Color_1(lab, 'lab');
+      };
+    } else if (colors.length === 3) {
+      assign$1 = colors.map(function (c) {
+        return c.lab();
+      }), lab0 = assign$1[0], lab1 = assign$1[1], lab2 = assign$1[2];
+
+      I = function I(t) {
+        var lab = [0, 1, 2].map(function (i) {
+          return (1 - t) * (1 - t) * lab0[i] + 2 * (1 - t) * t * lab1[i] + t * t * lab2[i];
+        });
+        return new Color_1(lab, 'lab');
+      };
+    } else if (colors.length === 4) {
+      var lab3;
+      assign$2 = colors.map(function (c) {
+        return c.lab();
+      }), lab0 = assign$2[0], lab1 = assign$2[1], lab2 = assign$2[2], lab3 = assign$2[3];
+
+      I = function I(t) {
+        var lab = [0, 1, 2].map(function (i) {
+          return (1 - t) * (1 - t) * (1 - t) * lab0[i] + 3 * (1 - t) * (1 - t) * t * lab1[i] + 3 * (1 - t) * t * t * lab2[i] + t * t * t * lab3[i];
+        });
+        return new Color_1(lab, 'lab');
+      };
+    } else if (colors.length === 5) {
+      var I0 = bezier(colors.slice(0, 3));
+      var I1 = bezier(colors.slice(2, 5));
+
+      I = function I(t) {
+        if (t < 0.5) {
+          return I0(t * 2);
+        } else {
+          return I1((t - 0.5) * 2);
+        }
+      };
+    }
+
+    return I;
+  };
+
+  var bezier_1 = function bezier_1(colors) {
+    var f = bezier(colors);
+
+    f.scale = function () {
+      return scale(f);
+    };
+
+    return f;
+  };
+
+  var blend = function blend(bottom, top, mode) {
+    if (!blend[mode]) {
+      throw new Error('unknown blend mode ' + mode);
+    }
+
+    return blend[mode](bottom, top);
+  };
+
+  var blend_f = function blend_f(f) {
+    return function (bottom, top) {
+      var c0 = chroma_1(top).rgb();
+      var c1 = chroma_1(bottom).rgb();
+      return chroma_1.rgb(f(c0, c1));
+    };
+  };
+
+  var each = function each(f) {
+    return function (c0, c1) {
+      var out = [];
+      out[0] = f(c0[0], c1[0]);
+      out[1] = f(c0[1], c1[1]);
+      out[2] = f(c0[2], c1[2]);
+      return out;
+    };
+  };
+
+  var normal = function normal(a) {
+    return a;
+  };
+
+  var multiply = function multiply(a, b) {
+    return a * b / 255;
+  };
+
+  var darken$1 = function darken$1(a, b) {
+    return a > b ? b : a;
+  };
+
+  var lighten = function lighten(a, b) {
+    return a > b ? a : b;
+  };
+
+  var screen = function screen(a, b) {
+    return 255 * (1 - (1 - a / 255) * (1 - b / 255));
+  };
+
+  var overlay = function overlay(a, b) {
+    return b < 128 ? 2 * a * b / 255 : 255 * (1 - 2 * (1 - a / 255) * (1 - b / 255));
+  };
+
+  var burn = function burn(a, b) {
+    return 255 * (1 - (1 - b / 255) / (a / 255));
+  };
+
+  var dodge = function dodge(a, b) {
+    if (a === 255) {
+      return 255;
+    }
+
+    a = 255 * (b / 255) / (1 - a / 255);
+    return a > 255 ? 255 : a;
+  };
+
+  blend.normal = blend_f(each(normal));
+  blend.multiply = blend_f(each(multiply));
+  blend.screen = blend_f(each(screen));
+  blend.overlay = blend_f(each(overlay));
+  blend.darken = blend_f(each(darken$1));
+  blend.lighten = blend_f(each(lighten));
+  blend.dodge = blend_f(each(dodge));
+  blend.burn = blend_f(each(burn));
+  var blend_1 = blend;
+  var type$k = utils.type;
+  var clip_rgb$3 = utils.clip_rgb;
+  var TWOPI$2 = utils.TWOPI;
+  var pow$6 = Math.pow;
+  var sin$2 = Math.sin;
+  var cos$3 = Math.cos;
+
+  var cubehelix = function cubehelix(start, rotations, hue, gamma, lightness) {
+    if (start === void 0) start = 300;
+    if (rotations === void 0) rotations = -1.5;
+    if (hue === void 0) hue = 1;
+    if (gamma === void 0) gamma = 1;
+    if (lightness === void 0) lightness = [0, 1];
+    var dh = 0,
+        dl;
+
+    if (type$k(lightness) === 'array') {
+      dl = lightness[1] - lightness[0];
+    } else {
+      dl = 0;
+      lightness = [lightness, lightness];
+    }
+
+    var f = function f(fract) {
+      var a = TWOPI$2 * ((start + 120) / 360 + rotations * fract);
+      var l = pow$6(lightness[0] + dl * fract, gamma);
+      var h = dh !== 0 ? hue[0] + fract * dh : hue;
+      var amp = h * l * (1 - l) / 2;
+      var cos_a = cos$3(a);
+      var sin_a = sin$2(a);
+      var r = l + amp * (-0.14861 * cos_a + 1.78277 * sin_a);
+      var g = l + amp * (-0.29227 * cos_a - 0.90649 * sin_a);
+      var b = l + amp * (+1.97294 * cos_a);
+      return chroma_1(clip_rgb$3([r * 255, g * 255, b * 255, 1]));
+    };
+
+    f.start = function (s) {
+      if (s == null) {
+        return start;
+      }
+
+      start = s;
+      return f;
+    };
+
+    f.rotations = function (r) {
+      if (r == null) {
+        return rotations;
+      }
+
+      rotations = r;
+      return f;
+    };
+
+    f.gamma = function (g) {
+      if (g == null) {
+        return gamma;
+      }
+
+      gamma = g;
+      return f;
+    };
+
+    f.hue = function (h) {
+      if (h == null) {
+        return hue;
+      }
+
+      hue = h;
+
+      if (type$k(hue) === 'array') {
+        dh = hue[1] - hue[0];
+
+        if (dh === 0) {
+          hue = hue[1];
+        }
+      } else {
+        dh = 0;
+      }
+
+      return f;
+    };
+
+    f.lightness = function (h) {
+      if (h == null) {
+        return lightness;
+      }
+
+      if (type$k(h) === 'array') {
+        lightness = h;
+        dl = h[1] - h[0];
+      } else {
+        lightness = [h, h];
+        dl = 0;
+      }
+
+      return f;
+    };
+
+    f.scale = function () {
+      return chroma_1.scale(f);
+    };
+
+    f.hue(hue);
+    return f;
+  };
+
+  var digits = '0123456789abcdef';
+  var floor$2 = Math.floor;
+  var random = Math.random;
+
+  var random_1 = function random_1() {
+    var code = '#';
+
+    for (var i = 0; i < 6; i++) {
+      code += digits.charAt(floor$2(random() * 16));
+    }
+
+    return new Color_1(code, 'hex');
+  };
+
+  var log$1 = Math.log;
+  var pow$7 = Math.pow;
+  var floor$3 = Math.floor;
+  var abs = Math.abs;
+
+  var analyze = function analyze(data, key) {
+    if (key === void 0) key = null;
+    var r = {
+      min: Number.MAX_VALUE,
+      max: Number.MAX_VALUE * -1,
+      sum: 0,
+      values: [],
+      count: 0
+    };
+
+    if (type(data) === 'object') {
+      data = Object.values(data);
+    }
+
+    data.forEach(function (val) {
+      if (key && type(val) === 'object') {
+        val = val[key];
+      }
+
+      if (val !== undefined && val !== null && !isNaN(val)) {
+        r.values.push(val);
+        r.sum += val;
+
+        if (val < r.min) {
+          r.min = val;
+        }
+
+        if (val > r.max) {
+          r.max = val;
+        }
+
+        r.count += 1;
+      }
+    });
+    r.domain = [r.min, r.max];
+
+    r.limits = function (mode, num) {
+      return limits(r, mode, num);
+    };
+
+    return r;
+  };
+
+  var limits = function limits(data, mode, num) {
+    if (mode === void 0) mode = 'equal';
+    if (num === void 0) num = 7;
+
+    if (type(data) == 'array') {
+      data = analyze(data);
+    }
+
+    var min = data.min;
+    var max = data.max;
+    var values = data.values.sort(function (a, b) {
+      return a - b;
+    });
+
+    if (num === 1) {
+      return [min, max];
+    }
+
+    var limits = [];
+
+    if (mode.substr(0, 1) === 'c') {
+      limits.push(min);
+      limits.push(max);
+    }
+
+    if (mode.substr(0, 1) === 'e') {
+      limits.push(min);
+
+      for (var i = 1; i < num; i++) {
+        limits.push(min + i / num * (max - min));
+      }
+
+      limits.push(max);
+    } else if (mode.substr(0, 1) === 'l') {
+      if (min <= 0) {
+        throw new Error('Logarithmic scales are only possible for values > 0');
+      }
+
+      var min_log = Math.LOG10E * log$1(min);
+      var max_log = Math.LOG10E * log$1(max);
+      limits.push(min);
+
+      for (var i$1 = 1; i$1 < num; i$1++) {
+        limits.push(pow$7(10, min_log + i$1 / num * (max_log - min_log)));
+      }
+
+      limits.push(max);
+    } else if (mode.substr(0, 1) === 'q') {
+      limits.push(min);
+
+      for (var i$2 = 1; i$2 < num; i$2++) {
+        var p = (values.length - 1) * i$2 / num;
+        var pb = floor$3(p);
+
+        if (pb === p) {
+          limits.push(values[pb]);
+        } else {
+          var pr = p - pb;
+          limits.push(values[pb] * (1 - pr) + values[pb + 1] * pr);
+        }
+      }
+
+      limits.push(max);
+    } else if (mode.substr(0, 1) === 'k') {
+      var cluster;
+      var n = values.length;
+      var assignments = new Array(n);
+      var clusterSizes = new Array(num);
+      var repeat = true;
+      var nb_iters = 0;
+      var centroids = null;
+      centroids = [];
+      centroids.push(min);
+
+      for (var i$3 = 1; i$3 < num; i$3++) {
+        centroids.push(min + i$3 / num * (max - min));
+      }
+
+      centroids.push(max);
+
+      while (repeat) {
+        for (var j = 0; j < num; j++) {
+          clusterSizes[j] = 0;
+        }
+
+        for (var i$4 = 0; i$4 < n; i$4++) {
+          var value = values[i$4];
+          var mindist = Number.MAX_VALUE;
+          var best = void 0;
+
+          for (var j$1 = 0; j$1 < num; j$1++) {
+            var dist = abs(centroids[j$1] - value);
+
+            if (dist < mindist) {
+              mindist = dist;
+              best = j$1;
+            }
+
+            clusterSizes[best]++;
+            assignments[i$4] = best;
+          }
+        }
+
+        var newCentroids = new Array(num);
+
+        for (var j$2 = 0; j$2 < num; j$2++) {
+          newCentroids[j$2] = null;
+        }
+
+        for (var i$5 = 0; i$5 < n; i$5++) {
+          cluster = assignments[i$5];
+
+          if (newCentroids[cluster] === null) {
+            newCentroids[cluster] = values[i$5];
+          } else {
+            newCentroids[cluster] += values[i$5];
+          }
+        }
+
+        for (var j$3 = 0; j$3 < num; j$3++) {
+          newCentroids[j$3] *= 1 / clusterSizes[j$3];
+        }
+
+        repeat = false;
+
+        for (var j$4 = 0; j$4 < num; j$4++) {
+          if (newCentroids[j$4] !== centroids[j$4]) {
+            repeat = true;
+            break;
+          }
+        }
+
+        centroids = newCentroids;
+        nb_iters++;
+
+        if (nb_iters > 200) {
+          repeat = false;
+        }
+      }
+
+      var kClusters = {};
+
+      for (var j$5 = 0; j$5 < num; j$5++) {
+        kClusters[j$5] = [];
+      }
+
+      for (var i$6 = 0; i$6 < n; i$6++) {
+        cluster = assignments[i$6];
+        kClusters[cluster].push(values[i$6]);
+      }
+
+      var tmpKMeansBreaks = [];
+
+      for (var j$6 = 0; j$6 < num; j$6++) {
+        tmpKMeansBreaks.push(kClusters[j$6][0]);
+        tmpKMeansBreaks.push(kClusters[j$6][kClusters[j$6].length - 1]);
+      }
+
+      tmpKMeansBreaks = tmpKMeansBreaks.sort(function (a, b) {
+        return a - b;
+      });
+      limits.push(tmpKMeansBreaks[0]);
+
+      for (var i$7 = 1; i$7 < tmpKMeansBreaks.length; i$7 += 2) {
+        var v = tmpKMeansBreaks[i$7];
+
+        if (!isNaN(v) && limits.indexOf(v) === -1) {
+          limits.push(v);
+        }
+      }
+    }
+
+    return limits;
+  };
+
+  var analyze_1 = {
+    analyze: analyze,
+    limits: limits
+  };
+
+  var contrast = function contrast(a, b) {
+    a = new Color_1(a);
+    b = new Color_1(b);
+    var l1 = a.luminance();
+    var l2 = b.luminance();
+    return l1 > l2 ? (l1 + 0.05) / (l2 + 0.05) : (l2 + 0.05) / (l1 + 0.05);
+  };
+
+  var sqrt$4 = Math.sqrt;
+  var atan2$2 = Math.atan2;
+  var abs$1 = Math.abs;
+  var cos$4 = Math.cos;
+  var PI$2 = Math.PI;
+
+  var deltaE = function deltaE(a, b, L, C) {
+    if (L === void 0) L = 1;
+    if (C === void 0) C = 1;
+    a = new Color_1(a);
+    b = new Color_1(b);
+    var ref = Array.from(a.lab());
+    var L1 = ref[0];
+    var a1 = ref[1];
+    var b1 = ref[2];
+    var ref$1 = Array.from(b.lab());
+    var L2 = ref$1[0];
+    var a2 = ref$1[1];
+    var b2 = ref$1[2];
+    var c1 = sqrt$4(a1 * a1 + b1 * b1);
+    var c2 = sqrt$4(a2 * a2 + b2 * b2);
+    var sl = L1 < 16.0 ? 0.511 : 0.040975 * L1 / (1.0 + 0.01765 * L1);
+    var sc = 0.0638 * c1 / (1.0 + 0.0131 * c1) + 0.638;
+    var h1 = c1 < 0.000001 ? 0.0 : atan2$2(b1, a1) * 180.0 / PI$2;
+
+    while (h1 < 0) {
+      h1 += 360;
+    }
+
+    while (h1 >= 360) {
+      h1 -= 360;
+    }
+
+    var t = h1 >= 164.0 && h1 <= 345.0 ? 0.56 + abs$1(0.2 * cos$4(PI$2 * (h1 + 168.0) / 180.0)) : 0.36 + abs$1(0.4 * cos$4(PI$2 * (h1 + 35.0) / 180.0));
+    var c4 = c1 * c1 * c1 * c1;
+    var f = sqrt$4(c4 / (c4 + 1900.0));
+    var sh = sc * (f * t + 1.0 - f);
+    var delL = L1 - L2;
+    var delC = c1 - c2;
+    var delA = a1 - a2;
+    var delB = b1 - b2;
+    var dH2 = delA * delA + delB * delB - delC * delC;
+    var v1 = delL / (L * sl);
+    var v2 = delC / (C * sc);
+    var v3 = sh;
+    return sqrt$4(v1 * v1 + v2 * v2 + dH2 / (v3 * v3));
+  };
+
+  var distance = function distance(a, b, mode) {
+    if (mode === void 0) mode = 'lab';
+    a = new Color_1(a);
+    b = new Color_1(b);
+    var l1 = a.get(mode);
+    var l2 = b.get(mode);
+    var sum_sq = 0;
+
+    for (var i in l1) {
+      var d = (l1[i] || 0) - (l2[i] || 0);
+      sum_sq += d * d;
+    }
+
+    return Math.sqrt(sum_sq);
+  };
+
+  var valid = function valid() {
+    var args = [],
+        len = arguments.length;
+
+    while (len--) {
+      args[len] = arguments[len];
+    }
+
+    try {
+      new (Function.prototype.bind.apply(Color_1, [null].concat(args)))();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
+  var scales = {
+    cool: function cool() {
+      return scale([chroma_1.hsl(180, 1, .9), chroma_1.hsl(250, .7, .4)]);
+    },
+    hot: function hot() {
+      return scale(['#000', '#f00', '#ff0', '#fff'], [0, .25, .75, 1]).mode('rgb');
+    }
+  };
+  var colorbrewer = {
+    OrRd: ['#fff7ec', '#fee8c8', '#fdd49e', '#fdbb84', '#fc8d59', '#ef6548', '#d7301f', '#b30000', '#7f0000'],
+    PuBu: ['#fff7fb', '#ece7f2', '#d0d1e6', '#a6bddb', '#74a9cf', '#3690c0', '#0570b0', '#045a8d', '#023858'],
+    BuPu: ['#f7fcfd', '#e0ecf4', '#bfd3e6', '#9ebcda', '#8c96c6', '#8c6bb1', '#88419d', '#810f7c', '#4d004b'],
+    Oranges: ['#fff5eb', '#fee6ce', '#fdd0a2', '#fdae6b', '#fd8d3c', '#f16913', '#d94801', '#a63603', '#7f2704'],
+    BuGn: ['#f7fcfd', '#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'],
+    YlOrBr: ['#ffffe5', '#fff7bc', '#fee391', '#fec44f', '#fe9929', '#ec7014', '#cc4c02', '#993404', '#662506'],
+    YlGn: ['#ffffe5', '#f7fcb9', '#d9f0a3', '#addd8e', '#78c679', '#41ab5d', '#238443', '#006837', '#004529'],
+    Reds: ['#fff5f0', '#fee0d2', '#fcbba1', '#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#a50f15', '#67000d'],
+    RdPu: ['#fff7f3', '#fde0dd', '#fcc5c0', '#fa9fb5', '#f768a1', '#dd3497', '#ae017e', '#7a0177', '#49006a'],
+    Greens: ['#f7fcf5', '#e5f5e0', '#c7e9c0', '#a1d99b', '#74c476', '#41ab5d', '#238b45', '#006d2c', '#00441b'],
+    YlGnBu: ['#ffffd9', '#edf8b1', '#c7e9b4', '#7fcdbb', '#41b6c4', '#1d91c0', '#225ea8', '#253494', '#081d58'],
+    Purples: ['#fcfbfd', '#efedf5', '#dadaeb', '#bcbddc', '#9e9ac8', '#807dba', '#6a51a3', '#54278f', '#3f007d'],
+    GnBu: ['#f7fcf0', '#e0f3db', '#ccebc5', '#a8ddb5', '#7bccc4', '#4eb3d3', '#2b8cbe', '#0868ac', '#084081'],
+    Greys: ['#ffffff', '#f0f0f0', '#d9d9d9', '#bdbdbd', '#969696', '#737373', '#525252', '#252525', '#000000'],
+    YlOrRd: ['#ffffcc', '#ffeda0', '#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c', '#bd0026', '#800026'],
+    PuRd: ['#f7f4f9', '#e7e1ef', '#d4b9da', '#c994c7', '#df65b0', '#e7298a', '#ce1256', '#980043', '#67001f'],
+    Blues: ['#f7fbff', '#deebf7', '#c6dbef', '#9ecae1', '#6baed6', '#4292c6', '#2171b5', '#08519c', '#08306b'],
+    PuBuGn: ['#fff7fb', '#ece2f0', '#d0d1e6', '#a6bddb', '#67a9cf', '#3690c0', '#02818a', '#016c59', '#014636'],
+    Viridis: ['#440154', '#482777', '#3f4a8a', '#31678e', '#26838f', '#1f9d8a', '#6cce5a', '#b6de2b', '#fee825'],
+    Spectral: ['#9e0142', '#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#ffffbf', '#e6f598', '#abdda4', '#66c2a5', '#3288bd', '#5e4fa2'],
+    RdYlGn: ['#a50026', '#d73027', '#f46d43', '#fdae61', '#fee08b', '#ffffbf', '#d9ef8b', '#a6d96a', '#66bd63', '#1a9850', '#006837'],
+    RdBu: ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#f7f7f7', '#d1e5f0', '#92c5de', '#4393c3', '#2166ac', '#053061'],
+    PiYG: ['#8e0152', '#c51b7d', '#de77ae', '#f1b6da', '#fde0ef', '#f7f7f7', '#e6f5d0', '#b8e186', '#7fbc41', '#4d9221', '#276419'],
+    PRGn: ['#40004b', '#762a83', '#9970ab', '#c2a5cf', '#e7d4e8', '#f7f7f7', '#d9f0d3', '#a6dba0', '#5aae61', '#1b7837', '#00441b'],
+    RdYlBu: ['#a50026', '#d73027', '#f46d43', '#fdae61', '#fee090', '#ffffbf', '#e0f3f8', '#abd9e9', '#74add1', '#4575b4', '#313695'],
+    BrBG: ['#543005', '#8c510a', '#bf812d', '#dfc27d', '#f6e8c3', '#f5f5f5', '#c7eae5', '#80cdc1', '#35978f', '#01665e', '#003c30'],
+    RdGy: ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#ffffff', '#e0e0e0', '#bababa', '#878787', '#4d4d4d', '#1a1a1a'],
+    PuOr: ['#7f3b08', '#b35806', '#e08214', '#fdb863', '#fee0b6', '#f7f7f7', '#d8daeb', '#b2abd2', '#8073ac', '#542788', '#2d004b'],
+    Set2: ['#66c2a5', '#fc8d62', '#8da0cb', '#e78ac3', '#a6d854', '#ffd92f', '#e5c494', '#b3b3b3'],
+    Accent: ['#7fc97f', '#beaed4', '#fdc086', '#ffff99', '#386cb0', '#f0027f', '#bf5b17', '#666666'],
+    Set1: ['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33', '#a65628', '#f781bf', '#999999'],
+    Set3: ['#8dd3c7', '#ffffb3', '#bebada', '#fb8072', '#80b1d3', '#fdb462', '#b3de69', '#fccde5', '#d9d9d9', '#bc80bd', '#ccebc5', '#ffed6f'],
+    Dark2: ['#1b9e77', '#d95f02', '#7570b3', '#e7298a', '#66a61e', '#e6ab02', '#a6761d', '#666666'],
+    Paired: ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#ffff99', '#b15928'],
+    Pastel2: ['#b3e2cd', '#fdcdac', '#cbd5e8', '#f4cae4', '#e6f5c9', '#fff2ae', '#f1e2cc', '#cccccc'],
+    Pastel1: ['#fbb4ae', '#b3cde3', '#ccebc5', '#decbe4', '#fed9a6', '#ffffcc', '#e5d8bd', '#fddaec', '#f2f2f2']
+  };
+
+  for (var i$1 = 0, list$1 = Object.keys(colorbrewer); i$1 < list$1.length; i$1 += 1) {
+    var key = list$1[i$1];
+    colorbrewer[key.toLowerCase()] = colorbrewer[key];
+  }
+
+  var colorbrewer_1 = colorbrewer;
+  chroma_1.average = average;
+  chroma_1.bezier = bezier_1;
+  chroma_1.blend = blend_1;
+  chroma_1.cubehelix = cubehelix;
+  chroma_1.mix = chroma_1.interpolate = mix;
+  chroma_1.random = random_1;
+  chroma_1.scale = scale;
+  chroma_1.analyze = analyze_1.analyze;
+  chroma_1.contrast = contrast;
+  chroma_1.deltaE = deltaE;
+  chroma_1.distance = distance;
+  chroma_1.limits = analyze_1.limits;
+  chroma_1.valid = valid;
+  chroma_1.scales = scales;
+  chroma_1.colors = w3cx11_1;
+  chroma_1.brewer = colorbrewer_1;
+  var chroma_js = chroma_1;
+  return chroma_js;
 });
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 exports.__esModule = true;
-var VEGA_PALETTE_DATA = exports.VEGA_PALETTE_DATA = {
+exports.BOKEH_DOCS_PALETTES = exports.BOKEH_PALETTES = exports.BOKEH_PALETTE_NAMES = exports.BOKEH_VIRIDIS = exports.BOKEH_PLASMA = exports.BOKEH_MAGMA = exports.BOKEH_INFERNO = exports.BOKEH_RED_YELLOW_GREEN = exports.BOKEH_SPECTRAL = exports.BOKEH_RED_YELLOW_BLUE = exports.BOKEH_RED_GREY = exports.BOKEH_RED_BLUE = exports.BOKEH_PINK_YELLOW_GREEN = exports.BOKEH_PURPLE_GREEN = exports.BOKEH_BROWN_BLUE_GREEN = exports.BOKEH_PURPLE_ORANGE = exports.BOKEH_GREYS = exports.BOKEH_REDS = exports.BOKEH_ORANGES = exports.BOKEH_GREENS = exports.BOKEH_BLUES = exports.BOKEH_PURPLES = exports.BOKEH_YELLOW_ORANGE_BROWN = exports.BOKEH_YELLOW_ORANGE_RED = exports.BOKEH_ORANGE_RED = exports.BOKEH_PURPLE_RED = exports.BOKEH_RED_PURPLE = exports.BOKEH_BLUE_PURPLE = exports.BOKEH_PURPLE_BLUE = exports.BOKEH_PURPLE_BLUE_GREEN = exports.BOKEH_BLUE_GREEN = exports.BOKEH_GREEN_BLUE = exports.BOKEH_YELLOW_GREEN_BLUE = exports.BOKEH_YELLOW_GREEN = exports.BOKEH_SET_3 = exports.BOKEH_SET_2 = exports.BOKEH_SET_1 = exports.BOKEH_PASTEL_2 = exports.BOKEH_PASTEL_1 = exports.BOKEH_PAIRED = exports.BOKEH_DARK_2 = exports.BOKEH_ACCENT = exports.BOKEH_COLORBLIND = exports.BOKEH_CATEGORY_20_C = exports.BOKEH_CATEGORY_20_B = exports.BOKEH_CATEGORY_20 = exports.BOKEH_CATEGORY_10 = exports.BOKEH_DOCS_PALETTE_DATA = exports.BOKEH_PALETTE_DATA = void 0;
+var BOKEH_PALETTE_DATA = {
+  "bokeh_Category10": {
+    3: ["#1f77b4", "#ff7f0e", "#2ca02c"],
+    4: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"],
+    5: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"],
+    6: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
+    7: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2"],
+    8: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f"],
+    9: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22"],
+    10: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"]
+  },
+  "bokeh_Category20": {
+    3: ["#1f77b4", "#aec7e8", "#ff7f0e"],
+    4: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78"],
+    5: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c"],
+    6: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a"],
+    7: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728"],
+    8: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896"],
+    9: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd"],
+    10: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5"],
+    11: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b"],
+    12: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94"],
+    13: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2"],
+    14: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2"],
+    15: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f"],
+    16: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7"],
+    17: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22"],
+    18: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d"],
+    19: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf"],
+    20: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"]
+  },
+  "bokeh_Category20b": {
+    3: ["#393b79", "#5254a3", "#6b6ecf"],
+    4: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede"],
+    5: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939"],
+    6: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252"],
+    7: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b"],
+    8: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c"],
+    9: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31"],
+    10: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39"],
+    11: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52"],
+    12: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94"],
+    13: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39"],
+    14: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a"],
+    15: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b"],
+    16: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c"],
+    17: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c", "#7b4173"],
+    18: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c", "#7b4173", "#a55194"],
+    19: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c", "#7b4173", "#a55194", "#ce6dbd"],
+    20: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c", "#7b4173", "#a55194", "#ce6dbd", "#de9ed6"]
+  },
+  "bokeh_Category20c": {
+    3: ["#3182bd", "#6baed6", "#9ecae1"],
+    4: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef"],
+    5: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d"],
+    6: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c"],
+    7: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b"],
+    8: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2"],
+    9: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354"],
+    10: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476"],
+    11: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b"],
+    12: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0"],
+    13: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1"],
+    14: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8"],
+    15: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc"],
+    16: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb"],
+    17: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#636363"],
+    18: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#636363", "#969696"],
+    19: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#636363", "#969696", "#bdbdbd"],
+    20: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#636363", "#969696", "#bdbdbd", "#d9d9d9"]
+  },
+  "bokeh_Colorblind": {
+    3: ["#0072b2", "#e69f00", "#f0e442"],
+    4: ["#0072b2", "#e69f00", "#f0e442", "#009e73"],
+    5: ["#0072b2", "#e69f00", "#f0e442", "#009e73", "#56b4e9"],
+    6: ["#0072b2", "#e69f00", "#f0e442", "#009e73", "#56b4e9", "#d55e00"],
+    7: ["#0072b2", "#e69f00", "#f0e442", "#009e73", "#56b4e9", "#d55e00", "#cc79a7"],
+    8: ["#0072b2", "#e69f00", "#f0e442", "#009e73", "#56b4e9", "#d55e00", "#cc79a7", "#000000"]
+  },
+  "bokeh_Accent": {
+    3: ["#7fc97f", "#beaed4", "#fdc086"],
+    4: ["#7fc97f", "#beaed4", "#fdc086", "#ffff99"],
+    5: ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0"],
+    6: ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f"],
+    7: ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f", "#bf5b17"],
+    8: ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f", "#bf5b17", "#666666"]
+  },
+  "bokeh_Dark2": {
+    3: ["#1b9e77", "#d95f02", "#7570b3"],
+    4: ["#1b9e77", "#d95f02", "#7570b3", "#e7298a"],
+    5: ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e"],
+    6: ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02"],
+    7: ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d"],
+    8: ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d", "#666666"]
+  },
+  "bokeh_Paired": {
+    3: ["#a6cee3", "#1f78b4", "#b2df8a"],
+    4: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c"],
+    5: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99"],
+    6: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c"],
+    7: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f"],
+    8: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00"],
+    9: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6"],
+    10: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a"],
+    11: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99"],
+    12: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928"]
+  },
+  "bokeh_Pastel1": {
+    3: ["#fbb4ae", "#b3cde3", "#ccebc5"],
+    4: ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4"],
+    5: ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6"],
+    6: ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc"],
+    7: ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd"],
+    8: ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd", "#fddaec"],
+    9: ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd", "#fddaec", "#f2f2f2"]
+  },
+  "bokeh_Pastel2": {
+    3: ["#b3e2cd", "#fdcdac", "#cbd5e8"],
+    4: ["#b3e2cd", "#fdcdac", "#cbd5e8", "#f4cae4"],
+    5: ["#b3e2cd", "#fdcdac", "#cbd5e8", "#f4cae4", "#e6f5c9"],
+    6: ["#b3e2cd", "#fdcdac", "#cbd5e8", "#f4cae4", "#e6f5c9", "#fff2ae"],
+    7: ["#b3e2cd", "#fdcdac", "#cbd5e8", "#f4cae4", "#e6f5c9", "#fff2ae", "#f1e2cc"],
+    8: ["#b3e2cd", "#fdcdac", "#cbd5e8", "#f4cae4", "#e6f5c9", "#fff2ae", "#f1e2cc", "#cccccc"]
+  },
+  "bokeh_Set1": {
+    3: ["#e41a1c", "#377eb8", "#4daf4a"],
+    4: ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3"],
+    5: ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00"],
+    6: ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33"],
+    7: ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628"],
+    8: ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628", "#f781bf"],
+    9: ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628", "#f781bf", "#999999"]
+  },
+  "bokeh_Set2": {
+    3: ["#66c2a5", "#fc8d62", "#8da0cb"],
+    4: ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3"],
+    5: ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"],
+    6: ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f"],
+    7: ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f", "#e5c494"],
+    8: ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f", "#e5c494", "#b3b3b3"]
+  },
+  "bokeh_Set3": {
+    3: ["#8dd3c7", "#ffffb3", "#bebada"],
+    4: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072"],
+    5: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3"],
+    6: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462"],
+    7: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69"],
+    8: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5"],
+    9: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5", "#d9d9d9"],
+    10: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd"],
+    11: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd", "#ccebc5"],
+    12: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd", "#ccebc5", "#ffed6f"]
+  },
+  "bokeh_YlGn": {
+    3: ["#31a354", "#addd8e", "#f7fcb9"],
+    4: ["#238443", "#78c679", "#c2e699", "#ffffcc"],
+    5: ["#006837", "#31a354", "#78c679", "#c2e699", "#ffffcc"],
+    6: ["#006837", "#31a354", "#78c679", "#addd8e", "#d9f0a3", "#ffffcc"],
+    7: ["#005a32", "#238443", "#41ab5d", "#78c679", "#addd8e", "#d9f0a3", "#ffffcc"],
+    8: ["#005a32", "#238443", "#41ab5d", "#78c679", "#addd8e", "#d9f0a3", "#f7fcb9", "#ffffe5"],
+    9: ["#004529", "#006837", "#238443", "#41ab5d", "#78c679", "#addd8e", "#d9f0a3", "#f7fcb9", "#ffffe5"]
+  },
+  "bokeh_YlGnBu": {
+    3: ["#2c7fb8", "#7fcdbb", "#edf8b1"],
+    4: ["#225ea8", "#41b6c4", "#a1dab4", "#ffffcc"],
+    5: ["#253494", "#2c7fb8", "#41b6c4", "#a1dab4", "#ffffcc"],
+    6: ["#253494", "#2c7fb8", "#41b6c4", "#7fcdbb", "#c7e9b4", "#ffffcc"],
+    7: ["#0c2c84", "#225ea8", "#1d91c0", "#41b6c4", "#7fcdbb", "#c7e9b4", "#ffffcc"],
+    8: ["#0c2c84", "#225ea8", "#1d91c0", "#41b6c4", "#7fcdbb", "#c7e9b4", "#edf8b1", "#ffffd9"],
+    9: ["#081d58", "#253494", "#225ea8", "#1d91c0", "#41b6c4", "#7fcdbb", "#c7e9b4", "#edf8b1", "#ffffd9"]
+  },
+  "bokeh_GnBu": {
+    3: ["#43a2ca", "#a8ddb5", "#e0f3db"],
+    4: ["#2b8cbe", "#7bccc4", "#bae4bc", "#f0f9e8"],
+    5: ["#0868ac", "#43a2ca", "#7bccc4", "#bae4bc", "#f0f9e8"],
+    6: ["#0868ac", "#43a2ca", "#7bccc4", "#a8ddb5", "#ccebc5", "#f0f9e8"],
+    7: ["#08589e", "#2b8cbe", "#4eb3d3", "#7bccc4", "#a8ddb5", "#ccebc5", "#f0f9e8"],
+    8: ["#08589e", "#2b8cbe", "#4eb3d3", "#7bccc4", "#a8ddb5", "#ccebc5", "#e0f3db", "#f7fcf0"],
+    9: ["#084081", "#0868ac", "#2b8cbe", "#4eb3d3", "#7bccc4", "#a8ddb5", "#ccebc5", "#e0f3db", "#f7fcf0"]
+  },
+  "bokeh_BuGn": {
+    3: ["#2ca25f", "#99d8c9", "#e5f5f9"],
+    4: ["#238b45", "#66c2a4", "#b2e2e2", "#edf8fb"],
+    5: ["#006d2c", "#2ca25f", "#66c2a4", "#b2e2e2", "#edf8fb"],
+    6: ["#006d2c", "#2ca25f", "#66c2a4", "#99d8c9", "#ccece6", "#edf8fb"],
+    7: ["#005824", "#238b45", "#41ae76", "#66c2a4", "#99d8c9", "#ccece6", "#edf8fb"],
+    8: ["#005824", "#238b45", "#41ae76", "#66c2a4", "#99d8c9", "#ccece6", "#e5f5f9", "#f7fcfd"],
+    9: ["#00441b", "#006d2c", "#238b45", "#41ae76", "#66c2a4", "#99d8c9", "#ccece6", "#e5f5f9", "#f7fcfd"]
+  },
+  "bokeh_PuBuGn": {
+    3: ["#1c9099", "#a6bddb", "#ece2f0"],
+    4: ["#02818a", "#67a9cf", "#bdc9e1", "#f6eff7"],
+    5: ["#016c59", "#1c9099", "#67a9cf", "#bdc9e1", "#f6eff7"],
+    6: ["#016c59", "#1c9099", "#67a9cf", "#a6bddb", "#d0d1e6", "#f6eff7"],
+    7: ["#016450", "#02818a", "#3690c0", "#67a9cf", "#a6bddb", "#d0d1e6", "#f6eff7"],
+    8: ["#016450", "#02818a", "#3690c0", "#67a9cf", "#a6bddb", "#d0d1e6", "#ece2f0", "#fff7fb"],
+    9: ["#014636", "#016c59", "#02818a", "#3690c0", "#67a9cf", "#a6bddb", "#d0d1e6", "#ece2f0", "#fff7fb"]
+  },
+  "bokeh_PuBu": {
+    3: ["#2b8cbe", "#a6bddb", "#ece7f2"],
+    4: ["#0570b0", "#74a9cf", "#bdc9e1", "#f1eef6"],
+    5: ["#045a8d", "#2b8cbe", "#74a9cf", "#bdc9e1", "#f1eef6"],
+    6: ["#045a8d", "#2b8cbe", "#74a9cf", "#a6bddb", "#d0d1e6", "#f1eef6"],
+    7: ["#034e7b", "#0570b0", "#3690c0", "#74a9cf", "#a6bddb", "#d0d1e6", "#f1eef6"],
+    8: ["#034e7b", "#0570b0", "#3690c0", "#74a9cf", "#a6bddb", "#d0d1e6", "#ece7f2", "#fff7fb"],
+    9: ["#023858", "#045a8d", "#0570b0", "#3690c0", "#74a9cf", "#a6bddb", "#d0d1e6", "#ece7f2", "#fff7fb"]
+  },
+  "bokeh_BuPu": {
+    3: ["#8856a7", "#9ebcda", "#e0ecf4"],
+    4: ["#88419d", "#8c96c6", "#b3cde3", "#edf8fb"],
+    5: ["#810f7c", "#8856a7", "#8c96c6", "#b3cde3", "#edf8fb"],
+    6: ["#810f7c", "#8856a7", "#8c96c6", "#9ebcda", "#bfd3e6", "#edf8fb"],
+    7: ["#6e016b", "#88419d", "#8c6bb1", "#8c96c6", "#9ebcda", "#bfd3e6", "#edf8fb"],
+    8: ["#6e016b", "#88419d", "#8c6bb1", "#8c96c6", "#9ebcda", "#bfd3e6", "#e0ecf4", "#f7fcfd"],
+    9: ["#4d004b", "#810f7c", "#88419d", "#8c6bb1", "#8c96c6", "#9ebcda", "#bfd3e6", "#e0ecf4", "#f7fcfd"]
+  },
+  "bokeh_RdPu": {
+    3: ["#c51b8a", "#fa9fb5", "#fde0dd"],
+    4: ["#ae017e", "#f768a1", "#fbb4b9", "#feebe2"],
+    5: ["#7a0177", "#c51b8a", "#f768a1", "#fbb4b9", "#feebe2"],
+    6: ["#7a0177", "#c51b8a", "#f768a1", "#fa9fb5", "#fcc5c0", "#feebe2"],
+    7: ["#7a0177", "#ae017e", "#dd3497", "#f768a1", "#fa9fb5", "#fcc5c0", "#feebe2"],
+    8: ["#7a0177", "#ae017e", "#dd3497", "#f768a1", "#fa9fb5", "#fcc5c0", "#fde0dd", "#fff7f3"],
+    9: ["#49006a", "#7a0177", "#ae017e", "#dd3497", "#f768a1", "#fa9fb5", "#fcc5c0", "#fde0dd", "#fff7f3"]
+  },
+  "bokeh_PuRd": {
+    3: ["#dd1c77", "#c994c7", "#e7e1ef"],
+    4: ["#ce1256", "#df65b0", "#d7b5d8", "#f1eef6"],
+    5: ["#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#f1eef6"],
+    6: ["#980043", "#dd1c77", "#df65b0", "#c994c7", "#d4b9da", "#f1eef6"],
+    7: ["#91003f", "#ce1256", "#e7298a", "#df65b0", "#c994c7", "#d4b9da", "#f1eef6"],
+    8: ["#91003f", "#ce1256", "#e7298a", "#df65b0", "#c994c7", "#d4b9da", "#e7e1ef", "#f7f4f9"],
+    9: ["#67001f", "#980043", "#ce1256", "#e7298a", "#df65b0", "#c994c7", "#d4b9da", "#e7e1ef", "#f7f4f9"]
+  },
+  "bokeh_OrRd": {
+    3: ["#e34a33", "#fdbb84", "#fee8c8"],
+    4: ["#d7301f", "#fc8d59", "#fdcc8a", "#fef0d9"],
+    5: ["#b30000", "#e34a33", "#fc8d59", "#fdcc8a", "#fef0d9"],
+    6: ["#b30000", "#e34a33", "#fc8d59", "#fdbb84", "#fdd49e", "#fef0d9"],
+    7: ["#990000", "#d7301f", "#ef6548", "#fc8d59", "#fdbb84", "#fdd49e", "#fef0d9"],
+    8: ["#990000", "#d7301f", "#ef6548", "#fc8d59", "#fdbb84", "#fdd49e", "#fee8c8", "#fff7ec"],
+    9: ["#7f0000", "#b30000", "#d7301f", "#ef6548", "#fc8d59", "#fdbb84", "#fdd49e", "#fee8c8", "#fff7ec"]
+  },
+  "bokeh_YlOrRd": {
+    3: ["#f03b20", "#feb24c", "#ffeda0"],
+    4: ["#e31a1c", "#fd8d3c", "#fecc5c", "#ffffb2"],
+    5: ["#bd0026", "#f03b20", "#fd8d3c", "#fecc5c", "#ffffb2"],
+    6: ["#bd0026", "#f03b20", "#fd8d3c", "#feb24c", "#fed976", "#ffffb2"],
+    7: ["#b10026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffffb2"],
+    8: ["#b10026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffeda0", "#ffffcc"],
+    9: ["#800026", "#bd0026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffeda0", "#ffffcc"]
+  },
+  "bokeh_YlOrBr": {
+    3: ["#d95f0e", "#fec44f", "#fff7bc"],
+    4: ["#cc4c02", "#fe9929", "#fed98e", "#ffffd4"],
+    5: ["#993404", "#d95f0e", "#fe9929", "#fed98e", "#ffffd4"],
+    6: ["#993404", "#d95f0e", "#fe9929", "#fec44f", "#fee391", "#ffffd4"],
+    7: ["#8c2d04", "#cc4c02", "#ec7014", "#fe9929", "#fec44f", "#fee391", "#ffffd4"],
+    8: ["#8c2d04", "#cc4c02", "#ec7014", "#fe9929", "#fec44f", "#fee391", "#fff7bc", "#ffffe5"],
+    9: ["#662506", "#993404", "#cc4c02", "#ec7014", "#fe9929", "#fec44f", "#fee391", "#fff7bc", "#ffffe5"]
+  },
+  "bokeh_Purples": {
+    3: ["#756bb1", "#bcbddc", "#efedf5"],
+    4: ["#6a51a3", "#9e9ac8", "#cbc9e2", "#f2f0f7"],
+    5: ["#54278f", "#756bb1", "#9e9ac8", "#cbc9e2", "#f2f0f7"],
+    6: ["#54278f", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#f2f0f7"],
+    7: ["#4a1486", "#6a51a3", "#807dba", "#9e9ac8", "#bcbddc", "#dadaeb", "#f2f0f7"],
+    8: ["#4a1486", "#6a51a3", "#807dba", "#9e9ac8", "#bcbddc", "#dadaeb", "#efedf5", "#fcfbfd"],
+    9: ["#3f007d", "#54278f", "#6a51a3", "#807dba", "#9e9ac8", "#bcbddc", "#dadaeb", "#efedf5", "#fcfbfd"]
+  },
+  "bokeh_Blues": {
+    3: ["#3182bd", "#9ecae1", "#deebf7"],
+    4: ["#2171b5", "#6baed6", "#bdd7e7", "#eff3ff"],
+    5: ["#08519c", "#3182bd", "#6baed6", "#bdd7e7", "#eff3ff"],
+    6: ["#08519c", "#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#eff3ff"],
+    7: ["#084594", "#2171b5", "#4292c6", "#6baed6", "#9ecae1", "#c6dbef", "#eff3ff"],
+    8: ["#084594", "#2171b5", "#4292c6", "#6baed6", "#9ecae1", "#c6dbef", "#deebf7", "#f7fbff"],
+    9: ["#08306b", "#08519c", "#2171b5", "#4292c6", "#6baed6", "#9ecae1", "#c6dbef", "#deebf7", "#f7fbff"]
+  },
+  "bokeh_Greens": {
+    3: ["#31a354", "#a1d99b", "#e5f5e0"],
+    4: ["#238b45", "#74c476", "#bae4b3", "#edf8e9"],
+    5: ["#006d2c", "#31a354", "#74c476", "#bae4b3", "#edf8e9"],
+    6: ["#006d2c", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#edf8e9"],
+    7: ["#005a32", "#238b45", "#41ab5d", "#74c476", "#a1d99b", "#c7e9c0", "#edf8e9"],
+    8: ["#005a32", "#238b45", "#41ab5d", "#74c476", "#a1d99b", "#c7e9c0", "#e5f5e0", "#f7fcf5"],
+    9: ["#00441b", "#006d2c", "#238b45", "#41ab5d", "#74c476", "#a1d99b", "#c7e9c0", "#e5f5e0", "#f7fcf5"]
+  },
+  "bokeh_Oranges": {
+    3: ["#e6550d", "#fdae6b", "#fee6ce"],
+    4: ["#d94701", "#fd8d3c", "#fdbe85", "#feedde"],
+    5: ["#a63603", "#e6550d", "#fd8d3c", "#fdbe85", "#feedde"],
+    6: ["#a63603", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#feedde"],
+    7: ["#8c2d04", "#d94801", "#f16913", "#fd8d3c", "#fdae6b", "#fdd0a2", "#feedde"],
+    8: ["#8c2d04", "#d94801", "#f16913", "#fd8d3c", "#fdae6b", "#fdd0a2", "#fee6ce", "#fff5eb"],
+    9: ["#7f2704", "#a63603", "#d94801", "#f16913", "#fd8d3c", "#fdae6b", "#fdd0a2", "#fee6ce", "#fff5eb"]
+  },
+  "bokeh_Reds": {
+    3: ["#de2d26", "#fc9272", "#fee0d2"],
+    4: ["#cb181d", "#fb6a4a", "#fcae91", "#fee5d9"],
+    5: ["#a50f15", "#de2d26", "#fb6a4a", "#fcae91", "#fee5d9"],
+    6: ["#a50f15", "#de2d26", "#fb6a4a", "#fc9272", "#fcbba1", "#fee5d9"],
+    7: ["#99000d", "#cb181d", "#ef3b2c", "#fb6a4a", "#fc9272", "#fcbba1", "#fee5d9"],
+    8: ["#99000d", "#cb181d", "#ef3b2c", "#fb6a4a", "#fc9272", "#fcbba1", "#fee0d2", "#fff5f0"],
+    9: ["#67000d", "#a50f15", "#cb181d", "#ef3b2c", "#fb6a4a", "#fc9272", "#fcbba1", "#fee0d2", "#fff5f0"]
+  },
+  "bokeh_Greys": {
+    3: ["#636363", "#bdbdbd", "#f0f0f0"],
+    4: ["#525252", "#969696", "#cccccc", "#f7f7f7"],
+    5: ["#252525", "#636363", "#969696", "#cccccc", "#f7f7f7"],
+    6: ["#252525", "#636363", "#969696", "#bdbdbd", "#d9d9d9", "#f7f7f7"],
+    7: ["#252525", "#525252", "#737373", "#969696", "#bdbdbd", "#d9d9d9", "#f7f7f7"],
+    8: ["#252525", "#525252", "#737373", "#969696", "#bdbdbd", "#d9d9d9", "#f0f0f0", "#ffffff"],
+    9: ["#000000", "#252525", "#525252", "#737373", "#969696", "#bdbdbd", "#d9d9d9", "#f0f0f0", "#ffffff"],
+    10: ["#000000", "#1c1c1c", "#383838", "#555555", "#717171", "#8d8d8d", "#aaaaaa", "#c6c6c6", "#e2e2e2", "#ffffff"],
+    11: ["#000000", "#191919", "#333333", "#4c4c4c", "#666666", "#7f7f7f", "#999999", "#b2b2b2", "#cccccc", "#e5e5e5", "#ffffff"],
+    256: ["#000000", "#010101", "#020202", "#030303", "#040404", "#050505", "#060606", "#070707", "#080808", "#090909", "#0a0a0a", "#0b0b0b", "#0c0c0c", "#0d0d0d", "#0e0e0e", "#0f0f0f", "#101010", "#111111", "#121212", "#131313", "#141414", "#151515", "#161616", "#171717", "#181818", "#191919", "#1a1a1a", "#1b1b1b", "#1c1c1c", "#1d1d1d", "#1e1e1e", "#1f1f1f", "#202020", "#212121", "#222222", "#232323", "#242424", "#252525", "#262626", "#272727", "#282828", "#292929", "#2a2a2a", "#2b2b2b", "#2c2c2c", "#2d2d2d", "#2e2e2e", "#2f2f2f", "#303030", "#313131", "#323232", "#333333", "#343434", "#353535", "#363636", "#373737", "#383838", "#393939", "#3a3a3a", "#3b3b3b", "#3c3c3c", "#3d3d3d", "#3e3e3e", "#3f3f3f", "#404040", "#414141", "#424242", "#434343", "#444444", "#454545", "#464646", "#474747", "#484848", "#494949", "#4a4a4a", "#4b4b4b", "#4c4c4c", "#4d4d4d", "#4e4e4e", "#4f4f4f", "#505050", "#515151", "#525252", "#535353", "#545454", "#555555", "#565656", "#575757", "#585858", "#595959", "#5a5a5a", "#5b5b5b", "#5c5c5c", "#5d5d5d", "#5e5e5e", "#5f5f5f", "#606060", "#616161", "#626262", "#636363", "#646464", "#656565", "#666666", "#676767", "#686868", "#696969", "#6a6a6a", "#6b6b6b", "#6c6c6c", "#6d6d6d", "#6e6e6e", "#6f6f6f", "#707070", "#717171", "#727272", "#737373", "#747474", "#757575", "#767676", "#777777", "#787878", "#797979", "#7a7a7a", "#7b7b7b", "#7c7c7c", "#7d7d7d", "#7e7e7e", "#7f7f7f", "#808080", "#818181", "#828282", "#838383", "#848484", "#858585", "#868686", "#878787", "#888888", "#898989", "#8a8a8a", "#8b8b8b", "#8c8c8c", "#8d8d8d", "#8e8e8e", "#8f8f8f", "#909090", "#919191", "#929292", "#939393", "#949494", "#959595", "#969696", "#979797", "#989898", "#999999", "#9a9a9a", "#9b9b9b", "#9c9c9c", "#9d9d9d", "#9e9e9e", "#9f9f9f", "#a0a0a0", "#a1a1a1", "#a2a2a2", "#a3a3a3", "#a4a4a4", "#a5a5a5", "#a6a6a6", "#a7a7a7", "#a8a8a8", "#a9a9a9", "#aaaaaa", "#ababab", "#acacac", "#adadad", "#aeaeae", "#afafaf", "#b0b0b0", "#b1b1b1", "#b2b2b2", "#b3b3b3", "#b4b4b4", "#b5b5b5", "#b6b6b6", "#b7b7b7", "#b8b8b8", "#b9b9b9", "#bababa", "#bbbbbb", "#bcbcbc", "#bdbdbd", "#bebebe", "#bfbfbf", "#c0c0c0", "#c1c1c1", "#c2c2c2", "#c3c3c3", "#c4c4c4", "#c5c5c5", "#c6c6c6", "#c7c7c7", "#c8c8c8", "#c9c9c9", "#cacaca", "#cbcbcb", "#cccccc", "#cdcdcd", "#cecece", "#cfcfcf", "#d0d0d0", "#d1d1d1", "#d2d2d2", "#d3d3d3", "#d4d4d4", "#d5d5d5", "#d6d6d6", "#d7d7d7", "#d8d8d8", "#d9d9d9", "#dadada", "#dbdbdb", "#dcdcdc", "#dddddd", "#dedede", "#dfdfdf", "#e0e0e0", "#e1e1e1", "#e2e2e2", "#e3e3e3", "#e4e4e4", "#e5e5e5", "#e6e6e6", "#e7e7e7", "#e8e8e8", "#e9e9e9", "#eaeaea", "#ebebeb", "#ececec", "#ededed", "#eeeeee", "#efefef", "#f0f0f0", "#f1f1f1", "#f2f2f2", "#f3f3f3", "#f4f4f4", "#f5f5f5", "#f6f6f6", "#f7f7f7", "#f8f8f8", "#f9f9f9", "#fafafa", "#fbfbfb", "#fcfcfc", "#fdfdfd", "#fefefe", "#ffffff"]
+  },
+  "bokeh_PuOr": {
+    3: ["#998ec3", "#f7f7f7", "#f1a340"],
+    4: ["#5e3c99", "#b2abd2", "#fdb863", "#e66101"],
+    5: ["#5e3c99", "#b2abd2", "#f7f7f7", "#fdb863", "#e66101"],
+    6: ["#542788", "#998ec3", "#d8daeb", "#fee0b6", "#f1a340", "#b35806"],
+    7: ["#542788", "#998ec3", "#d8daeb", "#f7f7f7", "#fee0b6", "#f1a340", "#b35806"],
+    8: ["#542788", "#8073ac", "#b2abd2", "#d8daeb", "#fee0b6", "#fdb863", "#e08214", "#b35806"],
+    9: ["#542788", "#8073ac", "#b2abd2", "#d8daeb", "#f7f7f7", "#fee0b6", "#fdb863", "#e08214", "#b35806"],
+    10: ["#2d004b", "#542788", "#8073ac", "#b2abd2", "#d8daeb", "#fee0b6", "#fdb863", "#e08214", "#b35806", "#7f3b08"],
+    11: ["#2d004b", "#542788", "#8073ac", "#b2abd2", "#d8daeb", "#f7f7f7", "#fee0b6", "#fdb863", "#e08214", "#b35806", "#7f3b08"]
+  },
+  "bokeh_BrBG": {
+    3: ["#5ab4ac", "#f5f5f5", "#d8b365"],
+    4: ["#018571", "#80cdc1", "#dfc27d", "#a6611a"],
+    5: ["#018571", "#80cdc1", "#f5f5f5", "#dfc27d", "#a6611a"],
+    6: ["#01665e", "#5ab4ac", "#c7eae5", "#f6e8c3", "#d8b365", "#8c510a"],
+    7: ["#01665e", "#5ab4ac", "#c7eae5", "#f5f5f5", "#f6e8c3", "#d8b365", "#8c510a"],
+    8: ["#01665e", "#35978f", "#80cdc1", "#c7eae5", "#f6e8c3", "#dfc27d", "#bf812d", "#8c510a"],
+    9: ["#01665e", "#35978f", "#80cdc1", "#c7eae5", "#f5f5f5", "#f6e8c3", "#dfc27d", "#bf812d", "#8c510a"],
+    10: ["#003c30", "#01665e", "#35978f", "#80cdc1", "#c7eae5", "#f6e8c3", "#dfc27d", "#bf812d", "#8c510a", "#543005"],
+    11: ["#003c30", "#01665e", "#35978f", "#80cdc1", "#c7eae5", "#f5f5f5", "#f6e8c3", "#dfc27d", "#bf812d", "#8c510a", "#543005"]
+  },
+  "bokeh_PRGn": {
+    3: ["#7fbf7b", "#f7f7f7", "#af8dc3"],
+    4: ["#008837", "#a6dba0", "#c2a5cf", "#7b3294"],
+    5: ["#008837", "#a6dba0", "#f7f7f7", "#c2a5cf", "#7b3294"],
+    6: ["#1b7837", "#7fbf7b", "#d9f0d3", "#e7d4e8", "#af8dc3", "#762a83"],
+    7: ["#1b7837", "#7fbf7b", "#d9f0d3", "#f7f7f7", "#e7d4e8", "#af8dc3", "#762a83"],
+    8: ["#1b7837", "#5aae61", "#a6dba0", "#d9f0d3", "#e7d4e8", "#c2a5cf", "#9970ab", "#762a83"],
+    9: ["#1b7837", "#5aae61", "#a6dba0", "#d9f0d3", "#f7f7f7", "#e7d4e8", "#c2a5cf", "#9970ab", "#762a83"],
+    10: ["#00441b", "#1b7837", "#5aae61", "#a6dba0", "#d9f0d3", "#e7d4e8", "#c2a5cf", "#9970ab", "#762a83", "#40004b"],
+    11: ["#00441b", "#1b7837", "#5aae61", "#a6dba0", "#d9f0d3", "#f7f7f7", "#e7d4e8", "#c2a5cf", "#9970ab", "#762a83", "#40004b"]
+  },
+  "bokeh_PiYG": {
+    3: ["#a1d76a", "#f7f7f7", "#e9a3c9"],
+    4: ["#4dac26", "#b8e186", "#f1b6da", "#d01c8b"],
+    5: ["#4dac26", "#b8e186", "#f7f7f7", "#f1b6da", "#d01c8b"],
+    6: ["#4d9221", "#a1d76a", "#e6f5d0", "#fde0ef", "#e9a3c9", "#c51b7d"],
+    7: ["#4d9221", "#a1d76a", "#e6f5d0", "#f7f7f7", "#fde0ef", "#e9a3c9", "#c51b7d"],
+    8: ["#4d9221", "#7fbc41", "#b8e186", "#e6f5d0", "#fde0ef", "#f1b6da", "#de77ae", "#c51b7d"],
+    9: ["#4d9221", "#7fbc41", "#b8e186", "#e6f5d0", "#f7f7f7", "#fde0ef", "#f1b6da", "#de77ae", "#c51b7d"],
+    10: ["#276419", "#4d9221", "#7fbc41", "#b8e186", "#e6f5d0", "#fde0ef", "#f1b6da", "#de77ae", "#c51b7d", "#8e0152"],
+    11: ["#276419", "#4d9221", "#7fbc41", "#b8e186", "#e6f5d0", "#f7f7f7", "#fde0ef", "#f1b6da", "#de77ae", "#c51b7d", "#8e0152"]
+  },
+  "bokeh_RdBu": {
+    3: ["#67a9cf", "#f7f7f7", "#ef8a62"],
+    4: ["#0571b0", "#92c5de", "#f4a582", "#ca0020"],
+    5: ["#0571b0", "#92c5de", "#f7f7f7", "#f4a582", "#ca0020"],
+    6: ["#2166ac", "#67a9cf", "#d1e5f0", "#fddbc7", "#ef8a62", "#b2182b"],
+    7: ["#2166ac", "#67a9cf", "#d1e5f0", "#f7f7f7", "#fddbc7", "#ef8a62", "#b2182b"],
+    8: ["#2166ac", "#4393c3", "#92c5de", "#d1e5f0", "#fddbc7", "#f4a582", "#d6604d", "#b2182b"],
+    9: ["#2166ac", "#4393c3", "#92c5de", "#d1e5f0", "#f7f7f7", "#fddbc7", "#f4a582", "#d6604d", "#b2182b"],
+    10: ["#053061", "#2166ac", "#4393c3", "#92c5de", "#d1e5f0", "#fddbc7", "#f4a582", "#d6604d", "#b2182b", "#67001f"],
+    11: ["#053061", "#2166ac", "#4393c3", "#92c5de", "#d1e5f0", "#f7f7f7", "#fddbc7", "#f4a582", "#d6604d", "#b2182b", "#67001f"]
+  },
+  "bokeh_RdGy": {
+    3: ["#999999", "#ffffff", "#ef8a62"],
+    4: ["#404040", "#bababa", "#f4a582", "#ca0020"],
+    5: ["#404040", "#bababa", "#ffffff", "#f4a582", "#ca0020"],
+    6: ["#4d4d4d", "#999999", "#e0e0e0", "#fddbc7", "#ef8a62", "#b2182b"],
+    7: ["#4d4d4d", "#999999", "#e0e0e0", "#ffffff", "#fddbc7", "#ef8a62", "#b2182b"],
+    8: ["#4d4d4d", "#878787", "#bababa", "#e0e0e0", "#fddbc7", "#f4a582", "#d6604d", "#b2182b"],
+    9: ["#4d4d4d", "#878787", "#bababa", "#e0e0e0", "#ffffff", "#fddbc7", "#f4a582", "#d6604d", "#b2182b"],
+    10: ["#1a1a1a", "#4d4d4d", "#878787", "#bababa", "#e0e0e0", "#fddbc7", "#f4a582", "#d6604d", "#b2182b", "#67001f"],
+    11: ["#1a1a1a", "#4d4d4d", "#878787", "#bababa", "#e0e0e0", "#ffffff", "#fddbc7", "#f4a582", "#d6604d", "#b2182b", "#67001f"]
+  },
+  "bokeh_RdYlBu": {
+    3: ["#91bfdb", "#ffffbf", "#fc8d59"],
+    4: ["#2c7bb6", "#abd9e9", "#fdae61", "#d7191c"],
+    5: ["#2c7bb6", "#abd9e9", "#ffffbf", "#fdae61", "#d7191c"],
+    6: ["#4575b4", "#91bfdb", "#e0f3f8", "#fee090", "#fc8d59", "#d73027"],
+    7: ["#4575b4", "#91bfdb", "#e0f3f8", "#ffffbf", "#fee090", "#fc8d59", "#d73027"],
+    8: ["#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#fee090", "#fdae61", "#f46d43", "#d73027"],
+    9: ["#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#ffffbf", "#fee090", "#fdae61", "#f46d43", "#d73027"],
+    10: ["#313695", "#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#fee090", "#fdae61", "#f46d43", "#d73027", "#a50026"],
+    11: ["#313695", "#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#ffffbf", "#fee090", "#fdae61", "#f46d43", "#d73027", "#a50026"]
+  },
+  "bokeh_Spectral": {
+    3: ["#99d594", "#ffffbf", "#fc8d59"],
+    4: ["#2b83ba", "#abdda4", "#fdae61", "#d7191c"],
+    5: ["#2b83ba", "#abdda4", "#ffffbf", "#fdae61", "#d7191c"],
+    6: ["#3288bd", "#99d594", "#e6f598", "#fee08b", "#fc8d59", "#d53e4f"],
+    7: ["#3288bd", "#99d594", "#e6f598", "#ffffbf", "#fee08b", "#fc8d59", "#d53e4f"],
+    8: ["#3288bd", "#66c2a5", "#abdda4", "#e6f598", "#fee08b", "#fdae61", "#f46d43", "#d53e4f"],
+    9: ["#3288bd", "#66c2a5", "#abdda4", "#e6f598", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d53e4f"],
+    10: ["#5e4fa2", "#3288bd", "#66c2a5", "#abdda4", "#e6f598", "#fee08b", "#fdae61", "#f46d43", "#d53e4f", "#9e0142"],
+    11: ["#5e4fa2", "#3288bd", "#66c2a5", "#abdda4", "#e6f598", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d53e4f", "#9e0142"]
+  },
+  "bokeh_RdYlGn": {
+    3: ["#91cf60", "#ffffbf", "#fc8d59"],
+    4: ["#1a9641", "#a6d96a", "#fdae61", "#d7191c"],
+    5: ["#1a9641", "#a6d96a", "#ffffbf", "#fdae61", "#d7191c"],
+    6: ["#1a9850", "#91cf60", "#d9ef8b", "#fee08b", "#fc8d59", "#d73027"],
+    7: ["#1a9850", "#91cf60", "#d9ef8b", "#ffffbf", "#fee08b", "#fc8d59", "#d73027"],
+    8: ["#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#fee08b", "#fdae61", "#f46d43", "#d73027"],
+    9: ["#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d73027"],
+    10: ["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"],
+    11: ["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"]
+  },
+  "bokeh_Inferno": {
+    3: ["#000003", "#ba3655", "#fcfea4"],
+    4: ["#000003", "#781c6d", "#ed6825", "#fcfea4"],
+    5: ["#000003", "#550f6d", "#ba3655", "#f98c09", "#fcfea4"],
+    6: ["#000003", "#410967", "#932567", "#dc5039", "#fba40a", "#fcfea4"],
+    7: ["#000003", "#32095d", "#781c6d", "#ba3655", "#ed6825", "#fbb318", "#fcfea4"],
+    8: ["#000003", "#270b52", "#63146e", "#9e2963", "#d24742", "#f57c15", "#fabf25", "#fcfea4"],
+    9: ["#000003", "#1f0c47", "#550f6d", "#88216a", "#ba3655", "#e35832", "#f98c09", "#f8c931", "#fcfea4"],
+    10: ["#000003", "#1a0b40", "#4a0b6a", "#781c6d", "#a42c60", "#cd4247", "#ed6825", "#fb9906", "#f7cf3a", "#fcfea4"],
+    11: ["#000003", "#160b39", "#410967", "#6a176e", "#932567", "#ba3655", "#dc5039", "#f2751a", "#fba40a", "#f6d542", "#fcfea4"],
+    256: ["#000003", "#000004", "#000006", "#010007", "#010109", "#01010b", "#02010e", "#020210", "#030212", "#040314", "#040316", "#050418", "#06041b", "#07051d", "#08061f", "#090621", "#0a0723", "#0b0726", "#0d0828", "#0e082a", "#0f092d", "#10092f", "#120a32", "#130a34", "#140b36", "#160b39", "#170b3b", "#190b3e", "#1a0b40", "#1c0c43", "#1d0c45", "#1f0c47", "#200c4a", "#220b4c", "#240b4e", "#260b50", "#270b52", "#290b54", "#2b0a56", "#2d0a58", "#2e0a5a", "#300a5c", "#32095d", "#34095f", "#350960", "#370961", "#390962", "#3b0964", "#3c0965", "#3e0966", "#400966", "#410967", "#430a68", "#450a69", "#460a69", "#480b6a", "#4a0b6a", "#4b0c6b", "#4d0c6b", "#4f0d6c", "#500d6c", "#520e6c", "#530e6d", "#550f6d", "#570f6d", "#58106d", "#5a116d", "#5b116e", "#5d126e", "#5f126e", "#60136e", "#62146e", "#63146e", "#65156e", "#66156e", "#68166e", "#6a176e", "#6b176e", "#6d186e", "#6e186e", "#70196e", "#72196d", "#731a6d", "#751b6d", "#761b6d", "#781c6d", "#7a1c6d", "#7b1d6c", "#7d1d6c", "#7e1e6c", "#801f6b", "#811f6b", "#83206b", "#85206a", "#86216a", "#88216a", "#892269", "#8b2269", "#8d2369", "#8e2468", "#902468", "#912567", "#932567", "#952666", "#962666", "#982765", "#992864", "#9b2864", "#9c2963", "#9e2963", "#a02a62", "#a12b61", "#a32b61", "#a42c60", "#a62c5f", "#a72d5f", "#a92e5e", "#ab2e5d", "#ac2f5c", "#ae305b", "#af315b", "#b1315a", "#b23259", "#b43358", "#b53357", "#b73456", "#b83556", "#ba3655", "#bb3754", "#bd3753", "#be3852", "#bf3951", "#c13a50", "#c23b4f", "#c43c4e", "#c53d4d", "#c73e4c", "#c83e4b", "#c93f4a", "#cb4049", "#cc4148", "#cd4247", "#cf4446", "#d04544", "#d14643", "#d24742", "#d44841", "#d54940", "#d64a3f", "#d74b3e", "#d94d3d", "#da4e3b", "#db4f3a", "#dc5039", "#dd5238", "#de5337", "#df5436", "#e05634", "#e25733", "#e35832", "#e45a31", "#e55b30", "#e65c2e", "#e65e2d", "#e75f2c", "#e8612b", "#e9622a", "#ea6428", "#eb6527", "#ec6726", "#ed6825", "#ed6a23", "#ee6c22", "#ef6d21", "#f06f1f", "#f0701e", "#f1721d", "#f2741c", "#f2751a", "#f37719", "#f37918", "#f47a16", "#f57c15", "#f57e14", "#f68012", "#f68111", "#f78310", "#f7850e", "#f8870d", "#f8880c", "#f88a0b", "#f98c09", "#f98e08", "#f99008", "#fa9107", "#fa9306", "#fa9506", "#fa9706", "#fb9906", "#fb9b06", "#fb9d06", "#fb9e07", "#fba007", "#fba208", "#fba40a", "#fba60b", "#fba80d", "#fbaa0e", "#fbac10", "#fbae12", "#fbb014", "#fbb116", "#fbb318", "#fbb51a", "#fbb71c", "#fbb91e", "#fabb21", "#fabd23", "#fabf25", "#fac128", "#f9c32a", "#f9c52c", "#f9c72f", "#f8c931", "#f8cb34", "#f8cd37", "#f7cf3a", "#f7d13c", "#f6d33f", "#f6d542", "#f5d745", "#f5d948", "#f4db4b", "#f4dc4f", "#f3de52", "#f3e056", "#f3e259", "#f2e45d", "#f2e660", "#f1e864", "#f1e968", "#f1eb6c", "#f1ed70", "#f1ee74", "#f1f079", "#f1f27d", "#f2f381", "#f2f485", "#f3f689", "#f4f78d", "#f5f891", "#f6fa95", "#f7fb99", "#f9fc9d", "#fafda0", "#fcfea4"]
+  },
+  "bokeh_Magma": {
+    3: ["#000003", "#b53679", "#fbfcbf"],
+    4: ["#000003", "#711f81", "#f0605d", "#fbfcbf"],
+    5: ["#000003", "#4f117b", "#b53679", "#fb8660", "#fbfcbf"],
+    6: ["#000003", "#3b0f6f", "#8c2980", "#dd4968", "#fd9f6c", "#fbfcbf"],
+    7: ["#000003", "#2b115e", "#711f81", "#b53679", "#f0605d", "#feae76", "#fbfcbf"],
+    8: ["#000003", "#221150", "#5d177e", "#972c7f", "#d1426e", "#f8755c", "#feb97f", "#fbfcbf"],
+    9: ["#000003", "#1b1044", "#4f117b", "#812581", "#b53679", "#e55063", "#fb8660", "#fec286", "#fbfcbf"],
+    10: ["#000003", "#170f3c", "#430f75", "#711f81", "#9e2e7e", "#cb3e71", "#f0605d", "#fc9366", "#fec78b", "#fbfcbf"],
+    11: ["#000003", "#140d35", "#3b0f6f", "#63197f", "#8c2980", "#b53679", "#dd4968", "#f66e5b", "#fd9f6c", "#fdcd90", "#fbfcbf"],
+    256: ["#000003", "#000004", "#000006", "#010007", "#010109", "#01010b", "#02020d", "#02020f", "#030311", "#040313", "#040415", "#050417", "#060519", "#07051b", "#08061d", "#09071f", "#0a0722", "#0b0824", "#0c0926", "#0d0a28", "#0e0a2a", "#0f0b2c", "#100c2f", "#110c31", "#120d33", "#140d35", "#150e38", "#160e3a", "#170f3c", "#180f3f", "#1a1041", "#1b1044", "#1c1046", "#1e1049", "#1f114b", "#20114d", "#221150", "#231152", "#251155", "#261157", "#281159", "#2a115c", "#2b115e", "#2d1060", "#2f1062", "#301065", "#321067", "#341068", "#350f6a", "#370f6c", "#390f6e", "#3b0f6f", "#3c0f71", "#3e0f72", "#400f73", "#420f74", "#430f75", "#450f76", "#470f77", "#481078", "#4a1079", "#4b1079", "#4d117a", "#4f117b", "#50127b", "#52127c", "#53137c", "#55137d", "#57147d", "#58157e", "#5a157e", "#5b167e", "#5d177e", "#5e177f", "#60187f", "#61187f", "#63197f", "#651a80", "#661a80", "#681b80", "#691c80", "#6b1c80", "#6c1d80", "#6e1e81", "#6f1e81", "#711f81", "#731f81", "#742081", "#762181", "#772181", "#792281", "#7a2281", "#7c2381", "#7e2481", "#7f2481", "#812581", "#822581", "#842681", "#852681", "#872781", "#892881", "#8a2881", "#8c2980", "#8d2980", "#8f2a80", "#912a80", "#922b80", "#942b80", "#952c80", "#972c7f", "#992d7f", "#9a2d7f", "#9c2e7f", "#9e2e7e", "#9f2f7e", "#a12f7e", "#a3307e", "#a4307d", "#a6317d", "#a7317d", "#a9327c", "#ab337c", "#ac337b", "#ae347b", "#b0347b", "#b1357a", "#b3357a", "#b53679", "#b63679", "#b83778", "#b93778", "#bb3877", "#bd3977", "#be3976", "#c03a75", "#c23a75", "#c33b74", "#c53c74", "#c63c73", "#c83d72", "#ca3e72", "#cb3e71", "#cd3f70", "#ce4070", "#d0416f", "#d1426e", "#d3426d", "#d4436d", "#d6446c", "#d7456b", "#d9466a", "#da4769", "#dc4869", "#dd4968", "#de4a67", "#e04b66", "#e14c66", "#e24d65", "#e44e64", "#e55063", "#e65162", "#e75262", "#e85461", "#ea5560", "#eb5660", "#ec585f", "#ed595f", "#ee5b5e", "#ee5d5d", "#ef5e5d", "#f0605d", "#f1615c", "#f2635c", "#f3655c", "#f3675b", "#f4685b", "#f56a5b", "#f56c5b", "#f66e5b", "#f6705b", "#f7715b", "#f7735c", "#f8755c", "#f8775c", "#f9795c", "#f97b5d", "#f97d5d", "#fa7f5e", "#fa805e", "#fa825f", "#fb8460", "#fb8660", "#fb8861", "#fb8a62", "#fc8c63", "#fc8e63", "#fc9064", "#fc9265", "#fc9366", "#fd9567", "#fd9768", "#fd9969", "#fd9b6a", "#fd9d6b", "#fd9f6c", "#fda16e", "#fda26f", "#fda470", "#fea671", "#fea873", "#feaa74", "#feac75", "#feae76", "#feaf78", "#feb179", "#feb37b", "#feb57c", "#feb77d", "#feb97f", "#febb80", "#febc82", "#febe83", "#fec085", "#fec286", "#fec488", "#fec689", "#fec78b", "#fec98d", "#fecb8e", "#fdcd90", "#fdcf92", "#fdd193", "#fdd295", "#fdd497", "#fdd698", "#fdd89a", "#fdda9c", "#fddc9d", "#fddd9f", "#fddfa1", "#fde1a3", "#fce3a5", "#fce5a6", "#fce6a8", "#fce8aa", "#fceaac", "#fcecae", "#fceeb0", "#fcf0b1", "#fcf1b3", "#fcf3b5", "#fcf5b7", "#fbf7b9", "#fbf9bb", "#fbfabd", "#fbfcbf"]
+  },
+  "bokeh_Plasma": {
+    3: ["#0c0786", "#ca4678", "#eff821"],
+    4: ["#0c0786", "#9b179e", "#ec7853", "#eff821"],
+    5: ["#0c0786", "#7c02a7", "#ca4678", "#f79341", "#eff821"],
+    6: ["#0c0786", "#6a00a7", "#b02a8f", "#e06461", "#fca635", "#eff821"],
+    7: ["#0c0786", "#5c00a5", "#9b179e", "#ca4678", "#ec7853", "#fdb22f", "#eff821"],
+    8: ["#0c0786", "#5201a3", "#8908a5", "#b83289", "#da5a68", "#f38748", "#fdbb2b", "#eff821"],
+    9: ["#0c0786", "#4a02a0", "#7c02a7", "#a82296", "#ca4678", "#e56b5c", "#f79341", "#fdc328", "#eff821"],
+    10: ["#0c0786", "#45039e", "#7200a8", "#9b179e", "#bc3685", "#d7566c", "#ec7853", "#fa9d3a", "#fcc726", "#eff821"],
+    11: ["#0c0786", "#40039c", "#6a00a7", "#8f0da3", "#b02a8f", "#ca4678", "#e06461", "#f1824c", "#fca635", "#fccc25", "#eff821"],
+    256: ["#0c0786", "#100787", "#130689", "#15068a", "#18068b", "#1b068c", "#1d068d", "#1f058e", "#21058f", "#230590", "#250591", "#270592", "#290593", "#2b0594", "#2d0494", "#2f0495", "#310496", "#330497", "#340498", "#360498", "#380499", "#3a049a", "#3b039a", "#3d039b", "#3f039c", "#40039c", "#42039d", "#44039e", "#45039e", "#47029f", "#49029f", "#4a02a0", "#4c02a1", "#4e02a1", "#4f02a2", "#5101a2", "#5201a3", "#5401a3", "#5601a3", "#5701a4", "#5901a4", "#5a00a5", "#5c00a5", "#5e00a5", "#5f00a6", "#6100a6", "#6200a6", "#6400a7", "#6500a7", "#6700a7", "#6800a7", "#6a00a7", "#6c00a8", "#6d00a8", "#6f00a8", "#7000a8", "#7200a8", "#7300a8", "#7500a8", "#7601a8", "#7801a8", "#7901a8", "#7b02a8", "#7c02a7", "#7e03a7", "#7f03a7", "#8104a7", "#8204a7", "#8405a6", "#8506a6", "#8607a6", "#8807a5", "#8908a5", "#8b09a4", "#8c0aa4", "#8e0ca4", "#8f0da3", "#900ea3", "#920fa2", "#9310a1", "#9511a1", "#9612a0", "#9713a0", "#99149f", "#9a159e", "#9b179e", "#9d189d", "#9e199c", "#9f1a9b", "#a01b9b", "#a21c9a", "#a31d99", "#a41e98", "#a51f97", "#a72197", "#a82296", "#a92395", "#aa2494", "#ac2593", "#ad2692", "#ae2791", "#af2890", "#b02a8f", "#b12b8f", "#b22c8e", "#b42d8d", "#b52e8c", "#b62f8b", "#b7308a", "#b83289", "#b93388", "#ba3487", "#bb3586", "#bc3685", "#bd3784", "#be3883", "#bf3982", "#c03b81", "#c13c80", "#c23d80", "#c33e7f", "#c43f7e", "#c5407d", "#c6417c", "#c7427b", "#c8447a", "#c94579", "#ca4678", "#cb4777", "#cc4876", "#cd4975", "#ce4a75", "#cf4b74", "#d04d73", "#d14e72", "#d14f71", "#d25070", "#d3516f", "#d4526e", "#d5536d", "#d6556d", "#d7566c", "#d7576b", "#d8586a", "#d95969", "#da5a68", "#db5b67", "#dc5d66", "#dc5e66", "#dd5f65", "#de6064", "#df6163", "#df6262", "#e06461", "#e16560", "#e26660", "#e3675f", "#e3685e", "#e46a5d", "#e56b5c", "#e56c5b", "#e66d5a", "#e76e5a", "#e87059", "#e87158", "#e97257", "#ea7356", "#ea7455", "#eb7654", "#ec7754", "#ec7853", "#ed7952", "#ed7b51", "#ee7c50", "#ef7d4f", "#ef7e4e", "#f0804d", "#f0814d", "#f1824c", "#f2844b", "#f2854a", "#f38649", "#f38748", "#f48947", "#f48a47", "#f58b46", "#f58d45", "#f68e44", "#f68f43", "#f69142", "#f79241", "#f79341", "#f89540", "#f8963f", "#f8983e", "#f9993d", "#f99a3c", "#fa9c3b", "#fa9d3a", "#fa9f3a", "#faa039", "#fba238", "#fba337", "#fba436", "#fca635", "#fca735", "#fca934", "#fcaa33", "#fcac32", "#fcad31", "#fdaf31", "#fdb030", "#fdb22f", "#fdb32e", "#fdb52d", "#fdb62d", "#fdb82c", "#fdb92b", "#fdbb2b", "#fdbc2a", "#fdbe29", "#fdc029", "#fdc128", "#fdc328", "#fdc427", "#fdc626", "#fcc726", "#fcc926", "#fccb25", "#fccc25", "#fcce25", "#fbd024", "#fbd124", "#fbd324", "#fad524", "#fad624", "#fad824", "#f9d924", "#f9db24", "#f8dd24", "#f8df24", "#f7e024", "#f7e225", "#f6e425", "#f6e525", "#f5e726", "#f5e926", "#f4ea26", "#f3ec26", "#f3ee26", "#f2f026", "#f2f126", "#f1f326", "#f0f525", "#f0f623", "#eff821"]
+  },
+  "bokeh_Viridis": {
+    3: ["#440154", "#208f8c", "#fde724"],
+    4: ["#440154", "#30678d", "#35b778", "#fde724"],
+    5: ["#440154", "#3b518a", "#208f8c", "#5bc862", "#fde724"],
+    6: ["#440154", "#404387", "#29788e", "#22a784", "#79d151", "#fde724"],
+    7: ["#440154", "#443982", "#30678d", "#208f8c", "#35b778", "#8dd644", "#fde724"],
+    8: ["#440154", "#46317e", "#365a8c", "#277e8e", "#1ea087", "#49c16d", "#9dd93a", "#fde724"],
+    9: ["#440154", "#472b7a", "#3b518a", "#2c718e", "#208f8c", "#27ad80", "#5bc862", "#aadb32", "#fde724"],
+    10: ["#440154", "#472777", "#3e4989", "#30678d", "#25828e", "#1e9c89", "#35b778", "#6bcd59", "#b2dd2c", "#fde724"],
+    11: ["#440154", "#482374", "#404387", "#345e8d", "#29788e", "#208f8c", "#22a784", "#42be71", "#79d151", "#bade27", "#fde724"],
+    256: ["#440154", "#440255", "#440357", "#450558", "#45065a", "#45085b", "#46095c", "#460b5e", "#460c5f", "#460e61", "#470f62", "#471163", "#471265", "#471466", "#471567", "#471669", "#47186a", "#48196b", "#481a6c", "#481c6e", "#481d6f", "#481e70", "#482071", "#482172", "#482273", "#482374", "#472575", "#472676", "#472777", "#472878", "#472a79", "#472b7a", "#472c7b", "#462d7c", "#462f7c", "#46307d", "#46317e", "#45327f", "#45347f", "#453580", "#453681", "#443781", "#443982", "#433a83", "#433b83", "#433c84", "#423d84", "#423e85", "#424085", "#414186", "#414286", "#404387", "#404487", "#3f4587", "#3f4788", "#3e4888", "#3e4989", "#3d4a89", "#3d4b89", "#3d4c89", "#3c4d8a", "#3c4e8a", "#3b508a", "#3b518a", "#3a528b", "#3a538b", "#39548b", "#39558b", "#38568b", "#38578c", "#37588c", "#37598c", "#365a8c", "#365b8c", "#355c8c", "#355d8c", "#345e8d", "#345f8d", "#33608d", "#33618d", "#32628d", "#32638d", "#31648d", "#31658d", "#31668d", "#30678d", "#30688d", "#2f698d", "#2f6a8d", "#2e6b8e", "#2e6c8e", "#2e6d8e", "#2d6e8e", "#2d6f8e", "#2c708e", "#2c718e", "#2c728e", "#2b738e", "#2b748e", "#2a758e", "#2a768e", "#2a778e", "#29788e", "#29798e", "#287a8e", "#287a8e", "#287b8e", "#277c8e", "#277d8e", "#277e8e", "#267f8e", "#26808e", "#26818e", "#25828e", "#25838d", "#24848d", "#24858d", "#24868d", "#23878d", "#23888d", "#23898d", "#22898d", "#228a8d", "#228b8d", "#218c8d", "#218d8c", "#218e8c", "#208f8c", "#20908c", "#20918c", "#1f928c", "#1f938b", "#1f948b", "#1f958b", "#1f968b", "#1e978a", "#1e988a", "#1e998a", "#1e998a", "#1e9a89", "#1e9b89", "#1e9c89", "#1e9d88", "#1e9e88", "#1e9f88", "#1ea087", "#1fa187", "#1fa286", "#1fa386", "#20a485", "#20a585", "#21a685", "#21a784", "#22a784", "#23a883", "#23a982", "#24aa82", "#25ab81", "#26ac81", "#27ad80", "#28ae7f", "#29af7f", "#2ab07e", "#2bb17d", "#2cb17d", "#2eb27c", "#2fb37b", "#30b47a", "#32b57a", "#33b679", "#35b778", "#36b877", "#38b976", "#39b976", "#3bba75", "#3dbb74", "#3ebc73", "#40bd72", "#42be71", "#44be70", "#45bf6f", "#47c06e", "#49c16d", "#4bc26c", "#4dc26b", "#4fc369", "#51c468", "#53c567", "#55c666", "#57c665", "#59c764", "#5bc862", "#5ec961", "#60c960", "#62ca5f", "#64cb5d", "#67cc5c", "#69cc5b", "#6bcd59", "#6dce58", "#70ce56", "#72cf55", "#74d054", "#77d052", "#79d151", "#7cd24f", "#7ed24e", "#81d34c", "#83d34b", "#86d449", "#88d547", "#8bd546", "#8dd644", "#90d643", "#92d741", "#95d73f", "#97d83e", "#9ad83c", "#9dd93a", "#9fd938", "#a2da37", "#a5da35", "#a7db33", "#aadb32", "#addc30", "#afdc2e", "#b2dd2c", "#b5dd2b", "#b7dd29", "#bade27", "#bdde26", "#bfdf24", "#c2df22", "#c5df21", "#c7e01f", "#cae01e", "#cde01d", "#cfe11c", "#d2e11b", "#d4e11a", "#d7e219", "#dae218", "#dce218", "#dfe318", "#e1e318", "#e4e318", "#e7e419", "#e9e419", "#ece41a", "#eee51b", "#f1e51c", "#f3e51e", "#f6e61f", "#f8e621", "#fae622", "#fde724"]
+  }
+};
+exports.BOKEH_PALETTE_DATA = BOKEH_PALETTE_DATA;
+var BOKEH_DOCS_PALETTE_DATA = {
+  "bokeh_Category10": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"],
+  "bokeh_Category20": ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"],
+  "bokeh_Category20b": ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c", "#7b4173", "#a55194", "#ce6dbd", "#de9ed6"],
+  "bokeh_Category20c": ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#636363", "#969696", "#bdbdbd", "#d9d9d9"],
+  "bokeh_Colorblind": ["#0072b2", "#e69f00", "#f0e442", "#009e73", "#56b4e9", "#d55e00", "#cc79a7", "#000000"],
+  "bokeh_Accent": ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f", "#bf5b17", "#666666"],
+  "bokeh_Dark2": ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d", "#666666"],
+  "bokeh_Paired": ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928"],
+  "bokeh_Pastel1": ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd", "#fddaec", "#f2f2f2"],
+  "bokeh_Pastel2": ["#b3e2cd", "#fdcdac", "#cbd5e8", "#f4cae4", "#e6f5c9", "#fff2ae", "#f1e2cc", "#cccccc"],
+  "bokeh_Set1": ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628", "#f781bf", "#999999"],
+  "bokeh_Set2": ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f", "#e5c494", "#b3b3b3"],
+  "bokeh_Set3": ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd", "#ccebc5", "#ffed6f"],
+  "bokeh_YlGn": ["#004529", "#004529", "#006837", "#238443", "#41ab5d", "#78c679", "#addd8e", "#d9f0a3", "#f7fcb9", "#ffffe5", "#ffffe5"],
+  "bokeh_YlGnBu": ["#081d58", "#081d58", "#253494", "#225ea8", "#1d91c0", "#41b6c4", "#7fcdbb", "#c7e9b4", "#edf8b1", "#ffffd9", "#ffffd9"],
+  "bokeh_GnBu": ["#084081", "#084081", "#0868ac", "#2b8cbe", "#4eb3d3", "#7bccc4", "#a8ddb5", "#ccebc5", "#e0f3db", "#f7fcf0", "#f7fcf0"],
+  "bokeh_BuGn": ["#00441b", "#00441b", "#006d2c", "#238b45", "#41ae76", "#66c2a4", "#99d8c9", "#ccece6", "#e5f5f9", "#f7fcfd", "#f7fcfd"],
+  "bokeh_PuBuGn": ["#014636", "#014636", "#016c59", "#02818a", "#3690c0", "#67a9cf", "#a6bddb", "#d0d1e6", "#ece2f0", "#fff7fb", "#fff7fb"],
+  "bokeh_PuBu": ["#023858", "#023858", "#045a8d", "#0570b0", "#3690c0", "#74a9cf", "#a6bddb", "#d0d1e6", "#ece7f2", "#fff7fb", "#fff7fb"],
+  "bokeh_BuPu": ["#4d004b", "#4d004b", "#810f7c", "#88419d", "#8c6bb1", "#8c96c6", "#9ebcda", "#bfd3e6", "#e0ecf4", "#f7fcfd", "#f7fcfd"],
+  "bokeh_RdPu": ["#49006a", "#49006a", "#7a0177", "#ae017e", "#dd3497", "#f768a1", "#fa9fb5", "#fcc5c0", "#fde0dd", "#fff7f3", "#fff7f3"],
+  "bokeh_PuRd": ["#67001f", "#67001f", "#980043", "#ce1256", "#e7298a", "#df65b0", "#c994c7", "#d4b9da", "#e7e1ef", "#f7f4f9", "#f7f4f9"],
+  "bokeh_OrRd": ["#7f0000", "#7f0000", "#b30000", "#d7301f", "#ef6548", "#fc8d59", "#fdbb84", "#fdd49e", "#fee8c8", "#fff7ec", "#fff7ec"],
+  "bokeh_YlOrRd": ["#800026", "#800026", "#bd0026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffeda0", "#ffffcc", "#ffffcc"],
+  "bokeh_YlOrBr": ["#662506", "#662506", "#993404", "#cc4c02", "#ec7014", "#fe9929", "#fec44f", "#fee391", "#fff7bc", "#ffffe5", "#ffffe5"],
+  "bokeh_Purples": ["#3f007d", "#3f007d", "#54278f", "#6a51a3", "#807dba", "#9e9ac8", "#bcbddc", "#dadaeb", "#efedf5", "#fcfbfd", "#fcfbfd"],
+  "bokeh_Blues": ["#08306b", "#08306b", "#08519c", "#2171b5", "#4292c6", "#6baed6", "#9ecae1", "#c6dbef", "#deebf7", "#f7fbff", "#f7fbff"],
+  "bokeh_Greens": ["#00441b", "#00441b", "#006d2c", "#238b45", "#41ab5d", "#74c476", "#a1d99b", "#c7e9c0", "#e5f5e0", "#f7fcf5", "#f7fcf5"],
+  "bokeh_Oranges": ["#7f2704", "#7f2704", "#a63603", "#d94801", "#f16913", "#fd8d3c", "#fdae6b", "#fdd0a2", "#fee6ce", "#fff5eb", "#fff5eb"],
+  "bokeh_Reds": ["#67000d", "#67000d", "#a50f15", "#cb181d", "#ef3b2c", "#fb6a4a", "#fc9272", "#fcbba1", "#fee0d2", "#fff5f0", "#fff5f0"],
+  "bokeh_Greys": ["#000000", "#191919", "#333333", "#4c4c4c", "#666666", "#808080", "#999999", "#b3b3b3", "#cccccc", "#e6e6e6", "#ffffff"],
+  "bokeh_PuOr": ["#2d004b", "#542788", "#8073ac", "#b2abd2", "#d8daeb", "#f7f7f7", "#fee0b6", "#fdb863", "#e08214", "#b35806", "#7f3b08"],
+  "bokeh_BrBG": ["#003c30", "#01665e", "#35978f", "#80cdc1", "#c7eae5", "#f5f5f5", "#f6e8c3", "#dfc27d", "#bf812d", "#8c510a", "#543005"],
+  "bokeh_PRGn": ["#00441b", "#1b7837", "#5aae61", "#a6dba0", "#d9f0d3", "#f7f7f7", "#e7d4e8", "#c2a5cf", "#9970ab", "#762a83", "#40004b"],
+  "bokeh_PiYG": ["#276419", "#4d9221", "#7fbc41", "#b8e186", "#e6f5d0", "#f7f7f7", "#fde0ef", "#f1b6da", "#de77ae", "#c51b7d", "#8e0152"],
+  "bokeh_RdBu": ["#053061", "#2166ac", "#4393c3", "#92c5de", "#d1e5f0", "#f7f7f7", "#fddbc7", "#f4a582", "#d6604d", "#b2182b", "#67001f"],
+  "bokeh_RdGy": ["#1a1a1a", "#4d4d4d", "#878787", "#bababa", "#e0e0e0", "#ffffff", "#fddbc7", "#f4a582", "#d6604d", "#b2182b", "#67001f"],
+  "bokeh_RdYlBu": ["#313695", "#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#ffffbf", "#fee090", "#fdae61", "#f46d43", "#d73027", "#a50026"],
+  "bokeh_Spectral": ["#5e4fa2", "#3288bd", "#66c2a5", "#abdda4", "#e6f598", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d53e4f", "#9e0142"],
+  "bokeh_RdYlGn": ["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"],
+  "bokeh_Inferno": ["#000003", "#160b39", "#410967", "#6a176e", "#932567", "#bb3754", "#dc5039", "#f37719", "#fba40a", "#f5d745", "#fcfea4"],
+  "bokeh_Magma": ["#000003", "#140d35", "#3b0f6f", "#63197f", "#8c2980", "#b63679", "#dd4968", "#f6705b", "#fd9f6c", "#fdcf92", "#fbfcbf"],
+  "bokeh_Plasma": ["#0c0786", "#40039c", "#6a00a7", "#8f0da3", "#b02a8f", "#cb4777", "#e06461", "#f2844b", "#fca635", "#fcce25", "#eff821"],
+  "bokeh_Viridis": ["#440154", "#482374", "#404387", "#345e8d", "#29788e", "#20908c", "#22a784", "#44be70", "#79d151", "#bdde26", "#fde724"]
+};
+exports.BOKEH_DOCS_PALETTE_DATA = BOKEH_DOCS_PALETTE_DATA;
+var BOKEH_CATEGORY_10 = "bokeh_Category10";
+exports.BOKEH_CATEGORY_10 = BOKEH_CATEGORY_10;
+var BOKEH_CATEGORY_20 = "bokeh_Category20";
+exports.BOKEH_CATEGORY_20 = BOKEH_CATEGORY_20;
+var BOKEH_CATEGORY_20_B = "bokeh_Category20b";
+exports.BOKEH_CATEGORY_20_B = BOKEH_CATEGORY_20_B;
+var BOKEH_CATEGORY_20_C = "bokeh_Category20c";
+exports.BOKEH_CATEGORY_20_C = BOKEH_CATEGORY_20_C;
+var BOKEH_COLORBLIND = "bokeh_Colorblind";
+exports.BOKEH_COLORBLIND = BOKEH_COLORBLIND;
+var BOKEH_ACCENT = "bokeh_Accent";
+exports.BOKEH_ACCENT = BOKEH_ACCENT;
+var BOKEH_DARK_2 = "bokeh_Dark2";
+exports.BOKEH_DARK_2 = BOKEH_DARK_2;
+var BOKEH_PAIRED = "bokeh_Paired";
+exports.BOKEH_PAIRED = BOKEH_PAIRED;
+var BOKEH_PASTEL_1 = "bokeh_Pastel1";
+exports.BOKEH_PASTEL_1 = BOKEH_PASTEL_1;
+var BOKEH_PASTEL_2 = "bokeh_Pastel2";
+exports.BOKEH_PASTEL_2 = BOKEH_PASTEL_2;
+var BOKEH_SET_1 = "bokeh_Set1";
+exports.BOKEH_SET_1 = BOKEH_SET_1;
+var BOKEH_SET_2 = "bokeh_Set2";
+exports.BOKEH_SET_2 = BOKEH_SET_2;
+var BOKEH_SET_3 = "bokeh_Set3";
+exports.BOKEH_SET_3 = BOKEH_SET_3;
+var BOKEH_YELLOW_GREEN = "bokeh_YlGn";
+exports.BOKEH_YELLOW_GREEN = BOKEH_YELLOW_GREEN;
+var BOKEH_YELLOW_GREEN_BLUE = "bokeh_YlGnBu";
+exports.BOKEH_YELLOW_GREEN_BLUE = BOKEH_YELLOW_GREEN_BLUE;
+var BOKEH_GREEN_BLUE = "bokeh_GnBu";
+exports.BOKEH_GREEN_BLUE = BOKEH_GREEN_BLUE;
+var BOKEH_BLUE_GREEN = "bokeh_BuGn";
+exports.BOKEH_BLUE_GREEN = BOKEH_BLUE_GREEN;
+var BOKEH_PURPLE_BLUE_GREEN = "bokeh_PuBuGn";
+exports.BOKEH_PURPLE_BLUE_GREEN = BOKEH_PURPLE_BLUE_GREEN;
+var BOKEH_PURPLE_BLUE = "bokeh_PuBu";
+exports.BOKEH_PURPLE_BLUE = BOKEH_PURPLE_BLUE;
+var BOKEH_BLUE_PURPLE = "bokeh_BuPu";
+exports.BOKEH_BLUE_PURPLE = BOKEH_BLUE_PURPLE;
+var BOKEH_RED_PURPLE = "bokeh_RdPu";
+exports.BOKEH_RED_PURPLE = BOKEH_RED_PURPLE;
+var BOKEH_PURPLE_RED = "bokeh_PuRd";
+exports.BOKEH_PURPLE_RED = BOKEH_PURPLE_RED;
+var BOKEH_ORANGE_RED = "bokeh_OrRd";
+exports.BOKEH_ORANGE_RED = BOKEH_ORANGE_RED;
+var BOKEH_YELLOW_ORANGE_RED = "bokeh_YlOrRd";
+exports.BOKEH_YELLOW_ORANGE_RED = BOKEH_YELLOW_ORANGE_RED;
+var BOKEH_YELLOW_ORANGE_BROWN = "bokeh_YlOrBr";
+exports.BOKEH_YELLOW_ORANGE_BROWN = BOKEH_YELLOW_ORANGE_BROWN;
+var BOKEH_PURPLES = "bokeh_Purples";
+exports.BOKEH_PURPLES = BOKEH_PURPLES;
+var BOKEH_BLUES = "bokeh_Blues";
+exports.BOKEH_BLUES = BOKEH_BLUES;
+var BOKEH_GREENS = "bokeh_Greens";
+exports.BOKEH_GREENS = BOKEH_GREENS;
+var BOKEH_ORANGES = "bokeh_Oranges";
+exports.BOKEH_ORANGES = BOKEH_ORANGES;
+var BOKEH_REDS = "bokeh_Reds";
+exports.BOKEH_REDS = BOKEH_REDS;
+var BOKEH_GREYS = "bokeh_Greys";
+exports.BOKEH_GREYS = BOKEH_GREYS;
+var BOKEH_PURPLE_ORANGE = "bokeh_PuOr";
+exports.BOKEH_PURPLE_ORANGE = BOKEH_PURPLE_ORANGE;
+var BOKEH_BROWN_BLUE_GREEN = "bokeh_BrBG";
+exports.BOKEH_BROWN_BLUE_GREEN = BOKEH_BROWN_BLUE_GREEN;
+var BOKEH_PURPLE_GREEN = "bokeh_PRGn";
+exports.BOKEH_PURPLE_GREEN = BOKEH_PURPLE_GREEN;
+var BOKEH_PINK_YELLOW_GREEN = "bokeh_PiYG";
+exports.BOKEH_PINK_YELLOW_GREEN = BOKEH_PINK_YELLOW_GREEN;
+var BOKEH_RED_BLUE = "bokeh_RdBu";
+exports.BOKEH_RED_BLUE = BOKEH_RED_BLUE;
+var BOKEH_RED_GREY = "bokeh_RdGy";
+exports.BOKEH_RED_GREY = BOKEH_RED_GREY;
+var BOKEH_RED_YELLOW_BLUE = "bokeh_RdYlBu";
+exports.BOKEH_RED_YELLOW_BLUE = BOKEH_RED_YELLOW_BLUE;
+var BOKEH_SPECTRAL = "bokeh_Spectral";
+exports.BOKEH_SPECTRAL = BOKEH_SPECTRAL;
+var BOKEH_RED_YELLOW_GREEN = "bokeh_RdYlGn";
+exports.BOKEH_RED_YELLOW_GREEN = BOKEH_RED_YELLOW_GREEN;
+var BOKEH_INFERNO = "bokeh_Inferno";
+exports.BOKEH_INFERNO = BOKEH_INFERNO;
+var BOKEH_MAGMA = "bokeh_Magma";
+exports.BOKEH_MAGMA = BOKEH_MAGMA;
+var BOKEH_PLASMA = "bokeh_Plasma";
+exports.BOKEH_PLASMA = BOKEH_PLASMA;
+var BOKEH_VIRIDIS = "bokeh_Viridis";
+exports.BOKEH_VIRIDIS = BOKEH_VIRIDIS;
+var _BOKEH_PALETTE_NAMES = {};
+_BOKEH_PALETTE_NAMES['BOKEH_CATEGORY_10'] = 'bokeh_Category10';
+_BOKEH_PALETTE_NAMES['BOKEH_CATEGORY_20'] = 'bokeh_Category20';
+_BOKEH_PALETTE_NAMES['BOKEH_CATEGORY_20_B'] = 'bokeh_Category20b';
+_BOKEH_PALETTE_NAMES['BOKEH_CATEGORY_20_C'] = 'bokeh_Category20c';
+_BOKEH_PALETTE_NAMES['BOKEH_COLORBLIND'] = 'bokeh_Colorblind';
+_BOKEH_PALETTE_NAMES['BOKEH_ACCENT'] = 'bokeh_Accent';
+_BOKEH_PALETTE_NAMES['BOKEH_DARK_2'] = 'bokeh_Dark2';
+_BOKEH_PALETTE_NAMES['BOKEH_PAIRED'] = 'bokeh_Paired';
+_BOKEH_PALETTE_NAMES['BOKEH_PASTEL_1'] = 'bokeh_Pastel1';
+_BOKEH_PALETTE_NAMES['BOKEH_PASTEL_2'] = 'bokeh_Pastel2';
+_BOKEH_PALETTE_NAMES['BOKEH_SET_1'] = 'bokeh_Set1';
+_BOKEH_PALETTE_NAMES['BOKEH_SET_2'] = 'bokeh_Set2';
+_BOKEH_PALETTE_NAMES['BOKEH_SET_3'] = 'bokeh_Set3';
+_BOKEH_PALETTE_NAMES['BOKEH_YELLOW_GREEN'] = 'bokeh_YlGn';
+_BOKEH_PALETTE_NAMES['BOKEH_YELLOW_GREEN_BLUE'] = 'bokeh_YlGnBu';
+_BOKEH_PALETTE_NAMES['BOKEH_GREEN_BLUE'] = 'bokeh_GnBu';
+_BOKEH_PALETTE_NAMES['BOKEH_BLUE_GREEN'] = 'bokeh_BuGn';
+_BOKEH_PALETTE_NAMES['BOKEH_PURPLE_BLUE_GREEN'] = 'bokeh_PuBuGn';
+_BOKEH_PALETTE_NAMES['BOKEH_PURPLE_BLUE'] = 'bokeh_PuBu';
+_BOKEH_PALETTE_NAMES['BOKEH_BLUE_PURPLE'] = 'bokeh_BuPu';
+_BOKEH_PALETTE_NAMES['BOKEH_RED_PURPLE'] = 'bokeh_RdPu';
+_BOKEH_PALETTE_NAMES['BOKEH_PURPLE_RED'] = 'bokeh_PuRd';
+_BOKEH_PALETTE_NAMES['BOKEH_ORANGE_RED'] = 'bokeh_OrRd';
+_BOKEH_PALETTE_NAMES['BOKEH_YELLOW_ORANGE_RED'] = 'bokeh_YlOrRd';
+_BOKEH_PALETTE_NAMES['BOKEH_YELLOW_ORANGE_BROWN'] = 'bokeh_YlOrBr';
+_BOKEH_PALETTE_NAMES['BOKEH_PURPLES'] = 'bokeh_Purples';
+_BOKEH_PALETTE_NAMES['BOKEH_BLUES'] = 'bokeh_Blues';
+_BOKEH_PALETTE_NAMES['BOKEH_GREENS'] = 'bokeh_Greens';
+_BOKEH_PALETTE_NAMES['BOKEH_ORANGES'] = 'bokeh_Oranges';
+_BOKEH_PALETTE_NAMES['BOKEH_REDS'] = 'bokeh_Reds';
+_BOKEH_PALETTE_NAMES['BOKEH_GREYS'] = 'bokeh_Greys';
+_BOKEH_PALETTE_NAMES['BOKEH_PURPLE_ORANGE'] = 'bokeh_PuOr';
+_BOKEH_PALETTE_NAMES['BOKEH_BROWN_BLUE_GREEN'] = 'bokeh_BrBG';
+_BOKEH_PALETTE_NAMES['BOKEH_PURPLE_GREEN'] = 'bokeh_PRGn';
+_BOKEH_PALETTE_NAMES['BOKEH_PINK_YELLOW_GREEN'] = 'bokeh_PiYG';
+_BOKEH_PALETTE_NAMES['BOKEH_RED_BLUE'] = 'bokeh_RdBu';
+_BOKEH_PALETTE_NAMES['BOKEH_RED_GREY'] = 'bokeh_RdGy';
+_BOKEH_PALETTE_NAMES['BOKEH_RED_YELLOW_BLUE'] = 'bokeh_RdYlBu';
+_BOKEH_PALETTE_NAMES['BOKEH_SPECTRAL'] = 'bokeh_Spectral';
+_BOKEH_PALETTE_NAMES['BOKEH_RED_YELLOW_GREEN'] = 'bokeh_RdYlGn';
+_BOKEH_PALETTE_NAMES['BOKEH_INFERNO'] = 'bokeh_Inferno';
+_BOKEH_PALETTE_NAMES['BOKEH_MAGMA'] = 'bokeh_Magma';
+_BOKEH_PALETTE_NAMES['BOKEH_PLASMA'] = 'bokeh_Plasma';
+_BOKEH_PALETTE_NAMES['BOKEH_VIRIDIS'] = 'bokeh_Viridis';
+var BOKEH_PALETTE_NAMES = _BOKEH_PALETTE_NAMES;
+exports.BOKEH_PALETTE_NAMES = BOKEH_PALETTE_NAMES;
+var _BOKEH_PALETTES = {};
+_BOKEH_PALETTES['Category10'] = BOKEH_PALETTE_DATA[BOKEH_CATEGORY_10];
+_BOKEH_PALETTES['Category20'] = BOKEH_PALETTE_DATA[BOKEH_CATEGORY_20];
+_BOKEH_PALETTES['Category20b'] = BOKEH_PALETTE_DATA[BOKEH_CATEGORY_20_B];
+_BOKEH_PALETTES['Category20c'] = BOKEH_PALETTE_DATA[BOKEH_CATEGORY_20_C];
+_BOKEH_PALETTES['Colorblind'] = BOKEH_PALETTE_DATA[BOKEH_COLORBLIND];
+_BOKEH_PALETTES['Accent'] = BOKEH_PALETTE_DATA[BOKEH_ACCENT];
+_BOKEH_PALETTES['Dark2'] = BOKEH_PALETTE_DATA[BOKEH_DARK_2];
+_BOKEH_PALETTES['Paired'] = BOKEH_PALETTE_DATA[BOKEH_PAIRED];
+_BOKEH_PALETTES['Pastel1'] = BOKEH_PALETTE_DATA[BOKEH_PASTEL_1];
+_BOKEH_PALETTES['Pastel2'] = BOKEH_PALETTE_DATA[BOKEH_PASTEL_2];
+_BOKEH_PALETTES['Set1'] = BOKEH_PALETTE_DATA[BOKEH_SET_1];
+_BOKEH_PALETTES['Set2'] = BOKEH_PALETTE_DATA[BOKEH_SET_2];
+_BOKEH_PALETTES['Set3'] = BOKEH_PALETTE_DATA[BOKEH_SET_3];
+_BOKEH_PALETTES['YlGn'] = BOKEH_PALETTE_DATA[BOKEH_YELLOW_GREEN];
+_BOKEH_PALETTES['YlGnBu'] = BOKEH_PALETTE_DATA[BOKEH_YELLOW_GREEN_BLUE];
+_BOKEH_PALETTES['GnBu'] = BOKEH_PALETTE_DATA[BOKEH_GREEN_BLUE];
+_BOKEH_PALETTES['BuGn'] = BOKEH_PALETTE_DATA[BOKEH_BLUE_GREEN];
+_BOKEH_PALETTES['PuBuGn'] = BOKEH_PALETTE_DATA[BOKEH_PURPLE_BLUE_GREEN];
+_BOKEH_PALETTES['PuBu'] = BOKEH_PALETTE_DATA[BOKEH_PURPLE_BLUE];
+_BOKEH_PALETTES['BuPu'] = BOKEH_PALETTE_DATA[BOKEH_BLUE_PURPLE];
+_BOKEH_PALETTES['RdPu'] = BOKEH_PALETTE_DATA[BOKEH_RED_PURPLE];
+_BOKEH_PALETTES['PuRd'] = BOKEH_PALETTE_DATA[BOKEH_PURPLE_RED];
+_BOKEH_PALETTES['OrRd'] = BOKEH_PALETTE_DATA[BOKEH_ORANGE_RED];
+_BOKEH_PALETTES['YlOrRd'] = BOKEH_PALETTE_DATA[BOKEH_YELLOW_ORANGE_RED];
+_BOKEH_PALETTES['YlOrBr'] = BOKEH_PALETTE_DATA[BOKEH_YELLOW_ORANGE_BROWN];
+_BOKEH_PALETTES['Purples'] = BOKEH_PALETTE_DATA[BOKEH_PURPLES];
+_BOKEH_PALETTES['Blues'] = BOKEH_PALETTE_DATA[BOKEH_BLUES];
+_BOKEH_PALETTES['Greens'] = BOKEH_PALETTE_DATA[BOKEH_GREENS];
+_BOKEH_PALETTES['Oranges'] = BOKEH_PALETTE_DATA[BOKEH_ORANGES];
+_BOKEH_PALETTES['Reds'] = BOKEH_PALETTE_DATA[BOKEH_REDS];
+_BOKEH_PALETTES['Greys'] = BOKEH_PALETTE_DATA[BOKEH_GREYS];
+_BOKEH_PALETTES['PuOr'] = BOKEH_PALETTE_DATA[BOKEH_PURPLE_ORANGE];
+_BOKEH_PALETTES['BrBG'] = BOKEH_PALETTE_DATA[BOKEH_BROWN_BLUE_GREEN];
+_BOKEH_PALETTES['PRGn'] = BOKEH_PALETTE_DATA[BOKEH_PURPLE_GREEN];
+_BOKEH_PALETTES['PiYG'] = BOKEH_PALETTE_DATA[BOKEH_PINK_YELLOW_GREEN];
+_BOKEH_PALETTES['RdBu'] = BOKEH_PALETTE_DATA[BOKEH_RED_BLUE];
+_BOKEH_PALETTES['RdGy'] = BOKEH_PALETTE_DATA[BOKEH_RED_GREY];
+_BOKEH_PALETTES['RdYlBu'] = BOKEH_PALETTE_DATA[BOKEH_RED_YELLOW_BLUE];
+_BOKEH_PALETTES['Spectral'] = BOKEH_PALETTE_DATA[BOKEH_SPECTRAL];
+_BOKEH_PALETTES['RdYlGn'] = BOKEH_PALETTE_DATA[BOKEH_RED_YELLOW_GREEN];
+_BOKEH_PALETTES['Inferno'] = BOKEH_PALETTE_DATA[BOKEH_INFERNO];
+_BOKEH_PALETTES['Magma'] = BOKEH_PALETTE_DATA[BOKEH_MAGMA];
+_BOKEH_PALETTES['Plasma'] = BOKEH_PALETTE_DATA[BOKEH_PLASMA];
+_BOKEH_PALETTES['Viridis'] = BOKEH_PALETTE_DATA[BOKEH_VIRIDIS];
+var BOKEH_PALETTES = _BOKEH_PALETTES;
+exports.BOKEH_PALETTES = BOKEH_PALETTES;
+var _BOKEH_DOCS_PALETTES = {};
+_BOKEH_DOCS_PALETTES['Category10'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_CATEGORY_10];
+_BOKEH_DOCS_PALETTES['Category20'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_CATEGORY_20];
+_BOKEH_DOCS_PALETTES['Category20b'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_CATEGORY_20_B];
+_BOKEH_DOCS_PALETTES['Category20c'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_CATEGORY_20_C];
+_BOKEH_DOCS_PALETTES['Colorblind'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_COLORBLIND];
+_BOKEH_DOCS_PALETTES['Accent'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_ACCENT];
+_BOKEH_DOCS_PALETTES['Dark2'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_DARK_2];
+_BOKEH_DOCS_PALETTES['Paired'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PAIRED];
+_BOKEH_DOCS_PALETTES['Pastel1'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PASTEL_1];
+_BOKEH_DOCS_PALETTES['Pastel2'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PASTEL_2];
+_BOKEH_DOCS_PALETTES['Set1'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_SET_1];
+_BOKEH_DOCS_PALETTES['Set2'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_SET_2];
+_BOKEH_DOCS_PALETTES['Set3'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_SET_3];
+_BOKEH_DOCS_PALETTES['YlGn'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_YELLOW_GREEN];
+_BOKEH_DOCS_PALETTES['YlGnBu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_YELLOW_GREEN_BLUE];
+_BOKEH_DOCS_PALETTES['GnBu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_GREEN_BLUE];
+_BOKEH_DOCS_PALETTES['BuGn'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_BLUE_GREEN];
+_BOKEH_DOCS_PALETTES['PuBuGn'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PURPLE_BLUE_GREEN];
+_BOKEH_DOCS_PALETTES['PuBu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PURPLE_BLUE];
+_BOKEH_DOCS_PALETTES['BuPu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_BLUE_PURPLE];
+_BOKEH_DOCS_PALETTES['RdPu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_RED_PURPLE];
+_BOKEH_DOCS_PALETTES['PuRd'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PURPLE_RED];
+_BOKEH_DOCS_PALETTES['OrRd'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_ORANGE_RED];
+_BOKEH_DOCS_PALETTES['YlOrRd'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_YELLOW_ORANGE_RED];
+_BOKEH_DOCS_PALETTES['YlOrBr'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_YELLOW_ORANGE_BROWN];
+_BOKEH_DOCS_PALETTES['Purples'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PURPLES];
+_BOKEH_DOCS_PALETTES['Blues'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_BLUES];
+_BOKEH_DOCS_PALETTES['Greens'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_GREENS];
+_BOKEH_DOCS_PALETTES['Oranges'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_ORANGES];
+_BOKEH_DOCS_PALETTES['Reds'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_REDS];
+_BOKEH_DOCS_PALETTES['Greys'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_GREYS];
+_BOKEH_DOCS_PALETTES['PuOr'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PURPLE_ORANGE];
+_BOKEH_DOCS_PALETTES['BrBG'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_BROWN_BLUE_GREEN];
+_BOKEH_DOCS_PALETTES['PRGn'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PURPLE_GREEN];
+_BOKEH_DOCS_PALETTES['PiYG'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PINK_YELLOW_GREEN];
+_BOKEH_DOCS_PALETTES['RdBu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_RED_BLUE];
+_BOKEH_DOCS_PALETTES['RdGy'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_RED_GREY];
+_BOKEH_DOCS_PALETTES['RdYlBu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_RED_YELLOW_BLUE];
+_BOKEH_DOCS_PALETTES['Spectral'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_SPECTRAL];
+_BOKEH_DOCS_PALETTES['RdYlGn'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_RED_YELLOW_GREEN];
+_BOKEH_DOCS_PALETTES['Inferno'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_INFERNO];
+_BOKEH_DOCS_PALETTES['Magma'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_MAGMA];
+_BOKEH_DOCS_PALETTES['Plasma'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PLASMA];
+_BOKEH_DOCS_PALETTES['Viridis'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_VIRIDIS];
+var BOKEH_DOCS_PALETTES = _BOKEH_DOCS_PALETTES;
+exports.BOKEH_DOCS_PALETTES = BOKEH_DOCS_PALETTES;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.VEGA_DOCS_PALETTES = exports.VEGA_PALETTES = exports.VEGA_PALETTE_NAMES = exports.VEGA_DARK_RED = exports.VEGA_DARK_MULTI = exports.VEGA_DARK_GREEN = exports.VEGA_DARK_GOLD = exports.VEGA_DARK_BLUE = exports.VEGA_LIGHT_TEAL_BLUE = exports.VEGA_LIGHT_ORANGE = exports.VEGA_LIGHT_MULTI = exports.VEGA_LIGHT_GREY_TEAL = exports.VEGA_LIGHT_GREY_RED = exports.VEGA_GOLD_RED = exports.VEGA_GOLD_ORANGE = exports.VEGA_GOLD_GREEN = exports.VEGA_WARM_GREYS = exports.VEGA_TEALS = exports.VEGA_TEAL_BLUES = exports.VEGA_BROWNS = exports.VEGA_SINEBOW = exports.VEGA_RAINBOW = exports.VEGA_PLASMA = exports.VEGA_INFERNO = exports.VEGA_MAGMA = exports.VEGA_VIRIDIS = exports.VEGA_SPECTRAL = exports.VEGA_PINK_YELLOW_GREEN = exports.VEGA_RED_YELLOW_GREEN = exports.VEGA_RED_YELLOW_BLUE = exports.VEGA_YELLOW_GREEN_BLUE = exports.VEGA_RED_GREY = exports.VEGA_RED_BLUE = exports.VEGA_PURPLE_ORANGE = exports.VEGA_PURPLE_GREEN = exports.VEGA_BROWN_BLUE_GREEN = exports.VEGA_BLUE_ORANGE = exports.VEGA_YELLOW_ORANGE_RED = exports.VEGA_YELLOW_ORANGE_BROWN = exports.VEGA_YELLOW_GREEN = exports.VEGA_RED_PURPLE = exports.VEGA_PURPLE_RED = exports.VEGA_PURPLE_BLUE_GREEN = exports.VEGA_PURPLE_BLUE = exports.VEGA_ORANGE_RED = exports.VEGA_GREEN_BLUE = exports.VEGA_BLUE_PURPLE = exports.VEGA_BLUE_GREEN = exports.VEGA_REDS = exports.VEGA_PURPLES = exports.VEGA_ORANGES = exports.VEGA_GREYS = exports.VEGA_GREENS = exports.VEGA_BLUES = exports.VEGA_SET_3 = exports.VEGA_SET_2 = exports.VEGA_SET_1 = exports.VEGA_PASTEL_2 = exports.VEGA_PASTEL_1 = exports.VEGA_PAIRED = exports.VEGA_DARK_2 = exports.VEGA_ACCENT = exports.VEGA_TABLEAU_20 = exports.VEGA_TABLEAU_10 = exports.VEGA_CATEGORY_20_C = exports.VEGA_CATEGORY_20_B = exports.VEGA_CATEGORY_20 = exports.VEGA_CATEGORY_10 = exports.VEGA_DOCS_PALETTE_DATA = exports.VEGA_PALETTE_DATA = void 0;
+var VEGA_PALETTE_DATA = {
   "vega_category10": {
     1: ["#1f77b4"],
     2: ["#1f77b4", "#ff7f0e"],
@@ -4271,8 +5403,8 @@ var VEGA_PALETTE_DATA = exports.VEGA_PALETTE_DATA = {
     9: ["#643633", "#8c3a36", "#b03e38", "#d14632", "#e75d1e", "#eb7e20", "#ed9c25", "#efb92d", "#f3d431"]
   }
 };
-
-var VEGA_DOCS_PALETTE_DATA = exports.VEGA_DOCS_PALETTE_DATA = {
+exports.VEGA_PALETTE_DATA = VEGA_PALETTE_DATA;
+var VEGA_DOCS_PALETTE_DATA = {
   "vega_category10": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"],
   "vega_category20": ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"],
   "vega_category20b": ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c", "#7b4173", "#a55194", "#ce6dbd", "#de9ed6"],
@@ -4339,73 +5471,137 @@ var VEGA_DOCS_PALETTE_DATA = exports.VEGA_DOCS_PALETTE_DATA = {
   "vega_darkmulti": ["#373737", "#373737", "#1f5287", "#197d8c", "#197d8c", "#29a869", "#95ce3f", "#95ce3f", "#ffe800", "#ffffff", "#ffffff"],
   "vega_darkred": ["#343434", "#343434", "#703633", "#9e3c38", "#cc4037", "#e75d1e", "#ec8620", "#eeab29", "#f0ce32", "#ffeb2c", "#ffeb2c"]
 };
-
-var VEGA_CATEGORY_10 = exports.VEGA_CATEGORY_10 = "vega_category10";
-var VEGA_CATEGORY_20 = exports.VEGA_CATEGORY_20 = "vega_category20";
-var VEGA_CATEGORY_20_B = exports.VEGA_CATEGORY_20_B = "vega_category20b";
-var VEGA_CATEGORY_20_C = exports.VEGA_CATEGORY_20_C = "vega_category20c";
-var VEGA_TABLEAU_10 = exports.VEGA_TABLEAU_10 = "vega_tableau10";
-var VEGA_TABLEAU_20 = exports.VEGA_TABLEAU_20 = "vega_tableau20";
-var VEGA_ACCENT = exports.VEGA_ACCENT = "vega_accent";
-var VEGA_DARK_2 = exports.VEGA_DARK_2 = "vega_dark2";
-var VEGA_PAIRED = exports.VEGA_PAIRED = "vega_paired";
-var VEGA_PASTEL_1 = exports.VEGA_PASTEL_1 = "vega_pastel1";
-var VEGA_PASTEL_2 = exports.VEGA_PASTEL_2 = "vega_pastel2";
-var VEGA_SET_1 = exports.VEGA_SET_1 = "vega_set1";
-var VEGA_SET_2 = exports.VEGA_SET_2 = "vega_set2";
-var VEGA_SET_3 = exports.VEGA_SET_3 = "vega_set3";
-var VEGA_BLUES = exports.VEGA_BLUES = "vega_blues";
-var VEGA_GREENS = exports.VEGA_GREENS = "vega_greens";
-var VEGA_GREYS = exports.VEGA_GREYS = "vega_greys";
-var VEGA_ORANGES = exports.VEGA_ORANGES = "vega_oranges";
-var VEGA_PURPLES = exports.VEGA_PURPLES = "vega_purples";
-var VEGA_REDS = exports.VEGA_REDS = "vega_reds";
-var VEGA_BLUE_GREEN = exports.VEGA_BLUE_GREEN = "vega_bluegreen";
-var VEGA_BLUE_PURPLE = exports.VEGA_BLUE_PURPLE = "vega_bluepurple";
-var VEGA_GREEN_BLUE = exports.VEGA_GREEN_BLUE = "vega_greenblue";
-var VEGA_ORANGE_RED = exports.VEGA_ORANGE_RED = "vega_orangered";
-var VEGA_PURPLE_BLUE = exports.VEGA_PURPLE_BLUE = "vega_purpleblue";
-var VEGA_PURPLE_BLUE_GREEN = exports.VEGA_PURPLE_BLUE_GREEN = "vega_purplebluegreen";
-var VEGA_PURPLE_RED = exports.VEGA_PURPLE_RED = "vega_purplered";
-var VEGA_RED_PURPLE = exports.VEGA_RED_PURPLE = "vega_redpurple";
-var VEGA_YELLOW_GREEN = exports.VEGA_YELLOW_GREEN = "vega_yellowgreen";
-var VEGA_YELLOW_ORANGE_BROWN = exports.VEGA_YELLOW_ORANGE_BROWN = "vega_yelloworangebrown";
-var VEGA_YELLOW_ORANGE_RED = exports.VEGA_YELLOW_ORANGE_RED = "vega_yelloworangered";
-var VEGA_BLUE_ORANGE = exports.VEGA_BLUE_ORANGE = "vega_blueorange";
-var VEGA_BROWN_BLUE_GREEN = exports.VEGA_BROWN_BLUE_GREEN = "vega_brownbluegreen";
-var VEGA_PURPLE_GREEN = exports.VEGA_PURPLE_GREEN = "vega_purplegreen";
-var VEGA_PURPLE_ORANGE = exports.VEGA_PURPLE_ORANGE = "vega_purpleorange";
-var VEGA_RED_BLUE = exports.VEGA_RED_BLUE = "vega_redblue";
-var VEGA_RED_GREY = exports.VEGA_RED_GREY = "vega_redgrey";
-var VEGA_YELLOW_GREEN_BLUE = exports.VEGA_YELLOW_GREEN_BLUE = "vega_yellowgreenblue";
-var VEGA_RED_YELLOW_BLUE = exports.VEGA_RED_YELLOW_BLUE = "vega_redyellowblue";
-var VEGA_RED_YELLOW_GREEN = exports.VEGA_RED_YELLOW_GREEN = "vega_redyellowgreen";
-var VEGA_PINK_YELLOW_GREEN = exports.VEGA_PINK_YELLOW_GREEN = "vega_pinkyellowgreen";
-var VEGA_SPECTRAL = exports.VEGA_SPECTRAL = "vega_spectral";
-var VEGA_VIRIDIS = exports.VEGA_VIRIDIS = "vega_viridis";
-var VEGA_MAGMA = exports.VEGA_MAGMA = "vega_magma";
-var VEGA_INFERNO = exports.VEGA_INFERNO = "vega_inferno";
-var VEGA_PLASMA = exports.VEGA_PLASMA = "vega_plasma";
-var VEGA_RAINBOW = exports.VEGA_RAINBOW = "vega_rainbow";
-var VEGA_SINEBOW = exports.VEGA_SINEBOW = "vega_sinebow";
-var VEGA_BROWNS = exports.VEGA_BROWNS = "vega_browns";
-var VEGA_TEAL_BLUES = exports.VEGA_TEAL_BLUES = "vega_tealblues";
-var VEGA_TEALS = exports.VEGA_TEALS = "vega_teals";
-var VEGA_WARM_GREYS = exports.VEGA_WARM_GREYS = "vega_warmgreys";
-var VEGA_GOLD_GREEN = exports.VEGA_GOLD_GREEN = "vega_goldgreen";
-var VEGA_GOLD_ORANGE = exports.VEGA_GOLD_ORANGE = "vega_goldorange";
-var VEGA_GOLD_RED = exports.VEGA_GOLD_RED = "vega_goldred";
-var VEGA_LIGHT_GREY_RED = exports.VEGA_LIGHT_GREY_RED = "vega_lightgreyred";
-var VEGA_LIGHT_GREY_TEAL = exports.VEGA_LIGHT_GREY_TEAL = "vega_lightgreyteal";
-var VEGA_LIGHT_MULTI = exports.VEGA_LIGHT_MULTI = "vega_lightmulti";
-var VEGA_LIGHT_ORANGE = exports.VEGA_LIGHT_ORANGE = "vega_lightorange";
-var VEGA_LIGHT_TEAL_BLUE = exports.VEGA_LIGHT_TEAL_BLUE = "vega_lighttealblue";
-var VEGA_DARK_BLUE = exports.VEGA_DARK_BLUE = "vega_darkblue";
-var VEGA_DARK_GOLD = exports.VEGA_DARK_GOLD = "vega_darkgold";
-var VEGA_DARK_GREEN = exports.VEGA_DARK_GREEN = "vega_darkgreen";
-var VEGA_DARK_MULTI = exports.VEGA_DARK_MULTI = "vega_darkmulti";
-var VEGA_DARK_RED = exports.VEGA_DARK_RED = "vega_darkred";
-
+exports.VEGA_DOCS_PALETTE_DATA = VEGA_DOCS_PALETTE_DATA;
+var VEGA_CATEGORY_10 = "vega_category10";
+exports.VEGA_CATEGORY_10 = VEGA_CATEGORY_10;
+var VEGA_CATEGORY_20 = "vega_category20";
+exports.VEGA_CATEGORY_20 = VEGA_CATEGORY_20;
+var VEGA_CATEGORY_20_B = "vega_category20b";
+exports.VEGA_CATEGORY_20_B = VEGA_CATEGORY_20_B;
+var VEGA_CATEGORY_20_C = "vega_category20c";
+exports.VEGA_CATEGORY_20_C = VEGA_CATEGORY_20_C;
+var VEGA_TABLEAU_10 = "vega_tableau10";
+exports.VEGA_TABLEAU_10 = VEGA_TABLEAU_10;
+var VEGA_TABLEAU_20 = "vega_tableau20";
+exports.VEGA_TABLEAU_20 = VEGA_TABLEAU_20;
+var VEGA_ACCENT = "vega_accent";
+exports.VEGA_ACCENT = VEGA_ACCENT;
+var VEGA_DARK_2 = "vega_dark2";
+exports.VEGA_DARK_2 = VEGA_DARK_2;
+var VEGA_PAIRED = "vega_paired";
+exports.VEGA_PAIRED = VEGA_PAIRED;
+var VEGA_PASTEL_1 = "vega_pastel1";
+exports.VEGA_PASTEL_1 = VEGA_PASTEL_1;
+var VEGA_PASTEL_2 = "vega_pastel2";
+exports.VEGA_PASTEL_2 = VEGA_PASTEL_2;
+var VEGA_SET_1 = "vega_set1";
+exports.VEGA_SET_1 = VEGA_SET_1;
+var VEGA_SET_2 = "vega_set2";
+exports.VEGA_SET_2 = VEGA_SET_2;
+var VEGA_SET_3 = "vega_set3";
+exports.VEGA_SET_3 = VEGA_SET_3;
+var VEGA_BLUES = "vega_blues";
+exports.VEGA_BLUES = VEGA_BLUES;
+var VEGA_GREENS = "vega_greens";
+exports.VEGA_GREENS = VEGA_GREENS;
+var VEGA_GREYS = "vega_greys";
+exports.VEGA_GREYS = VEGA_GREYS;
+var VEGA_ORANGES = "vega_oranges";
+exports.VEGA_ORANGES = VEGA_ORANGES;
+var VEGA_PURPLES = "vega_purples";
+exports.VEGA_PURPLES = VEGA_PURPLES;
+var VEGA_REDS = "vega_reds";
+exports.VEGA_REDS = VEGA_REDS;
+var VEGA_BLUE_GREEN = "vega_bluegreen";
+exports.VEGA_BLUE_GREEN = VEGA_BLUE_GREEN;
+var VEGA_BLUE_PURPLE = "vega_bluepurple";
+exports.VEGA_BLUE_PURPLE = VEGA_BLUE_PURPLE;
+var VEGA_GREEN_BLUE = "vega_greenblue";
+exports.VEGA_GREEN_BLUE = VEGA_GREEN_BLUE;
+var VEGA_ORANGE_RED = "vega_orangered";
+exports.VEGA_ORANGE_RED = VEGA_ORANGE_RED;
+var VEGA_PURPLE_BLUE = "vega_purpleblue";
+exports.VEGA_PURPLE_BLUE = VEGA_PURPLE_BLUE;
+var VEGA_PURPLE_BLUE_GREEN = "vega_purplebluegreen";
+exports.VEGA_PURPLE_BLUE_GREEN = VEGA_PURPLE_BLUE_GREEN;
+var VEGA_PURPLE_RED = "vega_purplered";
+exports.VEGA_PURPLE_RED = VEGA_PURPLE_RED;
+var VEGA_RED_PURPLE = "vega_redpurple";
+exports.VEGA_RED_PURPLE = VEGA_RED_PURPLE;
+var VEGA_YELLOW_GREEN = "vega_yellowgreen";
+exports.VEGA_YELLOW_GREEN = VEGA_YELLOW_GREEN;
+var VEGA_YELLOW_ORANGE_BROWN = "vega_yelloworangebrown";
+exports.VEGA_YELLOW_ORANGE_BROWN = VEGA_YELLOW_ORANGE_BROWN;
+var VEGA_YELLOW_ORANGE_RED = "vega_yelloworangered";
+exports.VEGA_YELLOW_ORANGE_RED = VEGA_YELLOW_ORANGE_RED;
+var VEGA_BLUE_ORANGE = "vega_blueorange";
+exports.VEGA_BLUE_ORANGE = VEGA_BLUE_ORANGE;
+var VEGA_BROWN_BLUE_GREEN = "vega_brownbluegreen";
+exports.VEGA_BROWN_BLUE_GREEN = VEGA_BROWN_BLUE_GREEN;
+var VEGA_PURPLE_GREEN = "vega_purplegreen";
+exports.VEGA_PURPLE_GREEN = VEGA_PURPLE_GREEN;
+var VEGA_PURPLE_ORANGE = "vega_purpleorange";
+exports.VEGA_PURPLE_ORANGE = VEGA_PURPLE_ORANGE;
+var VEGA_RED_BLUE = "vega_redblue";
+exports.VEGA_RED_BLUE = VEGA_RED_BLUE;
+var VEGA_RED_GREY = "vega_redgrey";
+exports.VEGA_RED_GREY = VEGA_RED_GREY;
+var VEGA_YELLOW_GREEN_BLUE = "vega_yellowgreenblue";
+exports.VEGA_YELLOW_GREEN_BLUE = VEGA_YELLOW_GREEN_BLUE;
+var VEGA_RED_YELLOW_BLUE = "vega_redyellowblue";
+exports.VEGA_RED_YELLOW_BLUE = VEGA_RED_YELLOW_BLUE;
+var VEGA_RED_YELLOW_GREEN = "vega_redyellowgreen";
+exports.VEGA_RED_YELLOW_GREEN = VEGA_RED_YELLOW_GREEN;
+var VEGA_PINK_YELLOW_GREEN = "vega_pinkyellowgreen";
+exports.VEGA_PINK_YELLOW_GREEN = VEGA_PINK_YELLOW_GREEN;
+var VEGA_SPECTRAL = "vega_spectral";
+exports.VEGA_SPECTRAL = VEGA_SPECTRAL;
+var VEGA_VIRIDIS = "vega_viridis";
+exports.VEGA_VIRIDIS = VEGA_VIRIDIS;
+var VEGA_MAGMA = "vega_magma";
+exports.VEGA_MAGMA = VEGA_MAGMA;
+var VEGA_INFERNO = "vega_inferno";
+exports.VEGA_INFERNO = VEGA_INFERNO;
+var VEGA_PLASMA = "vega_plasma";
+exports.VEGA_PLASMA = VEGA_PLASMA;
+var VEGA_RAINBOW = "vega_rainbow";
+exports.VEGA_RAINBOW = VEGA_RAINBOW;
+var VEGA_SINEBOW = "vega_sinebow";
+exports.VEGA_SINEBOW = VEGA_SINEBOW;
+var VEGA_BROWNS = "vega_browns";
+exports.VEGA_BROWNS = VEGA_BROWNS;
+var VEGA_TEAL_BLUES = "vega_tealblues";
+exports.VEGA_TEAL_BLUES = VEGA_TEAL_BLUES;
+var VEGA_TEALS = "vega_teals";
+exports.VEGA_TEALS = VEGA_TEALS;
+var VEGA_WARM_GREYS = "vega_warmgreys";
+exports.VEGA_WARM_GREYS = VEGA_WARM_GREYS;
+var VEGA_GOLD_GREEN = "vega_goldgreen";
+exports.VEGA_GOLD_GREEN = VEGA_GOLD_GREEN;
+var VEGA_GOLD_ORANGE = "vega_goldorange";
+exports.VEGA_GOLD_ORANGE = VEGA_GOLD_ORANGE;
+var VEGA_GOLD_RED = "vega_goldred";
+exports.VEGA_GOLD_RED = VEGA_GOLD_RED;
+var VEGA_LIGHT_GREY_RED = "vega_lightgreyred";
+exports.VEGA_LIGHT_GREY_RED = VEGA_LIGHT_GREY_RED;
+var VEGA_LIGHT_GREY_TEAL = "vega_lightgreyteal";
+exports.VEGA_LIGHT_GREY_TEAL = VEGA_LIGHT_GREY_TEAL;
+var VEGA_LIGHT_MULTI = "vega_lightmulti";
+exports.VEGA_LIGHT_MULTI = VEGA_LIGHT_MULTI;
+var VEGA_LIGHT_ORANGE = "vega_lightorange";
+exports.VEGA_LIGHT_ORANGE = VEGA_LIGHT_ORANGE;
+var VEGA_LIGHT_TEAL_BLUE = "vega_lighttealblue";
+exports.VEGA_LIGHT_TEAL_BLUE = VEGA_LIGHT_TEAL_BLUE;
+var VEGA_DARK_BLUE = "vega_darkblue";
+exports.VEGA_DARK_BLUE = VEGA_DARK_BLUE;
+var VEGA_DARK_GOLD = "vega_darkgold";
+exports.VEGA_DARK_GOLD = VEGA_DARK_GOLD;
+var VEGA_DARK_GREEN = "vega_darkgreen";
+exports.VEGA_DARK_GREEN = VEGA_DARK_GREEN;
+var VEGA_DARK_MULTI = "vega_darkmulti";
+exports.VEGA_DARK_MULTI = VEGA_DARK_MULTI;
+var VEGA_DARK_RED = "vega_darkred";
+exports.VEGA_DARK_RED = VEGA_DARK_RED;
 var _VEGA_PALETTE_NAMES = {};
 _VEGA_PALETTE_NAMES['VEGA_CATEGORY_10'] = 'vega_category10';
 _VEGA_PALETTE_NAMES['VEGA_CATEGORY_20'] = 'vega_category20';
@@ -4472,8 +5668,8 @@ _VEGA_PALETTE_NAMES['VEGA_DARK_GOLD'] = 'vega_darkgold';
 _VEGA_PALETTE_NAMES['VEGA_DARK_GREEN'] = 'vega_darkgreen';
 _VEGA_PALETTE_NAMES['VEGA_DARK_MULTI'] = 'vega_darkmulti';
 _VEGA_PALETTE_NAMES['VEGA_DARK_RED'] = 'vega_darkred';
-var VEGA_PALETTE_NAMES = exports.VEGA_PALETTE_NAMES = _VEGA_PALETTE_NAMES;
-
+var VEGA_PALETTE_NAMES = _VEGA_PALETTE_NAMES;
+exports.VEGA_PALETTE_NAMES = VEGA_PALETTE_NAMES;
 var _VEGA_PALETTES = {};
 _VEGA_PALETTES['category10'] = VEGA_PALETTE_DATA[VEGA_CATEGORY_10];
 _VEGA_PALETTES['category20'] = VEGA_PALETTE_DATA[VEGA_CATEGORY_20];
@@ -4540,8 +5736,8 @@ _VEGA_PALETTES['darkgold'] = VEGA_PALETTE_DATA[VEGA_DARK_GOLD];
 _VEGA_PALETTES['darkgreen'] = VEGA_PALETTE_DATA[VEGA_DARK_GREEN];
 _VEGA_PALETTES['darkmulti'] = VEGA_PALETTE_DATA[VEGA_DARK_MULTI];
 _VEGA_PALETTES['darkred'] = VEGA_PALETTE_DATA[VEGA_DARK_RED];
-var VEGA_PALETTES = exports.VEGA_PALETTES = _VEGA_PALETTES;
-
+var VEGA_PALETTES = _VEGA_PALETTES;
+exports.VEGA_PALETTES = VEGA_PALETTES;
 var _VEGA_DOCS_PALETTES = {};
 _VEGA_DOCS_PALETTES['category10'] = VEGA_DOCS_PALETTE_DATA[VEGA_CATEGORY_10];
 _VEGA_DOCS_PALETTES['category20'] = VEGA_DOCS_PALETTE_DATA[VEGA_CATEGORY_20];
@@ -4608,712 +5804,8 @@ _VEGA_DOCS_PALETTES['darkgold'] = VEGA_DOCS_PALETTE_DATA[VEGA_DARK_GOLD];
 _VEGA_DOCS_PALETTES['darkgreen'] = VEGA_DOCS_PALETTE_DATA[VEGA_DARK_GREEN];
 _VEGA_DOCS_PALETTES['darkmulti'] = VEGA_DOCS_PALETTE_DATA[VEGA_DARK_MULTI];
 _VEGA_DOCS_PALETTES['darkred'] = VEGA_DOCS_PALETTE_DATA[VEGA_DARK_RED];
-var VEGA_DOCS_PALETTES = exports.VEGA_DOCS_PALETTES = _VEGA_DOCS_PALETTES;
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-exports.__esModule = true;
-var BOKEH_PALETTE_DATA = exports.BOKEH_PALETTE_DATA = {
-  "bokeh_Category10": {
-    3: ["#1f77b4", "#ff7f0e", "#2ca02c"],
-    4: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"],
-    5: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"],
-    6: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
-    7: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2"],
-    8: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f"],
-    9: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22"],
-    10: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"]
-  },
-  "bokeh_Category20": {
-    3: ["#1f77b4", "#aec7e8", "#ff7f0e"],
-    4: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78"],
-    5: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c"],
-    6: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a"],
-    7: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728"],
-    8: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896"],
-    9: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd"],
-    10: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5"],
-    11: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b"],
-    12: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94"],
-    13: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2"],
-    14: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2"],
-    15: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f"],
-    16: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7"],
-    17: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22"],
-    18: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d"],
-    19: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf"],
-    20: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"]
-  },
-  "bokeh_Category20b": {
-    3: ["#393b79", "#5254a3", "#6b6ecf"],
-    4: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede"],
-    5: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939"],
-    6: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252"],
-    7: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b"],
-    8: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c"],
-    9: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31"],
-    10: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39"],
-    11: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52"],
-    12: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94"],
-    13: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39"],
-    14: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a"],
-    15: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b"],
-    16: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c"],
-    17: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c", "#7b4173"],
-    18: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c", "#7b4173", "#a55194"],
-    19: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c", "#7b4173", "#a55194", "#ce6dbd"],
-    20: ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c", "#7b4173", "#a55194", "#ce6dbd", "#de9ed6"]
-  },
-  "bokeh_Category20c": {
-    3: ["#3182bd", "#6baed6", "#9ecae1"],
-    4: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef"],
-    5: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d"],
-    6: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c"],
-    7: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b"],
-    8: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2"],
-    9: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354"],
-    10: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476"],
-    11: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b"],
-    12: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0"],
-    13: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1"],
-    14: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8"],
-    15: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc"],
-    16: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb"],
-    17: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#636363"],
-    18: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#636363", "#969696"],
-    19: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#636363", "#969696", "#bdbdbd"],
-    20: ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#636363", "#969696", "#bdbdbd", "#d9d9d9"]
-  },
-  "bokeh_Colorblind": {
-    3: ["#0072b2", "#e69f00", "#f0e442"],
-    4: ["#0072b2", "#e69f00", "#f0e442", "#009e73"],
-    5: ["#0072b2", "#e69f00", "#f0e442", "#009e73", "#56b4e9"],
-    6: ["#0072b2", "#e69f00", "#f0e442", "#009e73", "#56b4e9", "#d55e00"],
-    7: ["#0072b2", "#e69f00", "#f0e442", "#009e73", "#56b4e9", "#d55e00", "#cc79a7"],
-    8: ["#0072b2", "#e69f00", "#f0e442", "#009e73", "#56b4e9", "#d55e00", "#cc79a7", "#000000"]
-  },
-  "bokeh_Accent": {
-    3: ["#7fc97f", "#beaed4", "#fdc086"],
-    4: ["#7fc97f", "#beaed4", "#fdc086", "#ffff99"],
-    5: ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0"],
-    6: ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f"],
-    7: ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f", "#bf5b17"],
-    8: ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f", "#bf5b17", "#666666"]
-  },
-  "bokeh_Dark2": {
-    3: ["#1b9e77", "#d95f02", "#7570b3"],
-    4: ["#1b9e77", "#d95f02", "#7570b3", "#e7298a"],
-    5: ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e"],
-    6: ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02"],
-    7: ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d"],
-    8: ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d", "#666666"]
-  },
-  "bokeh_Paired": {
-    3: ["#a6cee3", "#1f78b4", "#b2df8a"],
-    4: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c"],
-    5: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99"],
-    6: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c"],
-    7: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f"],
-    8: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00"],
-    9: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6"],
-    10: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a"],
-    11: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99"],
-    12: ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928"]
-  },
-  "bokeh_Pastel1": {
-    3: ["#fbb4ae", "#b3cde3", "#ccebc5"],
-    4: ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4"],
-    5: ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6"],
-    6: ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc"],
-    7: ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd"],
-    8: ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd", "#fddaec"],
-    9: ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd", "#fddaec", "#f2f2f2"]
-  },
-  "bokeh_Pastel2": {
-    3: ["#b3e2cd", "#fdcdac", "#cbd5e8"],
-    4: ["#b3e2cd", "#fdcdac", "#cbd5e8", "#f4cae4"],
-    5: ["#b3e2cd", "#fdcdac", "#cbd5e8", "#f4cae4", "#e6f5c9"],
-    6: ["#b3e2cd", "#fdcdac", "#cbd5e8", "#f4cae4", "#e6f5c9", "#fff2ae"],
-    7: ["#b3e2cd", "#fdcdac", "#cbd5e8", "#f4cae4", "#e6f5c9", "#fff2ae", "#f1e2cc"],
-    8: ["#b3e2cd", "#fdcdac", "#cbd5e8", "#f4cae4", "#e6f5c9", "#fff2ae", "#f1e2cc", "#cccccc"]
-  },
-  "bokeh_Set1": {
-    3: ["#e41a1c", "#377eb8", "#4daf4a"],
-    4: ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3"],
-    5: ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00"],
-    6: ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33"],
-    7: ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628"],
-    8: ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628", "#f781bf"],
-    9: ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628", "#f781bf", "#999999"]
-  },
-  "bokeh_Set2": {
-    3: ["#66c2a5", "#fc8d62", "#8da0cb"],
-    4: ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3"],
-    5: ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854"],
-    6: ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f"],
-    7: ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f", "#e5c494"],
-    8: ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f", "#e5c494", "#b3b3b3"]
-  },
-  "bokeh_Set3": {
-    3: ["#8dd3c7", "#ffffb3", "#bebada"],
-    4: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072"],
-    5: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3"],
-    6: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462"],
-    7: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69"],
-    8: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5"],
-    9: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5", "#d9d9d9"],
-    10: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd"],
-    11: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd", "#ccebc5"],
-    12: ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd", "#ccebc5", "#ffed6f"]
-  },
-  "bokeh_YlGn": {
-    3: ["#31a354", "#addd8e", "#f7fcb9"],
-    4: ["#238443", "#78c679", "#c2e699", "#ffffcc"],
-    5: ["#006837", "#31a354", "#78c679", "#c2e699", "#ffffcc"],
-    6: ["#006837", "#31a354", "#78c679", "#addd8e", "#d9f0a3", "#ffffcc"],
-    7: ["#005a32", "#238443", "#41ab5d", "#78c679", "#addd8e", "#d9f0a3", "#ffffcc"],
-    8: ["#005a32", "#238443", "#41ab5d", "#78c679", "#addd8e", "#d9f0a3", "#f7fcb9", "#ffffe5"],
-    9: ["#004529", "#006837", "#238443", "#41ab5d", "#78c679", "#addd8e", "#d9f0a3", "#f7fcb9", "#ffffe5"]
-  },
-  "bokeh_YlGnBu": {
-    3: ["#2c7fb8", "#7fcdbb", "#edf8b1"],
-    4: ["#225ea8", "#41b6c4", "#a1dab4", "#ffffcc"],
-    5: ["#253494", "#2c7fb8", "#41b6c4", "#a1dab4", "#ffffcc"],
-    6: ["#253494", "#2c7fb8", "#41b6c4", "#7fcdbb", "#c7e9b4", "#ffffcc"],
-    7: ["#0c2c84", "#225ea8", "#1d91c0", "#41b6c4", "#7fcdbb", "#c7e9b4", "#ffffcc"],
-    8: ["#0c2c84", "#225ea8", "#1d91c0", "#41b6c4", "#7fcdbb", "#c7e9b4", "#edf8b1", "#ffffd9"],
-    9: ["#081d58", "#253494", "#225ea8", "#1d91c0", "#41b6c4", "#7fcdbb", "#c7e9b4", "#edf8b1", "#ffffd9"]
-  },
-  "bokeh_GnBu": {
-    3: ["#43a2ca", "#a8ddb5", "#e0f3db"],
-    4: ["#2b8cbe", "#7bccc4", "#bae4bc", "#f0f9e8"],
-    5: ["#0868ac", "#43a2ca", "#7bccc4", "#bae4bc", "#f0f9e8"],
-    6: ["#0868ac", "#43a2ca", "#7bccc4", "#a8ddb5", "#ccebc5", "#f0f9e8"],
-    7: ["#08589e", "#2b8cbe", "#4eb3d3", "#7bccc4", "#a8ddb5", "#ccebc5", "#f0f9e8"],
-    8: ["#08589e", "#2b8cbe", "#4eb3d3", "#7bccc4", "#a8ddb5", "#ccebc5", "#e0f3db", "#f7fcf0"],
-    9: ["#084081", "#0868ac", "#2b8cbe", "#4eb3d3", "#7bccc4", "#a8ddb5", "#ccebc5", "#e0f3db", "#f7fcf0"]
-  },
-  "bokeh_BuGn": {
-    3: ["#2ca25f", "#99d8c9", "#e5f5f9"],
-    4: ["#238b45", "#66c2a4", "#b2e2e2", "#edf8fb"],
-    5: ["#006d2c", "#2ca25f", "#66c2a4", "#b2e2e2", "#edf8fb"],
-    6: ["#006d2c", "#2ca25f", "#66c2a4", "#99d8c9", "#ccece6", "#edf8fb"],
-    7: ["#005824", "#238b45", "#41ae76", "#66c2a4", "#99d8c9", "#ccece6", "#edf8fb"],
-    8: ["#005824", "#238b45", "#41ae76", "#66c2a4", "#99d8c9", "#ccece6", "#e5f5f9", "#f7fcfd"],
-    9: ["#00441b", "#006d2c", "#238b45", "#41ae76", "#66c2a4", "#99d8c9", "#ccece6", "#e5f5f9", "#f7fcfd"]
-  },
-  "bokeh_PuBuGn": {
-    3: ["#1c9099", "#a6bddb", "#ece2f0"],
-    4: ["#02818a", "#67a9cf", "#bdc9e1", "#f6eff7"],
-    5: ["#016c59", "#1c9099", "#67a9cf", "#bdc9e1", "#f6eff7"],
-    6: ["#016c59", "#1c9099", "#67a9cf", "#a6bddb", "#d0d1e6", "#f6eff7"],
-    7: ["#016450", "#02818a", "#3690c0", "#67a9cf", "#a6bddb", "#d0d1e6", "#f6eff7"],
-    8: ["#016450", "#02818a", "#3690c0", "#67a9cf", "#a6bddb", "#d0d1e6", "#ece2f0", "#fff7fb"],
-    9: ["#014636", "#016c59", "#02818a", "#3690c0", "#67a9cf", "#a6bddb", "#d0d1e6", "#ece2f0", "#fff7fb"]
-  },
-  "bokeh_PuBu": {
-    3: ["#2b8cbe", "#a6bddb", "#ece7f2"],
-    4: ["#0570b0", "#74a9cf", "#bdc9e1", "#f1eef6"],
-    5: ["#045a8d", "#2b8cbe", "#74a9cf", "#bdc9e1", "#f1eef6"],
-    6: ["#045a8d", "#2b8cbe", "#74a9cf", "#a6bddb", "#d0d1e6", "#f1eef6"],
-    7: ["#034e7b", "#0570b0", "#3690c0", "#74a9cf", "#a6bddb", "#d0d1e6", "#f1eef6"],
-    8: ["#034e7b", "#0570b0", "#3690c0", "#74a9cf", "#a6bddb", "#d0d1e6", "#ece7f2", "#fff7fb"],
-    9: ["#023858", "#045a8d", "#0570b0", "#3690c0", "#74a9cf", "#a6bddb", "#d0d1e6", "#ece7f2", "#fff7fb"]
-  },
-  "bokeh_BuPu": {
-    3: ["#8856a7", "#9ebcda", "#e0ecf4"],
-    4: ["#88419d", "#8c96c6", "#b3cde3", "#edf8fb"],
-    5: ["#810f7c", "#8856a7", "#8c96c6", "#b3cde3", "#edf8fb"],
-    6: ["#810f7c", "#8856a7", "#8c96c6", "#9ebcda", "#bfd3e6", "#edf8fb"],
-    7: ["#6e016b", "#88419d", "#8c6bb1", "#8c96c6", "#9ebcda", "#bfd3e6", "#edf8fb"],
-    8: ["#6e016b", "#88419d", "#8c6bb1", "#8c96c6", "#9ebcda", "#bfd3e6", "#e0ecf4", "#f7fcfd"],
-    9: ["#4d004b", "#810f7c", "#88419d", "#8c6bb1", "#8c96c6", "#9ebcda", "#bfd3e6", "#e0ecf4", "#f7fcfd"]
-  },
-  "bokeh_RdPu": {
-    3: ["#c51b8a", "#fa9fb5", "#fde0dd"],
-    4: ["#ae017e", "#f768a1", "#fbb4b9", "#feebe2"],
-    5: ["#7a0177", "#c51b8a", "#f768a1", "#fbb4b9", "#feebe2"],
-    6: ["#7a0177", "#c51b8a", "#f768a1", "#fa9fb5", "#fcc5c0", "#feebe2"],
-    7: ["#7a0177", "#ae017e", "#dd3497", "#f768a1", "#fa9fb5", "#fcc5c0", "#feebe2"],
-    8: ["#7a0177", "#ae017e", "#dd3497", "#f768a1", "#fa9fb5", "#fcc5c0", "#fde0dd", "#fff7f3"],
-    9: ["#49006a", "#7a0177", "#ae017e", "#dd3497", "#f768a1", "#fa9fb5", "#fcc5c0", "#fde0dd", "#fff7f3"]
-  },
-  "bokeh_PuRd": {
-    3: ["#dd1c77", "#c994c7", "#e7e1ef"],
-    4: ["#ce1256", "#df65b0", "#d7b5d8", "#f1eef6"],
-    5: ["#980043", "#dd1c77", "#df65b0", "#d7b5d8", "#f1eef6"],
-    6: ["#980043", "#dd1c77", "#df65b0", "#c994c7", "#d4b9da", "#f1eef6"],
-    7: ["#91003f", "#ce1256", "#e7298a", "#df65b0", "#c994c7", "#d4b9da", "#f1eef6"],
-    8: ["#91003f", "#ce1256", "#e7298a", "#df65b0", "#c994c7", "#d4b9da", "#e7e1ef", "#f7f4f9"],
-    9: ["#67001f", "#980043", "#ce1256", "#e7298a", "#df65b0", "#c994c7", "#d4b9da", "#e7e1ef", "#f7f4f9"]
-  },
-  "bokeh_OrRd": {
-    3: ["#e34a33", "#fdbb84", "#fee8c8"],
-    4: ["#d7301f", "#fc8d59", "#fdcc8a", "#fef0d9"],
-    5: ["#b30000", "#e34a33", "#fc8d59", "#fdcc8a", "#fef0d9"],
-    6: ["#b30000", "#e34a33", "#fc8d59", "#fdbb84", "#fdd49e", "#fef0d9"],
-    7: ["#990000", "#d7301f", "#ef6548", "#fc8d59", "#fdbb84", "#fdd49e", "#fef0d9"],
-    8: ["#990000", "#d7301f", "#ef6548", "#fc8d59", "#fdbb84", "#fdd49e", "#fee8c8", "#fff7ec"],
-    9: ["#7f0000", "#b30000", "#d7301f", "#ef6548", "#fc8d59", "#fdbb84", "#fdd49e", "#fee8c8", "#fff7ec"]
-  },
-  "bokeh_YlOrRd": {
-    3: ["#f03b20", "#feb24c", "#ffeda0"],
-    4: ["#e31a1c", "#fd8d3c", "#fecc5c", "#ffffb2"],
-    5: ["#bd0026", "#f03b20", "#fd8d3c", "#fecc5c", "#ffffb2"],
-    6: ["#bd0026", "#f03b20", "#fd8d3c", "#feb24c", "#fed976", "#ffffb2"],
-    7: ["#b10026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffffb2"],
-    8: ["#b10026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffeda0", "#ffffcc"],
-    9: ["#800026", "#bd0026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffeda0", "#ffffcc"]
-  },
-  "bokeh_YlOrBr": {
-    3: ["#d95f0e", "#fec44f", "#fff7bc"],
-    4: ["#cc4c02", "#fe9929", "#fed98e", "#ffffd4"],
-    5: ["#993404", "#d95f0e", "#fe9929", "#fed98e", "#ffffd4"],
-    6: ["#993404", "#d95f0e", "#fe9929", "#fec44f", "#fee391", "#ffffd4"],
-    7: ["#8c2d04", "#cc4c02", "#ec7014", "#fe9929", "#fec44f", "#fee391", "#ffffd4"],
-    8: ["#8c2d04", "#cc4c02", "#ec7014", "#fe9929", "#fec44f", "#fee391", "#fff7bc", "#ffffe5"],
-    9: ["#662506", "#993404", "#cc4c02", "#ec7014", "#fe9929", "#fec44f", "#fee391", "#fff7bc", "#ffffe5"]
-  },
-  "bokeh_Purples": {
-    3: ["#756bb1", "#bcbddc", "#efedf5"],
-    4: ["#6a51a3", "#9e9ac8", "#cbc9e2", "#f2f0f7"],
-    5: ["#54278f", "#756bb1", "#9e9ac8", "#cbc9e2", "#f2f0f7"],
-    6: ["#54278f", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#f2f0f7"],
-    7: ["#4a1486", "#6a51a3", "#807dba", "#9e9ac8", "#bcbddc", "#dadaeb", "#f2f0f7"],
-    8: ["#4a1486", "#6a51a3", "#807dba", "#9e9ac8", "#bcbddc", "#dadaeb", "#efedf5", "#fcfbfd"],
-    9: ["#3f007d", "#54278f", "#6a51a3", "#807dba", "#9e9ac8", "#bcbddc", "#dadaeb", "#efedf5", "#fcfbfd"]
-  },
-  "bokeh_Blues": {
-    3: ["#3182bd", "#9ecae1", "#deebf7"],
-    4: ["#2171b5", "#6baed6", "#bdd7e7", "#eff3ff"],
-    5: ["#08519c", "#3182bd", "#6baed6", "#bdd7e7", "#eff3ff"],
-    6: ["#08519c", "#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#eff3ff"],
-    7: ["#084594", "#2171b5", "#4292c6", "#6baed6", "#9ecae1", "#c6dbef", "#eff3ff"],
-    8: ["#084594", "#2171b5", "#4292c6", "#6baed6", "#9ecae1", "#c6dbef", "#deebf7", "#f7fbff"],
-    9: ["#08306b", "#08519c", "#2171b5", "#4292c6", "#6baed6", "#9ecae1", "#c6dbef", "#deebf7", "#f7fbff"]
-  },
-  "bokeh_Greens": {
-    3: ["#31a354", "#a1d99b", "#e5f5e0"],
-    4: ["#238b45", "#74c476", "#bae4b3", "#edf8e9"],
-    5: ["#006d2c", "#31a354", "#74c476", "#bae4b3", "#edf8e9"],
-    6: ["#006d2c", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#edf8e9"],
-    7: ["#005a32", "#238b45", "#41ab5d", "#74c476", "#a1d99b", "#c7e9c0", "#edf8e9"],
-    8: ["#005a32", "#238b45", "#41ab5d", "#74c476", "#a1d99b", "#c7e9c0", "#e5f5e0", "#f7fcf5"],
-    9: ["#00441b", "#006d2c", "#238b45", "#41ab5d", "#74c476", "#a1d99b", "#c7e9c0", "#e5f5e0", "#f7fcf5"]
-  },
-  "bokeh_Oranges": {
-    3: ["#e6550d", "#fdae6b", "#fee6ce"],
-    4: ["#d94701", "#fd8d3c", "#fdbe85", "#feedde"],
-    5: ["#a63603", "#e6550d", "#fd8d3c", "#fdbe85", "#feedde"],
-    6: ["#a63603", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#feedde"],
-    7: ["#8c2d04", "#d94801", "#f16913", "#fd8d3c", "#fdae6b", "#fdd0a2", "#feedde"],
-    8: ["#8c2d04", "#d94801", "#f16913", "#fd8d3c", "#fdae6b", "#fdd0a2", "#fee6ce", "#fff5eb"],
-    9: ["#7f2704", "#a63603", "#d94801", "#f16913", "#fd8d3c", "#fdae6b", "#fdd0a2", "#fee6ce", "#fff5eb"]
-  },
-  "bokeh_Reds": {
-    3: ["#de2d26", "#fc9272", "#fee0d2"],
-    4: ["#cb181d", "#fb6a4a", "#fcae91", "#fee5d9"],
-    5: ["#a50f15", "#de2d26", "#fb6a4a", "#fcae91", "#fee5d9"],
-    6: ["#a50f15", "#de2d26", "#fb6a4a", "#fc9272", "#fcbba1", "#fee5d9"],
-    7: ["#99000d", "#cb181d", "#ef3b2c", "#fb6a4a", "#fc9272", "#fcbba1", "#fee5d9"],
-    8: ["#99000d", "#cb181d", "#ef3b2c", "#fb6a4a", "#fc9272", "#fcbba1", "#fee0d2", "#fff5f0"],
-    9: ["#67000d", "#a50f15", "#cb181d", "#ef3b2c", "#fb6a4a", "#fc9272", "#fcbba1", "#fee0d2", "#fff5f0"]
-  },
-  "bokeh_Greys": {
-    3: ["#636363", "#bdbdbd", "#f0f0f0"],
-    4: ["#525252", "#969696", "#cccccc", "#f7f7f7"],
-    5: ["#252525", "#636363", "#969696", "#cccccc", "#f7f7f7"],
-    6: ["#252525", "#636363", "#969696", "#bdbdbd", "#d9d9d9", "#f7f7f7"],
-    7: ["#252525", "#525252", "#737373", "#969696", "#bdbdbd", "#d9d9d9", "#f7f7f7"],
-    8: ["#252525", "#525252", "#737373", "#969696", "#bdbdbd", "#d9d9d9", "#f0f0f0", "#ffffff"],
-    9: ["#000000", "#252525", "#525252", "#737373", "#969696", "#bdbdbd", "#d9d9d9", "#f0f0f0", "#ffffff"],
-    10: ["#000000", "#1c1c1c", "#383838", "#555555", "#717171", "#8d8d8d", "#aaaaaa", "#c6c6c6", "#e2e2e2", "#ffffff"],
-    11: ["#000000", "#191919", "#333333", "#4c4c4c", "#666666", "#7f7f7f", "#999999", "#b2b2b2", "#cccccc", "#e5e5e5", "#ffffff"],
-    256: ["#000000", "#010101", "#020202", "#030303", "#040404", "#050505", "#060606", "#070707", "#080808", "#090909", "#0a0a0a", "#0b0b0b", "#0c0c0c", "#0d0d0d", "#0e0e0e", "#0f0f0f", "#101010", "#111111", "#121212", "#131313", "#141414", "#151515", "#161616", "#171717", "#181818", "#191919", "#1a1a1a", "#1b1b1b", "#1c1c1c", "#1d1d1d", "#1e1e1e", "#1f1f1f", "#202020", "#212121", "#222222", "#232323", "#242424", "#252525", "#262626", "#272727", "#282828", "#292929", "#2a2a2a", "#2b2b2b", "#2c2c2c", "#2d2d2d", "#2e2e2e", "#2f2f2f", "#303030", "#313131", "#323232", "#333333", "#343434", "#353535", "#363636", "#373737", "#383838", "#393939", "#3a3a3a", "#3b3b3b", "#3c3c3c", "#3d3d3d", "#3e3e3e", "#3f3f3f", "#404040", "#414141", "#424242", "#434343", "#444444", "#454545", "#464646", "#474747", "#484848", "#494949", "#4a4a4a", "#4b4b4b", "#4c4c4c", "#4d4d4d", "#4e4e4e", "#4f4f4f", "#505050", "#515151", "#525252", "#535353", "#545454", "#555555", "#565656", "#575757", "#585858", "#595959", "#5a5a5a", "#5b5b5b", "#5c5c5c", "#5d5d5d", "#5e5e5e", "#5f5f5f", "#606060", "#616161", "#626262", "#636363", "#646464", "#656565", "#666666", "#676767", "#686868", "#696969", "#6a6a6a", "#6b6b6b", "#6c6c6c", "#6d6d6d", "#6e6e6e", "#6f6f6f", "#707070", "#717171", "#727272", "#737373", "#747474", "#757575", "#767676", "#777777", "#787878", "#797979", "#7a7a7a", "#7b7b7b", "#7c7c7c", "#7d7d7d", "#7e7e7e", "#7f7f7f", "#808080", "#818181", "#828282", "#838383", "#848484", "#858585", "#868686", "#878787", "#888888", "#898989", "#8a8a8a", "#8b8b8b", "#8c8c8c", "#8d8d8d", "#8e8e8e", "#8f8f8f", "#909090", "#919191", "#929292", "#939393", "#949494", "#959595", "#969696", "#979797", "#989898", "#999999", "#9a9a9a", "#9b9b9b", "#9c9c9c", "#9d9d9d", "#9e9e9e", "#9f9f9f", "#a0a0a0", "#a1a1a1", "#a2a2a2", "#a3a3a3", "#a4a4a4", "#a5a5a5", "#a6a6a6", "#a7a7a7", "#a8a8a8", "#a9a9a9", "#aaaaaa", "#ababab", "#acacac", "#adadad", "#aeaeae", "#afafaf", "#b0b0b0", "#b1b1b1", "#b2b2b2", "#b3b3b3", "#b4b4b4", "#b5b5b5", "#b6b6b6", "#b7b7b7", "#b8b8b8", "#b9b9b9", "#bababa", "#bbbbbb", "#bcbcbc", "#bdbdbd", "#bebebe", "#bfbfbf", "#c0c0c0", "#c1c1c1", "#c2c2c2", "#c3c3c3", "#c4c4c4", "#c5c5c5", "#c6c6c6", "#c7c7c7", "#c8c8c8", "#c9c9c9", "#cacaca", "#cbcbcb", "#cccccc", "#cdcdcd", "#cecece", "#cfcfcf", "#d0d0d0", "#d1d1d1", "#d2d2d2", "#d3d3d3", "#d4d4d4", "#d5d5d5", "#d6d6d6", "#d7d7d7", "#d8d8d8", "#d9d9d9", "#dadada", "#dbdbdb", "#dcdcdc", "#dddddd", "#dedede", "#dfdfdf", "#e0e0e0", "#e1e1e1", "#e2e2e2", "#e3e3e3", "#e4e4e4", "#e5e5e5", "#e6e6e6", "#e7e7e7", "#e8e8e8", "#e9e9e9", "#eaeaea", "#ebebeb", "#ececec", "#ededed", "#eeeeee", "#efefef", "#f0f0f0", "#f1f1f1", "#f2f2f2", "#f3f3f3", "#f4f4f4", "#f5f5f5", "#f6f6f6", "#f7f7f7", "#f8f8f8", "#f9f9f9", "#fafafa", "#fbfbfb", "#fcfcfc", "#fdfdfd", "#fefefe", "#ffffff"]
-  },
-  "bokeh_PuOr": {
-    3: ["#998ec3", "#f7f7f7", "#f1a340"],
-    4: ["#5e3c99", "#b2abd2", "#fdb863", "#e66101"],
-    5: ["#5e3c99", "#b2abd2", "#f7f7f7", "#fdb863", "#e66101"],
-    6: ["#542788", "#998ec3", "#d8daeb", "#fee0b6", "#f1a340", "#b35806"],
-    7: ["#542788", "#998ec3", "#d8daeb", "#f7f7f7", "#fee0b6", "#f1a340", "#b35806"],
-    8: ["#542788", "#8073ac", "#b2abd2", "#d8daeb", "#fee0b6", "#fdb863", "#e08214", "#b35806"],
-    9: ["#542788", "#8073ac", "#b2abd2", "#d8daeb", "#f7f7f7", "#fee0b6", "#fdb863", "#e08214", "#b35806"],
-    10: ["#2d004b", "#542788", "#8073ac", "#b2abd2", "#d8daeb", "#fee0b6", "#fdb863", "#e08214", "#b35806", "#7f3b08"],
-    11: ["#2d004b", "#542788", "#8073ac", "#b2abd2", "#d8daeb", "#f7f7f7", "#fee0b6", "#fdb863", "#e08214", "#b35806", "#7f3b08"]
-  },
-  "bokeh_BrBG": {
-    3: ["#5ab4ac", "#f5f5f5", "#d8b365"],
-    4: ["#018571", "#80cdc1", "#dfc27d", "#a6611a"],
-    5: ["#018571", "#80cdc1", "#f5f5f5", "#dfc27d", "#a6611a"],
-    6: ["#01665e", "#5ab4ac", "#c7eae5", "#f6e8c3", "#d8b365", "#8c510a"],
-    7: ["#01665e", "#5ab4ac", "#c7eae5", "#f5f5f5", "#f6e8c3", "#d8b365", "#8c510a"],
-    8: ["#01665e", "#35978f", "#80cdc1", "#c7eae5", "#f6e8c3", "#dfc27d", "#bf812d", "#8c510a"],
-    9: ["#01665e", "#35978f", "#80cdc1", "#c7eae5", "#f5f5f5", "#f6e8c3", "#dfc27d", "#bf812d", "#8c510a"],
-    10: ["#003c30", "#01665e", "#35978f", "#80cdc1", "#c7eae5", "#f6e8c3", "#dfc27d", "#bf812d", "#8c510a", "#543005"],
-    11: ["#003c30", "#01665e", "#35978f", "#80cdc1", "#c7eae5", "#f5f5f5", "#f6e8c3", "#dfc27d", "#bf812d", "#8c510a", "#543005"]
-  },
-  "bokeh_PRGn": {
-    3: ["#7fbf7b", "#f7f7f7", "#af8dc3"],
-    4: ["#008837", "#a6dba0", "#c2a5cf", "#7b3294"],
-    5: ["#008837", "#a6dba0", "#f7f7f7", "#c2a5cf", "#7b3294"],
-    6: ["#1b7837", "#7fbf7b", "#d9f0d3", "#e7d4e8", "#af8dc3", "#762a83"],
-    7: ["#1b7837", "#7fbf7b", "#d9f0d3", "#f7f7f7", "#e7d4e8", "#af8dc3", "#762a83"],
-    8: ["#1b7837", "#5aae61", "#a6dba0", "#d9f0d3", "#e7d4e8", "#c2a5cf", "#9970ab", "#762a83"],
-    9: ["#1b7837", "#5aae61", "#a6dba0", "#d9f0d3", "#f7f7f7", "#e7d4e8", "#c2a5cf", "#9970ab", "#762a83"],
-    10: ["#00441b", "#1b7837", "#5aae61", "#a6dba0", "#d9f0d3", "#e7d4e8", "#c2a5cf", "#9970ab", "#762a83", "#40004b"],
-    11: ["#00441b", "#1b7837", "#5aae61", "#a6dba0", "#d9f0d3", "#f7f7f7", "#e7d4e8", "#c2a5cf", "#9970ab", "#762a83", "#40004b"]
-  },
-  "bokeh_PiYG": {
-    3: ["#a1d76a", "#f7f7f7", "#e9a3c9"],
-    4: ["#4dac26", "#b8e186", "#f1b6da", "#d01c8b"],
-    5: ["#4dac26", "#b8e186", "#f7f7f7", "#f1b6da", "#d01c8b"],
-    6: ["#4d9221", "#a1d76a", "#e6f5d0", "#fde0ef", "#e9a3c9", "#c51b7d"],
-    7: ["#4d9221", "#a1d76a", "#e6f5d0", "#f7f7f7", "#fde0ef", "#e9a3c9", "#c51b7d"],
-    8: ["#4d9221", "#7fbc41", "#b8e186", "#e6f5d0", "#fde0ef", "#f1b6da", "#de77ae", "#c51b7d"],
-    9: ["#4d9221", "#7fbc41", "#b8e186", "#e6f5d0", "#f7f7f7", "#fde0ef", "#f1b6da", "#de77ae", "#c51b7d"],
-    10: ["#276419", "#4d9221", "#7fbc41", "#b8e186", "#e6f5d0", "#fde0ef", "#f1b6da", "#de77ae", "#c51b7d", "#8e0152"],
-    11: ["#276419", "#4d9221", "#7fbc41", "#b8e186", "#e6f5d0", "#f7f7f7", "#fde0ef", "#f1b6da", "#de77ae", "#c51b7d", "#8e0152"]
-  },
-  "bokeh_RdBu": {
-    3: ["#67a9cf", "#f7f7f7", "#ef8a62"],
-    4: ["#0571b0", "#92c5de", "#f4a582", "#ca0020"],
-    5: ["#0571b0", "#92c5de", "#f7f7f7", "#f4a582", "#ca0020"],
-    6: ["#2166ac", "#67a9cf", "#d1e5f0", "#fddbc7", "#ef8a62", "#b2182b"],
-    7: ["#2166ac", "#67a9cf", "#d1e5f0", "#f7f7f7", "#fddbc7", "#ef8a62", "#b2182b"],
-    8: ["#2166ac", "#4393c3", "#92c5de", "#d1e5f0", "#fddbc7", "#f4a582", "#d6604d", "#b2182b"],
-    9: ["#2166ac", "#4393c3", "#92c5de", "#d1e5f0", "#f7f7f7", "#fddbc7", "#f4a582", "#d6604d", "#b2182b"],
-    10: ["#053061", "#2166ac", "#4393c3", "#92c5de", "#d1e5f0", "#fddbc7", "#f4a582", "#d6604d", "#b2182b", "#67001f"],
-    11: ["#053061", "#2166ac", "#4393c3", "#92c5de", "#d1e5f0", "#f7f7f7", "#fddbc7", "#f4a582", "#d6604d", "#b2182b", "#67001f"]
-  },
-  "bokeh_RdGy": {
-    3: ["#999999", "#ffffff", "#ef8a62"],
-    4: ["#404040", "#bababa", "#f4a582", "#ca0020"],
-    5: ["#404040", "#bababa", "#ffffff", "#f4a582", "#ca0020"],
-    6: ["#4d4d4d", "#999999", "#e0e0e0", "#fddbc7", "#ef8a62", "#b2182b"],
-    7: ["#4d4d4d", "#999999", "#e0e0e0", "#ffffff", "#fddbc7", "#ef8a62", "#b2182b"],
-    8: ["#4d4d4d", "#878787", "#bababa", "#e0e0e0", "#fddbc7", "#f4a582", "#d6604d", "#b2182b"],
-    9: ["#4d4d4d", "#878787", "#bababa", "#e0e0e0", "#ffffff", "#fddbc7", "#f4a582", "#d6604d", "#b2182b"],
-    10: ["#1a1a1a", "#4d4d4d", "#878787", "#bababa", "#e0e0e0", "#fddbc7", "#f4a582", "#d6604d", "#b2182b", "#67001f"],
-    11: ["#1a1a1a", "#4d4d4d", "#878787", "#bababa", "#e0e0e0", "#ffffff", "#fddbc7", "#f4a582", "#d6604d", "#b2182b", "#67001f"]
-  },
-  "bokeh_RdYlBu": {
-    3: ["#91bfdb", "#ffffbf", "#fc8d59"],
-    4: ["#2c7bb6", "#abd9e9", "#fdae61", "#d7191c"],
-    5: ["#2c7bb6", "#abd9e9", "#ffffbf", "#fdae61", "#d7191c"],
-    6: ["#4575b4", "#91bfdb", "#e0f3f8", "#fee090", "#fc8d59", "#d73027"],
-    7: ["#4575b4", "#91bfdb", "#e0f3f8", "#ffffbf", "#fee090", "#fc8d59", "#d73027"],
-    8: ["#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#fee090", "#fdae61", "#f46d43", "#d73027"],
-    9: ["#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#ffffbf", "#fee090", "#fdae61", "#f46d43", "#d73027"],
-    10: ["#313695", "#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#fee090", "#fdae61", "#f46d43", "#d73027", "#a50026"],
-    11: ["#313695", "#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#ffffbf", "#fee090", "#fdae61", "#f46d43", "#d73027", "#a50026"]
-  },
-  "bokeh_Spectral": {
-    3: ["#99d594", "#ffffbf", "#fc8d59"],
-    4: ["#2b83ba", "#abdda4", "#fdae61", "#d7191c"],
-    5: ["#2b83ba", "#abdda4", "#ffffbf", "#fdae61", "#d7191c"],
-    6: ["#3288bd", "#99d594", "#e6f598", "#fee08b", "#fc8d59", "#d53e4f"],
-    7: ["#3288bd", "#99d594", "#e6f598", "#ffffbf", "#fee08b", "#fc8d59", "#d53e4f"],
-    8: ["#3288bd", "#66c2a5", "#abdda4", "#e6f598", "#fee08b", "#fdae61", "#f46d43", "#d53e4f"],
-    9: ["#3288bd", "#66c2a5", "#abdda4", "#e6f598", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d53e4f"],
-    10: ["#5e4fa2", "#3288bd", "#66c2a5", "#abdda4", "#e6f598", "#fee08b", "#fdae61", "#f46d43", "#d53e4f", "#9e0142"],
-    11: ["#5e4fa2", "#3288bd", "#66c2a5", "#abdda4", "#e6f598", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d53e4f", "#9e0142"]
-  },
-  "bokeh_RdYlGn": {
-    3: ["#91cf60", "#ffffbf", "#fc8d59"],
-    4: ["#1a9641", "#a6d96a", "#fdae61", "#d7191c"],
-    5: ["#1a9641", "#a6d96a", "#ffffbf", "#fdae61", "#d7191c"],
-    6: ["#1a9850", "#91cf60", "#d9ef8b", "#fee08b", "#fc8d59", "#d73027"],
-    7: ["#1a9850", "#91cf60", "#d9ef8b", "#ffffbf", "#fee08b", "#fc8d59", "#d73027"],
-    8: ["#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#fee08b", "#fdae61", "#f46d43", "#d73027"],
-    9: ["#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d73027"],
-    10: ["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"],
-    11: ["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"]
-  },
-  "bokeh_Inferno": {
-    3: ["#000003", "#ba3655", "#fcfea4"],
-    4: ["#000003", "#781c6d", "#ed6825", "#fcfea4"],
-    5: ["#000003", "#550f6d", "#ba3655", "#f98c09", "#fcfea4"],
-    6: ["#000003", "#410967", "#932567", "#dc5039", "#fba40a", "#fcfea4"],
-    7: ["#000003", "#32095d", "#781c6d", "#ba3655", "#ed6825", "#fbb318", "#fcfea4"],
-    8: ["#000003", "#270b52", "#63146e", "#9e2963", "#d24742", "#f57c15", "#fabf25", "#fcfea4"],
-    9: ["#000003", "#1f0c47", "#550f6d", "#88216a", "#ba3655", "#e35832", "#f98c09", "#f8c931", "#fcfea4"],
-    10: ["#000003", "#1a0b40", "#4a0b6a", "#781c6d", "#a42c60", "#cd4247", "#ed6825", "#fb9906", "#f7cf3a", "#fcfea4"],
-    11: ["#000003", "#160b39", "#410967", "#6a176e", "#932567", "#ba3655", "#dc5039", "#f2751a", "#fba40a", "#f6d542", "#fcfea4"],
-    256: ["#000003", "#000004", "#000006", "#010007", "#010109", "#01010b", "#02010e", "#020210", "#030212", "#040314", "#040316", "#050418", "#06041b", "#07051d", "#08061f", "#090621", "#0a0723", "#0b0726", "#0d0828", "#0e082a", "#0f092d", "#10092f", "#120a32", "#130a34", "#140b36", "#160b39", "#170b3b", "#190b3e", "#1a0b40", "#1c0c43", "#1d0c45", "#1f0c47", "#200c4a", "#220b4c", "#240b4e", "#260b50", "#270b52", "#290b54", "#2b0a56", "#2d0a58", "#2e0a5a", "#300a5c", "#32095d", "#34095f", "#350960", "#370961", "#390962", "#3b0964", "#3c0965", "#3e0966", "#400966", "#410967", "#430a68", "#450a69", "#460a69", "#480b6a", "#4a0b6a", "#4b0c6b", "#4d0c6b", "#4f0d6c", "#500d6c", "#520e6c", "#530e6d", "#550f6d", "#570f6d", "#58106d", "#5a116d", "#5b116e", "#5d126e", "#5f126e", "#60136e", "#62146e", "#63146e", "#65156e", "#66156e", "#68166e", "#6a176e", "#6b176e", "#6d186e", "#6e186e", "#70196e", "#72196d", "#731a6d", "#751b6d", "#761b6d", "#781c6d", "#7a1c6d", "#7b1d6c", "#7d1d6c", "#7e1e6c", "#801f6b", "#811f6b", "#83206b", "#85206a", "#86216a", "#88216a", "#892269", "#8b2269", "#8d2369", "#8e2468", "#902468", "#912567", "#932567", "#952666", "#962666", "#982765", "#992864", "#9b2864", "#9c2963", "#9e2963", "#a02a62", "#a12b61", "#a32b61", "#a42c60", "#a62c5f", "#a72d5f", "#a92e5e", "#ab2e5d", "#ac2f5c", "#ae305b", "#af315b", "#b1315a", "#b23259", "#b43358", "#b53357", "#b73456", "#b83556", "#ba3655", "#bb3754", "#bd3753", "#be3852", "#bf3951", "#c13a50", "#c23b4f", "#c43c4e", "#c53d4d", "#c73e4c", "#c83e4b", "#c93f4a", "#cb4049", "#cc4148", "#cd4247", "#cf4446", "#d04544", "#d14643", "#d24742", "#d44841", "#d54940", "#d64a3f", "#d74b3e", "#d94d3d", "#da4e3b", "#db4f3a", "#dc5039", "#dd5238", "#de5337", "#df5436", "#e05634", "#e25733", "#e35832", "#e45a31", "#e55b30", "#e65c2e", "#e65e2d", "#e75f2c", "#e8612b", "#e9622a", "#ea6428", "#eb6527", "#ec6726", "#ed6825", "#ed6a23", "#ee6c22", "#ef6d21", "#f06f1f", "#f0701e", "#f1721d", "#f2741c", "#f2751a", "#f37719", "#f37918", "#f47a16", "#f57c15", "#f57e14", "#f68012", "#f68111", "#f78310", "#f7850e", "#f8870d", "#f8880c", "#f88a0b", "#f98c09", "#f98e08", "#f99008", "#fa9107", "#fa9306", "#fa9506", "#fa9706", "#fb9906", "#fb9b06", "#fb9d06", "#fb9e07", "#fba007", "#fba208", "#fba40a", "#fba60b", "#fba80d", "#fbaa0e", "#fbac10", "#fbae12", "#fbb014", "#fbb116", "#fbb318", "#fbb51a", "#fbb71c", "#fbb91e", "#fabb21", "#fabd23", "#fabf25", "#fac128", "#f9c32a", "#f9c52c", "#f9c72f", "#f8c931", "#f8cb34", "#f8cd37", "#f7cf3a", "#f7d13c", "#f6d33f", "#f6d542", "#f5d745", "#f5d948", "#f4db4b", "#f4dc4f", "#f3de52", "#f3e056", "#f3e259", "#f2e45d", "#f2e660", "#f1e864", "#f1e968", "#f1eb6c", "#f1ed70", "#f1ee74", "#f1f079", "#f1f27d", "#f2f381", "#f2f485", "#f3f689", "#f4f78d", "#f5f891", "#f6fa95", "#f7fb99", "#f9fc9d", "#fafda0", "#fcfea4"]
-  },
-  "bokeh_Magma": {
-    3: ["#000003", "#b53679", "#fbfcbf"],
-    4: ["#000003", "#711f81", "#f0605d", "#fbfcbf"],
-    5: ["#000003", "#4f117b", "#b53679", "#fb8660", "#fbfcbf"],
-    6: ["#000003", "#3b0f6f", "#8c2980", "#dd4968", "#fd9f6c", "#fbfcbf"],
-    7: ["#000003", "#2b115e", "#711f81", "#b53679", "#f0605d", "#feae76", "#fbfcbf"],
-    8: ["#000003", "#221150", "#5d177e", "#972c7f", "#d1426e", "#f8755c", "#feb97f", "#fbfcbf"],
-    9: ["#000003", "#1b1044", "#4f117b", "#812581", "#b53679", "#e55063", "#fb8660", "#fec286", "#fbfcbf"],
-    10: ["#000003", "#170f3c", "#430f75", "#711f81", "#9e2e7e", "#cb3e71", "#f0605d", "#fc9366", "#fec78b", "#fbfcbf"],
-    11: ["#000003", "#140d35", "#3b0f6f", "#63197f", "#8c2980", "#b53679", "#dd4968", "#f66e5b", "#fd9f6c", "#fdcd90", "#fbfcbf"],
-    256: ["#000003", "#000004", "#000006", "#010007", "#010109", "#01010b", "#02020d", "#02020f", "#030311", "#040313", "#040415", "#050417", "#060519", "#07051b", "#08061d", "#09071f", "#0a0722", "#0b0824", "#0c0926", "#0d0a28", "#0e0a2a", "#0f0b2c", "#100c2f", "#110c31", "#120d33", "#140d35", "#150e38", "#160e3a", "#170f3c", "#180f3f", "#1a1041", "#1b1044", "#1c1046", "#1e1049", "#1f114b", "#20114d", "#221150", "#231152", "#251155", "#261157", "#281159", "#2a115c", "#2b115e", "#2d1060", "#2f1062", "#301065", "#321067", "#341068", "#350f6a", "#370f6c", "#390f6e", "#3b0f6f", "#3c0f71", "#3e0f72", "#400f73", "#420f74", "#430f75", "#450f76", "#470f77", "#481078", "#4a1079", "#4b1079", "#4d117a", "#4f117b", "#50127b", "#52127c", "#53137c", "#55137d", "#57147d", "#58157e", "#5a157e", "#5b167e", "#5d177e", "#5e177f", "#60187f", "#61187f", "#63197f", "#651a80", "#661a80", "#681b80", "#691c80", "#6b1c80", "#6c1d80", "#6e1e81", "#6f1e81", "#711f81", "#731f81", "#742081", "#762181", "#772181", "#792281", "#7a2281", "#7c2381", "#7e2481", "#7f2481", "#812581", "#822581", "#842681", "#852681", "#872781", "#892881", "#8a2881", "#8c2980", "#8d2980", "#8f2a80", "#912a80", "#922b80", "#942b80", "#952c80", "#972c7f", "#992d7f", "#9a2d7f", "#9c2e7f", "#9e2e7e", "#9f2f7e", "#a12f7e", "#a3307e", "#a4307d", "#a6317d", "#a7317d", "#a9327c", "#ab337c", "#ac337b", "#ae347b", "#b0347b", "#b1357a", "#b3357a", "#b53679", "#b63679", "#b83778", "#b93778", "#bb3877", "#bd3977", "#be3976", "#c03a75", "#c23a75", "#c33b74", "#c53c74", "#c63c73", "#c83d72", "#ca3e72", "#cb3e71", "#cd3f70", "#ce4070", "#d0416f", "#d1426e", "#d3426d", "#d4436d", "#d6446c", "#d7456b", "#d9466a", "#da4769", "#dc4869", "#dd4968", "#de4a67", "#e04b66", "#e14c66", "#e24d65", "#e44e64", "#e55063", "#e65162", "#e75262", "#e85461", "#ea5560", "#eb5660", "#ec585f", "#ed595f", "#ee5b5e", "#ee5d5d", "#ef5e5d", "#f0605d", "#f1615c", "#f2635c", "#f3655c", "#f3675b", "#f4685b", "#f56a5b", "#f56c5b", "#f66e5b", "#f6705b", "#f7715b", "#f7735c", "#f8755c", "#f8775c", "#f9795c", "#f97b5d", "#f97d5d", "#fa7f5e", "#fa805e", "#fa825f", "#fb8460", "#fb8660", "#fb8861", "#fb8a62", "#fc8c63", "#fc8e63", "#fc9064", "#fc9265", "#fc9366", "#fd9567", "#fd9768", "#fd9969", "#fd9b6a", "#fd9d6b", "#fd9f6c", "#fda16e", "#fda26f", "#fda470", "#fea671", "#fea873", "#feaa74", "#feac75", "#feae76", "#feaf78", "#feb179", "#feb37b", "#feb57c", "#feb77d", "#feb97f", "#febb80", "#febc82", "#febe83", "#fec085", "#fec286", "#fec488", "#fec689", "#fec78b", "#fec98d", "#fecb8e", "#fdcd90", "#fdcf92", "#fdd193", "#fdd295", "#fdd497", "#fdd698", "#fdd89a", "#fdda9c", "#fddc9d", "#fddd9f", "#fddfa1", "#fde1a3", "#fce3a5", "#fce5a6", "#fce6a8", "#fce8aa", "#fceaac", "#fcecae", "#fceeb0", "#fcf0b1", "#fcf1b3", "#fcf3b5", "#fcf5b7", "#fbf7b9", "#fbf9bb", "#fbfabd", "#fbfcbf"]
-  },
-  "bokeh_Plasma": {
-    3: ["#0c0786", "#ca4678", "#eff821"],
-    4: ["#0c0786", "#9b179e", "#ec7853", "#eff821"],
-    5: ["#0c0786", "#7c02a7", "#ca4678", "#f79341", "#eff821"],
-    6: ["#0c0786", "#6a00a7", "#b02a8f", "#e06461", "#fca635", "#eff821"],
-    7: ["#0c0786", "#5c00a5", "#9b179e", "#ca4678", "#ec7853", "#fdb22f", "#eff821"],
-    8: ["#0c0786", "#5201a3", "#8908a5", "#b83289", "#da5a68", "#f38748", "#fdbb2b", "#eff821"],
-    9: ["#0c0786", "#4a02a0", "#7c02a7", "#a82296", "#ca4678", "#e56b5c", "#f79341", "#fdc328", "#eff821"],
-    10: ["#0c0786", "#45039e", "#7200a8", "#9b179e", "#bc3685", "#d7566c", "#ec7853", "#fa9d3a", "#fcc726", "#eff821"],
-    11: ["#0c0786", "#40039c", "#6a00a7", "#8f0da3", "#b02a8f", "#ca4678", "#e06461", "#f1824c", "#fca635", "#fccc25", "#eff821"],
-    256: ["#0c0786", "#100787", "#130689", "#15068a", "#18068b", "#1b068c", "#1d068d", "#1f058e", "#21058f", "#230590", "#250591", "#270592", "#290593", "#2b0594", "#2d0494", "#2f0495", "#310496", "#330497", "#340498", "#360498", "#380499", "#3a049a", "#3b039a", "#3d039b", "#3f039c", "#40039c", "#42039d", "#44039e", "#45039e", "#47029f", "#49029f", "#4a02a0", "#4c02a1", "#4e02a1", "#4f02a2", "#5101a2", "#5201a3", "#5401a3", "#5601a3", "#5701a4", "#5901a4", "#5a00a5", "#5c00a5", "#5e00a5", "#5f00a6", "#6100a6", "#6200a6", "#6400a7", "#6500a7", "#6700a7", "#6800a7", "#6a00a7", "#6c00a8", "#6d00a8", "#6f00a8", "#7000a8", "#7200a8", "#7300a8", "#7500a8", "#7601a8", "#7801a8", "#7901a8", "#7b02a8", "#7c02a7", "#7e03a7", "#7f03a7", "#8104a7", "#8204a7", "#8405a6", "#8506a6", "#8607a6", "#8807a5", "#8908a5", "#8b09a4", "#8c0aa4", "#8e0ca4", "#8f0da3", "#900ea3", "#920fa2", "#9310a1", "#9511a1", "#9612a0", "#9713a0", "#99149f", "#9a159e", "#9b179e", "#9d189d", "#9e199c", "#9f1a9b", "#a01b9b", "#a21c9a", "#a31d99", "#a41e98", "#a51f97", "#a72197", "#a82296", "#a92395", "#aa2494", "#ac2593", "#ad2692", "#ae2791", "#af2890", "#b02a8f", "#b12b8f", "#b22c8e", "#b42d8d", "#b52e8c", "#b62f8b", "#b7308a", "#b83289", "#b93388", "#ba3487", "#bb3586", "#bc3685", "#bd3784", "#be3883", "#bf3982", "#c03b81", "#c13c80", "#c23d80", "#c33e7f", "#c43f7e", "#c5407d", "#c6417c", "#c7427b", "#c8447a", "#c94579", "#ca4678", "#cb4777", "#cc4876", "#cd4975", "#ce4a75", "#cf4b74", "#d04d73", "#d14e72", "#d14f71", "#d25070", "#d3516f", "#d4526e", "#d5536d", "#d6556d", "#d7566c", "#d7576b", "#d8586a", "#d95969", "#da5a68", "#db5b67", "#dc5d66", "#dc5e66", "#dd5f65", "#de6064", "#df6163", "#df6262", "#e06461", "#e16560", "#e26660", "#e3675f", "#e3685e", "#e46a5d", "#e56b5c", "#e56c5b", "#e66d5a", "#e76e5a", "#e87059", "#e87158", "#e97257", "#ea7356", "#ea7455", "#eb7654", "#ec7754", "#ec7853", "#ed7952", "#ed7b51", "#ee7c50", "#ef7d4f", "#ef7e4e", "#f0804d", "#f0814d", "#f1824c", "#f2844b", "#f2854a", "#f38649", "#f38748", "#f48947", "#f48a47", "#f58b46", "#f58d45", "#f68e44", "#f68f43", "#f69142", "#f79241", "#f79341", "#f89540", "#f8963f", "#f8983e", "#f9993d", "#f99a3c", "#fa9c3b", "#fa9d3a", "#fa9f3a", "#faa039", "#fba238", "#fba337", "#fba436", "#fca635", "#fca735", "#fca934", "#fcaa33", "#fcac32", "#fcad31", "#fdaf31", "#fdb030", "#fdb22f", "#fdb32e", "#fdb52d", "#fdb62d", "#fdb82c", "#fdb92b", "#fdbb2b", "#fdbc2a", "#fdbe29", "#fdc029", "#fdc128", "#fdc328", "#fdc427", "#fdc626", "#fcc726", "#fcc926", "#fccb25", "#fccc25", "#fcce25", "#fbd024", "#fbd124", "#fbd324", "#fad524", "#fad624", "#fad824", "#f9d924", "#f9db24", "#f8dd24", "#f8df24", "#f7e024", "#f7e225", "#f6e425", "#f6e525", "#f5e726", "#f5e926", "#f4ea26", "#f3ec26", "#f3ee26", "#f2f026", "#f2f126", "#f1f326", "#f0f525", "#f0f623", "#eff821"]
-  },
-  "bokeh_Viridis": {
-    3: ["#440154", "#208f8c", "#fde724"],
-    4: ["#440154", "#30678d", "#35b778", "#fde724"],
-    5: ["#440154", "#3b518a", "#208f8c", "#5bc862", "#fde724"],
-    6: ["#440154", "#404387", "#29788e", "#22a784", "#79d151", "#fde724"],
-    7: ["#440154", "#443982", "#30678d", "#208f8c", "#35b778", "#8dd644", "#fde724"],
-    8: ["#440154", "#46317e", "#365a8c", "#277e8e", "#1ea087", "#49c16d", "#9dd93a", "#fde724"],
-    9: ["#440154", "#472b7a", "#3b518a", "#2c718e", "#208f8c", "#27ad80", "#5bc862", "#aadb32", "#fde724"],
-    10: ["#440154", "#472777", "#3e4989", "#30678d", "#25828e", "#1e9c89", "#35b778", "#6bcd59", "#b2dd2c", "#fde724"],
-    11: ["#440154", "#482374", "#404387", "#345e8d", "#29788e", "#208f8c", "#22a784", "#42be71", "#79d151", "#bade27", "#fde724"],
-    256: ["#440154", "#440255", "#440357", "#450558", "#45065a", "#45085b", "#46095c", "#460b5e", "#460c5f", "#460e61", "#470f62", "#471163", "#471265", "#471466", "#471567", "#471669", "#47186a", "#48196b", "#481a6c", "#481c6e", "#481d6f", "#481e70", "#482071", "#482172", "#482273", "#482374", "#472575", "#472676", "#472777", "#472878", "#472a79", "#472b7a", "#472c7b", "#462d7c", "#462f7c", "#46307d", "#46317e", "#45327f", "#45347f", "#453580", "#453681", "#443781", "#443982", "#433a83", "#433b83", "#433c84", "#423d84", "#423e85", "#424085", "#414186", "#414286", "#404387", "#404487", "#3f4587", "#3f4788", "#3e4888", "#3e4989", "#3d4a89", "#3d4b89", "#3d4c89", "#3c4d8a", "#3c4e8a", "#3b508a", "#3b518a", "#3a528b", "#3a538b", "#39548b", "#39558b", "#38568b", "#38578c", "#37588c", "#37598c", "#365a8c", "#365b8c", "#355c8c", "#355d8c", "#345e8d", "#345f8d", "#33608d", "#33618d", "#32628d", "#32638d", "#31648d", "#31658d", "#31668d", "#30678d", "#30688d", "#2f698d", "#2f6a8d", "#2e6b8e", "#2e6c8e", "#2e6d8e", "#2d6e8e", "#2d6f8e", "#2c708e", "#2c718e", "#2c728e", "#2b738e", "#2b748e", "#2a758e", "#2a768e", "#2a778e", "#29788e", "#29798e", "#287a8e", "#287a8e", "#287b8e", "#277c8e", "#277d8e", "#277e8e", "#267f8e", "#26808e", "#26818e", "#25828e", "#25838d", "#24848d", "#24858d", "#24868d", "#23878d", "#23888d", "#23898d", "#22898d", "#228a8d", "#228b8d", "#218c8d", "#218d8c", "#218e8c", "#208f8c", "#20908c", "#20918c", "#1f928c", "#1f938b", "#1f948b", "#1f958b", "#1f968b", "#1e978a", "#1e988a", "#1e998a", "#1e998a", "#1e9a89", "#1e9b89", "#1e9c89", "#1e9d88", "#1e9e88", "#1e9f88", "#1ea087", "#1fa187", "#1fa286", "#1fa386", "#20a485", "#20a585", "#21a685", "#21a784", "#22a784", "#23a883", "#23a982", "#24aa82", "#25ab81", "#26ac81", "#27ad80", "#28ae7f", "#29af7f", "#2ab07e", "#2bb17d", "#2cb17d", "#2eb27c", "#2fb37b", "#30b47a", "#32b57a", "#33b679", "#35b778", "#36b877", "#38b976", "#39b976", "#3bba75", "#3dbb74", "#3ebc73", "#40bd72", "#42be71", "#44be70", "#45bf6f", "#47c06e", "#49c16d", "#4bc26c", "#4dc26b", "#4fc369", "#51c468", "#53c567", "#55c666", "#57c665", "#59c764", "#5bc862", "#5ec961", "#60c960", "#62ca5f", "#64cb5d", "#67cc5c", "#69cc5b", "#6bcd59", "#6dce58", "#70ce56", "#72cf55", "#74d054", "#77d052", "#79d151", "#7cd24f", "#7ed24e", "#81d34c", "#83d34b", "#86d449", "#88d547", "#8bd546", "#8dd644", "#90d643", "#92d741", "#95d73f", "#97d83e", "#9ad83c", "#9dd93a", "#9fd938", "#a2da37", "#a5da35", "#a7db33", "#aadb32", "#addc30", "#afdc2e", "#b2dd2c", "#b5dd2b", "#b7dd29", "#bade27", "#bdde26", "#bfdf24", "#c2df22", "#c5df21", "#c7e01f", "#cae01e", "#cde01d", "#cfe11c", "#d2e11b", "#d4e11a", "#d7e219", "#dae218", "#dce218", "#dfe318", "#e1e318", "#e4e318", "#e7e419", "#e9e419", "#ece41a", "#eee51b", "#f1e51c", "#f3e51e", "#f6e61f", "#f8e621", "#fae622", "#fde724"]
-  }
-};
-
-var BOKEH_DOCS_PALETTE_DATA = exports.BOKEH_DOCS_PALETTE_DATA = {
-  "bokeh_Category10": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"],
-  "bokeh_Category20": ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"],
-  "bokeh_Category20b": ["#393b79", "#5254a3", "#6b6ecf", "#9c9ede", "#637939", "#8ca252", "#b5cf6b", "#cedb9c", "#8c6d31", "#bd9e39", "#e7ba52", "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#e7969c", "#7b4173", "#a55194", "#ce6dbd", "#de9ed6"],
-  "bokeh_Category20c": ["#3182bd", "#6baed6", "#9ecae1", "#c6dbef", "#e6550d", "#fd8d3c", "#fdae6b", "#fdd0a2", "#31a354", "#74c476", "#a1d99b", "#c7e9c0", "#756bb1", "#9e9ac8", "#bcbddc", "#dadaeb", "#636363", "#969696", "#bdbdbd", "#d9d9d9"],
-  "bokeh_Colorblind": ["#0072b2", "#e69f00", "#f0e442", "#009e73", "#56b4e9", "#d55e00", "#cc79a7", "#000000"],
-  "bokeh_Accent": ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f", "#bf5b17", "#666666"],
-  "bokeh_Dark2": ["#1b9e77", "#d95f02", "#7570b3", "#e7298a", "#66a61e", "#e6ab02", "#a6761d", "#666666"],
-  "bokeh_Paired": ["#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a", "#ffff99", "#b15928"],
-  "bokeh_Pastel1": ["#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd", "#fddaec", "#f2f2f2"],
-  "bokeh_Pastel2": ["#b3e2cd", "#fdcdac", "#cbd5e8", "#f4cae4", "#e6f5c9", "#fff2ae", "#f1e2cc", "#cccccc"],
-  "bokeh_Set1": ["#e41a1c", "#377eb8", "#4daf4a", "#984ea3", "#ff7f00", "#ffff33", "#a65628", "#f781bf", "#999999"],
-  "bokeh_Set2": ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f", "#e5c494", "#b3b3b3"],
-  "bokeh_Set3": ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd", "#ccebc5", "#ffed6f"],
-  "bokeh_YlGn": ["#004529", "#004529", "#006837", "#238443", "#41ab5d", "#78c679", "#addd8e", "#d9f0a3", "#f7fcb9", "#ffffe5", "#ffffe5"],
-  "bokeh_YlGnBu": ["#081d58", "#081d58", "#253494", "#225ea8", "#1d91c0", "#41b6c4", "#7fcdbb", "#c7e9b4", "#edf8b1", "#ffffd9", "#ffffd9"],
-  "bokeh_GnBu": ["#084081", "#084081", "#0868ac", "#2b8cbe", "#4eb3d3", "#7bccc4", "#a8ddb5", "#ccebc5", "#e0f3db", "#f7fcf0", "#f7fcf0"],
-  "bokeh_BuGn": ["#00441b", "#00441b", "#006d2c", "#238b45", "#41ae76", "#66c2a4", "#99d8c9", "#ccece6", "#e5f5f9", "#f7fcfd", "#f7fcfd"],
-  "bokeh_PuBuGn": ["#014636", "#014636", "#016c59", "#02818a", "#3690c0", "#67a9cf", "#a6bddb", "#d0d1e6", "#ece2f0", "#fff7fb", "#fff7fb"],
-  "bokeh_PuBu": ["#023858", "#023858", "#045a8d", "#0570b0", "#3690c0", "#74a9cf", "#a6bddb", "#d0d1e6", "#ece7f2", "#fff7fb", "#fff7fb"],
-  "bokeh_BuPu": ["#4d004b", "#4d004b", "#810f7c", "#88419d", "#8c6bb1", "#8c96c6", "#9ebcda", "#bfd3e6", "#e0ecf4", "#f7fcfd", "#f7fcfd"],
-  "bokeh_RdPu": ["#49006a", "#49006a", "#7a0177", "#ae017e", "#dd3497", "#f768a1", "#fa9fb5", "#fcc5c0", "#fde0dd", "#fff7f3", "#fff7f3"],
-  "bokeh_PuRd": ["#67001f", "#67001f", "#980043", "#ce1256", "#e7298a", "#df65b0", "#c994c7", "#d4b9da", "#e7e1ef", "#f7f4f9", "#f7f4f9"],
-  "bokeh_OrRd": ["#7f0000", "#7f0000", "#b30000", "#d7301f", "#ef6548", "#fc8d59", "#fdbb84", "#fdd49e", "#fee8c8", "#fff7ec", "#fff7ec"],
-  "bokeh_YlOrRd": ["#800026", "#800026", "#bd0026", "#e31a1c", "#fc4e2a", "#fd8d3c", "#feb24c", "#fed976", "#ffeda0", "#ffffcc", "#ffffcc"],
-  "bokeh_YlOrBr": ["#662506", "#662506", "#993404", "#cc4c02", "#ec7014", "#fe9929", "#fec44f", "#fee391", "#fff7bc", "#ffffe5", "#ffffe5"],
-  "bokeh_Purples": ["#3f007d", "#3f007d", "#54278f", "#6a51a3", "#807dba", "#9e9ac8", "#bcbddc", "#dadaeb", "#efedf5", "#fcfbfd", "#fcfbfd"],
-  "bokeh_Blues": ["#08306b", "#08306b", "#08519c", "#2171b5", "#4292c6", "#6baed6", "#9ecae1", "#c6dbef", "#deebf7", "#f7fbff", "#f7fbff"],
-  "bokeh_Greens": ["#00441b", "#00441b", "#006d2c", "#238b45", "#41ab5d", "#74c476", "#a1d99b", "#c7e9c0", "#e5f5e0", "#f7fcf5", "#f7fcf5"],
-  "bokeh_Oranges": ["#7f2704", "#7f2704", "#a63603", "#d94801", "#f16913", "#fd8d3c", "#fdae6b", "#fdd0a2", "#fee6ce", "#fff5eb", "#fff5eb"],
-  "bokeh_Reds": ["#67000d", "#67000d", "#a50f15", "#cb181d", "#ef3b2c", "#fb6a4a", "#fc9272", "#fcbba1", "#fee0d2", "#fff5f0", "#fff5f0"],
-  "bokeh_Greys": ["#000000", "#191919", "#333333", "#4c4c4c", "#666666", "#808080", "#999999", "#b3b3b3", "#cccccc", "#e6e6e6", "#ffffff"],
-  "bokeh_PuOr": ["#2d004b", "#542788", "#8073ac", "#b2abd2", "#d8daeb", "#f7f7f7", "#fee0b6", "#fdb863", "#e08214", "#b35806", "#7f3b08"],
-  "bokeh_BrBG": ["#003c30", "#01665e", "#35978f", "#80cdc1", "#c7eae5", "#f5f5f5", "#f6e8c3", "#dfc27d", "#bf812d", "#8c510a", "#543005"],
-  "bokeh_PRGn": ["#00441b", "#1b7837", "#5aae61", "#a6dba0", "#d9f0d3", "#f7f7f7", "#e7d4e8", "#c2a5cf", "#9970ab", "#762a83", "#40004b"],
-  "bokeh_PiYG": ["#276419", "#4d9221", "#7fbc41", "#b8e186", "#e6f5d0", "#f7f7f7", "#fde0ef", "#f1b6da", "#de77ae", "#c51b7d", "#8e0152"],
-  "bokeh_RdBu": ["#053061", "#2166ac", "#4393c3", "#92c5de", "#d1e5f0", "#f7f7f7", "#fddbc7", "#f4a582", "#d6604d", "#b2182b", "#67001f"],
-  "bokeh_RdGy": ["#1a1a1a", "#4d4d4d", "#878787", "#bababa", "#e0e0e0", "#ffffff", "#fddbc7", "#f4a582", "#d6604d", "#b2182b", "#67001f"],
-  "bokeh_RdYlBu": ["#313695", "#4575b4", "#74add1", "#abd9e9", "#e0f3f8", "#ffffbf", "#fee090", "#fdae61", "#f46d43", "#d73027", "#a50026"],
-  "bokeh_Spectral": ["#5e4fa2", "#3288bd", "#66c2a5", "#abdda4", "#e6f598", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d53e4f", "#9e0142"],
-  "bokeh_RdYlGn": ["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"],
-  "bokeh_Inferno": ["#000003", "#160b39", "#410967", "#6a176e", "#932567", "#bb3754", "#dc5039", "#f37719", "#fba40a", "#f5d745", "#fcfea4"],
-  "bokeh_Magma": ["#000003", "#140d35", "#3b0f6f", "#63197f", "#8c2980", "#b63679", "#dd4968", "#f6705b", "#fd9f6c", "#fdcf92", "#fbfcbf"],
-  "bokeh_Plasma": ["#0c0786", "#40039c", "#6a00a7", "#8f0da3", "#b02a8f", "#cb4777", "#e06461", "#f2844b", "#fca635", "#fcce25", "#eff821"],
-  "bokeh_Viridis": ["#440154", "#482374", "#404387", "#345e8d", "#29788e", "#20908c", "#22a784", "#44be70", "#79d151", "#bdde26", "#fde724"]
-};
-
-var BOKEH_CATEGORY_10 = exports.BOKEH_CATEGORY_10 = "bokeh_Category10";
-var BOKEH_CATEGORY_20 = exports.BOKEH_CATEGORY_20 = "bokeh_Category20";
-var BOKEH_CATEGORY_20_B = exports.BOKEH_CATEGORY_20_B = "bokeh_Category20b";
-var BOKEH_CATEGORY_20_C = exports.BOKEH_CATEGORY_20_C = "bokeh_Category20c";
-var BOKEH_COLORBLIND = exports.BOKEH_COLORBLIND = "bokeh_Colorblind";
-var BOKEH_ACCENT = exports.BOKEH_ACCENT = "bokeh_Accent";
-var BOKEH_DARK_2 = exports.BOKEH_DARK_2 = "bokeh_Dark2";
-var BOKEH_PAIRED = exports.BOKEH_PAIRED = "bokeh_Paired";
-var BOKEH_PASTEL_1 = exports.BOKEH_PASTEL_1 = "bokeh_Pastel1";
-var BOKEH_PASTEL_2 = exports.BOKEH_PASTEL_2 = "bokeh_Pastel2";
-var BOKEH_SET_1 = exports.BOKEH_SET_1 = "bokeh_Set1";
-var BOKEH_SET_2 = exports.BOKEH_SET_2 = "bokeh_Set2";
-var BOKEH_SET_3 = exports.BOKEH_SET_3 = "bokeh_Set3";
-var BOKEH_YELLOW_GREEN = exports.BOKEH_YELLOW_GREEN = "bokeh_YlGn";
-var BOKEH_YELLOW_GREEN_BLUE = exports.BOKEH_YELLOW_GREEN_BLUE = "bokeh_YlGnBu";
-var BOKEH_GREEN_BLUE = exports.BOKEH_GREEN_BLUE = "bokeh_GnBu";
-var BOKEH_BLUE_GREEN = exports.BOKEH_BLUE_GREEN = "bokeh_BuGn";
-var BOKEH_PURPLE_BLUE_GREEN = exports.BOKEH_PURPLE_BLUE_GREEN = "bokeh_PuBuGn";
-var BOKEH_PURPLE_BLUE = exports.BOKEH_PURPLE_BLUE = "bokeh_PuBu";
-var BOKEH_BLUE_PURPLE = exports.BOKEH_BLUE_PURPLE = "bokeh_BuPu";
-var BOKEH_RED_PURPLE = exports.BOKEH_RED_PURPLE = "bokeh_RdPu";
-var BOKEH_PURPLE_RED = exports.BOKEH_PURPLE_RED = "bokeh_PuRd";
-var BOKEH_ORANGE_RED = exports.BOKEH_ORANGE_RED = "bokeh_OrRd";
-var BOKEH_YELLOW_ORANGE_RED = exports.BOKEH_YELLOW_ORANGE_RED = "bokeh_YlOrRd";
-var BOKEH_YELLOW_ORANGE_BROWN = exports.BOKEH_YELLOW_ORANGE_BROWN = "bokeh_YlOrBr";
-var BOKEH_PURPLES = exports.BOKEH_PURPLES = "bokeh_Purples";
-var BOKEH_BLUES = exports.BOKEH_BLUES = "bokeh_Blues";
-var BOKEH_GREENS = exports.BOKEH_GREENS = "bokeh_Greens";
-var BOKEH_ORANGES = exports.BOKEH_ORANGES = "bokeh_Oranges";
-var BOKEH_REDS = exports.BOKEH_REDS = "bokeh_Reds";
-var BOKEH_GREYS = exports.BOKEH_GREYS = "bokeh_Greys";
-var BOKEH_PURPLE_ORANGE = exports.BOKEH_PURPLE_ORANGE = "bokeh_PuOr";
-var BOKEH_BROWN_BLUE_GREEN = exports.BOKEH_BROWN_BLUE_GREEN = "bokeh_BrBG";
-var BOKEH_PURPLE_GREEN = exports.BOKEH_PURPLE_GREEN = "bokeh_PRGn";
-var BOKEH_PINK_YELLOW_GREEN = exports.BOKEH_PINK_YELLOW_GREEN = "bokeh_PiYG";
-var BOKEH_RED_BLUE = exports.BOKEH_RED_BLUE = "bokeh_RdBu";
-var BOKEH_RED_GREY = exports.BOKEH_RED_GREY = "bokeh_RdGy";
-var BOKEH_RED_YELLOW_BLUE = exports.BOKEH_RED_YELLOW_BLUE = "bokeh_RdYlBu";
-var BOKEH_SPECTRAL = exports.BOKEH_SPECTRAL = "bokeh_Spectral";
-var BOKEH_RED_YELLOW_GREEN = exports.BOKEH_RED_YELLOW_GREEN = "bokeh_RdYlGn";
-var BOKEH_INFERNO = exports.BOKEH_INFERNO = "bokeh_Inferno";
-var BOKEH_MAGMA = exports.BOKEH_MAGMA = "bokeh_Magma";
-var BOKEH_PLASMA = exports.BOKEH_PLASMA = "bokeh_Plasma";
-var BOKEH_VIRIDIS = exports.BOKEH_VIRIDIS = "bokeh_Viridis";
-
-var _BOKEH_PALETTE_NAMES = {};
-_BOKEH_PALETTE_NAMES['BOKEH_CATEGORY_10'] = 'bokeh_Category10';
-_BOKEH_PALETTE_NAMES['BOKEH_CATEGORY_20'] = 'bokeh_Category20';
-_BOKEH_PALETTE_NAMES['BOKEH_CATEGORY_20_B'] = 'bokeh_Category20b';
-_BOKEH_PALETTE_NAMES['BOKEH_CATEGORY_20_C'] = 'bokeh_Category20c';
-_BOKEH_PALETTE_NAMES['BOKEH_COLORBLIND'] = 'bokeh_Colorblind';
-_BOKEH_PALETTE_NAMES['BOKEH_ACCENT'] = 'bokeh_Accent';
-_BOKEH_PALETTE_NAMES['BOKEH_DARK_2'] = 'bokeh_Dark2';
-_BOKEH_PALETTE_NAMES['BOKEH_PAIRED'] = 'bokeh_Paired';
-_BOKEH_PALETTE_NAMES['BOKEH_PASTEL_1'] = 'bokeh_Pastel1';
-_BOKEH_PALETTE_NAMES['BOKEH_PASTEL_2'] = 'bokeh_Pastel2';
-_BOKEH_PALETTE_NAMES['BOKEH_SET_1'] = 'bokeh_Set1';
-_BOKEH_PALETTE_NAMES['BOKEH_SET_2'] = 'bokeh_Set2';
-_BOKEH_PALETTE_NAMES['BOKEH_SET_3'] = 'bokeh_Set3';
-_BOKEH_PALETTE_NAMES['BOKEH_YELLOW_GREEN'] = 'bokeh_YlGn';
-_BOKEH_PALETTE_NAMES['BOKEH_YELLOW_GREEN_BLUE'] = 'bokeh_YlGnBu';
-_BOKEH_PALETTE_NAMES['BOKEH_GREEN_BLUE'] = 'bokeh_GnBu';
-_BOKEH_PALETTE_NAMES['BOKEH_BLUE_GREEN'] = 'bokeh_BuGn';
-_BOKEH_PALETTE_NAMES['BOKEH_PURPLE_BLUE_GREEN'] = 'bokeh_PuBuGn';
-_BOKEH_PALETTE_NAMES['BOKEH_PURPLE_BLUE'] = 'bokeh_PuBu';
-_BOKEH_PALETTE_NAMES['BOKEH_BLUE_PURPLE'] = 'bokeh_BuPu';
-_BOKEH_PALETTE_NAMES['BOKEH_RED_PURPLE'] = 'bokeh_RdPu';
-_BOKEH_PALETTE_NAMES['BOKEH_PURPLE_RED'] = 'bokeh_PuRd';
-_BOKEH_PALETTE_NAMES['BOKEH_ORANGE_RED'] = 'bokeh_OrRd';
-_BOKEH_PALETTE_NAMES['BOKEH_YELLOW_ORANGE_RED'] = 'bokeh_YlOrRd';
-_BOKEH_PALETTE_NAMES['BOKEH_YELLOW_ORANGE_BROWN'] = 'bokeh_YlOrBr';
-_BOKEH_PALETTE_NAMES['BOKEH_PURPLES'] = 'bokeh_Purples';
-_BOKEH_PALETTE_NAMES['BOKEH_BLUES'] = 'bokeh_Blues';
-_BOKEH_PALETTE_NAMES['BOKEH_GREENS'] = 'bokeh_Greens';
-_BOKEH_PALETTE_NAMES['BOKEH_ORANGES'] = 'bokeh_Oranges';
-_BOKEH_PALETTE_NAMES['BOKEH_REDS'] = 'bokeh_Reds';
-_BOKEH_PALETTE_NAMES['BOKEH_GREYS'] = 'bokeh_Greys';
-_BOKEH_PALETTE_NAMES['BOKEH_PURPLE_ORANGE'] = 'bokeh_PuOr';
-_BOKEH_PALETTE_NAMES['BOKEH_BROWN_BLUE_GREEN'] = 'bokeh_BrBG';
-_BOKEH_PALETTE_NAMES['BOKEH_PURPLE_GREEN'] = 'bokeh_PRGn';
-_BOKEH_PALETTE_NAMES['BOKEH_PINK_YELLOW_GREEN'] = 'bokeh_PiYG';
-_BOKEH_PALETTE_NAMES['BOKEH_RED_BLUE'] = 'bokeh_RdBu';
-_BOKEH_PALETTE_NAMES['BOKEH_RED_GREY'] = 'bokeh_RdGy';
-_BOKEH_PALETTE_NAMES['BOKEH_RED_YELLOW_BLUE'] = 'bokeh_RdYlBu';
-_BOKEH_PALETTE_NAMES['BOKEH_SPECTRAL'] = 'bokeh_Spectral';
-_BOKEH_PALETTE_NAMES['BOKEH_RED_YELLOW_GREEN'] = 'bokeh_RdYlGn';
-_BOKEH_PALETTE_NAMES['BOKEH_INFERNO'] = 'bokeh_Inferno';
-_BOKEH_PALETTE_NAMES['BOKEH_MAGMA'] = 'bokeh_Magma';
-_BOKEH_PALETTE_NAMES['BOKEH_PLASMA'] = 'bokeh_Plasma';
-_BOKEH_PALETTE_NAMES['BOKEH_VIRIDIS'] = 'bokeh_Viridis';
-var BOKEH_PALETTE_NAMES = exports.BOKEH_PALETTE_NAMES = _BOKEH_PALETTE_NAMES;
-
-var _BOKEH_PALETTES = {};
-_BOKEH_PALETTES['Category10'] = BOKEH_PALETTE_DATA[BOKEH_CATEGORY_10];
-_BOKEH_PALETTES['Category20'] = BOKEH_PALETTE_DATA[BOKEH_CATEGORY_20];
-_BOKEH_PALETTES['Category20b'] = BOKEH_PALETTE_DATA[BOKEH_CATEGORY_20_B];
-_BOKEH_PALETTES['Category20c'] = BOKEH_PALETTE_DATA[BOKEH_CATEGORY_20_C];
-_BOKEH_PALETTES['Colorblind'] = BOKEH_PALETTE_DATA[BOKEH_COLORBLIND];
-_BOKEH_PALETTES['Accent'] = BOKEH_PALETTE_DATA[BOKEH_ACCENT];
-_BOKEH_PALETTES['Dark2'] = BOKEH_PALETTE_DATA[BOKEH_DARK_2];
-_BOKEH_PALETTES['Paired'] = BOKEH_PALETTE_DATA[BOKEH_PAIRED];
-_BOKEH_PALETTES['Pastel1'] = BOKEH_PALETTE_DATA[BOKEH_PASTEL_1];
-_BOKEH_PALETTES['Pastel2'] = BOKEH_PALETTE_DATA[BOKEH_PASTEL_2];
-_BOKEH_PALETTES['Set1'] = BOKEH_PALETTE_DATA[BOKEH_SET_1];
-_BOKEH_PALETTES['Set2'] = BOKEH_PALETTE_DATA[BOKEH_SET_2];
-_BOKEH_PALETTES['Set3'] = BOKEH_PALETTE_DATA[BOKEH_SET_3];
-_BOKEH_PALETTES['YlGn'] = BOKEH_PALETTE_DATA[BOKEH_YELLOW_GREEN];
-_BOKEH_PALETTES['YlGnBu'] = BOKEH_PALETTE_DATA[BOKEH_YELLOW_GREEN_BLUE];
-_BOKEH_PALETTES['GnBu'] = BOKEH_PALETTE_DATA[BOKEH_GREEN_BLUE];
-_BOKEH_PALETTES['BuGn'] = BOKEH_PALETTE_DATA[BOKEH_BLUE_GREEN];
-_BOKEH_PALETTES['PuBuGn'] = BOKEH_PALETTE_DATA[BOKEH_PURPLE_BLUE_GREEN];
-_BOKEH_PALETTES['PuBu'] = BOKEH_PALETTE_DATA[BOKEH_PURPLE_BLUE];
-_BOKEH_PALETTES['BuPu'] = BOKEH_PALETTE_DATA[BOKEH_BLUE_PURPLE];
-_BOKEH_PALETTES['RdPu'] = BOKEH_PALETTE_DATA[BOKEH_RED_PURPLE];
-_BOKEH_PALETTES['PuRd'] = BOKEH_PALETTE_DATA[BOKEH_PURPLE_RED];
-_BOKEH_PALETTES['OrRd'] = BOKEH_PALETTE_DATA[BOKEH_ORANGE_RED];
-_BOKEH_PALETTES['YlOrRd'] = BOKEH_PALETTE_DATA[BOKEH_YELLOW_ORANGE_RED];
-_BOKEH_PALETTES['YlOrBr'] = BOKEH_PALETTE_DATA[BOKEH_YELLOW_ORANGE_BROWN];
-_BOKEH_PALETTES['Purples'] = BOKEH_PALETTE_DATA[BOKEH_PURPLES];
-_BOKEH_PALETTES['Blues'] = BOKEH_PALETTE_DATA[BOKEH_BLUES];
-_BOKEH_PALETTES['Greens'] = BOKEH_PALETTE_DATA[BOKEH_GREENS];
-_BOKEH_PALETTES['Oranges'] = BOKEH_PALETTE_DATA[BOKEH_ORANGES];
-_BOKEH_PALETTES['Reds'] = BOKEH_PALETTE_DATA[BOKEH_REDS];
-_BOKEH_PALETTES['Greys'] = BOKEH_PALETTE_DATA[BOKEH_GREYS];
-_BOKEH_PALETTES['PuOr'] = BOKEH_PALETTE_DATA[BOKEH_PURPLE_ORANGE];
-_BOKEH_PALETTES['BrBG'] = BOKEH_PALETTE_DATA[BOKEH_BROWN_BLUE_GREEN];
-_BOKEH_PALETTES['PRGn'] = BOKEH_PALETTE_DATA[BOKEH_PURPLE_GREEN];
-_BOKEH_PALETTES['PiYG'] = BOKEH_PALETTE_DATA[BOKEH_PINK_YELLOW_GREEN];
-_BOKEH_PALETTES['RdBu'] = BOKEH_PALETTE_DATA[BOKEH_RED_BLUE];
-_BOKEH_PALETTES['RdGy'] = BOKEH_PALETTE_DATA[BOKEH_RED_GREY];
-_BOKEH_PALETTES['RdYlBu'] = BOKEH_PALETTE_DATA[BOKEH_RED_YELLOW_BLUE];
-_BOKEH_PALETTES['Spectral'] = BOKEH_PALETTE_DATA[BOKEH_SPECTRAL];
-_BOKEH_PALETTES['RdYlGn'] = BOKEH_PALETTE_DATA[BOKEH_RED_YELLOW_GREEN];
-_BOKEH_PALETTES['Inferno'] = BOKEH_PALETTE_DATA[BOKEH_INFERNO];
-_BOKEH_PALETTES['Magma'] = BOKEH_PALETTE_DATA[BOKEH_MAGMA];
-_BOKEH_PALETTES['Plasma'] = BOKEH_PALETTE_DATA[BOKEH_PLASMA];
-_BOKEH_PALETTES['Viridis'] = BOKEH_PALETTE_DATA[BOKEH_VIRIDIS];
-var BOKEH_PALETTES = exports.BOKEH_PALETTES = _BOKEH_PALETTES;
-
-var _BOKEH_DOCS_PALETTES = {};
-_BOKEH_DOCS_PALETTES['Category10'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_CATEGORY_10];
-_BOKEH_DOCS_PALETTES['Category20'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_CATEGORY_20];
-_BOKEH_DOCS_PALETTES['Category20b'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_CATEGORY_20_B];
-_BOKEH_DOCS_PALETTES['Category20c'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_CATEGORY_20_C];
-_BOKEH_DOCS_PALETTES['Colorblind'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_COLORBLIND];
-_BOKEH_DOCS_PALETTES['Accent'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_ACCENT];
-_BOKEH_DOCS_PALETTES['Dark2'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_DARK_2];
-_BOKEH_DOCS_PALETTES['Paired'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PAIRED];
-_BOKEH_DOCS_PALETTES['Pastel1'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PASTEL_1];
-_BOKEH_DOCS_PALETTES['Pastel2'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PASTEL_2];
-_BOKEH_DOCS_PALETTES['Set1'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_SET_1];
-_BOKEH_DOCS_PALETTES['Set2'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_SET_2];
-_BOKEH_DOCS_PALETTES['Set3'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_SET_3];
-_BOKEH_DOCS_PALETTES['YlGn'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_YELLOW_GREEN];
-_BOKEH_DOCS_PALETTES['YlGnBu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_YELLOW_GREEN_BLUE];
-_BOKEH_DOCS_PALETTES['GnBu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_GREEN_BLUE];
-_BOKEH_DOCS_PALETTES['BuGn'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_BLUE_GREEN];
-_BOKEH_DOCS_PALETTES['PuBuGn'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PURPLE_BLUE_GREEN];
-_BOKEH_DOCS_PALETTES['PuBu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PURPLE_BLUE];
-_BOKEH_DOCS_PALETTES['BuPu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_BLUE_PURPLE];
-_BOKEH_DOCS_PALETTES['RdPu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_RED_PURPLE];
-_BOKEH_DOCS_PALETTES['PuRd'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PURPLE_RED];
-_BOKEH_DOCS_PALETTES['OrRd'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_ORANGE_RED];
-_BOKEH_DOCS_PALETTES['YlOrRd'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_YELLOW_ORANGE_RED];
-_BOKEH_DOCS_PALETTES['YlOrBr'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_YELLOW_ORANGE_BROWN];
-_BOKEH_DOCS_PALETTES['Purples'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PURPLES];
-_BOKEH_DOCS_PALETTES['Blues'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_BLUES];
-_BOKEH_DOCS_PALETTES['Greens'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_GREENS];
-_BOKEH_DOCS_PALETTES['Oranges'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_ORANGES];
-_BOKEH_DOCS_PALETTES['Reds'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_REDS];
-_BOKEH_DOCS_PALETTES['Greys'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_GREYS];
-_BOKEH_DOCS_PALETTES['PuOr'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PURPLE_ORANGE];
-_BOKEH_DOCS_PALETTES['BrBG'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_BROWN_BLUE_GREEN];
-_BOKEH_DOCS_PALETTES['PRGn'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PURPLE_GREEN];
-_BOKEH_DOCS_PALETTES['PiYG'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PINK_YELLOW_GREEN];
-_BOKEH_DOCS_PALETTES['RdBu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_RED_BLUE];
-_BOKEH_DOCS_PALETTES['RdGy'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_RED_GREY];
-_BOKEH_DOCS_PALETTES['RdYlBu'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_RED_YELLOW_BLUE];
-_BOKEH_DOCS_PALETTES['Spectral'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_SPECTRAL];
-_BOKEH_DOCS_PALETTES['RdYlGn'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_RED_YELLOW_GREEN];
-_BOKEH_DOCS_PALETTES['Inferno'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_INFERNO];
-_BOKEH_DOCS_PALETTES['Magma'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_MAGMA];
-_BOKEH_DOCS_PALETTES['Plasma'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_PLASMA];
-_BOKEH_DOCS_PALETTES['Viridis'] = BOKEH_DOCS_PALETTE_DATA[BOKEH_VIRIDIS];
-var BOKEH_DOCS_PALETTES = exports.BOKEH_DOCS_PALETTES = _BOKEH_DOCS_PALETTES;
+var VEGA_DOCS_PALETTES = _VEGA_DOCS_PALETTES;
+exports.VEGA_DOCS_PALETTES = VEGA_DOCS_PALETTES;
 
 /***/ })
 /******/ ])));
