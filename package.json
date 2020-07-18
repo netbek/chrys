@@ -1,6 +1,6 @@
 {
   "name": "chrys",
-  "version": "3.1.8",
+  "version": "3.1.9",
   "description": "A collection of color palettes for visualisation in JavaScript, Python and Sass",
   "main": "cjs/index.js",
   "repository": {
