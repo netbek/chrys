@@ -16,28 +16,41 @@ module.exports = {
           env: {
             development: {
               plugins: [
-                'transform-object-assign',
-                ['transform-object-rest-spread', {useBuiltIns: false}],
-                'transform-remove-strict-mode'
+                [
+                  '@babel/plugin-transform-runtime',
+                  {
+                    helpers: false
+                  }
+                ],
+                '@babel/plugin-proposal-class-properties',
+                [
+                  '@babel/plugin-proposal-object-rest-spread',
+                  {useBuiltIns: false}
+                ],
+                '@babel/plugin-transform-object-assign' // For IE
               ]
             },
             production: {
               plugins: [
-                'transform-object-assign',
-                ['transform-object-rest-spread', {useBuiltIns: false}],
-                'transform-react-remove-prop-types',
-                'transform-remove-strict-mode'
+                [
+                  '@babel/plugin-transform-runtime',
+                  {
+                    helpers: false
+                  }
+                ],
+                '@babel/plugin-proposal-class-properties',
+                [
+                  '@babel/plugin-proposal-object-rest-spread',
+                  {useBuiltIns: false}
+                ],
+                '@babel/plugin-transform-object-assign' // For IE
               ]
             }
           },
           presets: [
             [
-              'env',
+              '@babel/preset-env',
               {
-                exclude: [
-                  'transform-async-to-generator',
-                  'transform-regenerator'
-                ],
                 loose: true,
                 modules: 'commonjs',
                 targets: {
@@ -45,9 +58,7 @@ module.exports = {
                 },
                 useBuiltIns: false
               }
-            ],
-            'stage-2',
-            'react'
+            ]
           ]
         }
       }

@@ -5,7 +5,7 @@
  */
 
 const path = require('path');
-const register = require('babel-core/register');
+const register = require('@babel/register');
 
 const webpackConfig = require(path.join(
   __dirname,
