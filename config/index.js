@@ -55,7 +55,7 @@ const rootPath = path.resolve(path.join(__dirname, '..')) + '/';
 
 export const config = {
   autoprefixer: {
-    browsers: browserslist
+    browsersOverride: browserslist
   },
   css: {
     params: {

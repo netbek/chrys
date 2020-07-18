@@ -96,16 +96,23 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 exports.__esModule = true;
 exports.passesAAA = passesAAA;
-function passesAAA(contrast) {
-  var large = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+function passesAAA(contrast, large) {
+  if (large === void 0) {
+    large = false;
+  }
 
   if (large) {
     return contrast > 4.5;
   }
+
   return contrast > 7;
 }
 

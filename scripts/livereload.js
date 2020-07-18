@@ -29,8 +29,8 @@ const livereloadOpen =
   config.webserver.port +
   (config.webserver.open ? config.webserver.open : '/');
 
-buildDemo().then(() => {
-  open(livereloadOpen, browser);
+buildDemo().then(async () => {
+  await open(livereloadOpen, {app: browser});
 
   chokidar.watch([path.join(__dirname, '../src/demo')]).on('change', () => {
     buildDemo().then(() => {
