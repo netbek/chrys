@@ -16,7 +16,7 @@ A collection of color palettes for visualisation in JavaScript, Python and Sass.
 npm install chrys
 ```
 
-### Python 2.7 and up
+### Python 3.6 and up
 
 ```shell
 pip install chrys
