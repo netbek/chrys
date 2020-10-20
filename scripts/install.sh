@@ -4,7 +4,7 @@ if [ -d "venv" ]; then
   echo "Virtual environment exists"
 else
   echo "Creating virtual environment ..."
-  virtualenv --python=python2.7 venv
+  virtualenv --python=python3.8 venv
   echo "Virtual environment created"
 fi
 

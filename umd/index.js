@@ -184,6 +184,7 @@ var _bokehPalettes = __webpack_require__(5);
 Object.keys(_bokehPalettes).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _bokehPalettes[key]) return;
   exports[key] = _bokehPalettes[key];
 });
 
@@ -192,6 +193,7 @@ var _vegaPalettes = __webpack_require__(6);
 Object.keys(_vegaPalettes).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
   if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _vegaPalettes[key]) return;
   exports[key] = _vegaPalettes[key];
 });
 
