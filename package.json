@@ -120,7 +120,7 @@
     "serve-static": "1.14.1",
     "through2": "4.0.2",
     "uglifyjs-webpack-plugin": "2.2.0",
-    "vega": "5.17.0",
+    "vega": "5.17.3",
     "webpack": "4.44.2"
   }
 }
