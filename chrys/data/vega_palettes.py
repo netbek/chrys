@@ -4827,6 +4827,71 @@ VEGA_PALETTE_DATA = {
       "#f1f722"
     ]
   },
+  "vega_cividis": {
+    1: [
+      "#7e7b75"
+    ],
+    2: [
+      "#555b6e",
+      "#a19b78"
+    ],
+    3: [
+      "#3b4c6e",
+      "#7e7b75",
+      "#b7ac73"
+    ],
+    4: [
+      "#2a446e",
+      "#67686f",
+      "#928d78",
+      "#c7b76c"
+    ],
+    5: [
+      "#1f3e6e",
+      "#555b6e",
+      "#7e7b75",
+      "#a19b78",
+      "#d1bf67"
+    ],
+    6: [
+      "#16396d",
+      "#47536d",
+      "#6e6d71",
+      "#8c8877",
+      "#aea575",
+      "#d8c462"
+    ],
+    7: [
+      "#11366c",
+      "#3b4c6e",
+      "#61636f",
+      "#7e7b75",
+      "#989278",
+      "#b7ac73",
+      "#dec85f"
+    ],
+    8: [
+      "#0d346b",
+      "#31476e",
+      "#555b6e",
+      "#727071",
+      "#898577",
+      "#a19b78",
+      "#c0b26f",
+      "#e2cb5c"
+    ],
+    9: [
+      "#0a326a",
+      "#2a446e",
+      "#4c566d",
+      "#67686f",
+      "#7e7b75",
+      "#928d78",
+      "#a9a177",
+      "#c7b76c",
+      "#e6ce59"
+    ]
+  },
   "vega_rainbow": {
     1: [
       "#aff05b"
@@ -4955,6 +5020,71 @@ VEGA_PALETTE_DATA = {
       "#582afc",
       "#a703d5",
       "#e70b8d"
+    ]
+  },
+  "vega_turbo": {
+    1: [
+      "#8ffc54"
+    ],
+    2: [
+      "#2de3b2",
+      "#fac029"
+    ],
+    3: [
+      "#27bae3",
+      "#8ffc54",
+      "#ff8a1f"
+    ],
+    4: [
+      "#309bf5",
+      "#49f787",
+      "#d8e135",
+      "#fb6819"
+    ],
+    5: [
+      "#3a85f9",
+      "#2de3b2",
+      "#8ffc54",
+      "#fac029",
+      "#ec5115"
+    ],
+    6: [
+      "#4074f5",
+      "#25cdcf",
+      "#5afc77",
+      "#c5ec3c",
+      "#ffa223",
+      "#df4111"
+    ],
+    7: [
+      "#4568ed",
+      "#27bae3",
+      "#3cf197",
+      "#8ffc54",
+      "#e7d630",
+      "#ff8a1f",
+      "#d4370f"
+    ],
+    8: [
+      "#485ee4",
+      "#2ba9ef",
+      "#2de3b2",
+      "#65fd6e",
+      "#b9f140",
+      "#fac029",
+      "#ff771c",
+      "#cb2f0d"
+    ],
+    9: [
+      "#4956db",
+      "#309bf5",
+      "#27d4c7",
+      "#49f787",
+      "#8ffc54",
+      "#d8e135",
+      "#ffac24",
+      "#fb6819",
+      "#c3290b"
     ]
   },
   "vega_browns": {
@@ -6683,6 +6813,19 @@ VEGA_DOCS_PALETTE_DATA = {
     "#fcce25",
     "#f0f921"
   ],
+  "vega_cividis": [
+    "#002051",
+    "#083169",
+    "#26426e",
+    "#4c566d",
+    "#66676f",
+    "#7f7c75",
+    "#938e78",
+    "#a9a177",
+    "#c9b96a",
+    "#e7cf58",
+    "#fce647"
+  ],
   "vega_rainbow": [
     "#6e40aa",
     "#bf3caf",
@@ -6708,6 +6851,19 @@ VEGA_DOCS_PALETTE_DATA = {
     "#a703d5",
     "#e70b8d",
     "#ff4040"
+  ],
+  "vega_turbo": [
+    "#23171b",
+    "#4a53d7",
+    "#3295f7",
+    "#27d5c6",
+    "#47f689",
+    "#95fb51",
+    "#dae034",
+    "#ffad24",
+    "#f76118",
+    "#c0260a",
+    "#910b00"
   ],
   "vega_browns": [
     "#eedbbd",
@@ -6978,8 +7134,10 @@ VEGA_VIRIDIS = "vega_viridis"
 VEGA_MAGMA = "vega_magma"
 VEGA_INFERNO = "vega_inferno"
 VEGA_PLASMA = "vega_plasma"
+VEGA_CIVIDIS = "vega_cividis"
 VEGA_RAINBOW = "vega_rainbow"
 VEGA_SINEBOW = "vega_sinebow"
+VEGA_TURBO = "vega_turbo"
 VEGA_BROWNS = "vega_browns"
 VEGA_TEAL_BLUES = "vega_tealblues"
 VEGA_TEALS = "vega_teals"
@@ -7045,8 +7203,10 @@ VEGA_PALETTE_NAMES['VEGA_VIRIDIS'] = 'vega_viridis'
 VEGA_PALETTE_NAMES['VEGA_MAGMA'] = 'vega_magma'
 VEGA_PALETTE_NAMES['VEGA_INFERNO'] = 'vega_inferno'
 VEGA_PALETTE_NAMES['VEGA_PLASMA'] = 'vega_plasma'
+VEGA_PALETTE_NAMES['VEGA_CIVIDIS'] = 'vega_cividis'
 VEGA_PALETTE_NAMES['VEGA_RAINBOW'] = 'vega_rainbow'
 VEGA_PALETTE_NAMES['VEGA_SINEBOW'] = 'vega_sinebow'
+VEGA_PALETTE_NAMES['VEGA_TURBO'] = 'vega_turbo'
 VEGA_PALETTE_NAMES['VEGA_BROWNS'] = 'vega_browns'
 VEGA_PALETTE_NAMES['VEGA_TEAL_BLUES'] = 'vega_tealblues'
 VEGA_PALETTE_NAMES['VEGA_TEALS'] = 'vega_teals'
@@ -7112,8 +7272,10 @@ VEGA_PALETTES['viridis'] = VEGA_PALETTE_DATA[VEGA_VIRIDIS]
 VEGA_PALETTES['magma'] = VEGA_PALETTE_DATA[VEGA_MAGMA]
 VEGA_PALETTES['inferno'] = VEGA_PALETTE_DATA[VEGA_INFERNO]
 VEGA_PALETTES['plasma'] = VEGA_PALETTE_DATA[VEGA_PLASMA]
+VEGA_PALETTES['cividis'] = VEGA_PALETTE_DATA[VEGA_CIVIDIS]
 VEGA_PALETTES['rainbow'] = VEGA_PALETTE_DATA[VEGA_RAINBOW]
 VEGA_PALETTES['sinebow'] = VEGA_PALETTE_DATA[VEGA_SINEBOW]
+VEGA_PALETTES['turbo'] = VEGA_PALETTE_DATA[VEGA_TURBO]
 VEGA_PALETTES['browns'] = VEGA_PALETTE_DATA[VEGA_BROWNS]
 VEGA_PALETTES['tealblues'] = VEGA_PALETTE_DATA[VEGA_TEAL_BLUES]
 VEGA_PALETTES['teals'] = VEGA_PALETTE_DATA[VEGA_TEALS]
@@ -7179,8 +7341,10 @@ VEGA_DOCS_PALETTES['viridis'] = VEGA_DOCS_PALETTE_DATA[VEGA_VIRIDIS]
 VEGA_DOCS_PALETTES['magma'] = VEGA_DOCS_PALETTE_DATA[VEGA_MAGMA]
 VEGA_DOCS_PALETTES['inferno'] = VEGA_DOCS_PALETTE_DATA[VEGA_INFERNO]
 VEGA_DOCS_PALETTES['plasma'] = VEGA_DOCS_PALETTE_DATA[VEGA_PLASMA]
+VEGA_DOCS_PALETTES['cividis'] = VEGA_DOCS_PALETTE_DATA[VEGA_CIVIDIS]
 VEGA_DOCS_PALETTES['rainbow'] = VEGA_DOCS_PALETTE_DATA[VEGA_RAINBOW]
 VEGA_DOCS_PALETTES['sinebow'] = VEGA_DOCS_PALETTE_DATA[VEGA_SINEBOW]
+VEGA_DOCS_PALETTES['turbo'] = VEGA_DOCS_PALETTE_DATA[VEGA_TURBO]
 VEGA_DOCS_PALETTES['browns'] = VEGA_DOCS_PALETTE_DATA[VEGA_BROWNS]
 VEGA_DOCS_PALETTES['tealblues'] = VEGA_DOCS_PALETTE_DATA[VEGA_TEAL_BLUES]
 VEGA_DOCS_PALETTES['teals'] = VEGA_DOCS_PALETTE_DATA[VEGA_TEALS]

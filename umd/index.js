@@ -4645,7 +4645,7 @@ exports.BOKEH_DOCS_PALETTES = BOKEH_DOCS_PALETTES;
 
 
 exports.__esModule = true;
-exports.VEGA_DOCS_PALETTES = exports.VEGA_PALETTES = exports.VEGA_PALETTE_NAMES = exports.VEGA_DARK_RED = exports.VEGA_DARK_MULTI = exports.VEGA_DARK_GREEN = exports.VEGA_DARK_GOLD = exports.VEGA_DARK_BLUE = exports.VEGA_LIGHT_TEAL_BLUE = exports.VEGA_LIGHT_ORANGE = exports.VEGA_LIGHT_MULTI = exports.VEGA_LIGHT_GREY_TEAL = exports.VEGA_LIGHT_GREY_RED = exports.VEGA_GOLD_RED = exports.VEGA_GOLD_ORANGE = exports.VEGA_GOLD_GREEN = exports.VEGA_WARM_GREYS = exports.VEGA_TEALS = exports.VEGA_TEAL_BLUES = exports.VEGA_BROWNS = exports.VEGA_SINEBOW = exports.VEGA_RAINBOW = exports.VEGA_PLASMA = exports.VEGA_INFERNO = exports.VEGA_MAGMA = exports.VEGA_VIRIDIS = exports.VEGA_SPECTRAL = exports.VEGA_PINK_YELLOW_GREEN = exports.VEGA_RED_YELLOW_GREEN = exports.VEGA_RED_YELLOW_BLUE = exports.VEGA_YELLOW_GREEN_BLUE = exports.VEGA_RED_GREY = exports.VEGA_RED_BLUE = exports.VEGA_PURPLE_ORANGE = exports.VEGA_PURPLE_GREEN = exports.VEGA_BROWN_BLUE_GREEN = exports.VEGA_BLUE_ORANGE = exports.VEGA_YELLOW_ORANGE_RED = exports.VEGA_YELLOW_ORANGE_BROWN = exports.VEGA_YELLOW_GREEN = exports.VEGA_RED_PURPLE = exports.VEGA_PURPLE_RED = exports.VEGA_PURPLE_BLUE_GREEN = exports.VEGA_PURPLE_BLUE = exports.VEGA_ORANGE_RED = exports.VEGA_GREEN_BLUE = exports.VEGA_BLUE_PURPLE = exports.VEGA_BLUE_GREEN = exports.VEGA_REDS = exports.VEGA_PURPLES = exports.VEGA_ORANGES = exports.VEGA_GREYS = exports.VEGA_GREENS = exports.VEGA_BLUES = exports.VEGA_SET_3 = exports.VEGA_SET_2 = exports.VEGA_SET_1 = exports.VEGA_PASTEL_2 = exports.VEGA_PASTEL_1 = exports.VEGA_PAIRED = exports.VEGA_DARK_2 = exports.VEGA_ACCENT = exports.VEGA_TABLEAU_20 = exports.VEGA_TABLEAU_10 = exports.VEGA_CATEGORY_20_C = exports.VEGA_CATEGORY_20_B = exports.VEGA_CATEGORY_20 = exports.VEGA_CATEGORY_10 = exports.VEGA_DOCS_PALETTE_DATA = exports.VEGA_PALETTE_DATA = void 0;
+exports.VEGA_DOCS_PALETTES = exports.VEGA_PALETTES = exports.VEGA_PALETTE_NAMES = exports.VEGA_DARK_RED = exports.VEGA_DARK_MULTI = exports.VEGA_DARK_GREEN = exports.VEGA_DARK_GOLD = exports.VEGA_DARK_BLUE = exports.VEGA_LIGHT_TEAL_BLUE = exports.VEGA_LIGHT_ORANGE = exports.VEGA_LIGHT_MULTI = exports.VEGA_LIGHT_GREY_TEAL = exports.VEGA_LIGHT_GREY_RED = exports.VEGA_GOLD_RED = exports.VEGA_GOLD_ORANGE = exports.VEGA_GOLD_GREEN = exports.VEGA_WARM_GREYS = exports.VEGA_TEALS = exports.VEGA_TEAL_BLUES = exports.VEGA_BROWNS = exports.VEGA_TURBO = exports.VEGA_SINEBOW = exports.VEGA_RAINBOW = exports.VEGA_CIVIDIS = exports.VEGA_PLASMA = exports.VEGA_INFERNO = exports.VEGA_MAGMA = exports.VEGA_VIRIDIS = exports.VEGA_SPECTRAL = exports.VEGA_PINK_YELLOW_GREEN = exports.VEGA_RED_YELLOW_GREEN = exports.VEGA_RED_YELLOW_BLUE = exports.VEGA_YELLOW_GREEN_BLUE = exports.VEGA_RED_GREY = exports.VEGA_RED_BLUE = exports.VEGA_PURPLE_ORANGE = exports.VEGA_PURPLE_GREEN = exports.VEGA_BROWN_BLUE_GREEN = exports.VEGA_BLUE_ORANGE = exports.VEGA_YELLOW_ORANGE_RED = exports.VEGA_YELLOW_ORANGE_BROWN = exports.VEGA_YELLOW_GREEN = exports.VEGA_RED_PURPLE = exports.VEGA_PURPLE_RED = exports.VEGA_PURPLE_BLUE_GREEN = exports.VEGA_PURPLE_BLUE = exports.VEGA_ORANGE_RED = exports.VEGA_GREEN_BLUE = exports.VEGA_BLUE_PURPLE = exports.VEGA_BLUE_GREEN = exports.VEGA_REDS = exports.VEGA_PURPLES = exports.VEGA_ORANGES = exports.VEGA_GREYS = exports.VEGA_GREENS = exports.VEGA_BLUES = exports.VEGA_SET_3 = exports.VEGA_SET_2 = exports.VEGA_SET_1 = exports.VEGA_PASTEL_2 = exports.VEGA_PASTEL_1 = exports.VEGA_PAIRED = exports.VEGA_DARK_2 = exports.VEGA_ACCENT = exports.VEGA_TABLEAU_20 = exports.VEGA_TABLEAU_10 = exports.VEGA_CATEGORY_20_C = exports.VEGA_CATEGORY_20_B = exports.VEGA_CATEGORY_20 = exports.VEGA_CATEGORY_10 = exports.VEGA_DOCS_PALETTE_DATA = exports.VEGA_PALETTE_DATA = void 0;
 var VEGA_PALETTE_DATA = {
   "vega_category10": {
     1: ["#1f77b4"],
@@ -5205,6 +5205,17 @@ var VEGA_PALETTE_DATA = {
     9: ["#42039d", "#6a00a8", "#900da4", "#b12a90", "#cb4779", "#e16462", "#f2834c", "#fca636", "#fcce25"],
     256: ["#100888", "#120889", "#15078a", "#17078b", "#1a078c", "#1c078d", "#1f068e", "#22068f", "#240690", "#260691", "#280692", "#290693", "#2b0594", "#2d0594", "#2f0595", "#310596", "#330597", "#350598", "#360598", "#380499", "#3a049a", "#3c049a", "#3d049b", "#3f039c", "#41039d", "#42039d", "#44039e", "#46039e", "#47039f", "#4902a0", "#4b02a0", "#4c02a1", "#4e02a1", "#5002a2", "#5102a2", "#5302a3", "#5402a3", "#5602a4", "#5701a4", "#5901a5", "#5a01a5", "#5c01a6", "#5d01a6", "#5f01a6", "#6001a7", "#6201a7", "#6301a7", "#6500a7", "#6600a7", "#6800a8", "#6900a8", "#6b00a8", "#6d00a8", "#6e00a8", "#7000a8", "#7201a8", "#7301a8", "#7501a8", "#7601a8", "#7801a8", "#7901a8", "#7b02a8", "#7c02a8", "#7e03a8", "#7f03a7", "#8004a7", "#8204a7", "#8305a7", "#8505a7", "#8606a6", "#8707a6", "#8908a6", "#8a09a5", "#8c0aa5", "#8d0ba5", "#8e0ca4", "#900da4", "#910ea3", "#930fa3", "#9410a2", "#9512a1", "#9713a1", "#9814a0", "#9a159f", "#9b169e", "#9c179e", "#9e199d", "#9f1a9c", "#a01b9c", "#a21c9b", "#a31d9a", "#a41e9a", "#a52099", "#a72198", "#a82297", "#a92396", "#aa2495", "#ab2594", "#ad2694", "#ae2793", "#af2892", "#b02991", "#b12a90", "#b22b8f", "#b32d8e", "#b42e8d", "#b52f8c", "#b6308b", "#b8318a", "#b93289", "#ba3488", "#bb3587", "#bc3686", "#bd3786", "#be3885", "#bf3984", "#c03a83", "#c13b82", "#c23c81", "#c33d80", "#c43e7f", "#c53f7e", "#c6417d", "#c7427d", "#c8437c", "#c9447b", "#ca457a", "#cb4679", "#cb4879", "#cc4978", "#cd4a77", "#ce4b76", "#cf4c75", "#d04d74", "#d14f73", "#d25072", "#d35171", "#d45270", "#d5536f", "#d5546e", "#d6556d", "#d7566c", "#d8576b", "#d9586b", "#d9596a", "#da5a69", "#db5c68", "#dc5d67", "#dd5e66", "#de5f65", "#de6065", "#df6164", "#e06363", "#e16462", "#e26561", "#e26661", "#e36760", "#e4685f", "#e46a5e", "#e56b5d", "#e66c5c", "#e66d5c", "#e76e5b", "#e8705a", "#e97159", "#e97258", "#ea7357", "#eb7556", "#eb7655", "#ec7754", "#ed7953", "#ed7a52", "#ee7b52", "#ef7c51", "#ef7d50", "#f07e4f", "#f0804e", "#f1814e", "#f1824d", "#f2834c", "#f3854b", "#f3864a", "#f38749", "#f48948", "#f48a47", "#f58c46", "#f58d45", "#f68e44", "#f69044", "#f79143", "#f79242", "#f89441", "#f89540", "#f9963f", "#f9973f", "#fa993e", "#fa9a3d", "#fa9b3c", "#fa9d3b", "#fb9e3b", "#fba03a", "#fba139", "#fba238", "#fca437", "#fca536", "#fca736", "#fca835", "#fcaa34", "#fcab33", "#fdad32", "#fdae32", "#fdb031", "#fdb130", "#fdb32f", "#fdb42e", "#fdb62e", "#fdb72d", "#fdb92c", "#feba2c", "#febc2b", "#febd2a", "#febf2a", "#fec029", "#fec228", "#fdc428", "#fdc527", "#fdc727", "#fdc927", "#fdca26", "#fccc26", "#fcce25", "#fccf25", "#fbd125", "#fbd225", "#fbd425", "#fad624", "#fad724", "#fad924", "#f9db24", "#f9dc24", "#f8de24", "#f8df25", "#f8e125", "#f7e325", "#f7e426", "#f6e626", "#f6e826", "#f5e927", "#f5eb27", "#f4ed26", "#f4ee25", "#f3f025", "#f2f224", "#f2f423", "#f1f522", "#f1f722"]
   },
+  "vega_cividis": {
+    1: ["#7e7b75"],
+    2: ["#555b6e", "#a19b78"],
+    3: ["#3b4c6e", "#7e7b75", "#b7ac73"],
+    4: ["#2a446e", "#67686f", "#928d78", "#c7b76c"],
+    5: ["#1f3e6e", "#555b6e", "#7e7b75", "#a19b78", "#d1bf67"],
+    6: ["#16396d", "#47536d", "#6e6d71", "#8c8877", "#aea575", "#d8c462"],
+    7: ["#11366c", "#3b4c6e", "#61636f", "#7e7b75", "#989278", "#b7ac73", "#dec85f"],
+    8: ["#0d346b", "#31476e", "#555b6e", "#727071", "#898577", "#a19b78", "#c0b26f", "#e2cb5c"],
+    9: ["#0a326a", "#2a446e", "#4c566d", "#67686f", "#7e7b75", "#928d78", "#a9a177", "#c7b76c", "#e6ce59"]
+  },
   "vega_rainbow": {
     1: ["#aff05b"],
     2: ["#ff8c38", "#28ea8d"],
@@ -5226,6 +5237,17 @@ var VEGA_PALETTE_DATA = {
     7: ["#daa105", "#80ee12", "#26fa5f", "#00bfbf", "#265ffa", "#8012ee", "#da05a1"],
     8: ["#e19608", "#96e108", "#40ff40", "#08e196", "#0896e1", "#4040ff", "#9608e1", "#e10896"],
     9: ["#e78d0b", "#a7d503", "#58fc2a", "#18f472", "#00bfbf", "#1872f4", "#582afc", "#a703d5", "#e70b8d"]
+  },
+  "vega_turbo": {
+    1: ["#8ffc54"],
+    2: ["#2de3b2", "#fac029"],
+    3: ["#27bae3", "#8ffc54", "#ff8a1f"],
+    4: ["#309bf5", "#49f787", "#d8e135", "#fb6819"],
+    5: ["#3a85f9", "#2de3b2", "#8ffc54", "#fac029", "#ec5115"],
+    6: ["#4074f5", "#25cdcf", "#5afc77", "#c5ec3c", "#ffa223", "#df4111"],
+    7: ["#4568ed", "#27bae3", "#3cf197", "#8ffc54", "#e7d630", "#ff8a1f", "#d4370f"],
+    8: ["#485ee4", "#2ba9ef", "#2de3b2", "#65fd6e", "#b9f140", "#fac029", "#ff771c", "#cb2f0d"],
+    9: ["#4956db", "#309bf5", "#27d4c7", "#49f787", "#8ffc54", "#d8e135", "#ffac24", "#fb6819", "#c3290b"]
   },
   "vega_browns": {
     1: ["#d18954"],
@@ -5463,8 +5485,10 @@ var VEGA_DOCS_PALETTE_DATA = {
   "vega_magma": ["#000004", "#150e37", "#3b0f70", "#651a80", "#8c2981", "#b6377a", "#de4968", "#f76f5c", "#fe9f6d", "#fece91", "#fcfdbf"],
   "vega_inferno": ["#000004", "#170c3b", "#420a68", "#6b176e", "#932667", "#bb3755", "#dd513a", "#f3771a", "#fca50a", "#f6d645", "#fcffa4"],
   "vega_plasma": ["#0d0887", "#42039d", "#6a00a8", "#900da4", "#b12a90", "#cb4779", "#e16462", "#f2834c", "#fca636", "#fcce25", "#f0f921"],
+  "vega_cividis": ["#002051", "#083169", "#26426e", "#4c566d", "#66676f", "#7f7c75", "#938e78", "#a9a177", "#c9b96a", "#e7cf58", "#fce647"],
   "vega_rainbow": ["#6e40aa", "#bf3caf", "#fe4b83", "#ff7847", "#e2b72f", "#aff05b", "#52f667", "#1ddfa3", "#23abd8", "#4c6edb", "#6e40aa"],
   "vega_sinebow": ["#ff4040", "#e78d0b", "#a7d503", "#58fc2a", "#18f472", "#00bfbf", "#1872f4", "#582afc", "#a703d5", "#e70b8d", "#ff4040"],
+  "vega_turbo": ["#23171b", "#4a53d7", "#3295f7", "#27d5c6", "#47f689", "#95fb51", "#dae034", "#ffad24", "#f76118", "#c0260a", "#910b00"],
   "vega_browns": ["#eedbbd", "#ecca96", "#e9b97a", "#e4a865", "#dc9856", "#d18954", "#c7784c", "#c0673f", "#b85536", "#ad4433", "#9f3632"],
   "vega_tealblues": ["#bce4d8", "#bce4d8", "#9dd3d1", "#81c3cb", "#65b3c2", "#45a2b9", "#368fae", "#347da0", "#306a93", "#2c5985", "#2c5985"],
   "vega_teals": ["#bbdfdf", "#a2d4d5", "#8ac9c9", "#75bcbb", "#61b0af", "#4da5a4", "#379998", "#2b8b8c", "#1e7f7f", "#127273", "#006667"],
@@ -5576,10 +5600,14 @@ var VEGA_INFERNO = "vega_inferno";
 exports.VEGA_INFERNO = VEGA_INFERNO;
 var VEGA_PLASMA = "vega_plasma";
 exports.VEGA_PLASMA = VEGA_PLASMA;
+var VEGA_CIVIDIS = "vega_cividis";
+exports.VEGA_CIVIDIS = VEGA_CIVIDIS;
 var VEGA_RAINBOW = "vega_rainbow";
 exports.VEGA_RAINBOW = VEGA_RAINBOW;
 var VEGA_SINEBOW = "vega_sinebow";
 exports.VEGA_SINEBOW = VEGA_SINEBOW;
+var VEGA_TURBO = "vega_turbo";
+exports.VEGA_TURBO = VEGA_TURBO;
 var VEGA_BROWNS = "vega_browns";
 exports.VEGA_BROWNS = VEGA_BROWNS;
 var VEGA_TEAL_BLUES = "vega_tealblues";
@@ -5661,8 +5689,10 @@ _VEGA_PALETTE_NAMES['VEGA_VIRIDIS'] = 'vega_viridis';
 _VEGA_PALETTE_NAMES['VEGA_MAGMA'] = 'vega_magma';
 _VEGA_PALETTE_NAMES['VEGA_INFERNO'] = 'vega_inferno';
 _VEGA_PALETTE_NAMES['VEGA_PLASMA'] = 'vega_plasma';
+_VEGA_PALETTE_NAMES['VEGA_CIVIDIS'] = 'vega_cividis';
 _VEGA_PALETTE_NAMES['VEGA_RAINBOW'] = 'vega_rainbow';
 _VEGA_PALETTE_NAMES['VEGA_SINEBOW'] = 'vega_sinebow';
+_VEGA_PALETTE_NAMES['VEGA_TURBO'] = 'vega_turbo';
 _VEGA_PALETTE_NAMES['VEGA_BROWNS'] = 'vega_browns';
 _VEGA_PALETTE_NAMES['VEGA_TEAL_BLUES'] = 'vega_tealblues';
 _VEGA_PALETTE_NAMES['VEGA_TEALS'] = 'vega_teals';
@@ -5729,8 +5759,10 @@ _VEGA_PALETTES['viridis'] = VEGA_PALETTE_DATA[VEGA_VIRIDIS];
 _VEGA_PALETTES['magma'] = VEGA_PALETTE_DATA[VEGA_MAGMA];
 _VEGA_PALETTES['inferno'] = VEGA_PALETTE_DATA[VEGA_INFERNO];
 _VEGA_PALETTES['plasma'] = VEGA_PALETTE_DATA[VEGA_PLASMA];
+_VEGA_PALETTES['cividis'] = VEGA_PALETTE_DATA[VEGA_CIVIDIS];
 _VEGA_PALETTES['rainbow'] = VEGA_PALETTE_DATA[VEGA_RAINBOW];
 _VEGA_PALETTES['sinebow'] = VEGA_PALETTE_DATA[VEGA_SINEBOW];
+_VEGA_PALETTES['turbo'] = VEGA_PALETTE_DATA[VEGA_TURBO];
 _VEGA_PALETTES['browns'] = VEGA_PALETTE_DATA[VEGA_BROWNS];
 _VEGA_PALETTES['tealblues'] = VEGA_PALETTE_DATA[VEGA_TEAL_BLUES];
 _VEGA_PALETTES['teals'] = VEGA_PALETTE_DATA[VEGA_TEALS];
@@ -5797,8 +5829,10 @@ _VEGA_DOCS_PALETTES['viridis'] = VEGA_DOCS_PALETTE_DATA[VEGA_VIRIDIS];
 _VEGA_DOCS_PALETTES['magma'] = VEGA_DOCS_PALETTE_DATA[VEGA_MAGMA];
 _VEGA_DOCS_PALETTES['inferno'] = VEGA_DOCS_PALETTE_DATA[VEGA_INFERNO];
 _VEGA_DOCS_PALETTES['plasma'] = VEGA_DOCS_PALETTE_DATA[VEGA_PLASMA];
+_VEGA_DOCS_PALETTES['cividis'] = VEGA_DOCS_PALETTE_DATA[VEGA_CIVIDIS];
 _VEGA_DOCS_PALETTES['rainbow'] = VEGA_DOCS_PALETTE_DATA[VEGA_RAINBOW];
 _VEGA_DOCS_PALETTES['sinebow'] = VEGA_DOCS_PALETTE_DATA[VEGA_SINEBOW];
+_VEGA_DOCS_PALETTES['turbo'] = VEGA_DOCS_PALETTE_DATA[VEGA_TURBO];
 _VEGA_DOCS_PALETTES['browns'] = VEGA_DOCS_PALETTE_DATA[VEGA_BROWNS];
 _VEGA_DOCS_PALETTES['tealblues'] = VEGA_DOCS_PALETTE_DATA[VEGA_TEAL_BLUES];
 _VEGA_DOCS_PALETTES['teals'] = VEGA_DOCS_PALETTE_DATA[VEGA_TEALS];
