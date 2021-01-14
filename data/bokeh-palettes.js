@@ -806,49 +806,49 @@ export const BOKEH_PALETTE_DATA = {
   },
   "bokeh_Colorblind": {
     3: [
-      "#0072b2",
+      "#72b2ff",
       "#e69f00",
       "#f0e442"
     ],
     4: [
-      "#0072b2",
+      "#72b2ff",
       "#e69f00",
       "#f0e442",
-      "#009e73"
+      "#9e73ff"
     ],
     5: [
-      "#0072b2",
+      "#72b2ff",
       "#e69f00",
       "#f0e442",
-      "#009e73",
+      "#9e73ff",
       "#56b4e9"
     ],
     6: [
-      "#0072b2",
+      "#72b2ff",
       "#e69f00",
       "#f0e442",
-      "#009e73",
+      "#9e73ff",
       "#56b4e9",
       "#d55e00"
     ],
     7: [
-      "#0072b2",
+      "#72b2ff",
       "#e69f00",
       "#f0e442",
-      "#009e73",
+      "#9e73ff",
       "#56b4e9",
       "#d55e00",
       "#cc79a7"
     ],
     8: [
-      "#0072b2",
+      "#72b2ff",
       "#e69f00",
       "#f0e442",
-      "#009e73",
+      "#9e73ff",
       "#56b4e9",
       "#d55e00",
       "#cc79a7",
-      "#000000"
+      "#0000ff"
     ]
   },
   "bokeh_Accent": {
@@ -1362,14 +1362,14 @@ export const BOKEH_PALETTE_DATA = {
       "#ffffcc"
     ],
     5: [
-      "#006837",
+      "#6837ff",
       "#31a354",
       "#78c679",
       "#c2e699",
       "#ffffcc"
     ],
     6: [
-      "#006837",
+      "#6837ff",
       "#31a354",
       "#78c679",
       "#addd8e",
@@ -1377,7 +1377,7 @@ export const BOKEH_PALETTE_DATA = {
       "#ffffcc"
     ],
     7: [
-      "#005a32",
+      "#5a32ff",
       "#238443",
       "#41ab5d",
       "#78c679",
@@ -1386,7 +1386,7 @@ export const BOKEH_PALETTE_DATA = {
       "#ffffcc"
     ],
     8: [
-      "#005a32",
+      "#5a32ff",
       "#238443",
       "#41ab5d",
       "#78c679",
@@ -1396,8 +1396,8 @@ export const BOKEH_PALETTE_DATA = {
       "#ffffe5"
     ],
     9: [
-      "#004529",
-      "#006837",
+      "#4529ff",
+      "#6837ff",
       "#238443",
       "#41ab5d",
       "#78c679",
@@ -1435,7 +1435,7 @@ export const BOKEH_PALETTE_DATA = {
       "#ffffcc"
     ],
     7: [
-      "#0c2c84",
+      "#c2c84f",
       "#225ea8",
       "#1d91c0",
       "#41b6c4",
@@ -1444,7 +1444,7 @@ export const BOKEH_PALETTE_DATA = {
       "#ffffcc"
     ],
     8: [
-      "#0c2c84",
+      "#c2c84f",
       "#225ea8",
       "#1d91c0",
       "#41b6c4",
@@ -1454,7 +1454,7 @@ export const BOKEH_PALETTE_DATA = {
       "#ffffd9"
     ],
     9: [
-      "#081d58",
+      "#81d58f",
       "#253494",
       "#225ea8",
       "#1d91c0",
@@ -1478,14 +1478,14 @@ export const BOKEH_PALETTE_DATA = {
       "#f0f9e8"
     ],
     5: [
-      "#0868ac",
+      "#868acf",
       "#43a2ca",
       "#7bccc4",
       "#bae4bc",
       "#f0f9e8"
     ],
     6: [
-      "#0868ac",
+      "#868acf",
       "#43a2ca",
       "#7bccc4",
       "#a8ddb5",
@@ -1493,7 +1493,7 @@ export const BOKEH_PALETTE_DATA = {
       "#f0f9e8"
     ],
     7: [
-      "#08589e",
+      "#8589ef",
       "#2b8cbe",
       "#4eb3d3",
       "#7bccc4",
@@ -1502,7 +1502,7 @@ export const BOKEH_PALETTE_DATA = {
       "#f0f9e8"
     ],
     8: [
-      "#08589e",
+      "#8589ef",
       "#2b8cbe",
       "#4eb3d3",
       "#7bccc4",
@@ -1512,8 +1512,8 @@ export const BOKEH_PALETTE_DATA = {
       "#f7fcf0"
     ],
     9: [
-      "#084081",
-      "#0868ac",
+      "#84081f",
+      "#868acf",
       "#2b8cbe",
       "#4eb3d3",
       "#7bccc4",
@@ -1536,14 +1536,14 @@ export const BOKEH_PALETTE_DATA = {
       "#edf8fb"
     ],
     5: [
-      "#006d2c",
+      "#6d2cff",
       "#2ca25f",
       "#66c2a4",
       "#b2e2e2",
       "#edf8fb"
     ],
     6: [
-      "#006d2c",
+      "#6d2cff",
       "#2ca25f",
       "#66c2a4",
       "#99d8c9",
@@ -1551,7 +1551,7 @@ export const BOKEH_PALETTE_DATA = {
       "#edf8fb"
     ],
     7: [
-      "#005824",
+      "#5824ff",
       "#238b45",
       "#41ae76",
       "#66c2a4",
@@ -1560,7 +1560,7 @@ export const BOKEH_PALETTE_DATA = {
       "#edf8fb"
     ],
     8: [
-      "#005824",
+      "#5824ff",
       "#238b45",
       "#41ae76",
       "#66c2a4",
@@ -1570,8 +1570,8 @@ export const BOKEH_PALETTE_DATA = {
       "#f7fcfd"
     ],
     9: [
-      "#00441b",
-      "#006d2c",
+      "#441bff",
+      "#6d2cff",
       "#238b45",
       "#41ae76",
       "#66c2a4",
@@ -1588,20 +1588,20 @@ export const BOKEH_PALETTE_DATA = {
       "#ece2f0"
     ],
     4: [
-      "#02818a",
+      "#2818af",
       "#67a9cf",
       "#bdc9e1",
       "#f6eff7"
     ],
     5: [
-      "#016c59",
+      "#16c59f",
       "#1c9099",
       "#67a9cf",
       "#bdc9e1",
       "#f6eff7"
     ],
     6: [
-      "#016c59",
+      "#16c59f",
       "#1c9099",
       "#67a9cf",
       "#a6bddb",
@@ -1609,8 +1609,8 @@ export const BOKEH_PALETTE_DATA = {
       "#f6eff7"
     ],
     7: [
-      "#016450",
-      "#02818a",
+      "#16450f",
+      "#2818af",
       "#3690c0",
       "#67a9cf",
       "#a6bddb",
@@ -1618,8 +1618,8 @@ export const BOKEH_PALETTE_DATA = {
       "#f6eff7"
     ],
     8: [
-      "#016450",
-      "#02818a",
+      "#16450f",
+      "#2818af",
       "#3690c0",
       "#67a9cf",
       "#a6bddb",
@@ -1628,9 +1628,9 @@ export const BOKEH_PALETTE_DATA = {
       "#fff7fb"
     ],
     9: [
-      "#014636",
-      "#016c59",
-      "#02818a",
+      "#14636f",
+      "#16c59f",
+      "#2818af",
       "#3690c0",
       "#67a9cf",
       "#a6bddb",
@@ -1646,20 +1646,20 @@ export const BOKEH_PALETTE_DATA = {
       "#ece7f2"
     ],
     4: [
-      "#0570b0",
+      "#570b0f",
       "#74a9cf",
       "#bdc9e1",
       "#f1eef6"
     ],
     5: [
-      "#045a8d",
+      "#45a8df",
       "#2b8cbe",
       "#74a9cf",
       "#bdc9e1",
       "#f1eef6"
     ],
     6: [
-      "#045a8d",
+      "#45a8df",
       "#2b8cbe",
       "#74a9cf",
       "#a6bddb",
@@ -1667,8 +1667,8 @@ export const BOKEH_PALETTE_DATA = {
       "#f1eef6"
     ],
     7: [
-      "#034e7b",
-      "#0570b0",
+      "#34e7bf",
+      "#570b0f",
       "#3690c0",
       "#74a9cf",
       "#a6bddb",
@@ -1676,8 +1676,8 @@ export const BOKEH_PALETTE_DATA = {
       "#f1eef6"
     ],
     8: [
-      "#034e7b",
-      "#0570b0",
+      "#34e7bf",
+      "#570b0f",
       "#3690c0",
       "#74a9cf",
       "#a6bddb",
@@ -1686,9 +1686,9 @@ export const BOKEH_PALETTE_DATA = {
       "#fff7fb"
     ],
     9: [
-      "#023858",
-      "#045a8d",
-      "#0570b0",
+      "#23858f",
+      "#45a8df",
+      "#570b0f",
       "#3690c0",
       "#74a9cf",
       "#a6bddb",
@@ -2116,14 +2116,14 @@ export const BOKEH_PALETTE_DATA = {
       "#eff3ff"
     ],
     5: [
-      "#08519c",
+      "#8519cf",
       "#3182bd",
       "#6baed6",
       "#bdd7e7",
       "#eff3ff"
     ],
     6: [
-      "#08519c",
+      "#8519cf",
       "#3182bd",
       "#6baed6",
       "#9ecae1",
@@ -2131,7 +2131,7 @@ export const BOKEH_PALETTE_DATA = {
       "#eff3ff"
     ],
     7: [
-      "#084594",
+      "#84594f",
       "#2171b5",
       "#4292c6",
       "#6baed6",
@@ -2140,7 +2140,7 @@ export const BOKEH_PALETTE_DATA = {
       "#eff3ff"
     ],
     8: [
-      "#084594",
+      "#84594f",
       "#2171b5",
       "#4292c6",
       "#6baed6",
@@ -2150,8 +2150,8 @@ export const BOKEH_PALETTE_DATA = {
       "#f7fbff"
     ],
     9: [
-      "#08306b",
-      "#08519c",
+      "#8306bf",
+      "#8519cf",
       "#2171b5",
       "#4292c6",
       "#6baed6",
@@ -2174,14 +2174,14 @@ export const BOKEH_PALETTE_DATA = {
       "#edf8e9"
     ],
     5: [
-      "#006d2c",
+      "#6d2cff",
       "#31a354",
       "#74c476",
       "#bae4b3",
       "#edf8e9"
     ],
     6: [
-      "#006d2c",
+      "#6d2cff",
       "#31a354",
       "#74c476",
       "#a1d99b",
@@ -2189,7 +2189,7 @@ export const BOKEH_PALETTE_DATA = {
       "#edf8e9"
     ],
     7: [
-      "#005a32",
+      "#5a32ff",
       "#238b45",
       "#41ab5d",
       "#74c476",
@@ -2198,7 +2198,7 @@ export const BOKEH_PALETTE_DATA = {
       "#edf8e9"
     ],
     8: [
-      "#005a32",
+      "#5a32ff",
       "#238b45",
       "#41ab5d",
       "#74c476",
@@ -2208,8 +2208,8 @@ export const BOKEH_PALETTE_DATA = {
       "#f7fcf5"
     ],
     9: [
-      "#00441b",
-      "#006d2c",
+      "#441bff",
+      "#6d2cff",
       "#238b45",
       "#41ab5d",
       "#74c476",
@@ -2382,7 +2382,7 @@ export const BOKEH_PALETTE_DATA = {
       "#ffffff"
     ],
     9: [
-      "#000000",
+      "#0000ff",
       "#252525",
       "#525252",
       "#737373",
@@ -2393,7 +2393,7 @@ export const BOKEH_PALETTE_DATA = {
       "#ffffff"
     ],
     10: [
-      "#000000",
+      "#0000ff",
       "#1c1c1c",
       "#383838",
       "#555555",
@@ -2405,7 +2405,7 @@ export const BOKEH_PALETTE_DATA = {
       "#ffffff"
     ],
     11: [
-      "#000000",
+      "#0000ff",
       "#191919",
       "#333333",
       "#4c4c4c",
@@ -2418,22 +2418,22 @@ export const BOKEH_PALETTE_DATA = {
       "#ffffff"
     ],
     256: [
-      "#000000",
-      "#010101",
-      "#020202",
-      "#030303",
-      "#040404",
-      "#050505",
-      "#060606",
-      "#070707",
-      "#080808",
-      "#090909",
-      "#0a0a0a",
-      "#0b0b0b",
-      "#0c0c0c",
-      "#0d0d0d",
-      "#0e0e0e",
-      "#0f0f0f",
+      "#0000ff",
+      "#10101f",
+      "#20202f",
+      "#30303f",
+      "#40404f",
+      "#50505f",
+      "#60606f",
+      "#70707f",
+      "#80808f",
+      "#90909f",
+      "#a0a0af",
+      "#b0b0bf",
+      "#c0c0cf",
+      "#d0d0df",
+      "#e0e0ef",
+      "#f0f0ff",
       "#101010",
       "#111111",
       "#121212",
@@ -2766,20 +2766,20 @@ export const BOKEH_PALETTE_DATA = {
       "#d8b365"
     ],
     4: [
-      "#018571",
+      "#18571f",
       "#80cdc1",
       "#dfc27d",
       "#a6611a"
     ],
     5: [
-      "#018571",
+      "#18571f",
       "#80cdc1",
       "#f5f5f5",
       "#dfc27d",
       "#a6611a"
     ],
     6: [
-      "#01665e",
+      "#1665ef",
       "#5ab4ac",
       "#c7eae5",
       "#f6e8c3",
@@ -2787,7 +2787,7 @@ export const BOKEH_PALETTE_DATA = {
       "#8c510a"
     ],
     7: [
-      "#01665e",
+      "#1665ef",
       "#5ab4ac",
       "#c7eae5",
       "#f5f5f5",
@@ -2796,7 +2796,7 @@ export const BOKEH_PALETTE_DATA = {
       "#8c510a"
     ],
     8: [
-      "#01665e",
+      "#1665ef",
       "#35978f",
       "#80cdc1",
       "#c7eae5",
@@ -2806,7 +2806,7 @@ export const BOKEH_PALETTE_DATA = {
       "#8c510a"
     ],
     9: [
-      "#01665e",
+      "#1665ef",
       "#35978f",
       "#80cdc1",
       "#c7eae5",
@@ -2817,8 +2817,8 @@ export const BOKEH_PALETTE_DATA = {
       "#8c510a"
     ],
     10: [
-      "#003c30",
-      "#01665e",
+      "#3c30ff",
+      "#1665ef",
       "#35978f",
       "#80cdc1",
       "#c7eae5",
@@ -2829,8 +2829,8 @@ export const BOKEH_PALETTE_DATA = {
       "#543005"
     ],
     11: [
-      "#003c30",
-      "#01665e",
+      "#3c30ff",
+      "#1665ef",
       "#35978f",
       "#80cdc1",
       "#c7eae5",
@@ -2849,13 +2849,13 @@ export const BOKEH_PALETTE_DATA = {
       "#af8dc3"
     ],
     4: [
-      "#008837",
+      "#8837ff",
       "#a6dba0",
       "#c2a5cf",
       "#7b3294"
     ],
     5: [
-      "#008837",
+      "#8837ff",
       "#a6dba0",
       "#f7f7f7",
       "#c2a5cf",
@@ -2900,7 +2900,7 @@ export const BOKEH_PALETTE_DATA = {
       "#762a83"
     ],
     10: [
-      "#00441b",
+      "#441bff",
       "#1b7837",
       "#5aae61",
       "#a6dba0",
@@ -2912,7 +2912,7 @@ export const BOKEH_PALETTE_DATA = {
       "#40004b"
     ],
     11: [
-      "#00441b",
+      "#441bff",
       "#1b7837",
       "#5aae61",
       "#a6dba0",
@@ -3015,13 +3015,13 @@ export const BOKEH_PALETTE_DATA = {
       "#ef8a62"
     ],
     4: [
-      "#0571b0",
+      "#571b0f",
       "#92c5de",
       "#f4a582",
       "#ca0020"
     ],
     5: [
-      "#0571b0",
+      "#571b0f",
       "#92c5de",
       "#f7f7f7",
       "#f4a582",
@@ -3066,7 +3066,7 @@ export const BOKEH_PALETTE_DATA = {
       "#b2182b"
     ],
     10: [
-      "#053061",
+      "#53061f",
       "#2166ac",
       "#4393c3",
       "#92c5de",
@@ -3078,7 +3078,7 @@ export const BOKEH_PALETTE_DATA = {
       "#67001f"
     ],
     11: [
-      "#053061",
+      "#53061f",
       "#2166ac",
       "#4393c3",
       "#92c5de",
@@ -3398,7 +3398,7 @@ export const BOKEH_PALETTE_DATA = {
       "#d73027"
     ],
     10: [
-      "#006837",
+      "#6837ff",
       "#1a9850",
       "#66bd63",
       "#a6d96a",
@@ -3410,7 +3410,7 @@ export const BOKEH_PALETTE_DATA = {
       "#a50026"
     ],
     11: [
-      "#006837",
+      "#6837ff",
       "#1a9850",
       "#66bd63",
       "#a6d96a",
@@ -3425,25 +3425,25 @@ export const BOKEH_PALETTE_DATA = {
   },
   "bokeh_Inferno": {
     3: [
-      "#000003",
+      "#0003ff",
       "#ba3655",
       "#fcfea4"
     ],
     4: [
-      "#000003",
+      "#0003ff",
       "#781c6d",
       "#ed6825",
       "#fcfea4"
     ],
     5: [
-      "#000003",
+      "#0003ff",
       "#550f6d",
       "#ba3655",
       "#f98c09",
       "#fcfea4"
     ],
     6: [
-      "#000003",
+      "#0003ff",
       "#410967",
       "#932567",
       "#dc5039",
@@ -3451,7 +3451,7 @@ export const BOKEH_PALETTE_DATA = {
       "#fcfea4"
     ],
     7: [
-      "#000003",
+      "#0003ff",
       "#32095d",
       "#781c6d",
       "#ba3655",
@@ -3460,7 +3460,7 @@ export const BOKEH_PALETTE_DATA = {
       "#fcfea4"
     ],
     8: [
-      "#000003",
+      "#0003ff",
       "#270b52",
       "#63146e",
       "#9e2963",
@@ -3470,7 +3470,7 @@ export const BOKEH_PALETTE_DATA = {
       "#fcfea4"
     ],
     9: [
-      "#000003",
+      "#0003ff",
       "#1f0c47",
       "#550f6d",
       "#88216a",
@@ -3481,7 +3481,7 @@ export const BOKEH_PALETTE_DATA = {
       "#fcfea4"
     ],
     10: [
-      "#000003",
+      "#0003ff",
       "#1a0b40",
       "#4a0b6a",
       "#781c6d",
@@ -3493,7 +3493,7 @@ export const BOKEH_PALETTE_DATA = {
       "#fcfea4"
     ],
     11: [
-      "#000003",
+      "#0003ff",
       "#160b39",
       "#410967",
       "#6a176e",
@@ -3506,27 +3506,27 @@ export const BOKEH_PALETTE_DATA = {
       "#fcfea4"
     ],
     256: [
-      "#000003",
-      "#000004",
-      "#000006",
-      "#010007",
-      "#010109",
-      "#01010b",
-      "#02010e",
-      "#020210",
-      "#030212",
-      "#040314",
-      "#040316",
-      "#050418",
-      "#06041b",
-      "#07051d",
-      "#08061f",
-      "#090621",
-      "#0a0723",
-      "#0b0726",
-      "#0d0828",
-      "#0e082a",
-      "#0f092d",
+      "#0003ff",
+      "#0004ff",
+      "#0006ff",
+      "#10007f",
+      "#10109f",
+      "#1010bf",
+      "#2010ef",
+      "#20210f",
+      "#30212f",
+      "#40314f",
+      "#40316f",
+      "#50418f",
+      "#6041bf",
+      "#7051df",
+      "#8061ff",
+      "#90621f",
+      "#a0723f",
+      "#b0726f",
+      "#d0828f",
+      "#e082af",
+      "#f092df",
       "#10092f",
       "#120a32",
       "#130a34",
@@ -3766,25 +3766,25 @@ export const BOKEH_PALETTE_DATA = {
   },
   "bokeh_Magma": {
     3: [
-      "#000003",
+      "#0003ff",
       "#b53679",
       "#fbfcbf"
     ],
     4: [
-      "#000003",
+      "#0003ff",
       "#711f81",
       "#f0605d",
       "#fbfcbf"
     ],
     5: [
-      "#000003",
+      "#0003ff",
       "#4f117b",
       "#b53679",
       "#fb8660",
       "#fbfcbf"
     ],
     6: [
-      "#000003",
+      "#0003ff",
       "#3b0f6f",
       "#8c2980",
       "#dd4968",
@@ -3792,7 +3792,7 @@ export const BOKEH_PALETTE_DATA = {
       "#fbfcbf"
     ],
     7: [
-      "#000003",
+      "#0003ff",
       "#2b115e",
       "#711f81",
       "#b53679",
@@ -3801,7 +3801,7 @@ export const BOKEH_PALETTE_DATA = {
       "#fbfcbf"
     ],
     8: [
-      "#000003",
+      "#0003ff",
       "#221150",
       "#5d177e",
       "#972c7f",
@@ -3811,7 +3811,7 @@ export const BOKEH_PALETTE_DATA = {
       "#fbfcbf"
     ],
     9: [
-      "#000003",
+      "#0003ff",
       "#1b1044",
       "#4f117b",
       "#812581",
@@ -3822,7 +3822,7 @@ export const BOKEH_PALETTE_DATA = {
       "#fbfcbf"
     ],
     10: [
-      "#000003",
+      "#0003ff",
       "#170f3c",
       "#430f75",
       "#711f81",
@@ -3834,7 +3834,7 @@ export const BOKEH_PALETTE_DATA = {
       "#fbfcbf"
     ],
     11: [
-      "#000003",
+      "#0003ff",
       "#140d35",
       "#3b0f6f",
       "#63197f",
@@ -3847,28 +3847,28 @@ export const BOKEH_PALETTE_DATA = {
       "#fbfcbf"
     ],
     256: [
-      "#000003",
-      "#000004",
-      "#000006",
-      "#010007",
-      "#010109",
-      "#01010b",
-      "#02020d",
-      "#02020f",
-      "#030311",
-      "#040313",
-      "#040415",
-      "#050417",
-      "#060519",
-      "#07051b",
-      "#08061d",
-      "#09071f",
-      "#0a0722",
-      "#0b0824",
-      "#0c0926",
-      "#0d0a28",
-      "#0e0a2a",
-      "#0f0b2c",
+      "#0003ff",
+      "#0004ff",
+      "#0006ff",
+      "#10007f",
+      "#10109f",
+      "#1010bf",
+      "#2020df",
+      "#2020ff",
+      "#30311f",
+      "#40313f",
+      "#40415f",
+      "#50417f",
+      "#60519f",
+      "#7051bf",
+      "#8061df",
+      "#9071ff",
+      "#a0722f",
+      "#b0824f",
+      "#c0926f",
+      "#d0a28f",
+      "#e0a2af",
+      "#f0b2cf",
       "#100c2f",
       "#110c31",
       "#120d33",
@@ -4107,25 +4107,25 @@ export const BOKEH_PALETTE_DATA = {
   },
   "bokeh_Plasma": {
     3: [
-      "#0c0786",
+      "#c0786f",
       "#ca4678",
       "#eff821"
     ],
     4: [
-      "#0c0786",
+      "#c0786f",
       "#9b179e",
       "#ec7853",
       "#eff821"
     ],
     5: [
-      "#0c0786",
+      "#c0786f",
       "#7c02a7",
       "#ca4678",
       "#f79341",
       "#eff821"
     ],
     6: [
-      "#0c0786",
+      "#c0786f",
       "#6a00a7",
       "#b02a8f",
       "#e06461",
@@ -4133,7 +4133,7 @@ export const BOKEH_PALETTE_DATA = {
       "#eff821"
     ],
     7: [
-      "#0c0786",
+      "#c0786f",
       "#5c00a5",
       "#9b179e",
       "#ca4678",
@@ -4142,7 +4142,7 @@ export const BOKEH_PALETTE_DATA = {
       "#eff821"
     ],
     8: [
-      "#0c0786",
+      "#c0786f",
       "#5201a3",
       "#8908a5",
       "#b83289",
@@ -4152,7 +4152,7 @@ export const BOKEH_PALETTE_DATA = {
       "#eff821"
     ],
     9: [
-      "#0c0786",
+      "#c0786f",
       "#4a02a0",
       "#7c02a7",
       "#a82296",
@@ -4163,7 +4163,7 @@ export const BOKEH_PALETTE_DATA = {
       "#eff821"
     ],
     10: [
-      "#0c0786",
+      "#c0786f",
       "#45039e",
       "#7200a8",
       "#9b179e",
@@ -4175,7 +4175,7 @@ export const BOKEH_PALETTE_DATA = {
       "#eff821"
     ],
     11: [
-      "#0c0786",
+      "#c0786f",
       "#40039c",
       "#6a00a7",
       "#8f0da3",
@@ -4188,7 +4188,7 @@ export const BOKEH_PALETTE_DATA = {
       "#eff821"
     ],
     256: [
-      "#0c0786",
+      "#c0786f",
       "#100787",
       "#130689",
       "#15068a",
@@ -4869,14 +4869,14 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#d9d9d9"
   ],
   "bokeh_Colorblind": [
-    "#0072b2",
+    "#72b2ff",
     "#e69f00",
     "#f0e442",
-    "#009e73",
+    "#9e73ff",
     "#56b4e9",
     "#d55e00",
     "#cc79a7",
-    "#000000"
+    "#0000ff"
   ],
   "bokeh_Accent": [
     "#7fc97f",
@@ -4969,9 +4969,9 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#ffed6f"
   ],
   "bokeh_YlGn": [
-    "#004529",
-    "#004529",
-    "#006837",
+    "#4529ff",
+    "#4529ff",
+    "#6837ff",
     "#238443",
     "#41ab5d",
     "#78c679",
@@ -4982,8 +4982,8 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#ffffe5"
   ],
   "bokeh_YlGnBu": [
-    "#081d58",
-    "#081d58",
+    "#81d58f",
+    "#81d58f",
     "#253494",
     "#225ea8",
     "#1d91c0",
@@ -4995,9 +4995,9 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#ffffd9"
   ],
   "bokeh_GnBu": [
-    "#084081",
-    "#084081",
-    "#0868ac",
+    "#84081f",
+    "#84081f",
+    "#868acf",
     "#2b8cbe",
     "#4eb3d3",
     "#7bccc4",
@@ -5008,9 +5008,9 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#f7fcf0"
   ],
   "bokeh_BuGn": [
-    "#00441b",
-    "#00441b",
-    "#006d2c",
+    "#441bff",
+    "#441bff",
+    "#6d2cff",
     "#238b45",
     "#41ae76",
     "#66c2a4",
@@ -5021,10 +5021,10 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#f7fcfd"
   ],
   "bokeh_PuBuGn": [
-    "#014636",
-    "#014636",
-    "#016c59",
-    "#02818a",
+    "#14636f",
+    "#14636f",
+    "#16c59f",
+    "#2818af",
     "#3690c0",
     "#67a9cf",
     "#a6bddb",
@@ -5034,10 +5034,10 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#fff7fb"
   ],
   "bokeh_PuBu": [
-    "#023858",
-    "#023858",
-    "#045a8d",
-    "#0570b0",
+    "#23858f",
+    "#23858f",
+    "#45a8df",
+    "#570b0f",
     "#3690c0",
     "#74a9cf",
     "#a6bddb",
@@ -5138,9 +5138,9 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#fcfbfd"
   ],
   "bokeh_Blues": [
-    "#08306b",
-    "#08306b",
-    "#08519c",
+    "#8306bf",
+    "#8306bf",
+    "#8519cf",
     "#2171b5",
     "#4292c6",
     "#6baed6",
@@ -5151,9 +5151,9 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#f7fbff"
   ],
   "bokeh_Greens": [
-    "#00441b",
-    "#00441b",
-    "#006d2c",
+    "#441bff",
+    "#441bff",
+    "#6d2cff",
     "#238b45",
     "#41ab5d",
     "#74c476",
@@ -5190,7 +5190,7 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#fff5f0"
   ],
   "bokeh_Greys": [
-    "#000000",
+    "#0000ff",
     "#191919",
     "#333333",
     "#4c4c4c",
@@ -5216,8 +5216,8 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#7f3b08"
   ],
   "bokeh_BrBG": [
-    "#003c30",
-    "#01665e",
+    "#3c30ff",
+    "#1665ef",
     "#35978f",
     "#80cdc1",
     "#c7eae5",
@@ -5229,7 +5229,7 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#543005"
   ],
   "bokeh_PRGn": [
-    "#00441b",
+    "#441bff",
     "#1b7837",
     "#5aae61",
     "#a6dba0",
@@ -5255,7 +5255,7 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#8e0152"
   ],
   "bokeh_RdBu": [
-    "#053061",
+    "#53061f",
     "#2166ac",
     "#4393c3",
     "#92c5de",
@@ -5307,7 +5307,7 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#9e0142"
   ],
   "bokeh_RdYlGn": [
-    "#006837",
+    "#6837ff",
     "#1a9850",
     "#66bd63",
     "#a6d96a",
@@ -5320,7 +5320,7 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#a50026"
   ],
   "bokeh_Inferno": [
-    "#000003",
+    "#0003ff",
     "#160b39",
     "#410967",
     "#6a176e",
@@ -5333,7 +5333,7 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#fcfea4"
   ],
   "bokeh_Magma": [
-    "#000003",
+    "#0003ff",
     "#140d35",
     "#3b0f6f",
     "#63197f",
@@ -5346,7 +5346,7 @@ export const BOKEH_DOCS_PALETTE_DATA = {
     "#fbfcbf"
   ],
   "bokeh_Plasma": [
-    "#0c0786",
+    "#c0786f",
     "#40039c",
     "#6a00a7",
     "#8f0da3",

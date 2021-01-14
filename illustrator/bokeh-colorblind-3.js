@@ -1,4 +1,4 @@
-var config = {"document":{"height":210,"width":297,"mode":"rgb"},"characterStyles":[{"name":"swatchRectTitle","attributes":{"size":8}}],"swatchRect":{"textPosition":0.125},"colors":[{"group":"bokeh-colorblind-3","name":"bokeh-colorblind-3-1","rgb":[0,114,178]},{"group":"bokeh-colorblind-3","name":"bokeh-colorblind-3-2","rgb":[230,159,0]},{"group":"bokeh-colorblind-3","name":"bokeh-colorblind-3-3","rgb":[240,228,66]}]};
+var config = {"document":{"height":210,"width":297,"mode":"rgb"},"characterStyles":[{"name":"swatchRectTitle","attributes":{"size":8}}],"swatchRect":{"textPosition":0.125},"colors":[{"group":"bokeh-colorblind-3","name":"bokeh-colorblind-3-1","rgb":[114,178,255]},{"group":"bokeh-colorblind-3","name":"bokeh-colorblind-3-2","rgb":[230,159,0]},{"group":"bokeh-colorblind-3","name":"bokeh-colorblind-3-3","rgb":[240,228,66]}]};
 
 // Polyfills methods that aren't available in Illustrator.
 polyfill();

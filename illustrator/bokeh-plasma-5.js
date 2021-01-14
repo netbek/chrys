@@ -1,4 +1,4 @@
-var config = {"document":{"height":210,"width":297,"mode":"rgb"},"characterStyles":[{"name":"swatchRectTitle","attributes":{"size":8}}],"swatchRect":{"textPosition":0.125},"colors":[{"group":"bokeh-plasma-5","name":"bokeh-plasma-5-1","rgb":[12,7,134]},{"group":"bokeh-plasma-5","name":"bokeh-plasma-5-2","rgb":[124,2,167]},{"group":"bokeh-plasma-5","name":"bokeh-plasma-5-3","rgb":[202,70,120]},{"group":"bokeh-plasma-5","name":"bokeh-plasma-5-4","rgb":[247,147,65]},{"group":"bokeh-plasma-5","name":"bokeh-plasma-5-5","rgb":[239,248,33]}]};
+var config = {"document":{"height":210,"width":297,"mode":"rgb"},"characterStyles":[{"name":"swatchRectTitle","attributes":{"size":8}}],"swatchRect":{"textPosition":0.125},"colors":[{"group":"bokeh-plasma-5","name":"bokeh-plasma-5-1","rgb":[192,120,111]},{"group":"bokeh-plasma-5","name":"bokeh-plasma-5-2","rgb":[124,2,167]},{"group":"bokeh-plasma-5","name":"bokeh-plasma-5-3","rgb":[202,70,120]},{"group":"bokeh-plasma-5","name":"bokeh-plasma-5-4","rgb":[247,147,65]},{"group":"bokeh-plasma-5","name":"bokeh-plasma-5-5","rgb":[239,248,33]}]};
 
 // Polyfills methods that aren't available in Illustrator.
 polyfill();

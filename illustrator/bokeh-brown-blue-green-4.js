@@ -1,4 +1,4 @@
-var config = {"document":{"height":210,"width":297,"mode":"rgb"},"characterStyles":[{"name":"swatchRectTitle","attributes":{"size":8}}],"swatchRect":{"textPosition":0.125},"colors":[{"group":"bokeh-brown-blue-green-4","name":"bokeh-brown-blue-green-4-1","rgb":[1,133,113]},{"group":"bokeh-brown-blue-green-4","name":"bokeh-brown-blue-green-4-2","rgb":[128,205,193]},{"group":"bokeh-brown-blue-green-4","name":"bokeh-brown-blue-green-4-3","rgb":[223,194,125]},{"group":"bokeh-brown-blue-green-4","name":"bokeh-brown-blue-green-4-4","rgb":[166,97,26]}]};
+var config = {"document":{"height":210,"width":297,"mode":"rgb"},"characterStyles":[{"name":"swatchRectTitle","attributes":{"size":8}}],"swatchRect":{"textPosition":0.125},"colors":[{"group":"bokeh-brown-blue-green-4","name":"bokeh-brown-blue-green-4-1","rgb":[24,87,31]},{"group":"bokeh-brown-blue-green-4","name":"bokeh-brown-blue-green-4-2","rgb":[128,205,193]},{"group":"bokeh-brown-blue-green-4","name":"bokeh-brown-blue-green-4-3","rgb":[223,194,125]},{"group":"bokeh-brown-blue-green-4","name":"bokeh-brown-blue-green-4-4","rgb":[166,97,26]}]};
 
 // Polyfills methods that aren't available in Illustrator.
 polyfill();

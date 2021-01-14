@@ -132,14 +132,14 @@ _.forEach(discrete, (palettes, vendorName) => {
   _.forEach(palettes, palette => {
     maxSize = Math.max(maxSize, palette.length);
     vars.palettes[uniqueName][palette.length] = palette.map(
-      d => '#' + _.padStart(d.toString(16), 6, '0')
+      d => '#' + _.padStart(d.toString(16), 6, '0').substring(0, 6)
     );
   });
 
   const x = _.max(_.values(palettes).map(p => p.length));
   const docsPalette = _.first(
     _.values(palettes).filter(p => p.length === x)
-  ).map(d => '#' + _.padStart(d.toString(16), 6, '0'));
+  ).map(d => '#' + _.padStart(d.toString(16), 6, '0').substring(0, 6));
   vars.docsPalettes[uniqueName] = docsPalette;
 });
 
@@ -156,14 +156,14 @@ _.forEach(continuous, (palettes, vendorName) => {
   _.forEach(palettes, palette => {
     maxSize = Math.max(maxSize, palette.length);
     vars.palettes[uniqueName][palette.length] = palette.map(
-      d => '#' + _.padStart(d.toString(16), 6, '0')
+      d => '#' + _.padStart(d.toString(16), 6, '0').substring(0, 6)
     );
   });
 
   const x = _.max(_.values(palettes).map(p => p.length));
   const docsPalette = _.first(
     _.values(palettes).filter(p => p.length === x)
-  ).map(d => '#' + _.padStart(d.toString(16), 6, '0'));
+  ).map(d => '#' + _.padStart(d.toString(16), 6, '0').substring(0, 6));
   vars.docsPalettes[uniqueName] = continuousPalette(docsPalette, docsMaxSize);
 });
 
