@@ -1,4 +1,4 @@
-var config = {"document":{"height":210,"width":297,"mode":"rgb"},"characterStyles":[{"name":"swatchRectTitle","attributes":{"size":8}}],"swatchRect":{"textPosition":0.125},"colors":[{"group":"bokeh-purple-blue-4","name":"bokeh-purple-blue-4-1","rgb":[87,11,15]},{"group":"bokeh-purple-blue-4","name":"bokeh-purple-blue-4-2","rgb":[116,169,207]},{"group":"bokeh-purple-blue-4","name":"bokeh-purple-blue-4-3","rgb":[189,201,225]},{"group":"bokeh-purple-blue-4","name":"bokeh-purple-blue-4-4","rgb":[241,238,246]}]};
+var config = {"document":{"height":210,"width":297,"mode":"rgb"},"characterStyles":[{"name":"swatchRectTitle","attributes":{"size":8}}],"swatchRect":{"textPosition":0.125},"colors":[{"group":"bokeh-purple-blue-4","name":"bokeh-purple-blue-4-1","rgb":[5,112,176]},{"group":"bokeh-purple-blue-4","name":"bokeh-purple-blue-4-2","rgb":[116,169,207]},{"group":"bokeh-purple-blue-4","name":"bokeh-purple-blue-4-3","rgb":[189,201,225]},{"group":"bokeh-purple-blue-4","name":"bokeh-purple-blue-4-4","rgb":[241,238,246]}]};
 
 // Polyfills methods that aren't available in Illustrator.
 polyfill();

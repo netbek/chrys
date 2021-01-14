@@ -1,4 +1,4 @@
-var config = {"document":{"height":210,"width":297,"mode":"rgb"},"characterStyles":[{"name":"swatchRectTitle","attributes":{"size":8}}],"swatchRect":{"textPosition":0.125},"colors":[{"group":"bokeh-inferno-5","name":"bokeh-inferno-5-1","rgb":[0,3,255]},{"group":"bokeh-inferno-5","name":"bokeh-inferno-5-2","rgb":[85,15,109]},{"group":"bokeh-inferno-5","name":"bokeh-inferno-5-3","rgb":[186,54,85]},{"group":"bokeh-inferno-5","name":"bokeh-inferno-5-4","rgb":[249,140,9]},{"group":"bokeh-inferno-5","name":"bokeh-inferno-5-5","rgb":[252,254,164]}]};
+var config = {"document":{"height":210,"width":297,"mode":"rgb"},"characterStyles":[{"name":"swatchRectTitle","attributes":{"size":8}}],"swatchRect":{"textPosition":0.125},"colors":[{"group":"bokeh-inferno-5","name":"bokeh-inferno-5-1","rgb":[0,0,3]},{"group":"bokeh-inferno-5","name":"bokeh-inferno-5-2","rgb":[85,15,109]},{"group":"bokeh-inferno-5","name":"bokeh-inferno-5-3","rgb":[186,54,85]},{"group":"bokeh-inferno-5","name":"bokeh-inferno-5-4","rgb":[249,140,9]},{"group":"bokeh-inferno-5","name":"bokeh-inferno-5-5","rgb":[252,254,164]}]};
 
 // Polyfills methods that aren't available in Illustrator.
 polyfill();
