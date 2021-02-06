@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "Updating system dependencies ..."
+sudo apt install python3-testresources
+echo "System dependencies updated"
+
 if [ -d "venv" ]; then
   echo "Virtual environment exists"
 else
