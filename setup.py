@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='chrys',
-    version='4.0.1',
+    version='4.0.2',
     author='Hein Bekker',
     author_email='hein@netbek.co.za',
     description='A collection of color palettes for mapping and visualisation',
@@ -14,7 +14,7 @@ setuptools.setup(
     license='BSD-3-Clause',
     url='https://github.com/netbek/chrys',
     install_requires=[
-        'matplotlib == 3.3.2, == 3.*',
+        'matplotlib >= 3.3.2, == 3.*',
         'nose >= 1.3.7, == 1.*',
         'numpy >= 1.7.1, == 1.*',
         'wcag-contrast-ratio == 0.9',
