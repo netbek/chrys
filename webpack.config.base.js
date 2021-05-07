@@ -22,7 +22,7 @@ module.exports = {
                     helpers: false
                   }
                 ],
-                '@babel/plugin-proposal-class-properties',
+                ['@babel/plugin-proposal-class-properties', {loose: true}],
                 [
                   '@babel/plugin-proposal-object-rest-spread',
                   {useBuiltIns: false}
@@ -38,7 +38,7 @@ module.exports = {
                     helpers: false
                   }
                 ],
-                '@babel/plugin-proposal-class-properties',
+                ['@babel/plugin-proposal-class-properties', {loose: true}],
                 [
                   '@babel/plugin-proposal-object-rest-spread',
                   {useBuiltIns: false}

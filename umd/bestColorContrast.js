@@ -361,7 +361,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   };
 
   chroma.Color = Color_1;
-  chroma.version = '2.1.0';
+  chroma.version = '2.1.1';
   var chroma_1 = chroma;
   var unpack$1 = utils.unpack;
   var max = Math.max;
