@@ -21,5 +21,5 @@ pip3 install --user setuptools==51.1.2 twine==3.3.0 wheel==0.36.2
 echo "Python dependencies updated"
 
 echo "Updating Node dependencies ..."
-npm ci
+npm ci && ./scripts/npm/postinstall.sh
 echo "Node dependencies updated"
