@@ -105,7 +105,7 @@
     "lodash": "4.17.21",
     "mocha": "8.4.0",
     "node-sass": "4.14.1",
-    "normalize-css": "git://github.com/necolas/normalize.css.git#02c5c7adbbec1707900fde86068405735c733b42",
+    "normalize-css": "git+https://github.com/necolas/normalize.css.git#02c5c7adbbec1707900fde86068405735c733b42",
     "nunjucks": "3.2.3",
     "open": "7.4.2",
     "os": "0.1.1",
