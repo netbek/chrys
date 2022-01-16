@@ -19,10 +19,10 @@ const gulpCssmin = require('gulp-cssmin');
 const gulp = require('gulp');
 const gulpPostcss = require('gulp-postcss');
 const gulpRename = require('gulp-rename');
-const gulpSass = require('gulp-sass');
+const gulpSass = require('gulp-sass')(require('node-sass'));
 
 function _buildCss(src, dist) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     gulp
       .src(src)
       .pipe(gulpSass(config.css.params).on('error', gulpSass.logError))
@@ -45,7 +45,7 @@ function _buildCss(src, dist) {
         })
       )
       .pipe(gulp.dest(dist))
-      .on('end', function() {
+      .on('end', function () {
         resolve();
       });
   });
@@ -56,25 +56,25 @@ function buildSassVars() {
     '$chrys-palettes': {}
   };
 
-  Object.keys(BOKEH_PALETTE_NAMES).forEach(varName => {
+  Object.keys(BOKEH_PALETTE_NAMES).forEach((varName) => {
     const sassName = _.kebabCase(varName);
 
     sassVars['$chrys-palettes'][sassName] = {};
 
     Object.values(BOKEH_PALETTE_DATA[BOKEH_PALETTE_NAMES[varName]]).forEach(
-      values => {
+      (values) => {
         sassVars['$chrys-palettes'][sassName][values.length] = values;
       }
     );
   });
 
-  Object.keys(VEGA_PALETTE_NAMES).forEach(varName => {
+  Object.keys(VEGA_PALETTE_NAMES).forEach((varName) => {
     const sassName = _.kebabCase(varName);
 
     sassVars['$chrys-palettes'][sassName] = {};
 
     Object.values(VEGA_PALETTE_DATA[VEGA_PALETTE_NAMES[varName]]).forEach(
-      values => {
+      (values) => {
         sassVars['$chrys-palettes'][sassName][values.length] = values;
       }
     );
@@ -93,11 +93,11 @@ function buildSassPartials() {
     ...Object.keys(BOKEH_PALETTE_NAMES),
     ...Object.keys(VEGA_PALETTE_NAMES)
   ];
-  const sassNames = varNames.map(varName => _.kebabCase(varName));
+  const sassNames = varNames.map((varName) => _.kebabCase(varName));
 
   return Promise.each(
     ['background-color', 'color'],
-    task =>
+    (task) =>
       new Promise((resolve, reject) => {
         nunjucks.render(
           'src/templates/css/' + task + '.scss.njk',
@@ -118,14 +118,14 @@ function buildSassPartials() {
       })
   ).then(() => {
     const tasks = [];
-    sassNames.forEach(sassName => {
+    sassNames.forEach((sassName) => {
       tasks.push(['color', sassName]);
       tasks.push(['background-color', sassName]);
     });
 
     return Promise.each(
       tasks,
-      task =>
+      (task) =>
         new Promise((resolve, reject) => {
           nunjucks.render(
             'src/templates/css/' + task[0] + '/index.scss.njk',
@@ -154,4 +154,4 @@ function buildCss() {
   return _buildCss(['src/css/**/*.scss'], 'css/');
 }
 
-Promise.each([buildSassVars, buildSassPartials, buildCss], task => task());
+Promise.each([buildSassVars, buildSassPartials, buildCss], (task) => task());
