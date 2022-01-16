@@ -109,7 +109,7 @@
     "nunjucks": "3.2.3",
     "open": "7.4.2",
     "os": "0.1.2",
-    "postcss": "7.0.39",
+    "postcss": "8.2.13",
     "postcss-color-rgba-fallback": "4.0.0",
     "postcss-js": "2.0.3",
     "postcss-opacity": "5.0.0",
