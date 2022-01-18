@@ -56,6 +56,7 @@ Publish JavaScript and Python distribution packages:
 
 ```shell
 npm publish
+npm run publish-py
 ```
 
 ## Credit

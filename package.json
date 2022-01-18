@@ -19,7 +19,7 @@
     "build-dist": "node -r esm scripts/clean.js && node -r esm scripts/build-js.js && node -r esm scripts/build-css.js && node -r esm scripts/build-illustrator.js && node -r esm scripts/build-demo.js && rm -fr build && rm -fr dist && python3.8 setup.py sdist bdist_wheel --universal && twine check dist/*",
     "deploy": "node -r esm scripts/deploy.js",
     "livereload": "node -r esm scripts/livereload.js",
-    "publish": "twine upload --verbose dist/*",
+    "publish-py": "twine upload --verbose dist/*",
     "test": "mocha --require tests/js/setup.js --require @babel/register tests/js/*.spec.js"
   },
   "author": {
