@@ -103,7 +103,7 @@
     "livereload": "0.9.3",
     "lodash": "4.17.21",
     "mocha": "9.1.4",
-    "node-sass": "6.0.1",
+    "node-sass": "7.0.0",
     "normalize-css": "git+https://github.com/necolas/normalize.css.git#02c5c7adbbec1707900fde86068405735c733b42",
     "nunjucks": "3.2.3",
     "open": "8.4.0",
