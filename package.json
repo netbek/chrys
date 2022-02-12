@@ -49,7 +49,6 @@
   "resolutions": {
     "json-sass": "1.2.1"
   },
-  "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.17.2",
     "@babel/eslint-parser": "7.17.0",
@@ -103,7 +102,7 @@
     "livereload": "0.9.3",
     "lodash": "4.17.21",
     "mocha": "9.2.0",
-    "node-sass": "6.0.1",
+    "node-sass": "7.0.1",
     "normalize-css": "git+https://github.com/necolas/normalize.css.git#02c5c7adbbec1707900fde86068405735c733b42",
     "nunjucks": "3.2.3",
     "open": "8.4.0",
