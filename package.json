@@ -46,9 +46,6 @@
     "safari >= 6",
     "samsung >= 5"
   ],
-  "resolutions": {
-    "json-sass": "1.2.1"
-  },
   "devDependencies": {
     "@babel/core": "7.17.9",
     "@babel/eslint-parser": "7.17.0",
