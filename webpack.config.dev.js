@@ -1,8 +1,8 @@
-const _ = require('lodash');
 const webpack = require('webpack');
 const webpackConfigBase = require('./webpack.config.base');
 
-module.exports = _.merge({}, webpackConfigBase, {
+module.exports = {
+  ...webpackConfigBase,
   mode: 'development',
   plugins: [
     new webpack.DefinePlugin({
@@ -11,4 +11,4 @@ module.exports = _.merge({}, webpackConfigBase, {
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ]
-});
+};

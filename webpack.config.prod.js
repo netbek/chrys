@@ -1,9 +1,9 @@
-const _ = require('lodash');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 const webpackConfigBase = require('./webpack.config.base');
 
-module.exports = _.merge({}, webpackConfigBase, {
+module.exports = {
+  ...webpackConfigBase,
   mode: 'production',
   optimization: {
     minimize: true,
@@ -30,4 +30,4 @@ module.exports = _.merge({}, webpackConfigBase, {
     }),
     new webpack.NoEmitOnErrorsPlugin()
   ]
-});
+};
