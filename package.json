@@ -113,8 +113,8 @@
     "prismjs": "1.28.0",
     "run-sequence": "2.2.1",
     "serve-static": "1.15.0",
+    "terser-webpack-plugin": "4.2.3",
     "through2": "4.0.2",
-    "uglifyjs-webpack-plugin": "2.2.0",
     "vega": "5.22.1",
     "webpack": "4.46.0"
   }
