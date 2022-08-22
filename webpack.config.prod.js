@@ -1,16 +1,26 @@
 const _ = require('lodash');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 const webpackConfigBase = require('./webpack.config.base');
 
 module.exports = _.merge({}, webpackConfigBase, {
   mode: 'production',
   optimization: {
+    minimize: true,
     minimizer: [
-      new UglifyJsPlugin({
+      new TerserPlugin({
         cache: true,
         parallel: true,
-        include: /\.min\.js$/
+        include: /\.min\.js$/,
+        extractComments: false,
+        terserOptions: {
+          ecma: 5,
+          output: {
+            comments: false,
+            indent_level: 2,
+            semicolons: true
+          }
+        }
       })
     ]
   },
