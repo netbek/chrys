@@ -103,16 +103,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 exports.__esModule = true;
 exports.passesAAA = passesAAA;
-
 function passesAAA(contrast, large) {
   if (large === void 0) {
     large = false;
   }
-
   if (large) {
     return contrast > 4.5;
   }
-
   return contrast > 7;
 }
 

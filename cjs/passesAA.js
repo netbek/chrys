@@ -93,16 +93,13 @@
 
 exports.__esModule = true;
 exports.passesAA = passesAA;
-
 function passesAA(contrast, large) {
   if (large === void 0) {
     large = false;
   }
-
   if (large) {
     return contrast > 3;
   }
-
   return contrast > 4.5;
 }
 
