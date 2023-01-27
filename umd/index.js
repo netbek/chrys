@@ -252,7 +252,6 @@ function isContinuous(name) {
   }
   throw new Error("Vendor \"" + vendor + "\" no recognized.");
 }
-
 function toDiscretePalette(palette, n, asRgb) {
   if (n === void 0) {
     n = 6;
@@ -265,7 +264,6 @@ function toDiscretePalette(palette, n, asRgb) {
   var result = palette[nClamped + ''].slice(0, n);
   return result;
 }
-
 function discretePalette(name, n, asRgb) {
   if (n === void 0) {
     n = 6;
@@ -275,7 +273,6 @@ function discretePalette(name, n, asRgb) {
   }
   return toDiscretePalette(getPalette(name), n, asRgb);
 }
-
 function docsPalette(name, asRgb) {
   if (asRgb === void 0) {
     asRgb = false;
@@ -299,7 +296,6 @@ var _passesAAA = __webpack_require__(1);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 function scoreContrast(a, b, large, AAA) {
   var contrast = _chromaJs["default"].contrast(a, b);
-
   return contrast + Number(AAA && (0, _passesAAA.passesAAA)(contrast, large)) * 100 + Number(!AAA && (0, _passesAA.passesAA)(contrast, large)) * 100;
 }
 function bestColorContrast(bgColor, fgColors, large, AAA) {
@@ -405,7 +401,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     }
     return rgb;
   };
-
   var classToType = {};
   for (var i$1 = 0, list$1 = ['Boolean', 'Number', 'String', 'Function', 'Array', 'Date', 'RegExp', 'Undefined', 'Null']; i$1 < list$1.length; i$1 += 1) {
     var name = list$1[i$1];
@@ -417,7 +412,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var type$o = type$p;
   var unpack$B = function unpack$B(args, keyOrder) {
     if (keyOrder === void 0) keyOrder = null;
-
     if (args.length >= 3) {
       return Array.prototype.slice.call(args);
     }
@@ -465,14 +459,11 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var Color$D = function Color() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var me = this;
     if (type$m(args[0]) === 'object' && args[0].constructor && args[0].constructor === this.constructor) {
       return args[0];
     }
-
     var mode = last$3(args);
     var autodetect = false;
     if (!mode) {
@@ -497,7 +488,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     } else {
       throw new Error('unknown format: ' + args);
     }
-
     if (me._rgb.length === 3) {
       me._rgb.push(1);
     }
@@ -512,9 +502,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var chroma$k = function chroma$k() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(chroma$k.Color, [null].concat(args)))();
   };
   chroma$k.Color = Color_1;
@@ -525,9 +513,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var rgb2cmyk$1 = function rgb2cmyk$1() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var ref = unpack$A(args, 'rgb');
     var r = ref[0];
     var g = ref[1];
@@ -547,9 +533,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var cmyk2rgb = function cmyk2rgb() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     args = unpack$z(args, 'cmyk');
     var c = args[0];
     var m = args[1];
@@ -559,10 +543,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     if (k === 1) {
       return [0, 0, 0, alpha];
     }
-    return [c >= 1 ? 0 : 255 * (1 - c) * (1 - k),
-    m >= 1 ? 0 : 255 * (1 - m) * (1 - k),
-    y >= 1 ? 0 : 255 * (1 - y) * (1 - k),
-    alpha];
+    return [c >= 1 ? 0 : 255 * (1 - c) * (1 - k), m >= 1 ? 0 : 255 * (1 - m) * (1 - k), y >= 1 ? 0 : 255 * (1 - y) * (1 - k), alpha];
   };
   var cmyk2rgb_1 = cmyk2rgb;
   var chroma$j = chroma_1;
@@ -577,9 +558,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$j.cmyk = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$C, [null].concat(args, ['cmyk'])))();
   };
   input$g.format.cmyk = cmyk2rgb_1;
@@ -588,9 +567,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     test: function test() {
       var args = [],
         len = arguments.length;
-      while (len--) {
-        args[len] = arguments[len];
-      }
+      while (len--) args[len] = arguments[len];
       args = unpack$y(args, 'cmyk');
       if (type$l(args) === 'array' && args.length === 4) {
         return 'cmyk';
@@ -602,13 +579,10 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var rnd = function rnd(a) {
     return Math.round(a * 100) / 100;
   };
-
   var hsl2css$1 = function hsl2css$1() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var hsla = unpack$x(args, 'hsla');
     var mode = last$2(args) || 'lsa';
     hsla[0] = rnd(hsla[0] || 0);
@@ -624,13 +598,10 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   };
   var hsl2css_1 = hsl2css$1;
   var unpack$w = utils.unpack;
-
   var rgb2hsl$3 = function rgb2hsl$3() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     args = unpack$w(args, 'rgba');
     var r = args[0];
     var g = args[1];
@@ -670,13 +641,10 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var hsl2css = hsl2css_1;
   var rgb2hsl$2 = rgb2hsl_1;
   var round$6 = Math.round;
-
   var rgb2css$1 = function rgb2css$1() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var rgba = unpack$v(args, 'rgba');
     var mode = last$1(args) || 'rgb';
     if (mode.substr(0, 3) == 'hsl') {
@@ -698,9 +666,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     var assign;
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     args = unpack$u(args, 'hsl');
     var h = args[0];
     var s = args[1];
@@ -757,10 +723,8 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     if (input$f.format.named) {
       try {
         return input$f.format.named(css);
-      } catch (e) {
-      }
+      } catch (e) {}
     }
-
     if (m = css.match(RE_RGB)) {
       var rgb = m.slice(1, 4);
       for (var i = 0; i < 3; i++) {
@@ -769,7 +733,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       rgb[3] = 1;
       return rgb;
     }
-
     if (m = css.match(RE_RGBA)) {
       var rgb$1 = m.slice(1, 5);
       for (var i$1 = 0; i$1 < 4; i$1++) {
@@ -777,7 +740,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       }
       return rgb$1;
     }
-
     if (m = css.match(RE_RGB_PCT)) {
       var rgb$2 = m.slice(1, 4);
       for (var i$2 = 0; i$2 < 3; i$2++) {
@@ -786,7 +748,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       rgb$2[3] = 1;
       return rgb$2;
     }
-
     if (m = css.match(RE_RGBA_PCT)) {
       var rgb$3 = m.slice(1, 5);
       for (var i$3 = 0; i$3 < 3; i$3++) {
@@ -795,7 +756,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       rgb$3[3] = +rgb$3[3];
       return rgb$3;
     }
-
     if (m = css.match(RE_HSL)) {
       var hsl = m.slice(1, 4);
       hsl[1] *= 0.01;
@@ -804,7 +764,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       rgb$4[3] = 1;
       return rgb$4;
     }
-
     if (m = css.match(RE_HSLA)) {
       var hsl$1 = m.slice(1, 4);
       hsl$1[1] *= 0.01;
@@ -830,9 +789,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$i.css = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$B, [null].concat(args, ['css'])))();
   };
   input$e.format.css = css2rgb;
@@ -841,9 +798,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     test: function test(h) {
       var rest = [],
         len = arguments.length - 1;
-      while (len-- > 0) {
-        rest[len] = arguments[len + 1];
-      }
+      while (len-- > 0) rest[len] = arguments[len + 1];
       if (!rest.length && type$k(h) === 'string' && css2rgb.test(h)) {
         return 'css';
       }
@@ -856,9 +811,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   input$d.format.gl = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var rgb = unpack$t(args, 'rgba');
     rgb[0] *= 255;
     rgb[1] *= 255;
@@ -868,9 +821,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$h.gl = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$A, [null].concat(args, ['gl'])))();
   };
   Color$A.prototype.gl = function () {
@@ -881,9 +832,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var rgb2hcg$1 = function rgb2hcg$1() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var ref = unpack$s(args, 'rgb');
     var r = ref[0];
     var g = ref[1];
@@ -916,14 +865,11 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var rgb2hcg_1 = rgb2hcg$1;
   var unpack$r = utils.unpack;
   var floor$3 = Math.floor;
-
   var hcg2rgb = function hcg2rgb() {
     var assign, assign$1, assign$2, assign$3, assign$4, assign$5;
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     args = unpack$r(args, 'hcg');
     var h = args[0];
     var c = args[1];
@@ -986,9 +932,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$g.hcg = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$z, [null].concat(args, ['hcg'])))();
   };
   input$c.format.hcg = hcg2rgb_1;
@@ -997,9 +941,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     test: function test() {
       var args = [],
         len = arguments.length;
-      while (len--) {
-        args[len] = arguments[len];
-      }
+      while (len--) args[len] = arguments[len];
       args = unpack$q(args, 'hcg');
       if (type$j(args) === 'array' && args.length === 3) {
         return 'hcg';
@@ -1012,9 +954,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var rgb2hex$2 = function rgb2hex$2() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var ref = unpack$p(args, 'rgba');
     var r = ref[0];
     var g = ref[1];
@@ -1062,7 +1002,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       var b = u & 0xFF;
       return [r, g, b, 1];
     }
-
     if (hex.match(RE_HEXA)) {
       if (hex.length === 5 || hex.length === 9) {
         hex = hex.substr(1);
@@ -1078,7 +1017,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       var a = Math.round((u$1 & 0xFF) / 0xFF * 100) / 100;
       return [r$1, g$1, b$1, a];
     }
-
     throw new Error("unknown hex color: " + hex);
   };
   var hex2rgb_1 = hex2rgb$1;
@@ -1093,9 +1031,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$f.hex = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$y, [null].concat(args, ['hex'])))();
   };
   input$b.format.hex = hex2rgb_1;
@@ -1104,9 +1040,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     test: function test(h) {
       var rest = [],
         len = arguments.length - 1;
-      while (len-- > 0) {
-        rest[len] = arguments[len + 1];
-      }
+      while (len-- > 0) rest[len] = arguments[len + 1];
       if (!rest.length && type$i(h) === 'string' && [3, 4, 5, 6, 7, 8, 9].indexOf(h.length) >= 0) {
         return 'hex';
       }
@@ -1120,10 +1054,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var rgb2hsi$1 = function rgb2hsi$1() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
-
+    while (len--) args[len] = arguments[len];
     var ref = unpack$o(args, 'rgb');
     var r = ref[0];
     var g = ref[1];
@@ -1154,14 +1085,10 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var TWOPI$1 = utils.TWOPI;
   var PITHIRD = utils.PITHIRD;
   var cos$4 = Math.cos;
-
   var hsi2rgb = function hsi2rgb() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
-
+    while (len--) args[len] = arguments[len];
     args = unpack$n(args, 'hsi');
     var h = args[0];
     var s = args[1];
@@ -1213,9 +1140,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$e.hsi = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$x, [null].concat(args, ['hsi'])))();
   };
   input$a.format.hsi = hsi2rgb_1;
@@ -1224,9 +1149,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     test: function test() {
       var args = [],
         len = arguments.length;
-      while (len--) {
-        args[len] = arguments[len];
-      }
+      while (len--) args[len] = arguments[len];
       args = unpack$m(args, 'hsi');
       if (type$h(args) === 'array' && args.length === 3) {
         return 'hsi';
@@ -1245,9 +1168,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$d.hsl = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$w, [null].concat(args, ['hsl'])))();
   };
   input$9.format.hsl = hsl2rgb_1;
@@ -1256,9 +1177,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     test: function test() {
       var args = [],
         len = arguments.length;
-      while (len--) {
-        args[len] = arguments[len];
-      }
+      while (len--) args[len] = arguments[len];
       args = unpack$l(args, 'hsl');
       if (type$g(args) === 'array' && args.length === 3) {
         return 'hsl';
@@ -1268,13 +1187,10 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var unpack$k = utils.unpack;
   var min$1 = Math.min;
   var max$1 = Math.max;
-
   var rgb2hsl = function rgb2hsl() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     args = unpack$k(args, 'rgb');
     var r = args[0];
     var g = args[1];
@@ -1312,9 +1228,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     var assign, assign$1, assign$2, assign$3, assign$4, assign$5;
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     args = unpack$j(args, 'hsv');
     var h = args[0];
     var s = args[1];
@@ -1375,9 +1289,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$c.hsv = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$v, [null].concat(args, ['hsv'])))();
   };
   input$8.format.hsv = hsv2rgb_1;
@@ -1386,9 +1298,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     test: function test() {
       var args = [],
         len = arguments.length;
-      while (len--) {
-        args[len] = arguments[len];
-      }
+      while (len--) args[len] = arguments[len];
       args = unpack$i(args, 'hsv');
       if (type$f(args) === 'array' && args.length === 3) {
         return 'hsv';
@@ -1405,16 +1315,13 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     t2: 0.12841855,
     t3: 0.008856452
   };
-
   var LAB_CONSTANTS$3 = labConstants;
   var unpack$h = utils.unpack;
   var pow$a = Math.pow;
   var rgb2lab$2 = function rgb2lab$2() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var ref = unpack$h(args, 'rgb');
     var r = ref[0];
     var g = ref[1];
@@ -1451,13 +1358,10 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var LAB_CONSTANTS$2 = labConstants;
   var unpack$g = utils.unpack;
   var pow$9 = Math.pow;
-
   var lab2rgb$1 = function lab2rgb$1() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     args = unpack$g(args, 'lab');
     var l = args[0];
     var a = args[1];
@@ -1493,9 +1397,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$b.lab = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$u, [null].concat(args, ['lab'])))();
   };
   input$7.format.lab = lab2rgb_1;
@@ -1504,9 +1406,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     test: function test() {
       var args = [],
         len = arguments.length;
-      while (len--) {
-        args[len] = arguments[len];
-      }
+      while (len--) args[len] = arguments[len];
       args = unpack$f(args, 'lab');
       if (type$e(args) === 'array' && args.length === 3) {
         return 'lab';
@@ -1521,9 +1421,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var lab2lch$2 = function lab2lch$2() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var ref = unpack$e(args, 'lab');
     var l = ref[0];
     var a = ref[1];
@@ -1542,9 +1440,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var rgb2lch$1 = function rgb2lch$1() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var ref = unpack$d(args, 'rgb');
     var r = ref[0];
     var g = ref[1];
@@ -1563,10 +1459,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var lch2lab$2 = function lch2lab$2() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
-
+    while (len--) args[len] = arguments[len];
     var ref = unpack$c(args, 'lch');
     var l = ref[0];
     var c = ref[1];
@@ -1584,9 +1477,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var lch2rgb$1 = function lch2rgb$1() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     args = unpack$b(args, 'lch');
     var l = args[0];
     var c = args[1];
@@ -1607,9 +1498,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var hcl2rgb = function hcl2rgb() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var hcl = unpack$a(args, 'hcl').reverse();
     return lch2rgb.apply(void 0, hcl);
   };
@@ -1629,17 +1518,13 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$a.lch = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$t, [null].concat(args, ['lch'])))();
   };
   chroma$a.hcl = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$t, [null].concat(args, ['hcl'])))();
   };
   input$6.format.lch = lch2rgb_1;
@@ -1650,9 +1535,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       test: function test() {
         var args = [],
           len = arguments.length;
-        while (len--) {
-          args[len] = arguments[len];
-        }
+        while (len--) args[len] = arguments[len];
         args = unpack$9(args, m);
         if (type$d(args) === 'array' && args.length === 3) {
           return m;
@@ -1660,7 +1543,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       }
     });
   });
-
   var w3cx11$1 = {
     aliceblue: '#f0f8ff',
     antiquewhite: '#faebd7',
@@ -1847,9 +1729,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     test: function test(h) {
       var rest = [],
         len = arguments.length - 1;
-      while (len-- > 0) {
-        rest[len] = arguments[len + 1];
-      }
+      while (len-- > 0) rest[len] = arguments[len + 1];
       if (!rest.length && type$c(h) === 'string' && w3cx11[h.toLowerCase()]) {
         return 'named';
       }
@@ -1859,9 +1739,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var rgb2num$1 = function rgb2num$1() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var ref = unpack$8(args, 'rgb');
     var r = ref[0];
     var g = ref[1];
@@ -1891,9 +1769,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$9.num = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$r, [null].concat(args, ['num'])))();
   };
   input$4.format.num = num2rgb_1;
@@ -1902,9 +1778,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     test: function test() {
       var args = [],
         len = arguments.length;
-      while (len--) {
-        args[len] = arguments[len];
-      }
+      while (len--) args[len] = arguments[len];
       if (args.length === 1 && type$a(args[0]) === 'number' && args[0] >= 0 && args[0] <= 0xFFFFFF) {
         return 'num';
       }
@@ -1932,17 +1806,13 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$8.rgb = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$q, [null].concat(args, ['rgb'])))();
   };
   input$3.format.rgb = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var rgba = unpack$7(args, 'rgba');
     if (rgba[3] === undefined) {
       rgba[3] = 1;
@@ -1954,16 +1824,13 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     test: function test() {
       var args = [],
         len = arguments.length;
-      while (len--) {
-        args[len] = arguments[len];
-      }
+      while (len--) args[len] = arguments[len];
       args = unpack$7(args, 'rgba');
       if (type$9(args) === 'array' && (args.length === 3 || args.length === 4 && type$9(args[3]) == 'number' && args[3] >= 0 && args[3] <= 1)) {
         return 'rgb';
       }
     }
   });
-
   var log$1 = Math.log;
   var temperature2rgb$1 = function temperature2rgb$1(kelvin) {
     var temp = kelvin / 100;
@@ -1980,16 +1847,13 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     return [r, g, b, 1];
   };
   var temperature2rgb_1 = temperature2rgb$1;
-
   var temperature2rgb = temperature2rgb_1;
   var unpack$6 = utils.unpack;
   var round = Math.round;
   var rgb2temperature$1 = function rgb2temperature$1() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var rgb = unpack$6(args, 'rgb');
     var r = rgb[0],
       b = rgb[2];
@@ -2019,9 +1883,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$7.temp = chroma$7.kelvin = chroma$7.temperature = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$p, [null].concat(args, ['temp'])))();
   };
   input$2.format.temp = input$2.format.kelvin = input$2.format.temperature = temperature2rgb_1;
@@ -2032,10 +1894,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var rgb2oklab$2 = function rgb2oklab$2() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
-
+    while (len--) args[len] = arguments[len];
     var ref = unpack$5(args, 'rgb');
     var r = ref[0];
     var g = ref[1];
@@ -2060,13 +1919,10 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var unpack$4 = utils.unpack;
   var pow$7 = Math.pow;
   var sign = Math.sign;
-
   var oklab2rgb$1 = function oklab2rgb$1() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     args = unpack$4(args, 'lab');
     var L = args[0];
     var a = args[1];
@@ -2096,9 +1952,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$6.oklab = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$o, [null].concat(args, ['oklab'])))();
   };
   input$1.format.oklab = oklab2rgb_1;
@@ -2107,9 +1961,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     test: function test() {
       var args = [],
         len = arguments.length;
-      while (len--) {
-        args[len] = arguments[len];
-      }
+      while (len--) args[len] = arguments[len];
       args = unpack$3(args, 'oklab');
       if (type$8(args) === 'array' && args.length === 3) {
         return 'oklab';
@@ -2122,9 +1974,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var rgb2oklch$1 = function rgb2oklch$1() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     var ref = unpack$2(args, 'rgb');
     var r = ref[0];
     var g = ref[1];
@@ -2142,9 +1992,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var oklch2rgb = function oklch2rgb() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     args = unpack$1(args, 'lch');
     var l = args[0];
     var c = args[1];
@@ -2172,9 +2020,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma$5.oklch = function () {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     return new (Function.prototype.bind.apply(Color$n, [null].concat(args, ['oklch'])))();
   };
   input.format.oklch = oklch2rgb_1;
@@ -2183,9 +2029,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     test: function test() {
       var args = [],
         len = arguments.length;
-      while (len--) {
-        args[len] = arguments[len];
-      }
+      while (len--) args[len] = arguments[len];
       args = unpack(args, 'oklch');
       if (type$7(args) === 'array' && args.length === 3) {
         return 'oklch';
@@ -2287,9 +2131,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     if (f === void 0) f = 0.5;
     var rest = [],
       len = arguments.length - 3;
-    while (len-- > 0) {
-      rest[len] = arguments[len + 3];
-    }
+    while (len-- > 0) rest[len] = arguments[len + 3];
     var mode = rest[0] || 'lrgb';
     if (!interpolator[mode] && !rest.length) {
       mode = Object.keys(interpolator)[0];
@@ -2311,9 +2153,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     if (f === void 0) f = 0.5;
     var rest = [],
       len = arguments.length - 2;
-    while (len-- > 0) {
-      rest[len] = arguments[len + 2];
-    }
+    while (len-- > 0) rest[len] = arguments[len + 2];
     return mix.apply(void 0, [this, col2, f].concat(rest));
   };
   var Color$f = Color_1;
@@ -2395,7 +2235,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     var xyz1 = col2._rgb;
     return new Color$c(xyz0[0] + f * (xyz1[0] - xyz0[0]), xyz0[1] + f * (xyz1[1] - xyz0[1]), xyz0[2] + f * (xyz1[2] - xyz0[2]), 'rgb');
   };
-
   interpolator$1.rgb = rgb;
   var Color$b = Color_1;
   var sqrt$2 = Math.sqrt;
@@ -2411,7 +2250,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     var z2 = ref$1[2];
     return new Color$b(sqrt$2(pow$5(x1, 2) * (1 - f) + pow$5(x2, 2) * f), sqrt$2(pow$5(y1, 2) * (1 - f) + pow$5(y2, 2) * f), sqrt$2(pow$5(z1, 2) * (1 - f) + pow$5(z2, 2) * f), 'rgb');
   };
-
   interpolator$1.lrgb = lrgb;
   var Color$a = Color_1;
   var lab = function lab(col1, col2, f) {
@@ -2419,7 +2257,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     var xyz1 = col2.lab();
     return new Color$a(xyz0[0] + f * (xyz1[0] - xyz0[0]), xyz0[1] + f * (xyz1[1] - xyz0[1]), xyz0[2] + f * (xyz1[2] - xyz0[2]), 'lab');
   };
-
   interpolator$1.lab = lab;
   var Color$9 = Color_1;
   var _hsx = function _hsx(col1, col2, f, m) {
@@ -2483,7 +2320,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var lch = function lch(col1, col2, f) {
     return interpolate_hsx$5(col1, col2, f, 'lch');
   };
-
   interpolator$1.lch = lch;
   interpolator$1.hcl = lch;
   var Color$8 = Color_1;
@@ -2492,31 +2328,26 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     var c2 = col2.num();
     return new Color$8(c1 + f * (c2 - c1), 'num');
   };
-
   interpolator$1.num = num;
   var interpolate_hsx$4 = _hsx;
   var hcg = function hcg(col1, col2, f) {
     return interpolate_hsx$4(col1, col2, f, 'hcg');
   };
-
   interpolator$1.hcg = hcg;
   var interpolate_hsx$3 = _hsx;
   var hsi = function hsi(col1, col2, f) {
     return interpolate_hsx$3(col1, col2, f, 'hsi');
   };
-
   interpolator$1.hsi = hsi;
   var interpolate_hsx$2 = _hsx;
   var hsl = function hsl(col1, col2, f) {
     return interpolate_hsx$2(col1, col2, f, 'hsl');
   };
-
   interpolator$1.hsl = hsl;
   var interpolate_hsx$1 = _hsx;
   var hsv = function hsv(col1, col2, f) {
     return interpolate_hsx$1(col1, col2, f, 'hsv');
   };
-
   interpolator$1.hsv = hsv;
   var Color$7 = Color_1;
   var oklab = function oklab(col1, col2, f) {
@@ -2524,13 +2355,11 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     var xyz1 = col2.oklab();
     return new Color$7(xyz0[0] + f * (xyz1[0] - xyz0[0]), xyz0[1] + f * (xyz1[1] - xyz0[1]), xyz0[2] + f * (xyz1[2] - xyz0[2]), 'oklab');
   };
-
   interpolator$1.oklab = oklab;
   var interpolate_hsx = _hsx;
   var oklch = function oklch(col1, col2, f) {
     return interpolate_hsx(col1, col2, f, 'oklch');
   };
-
   interpolator$1.oklch = oklch;
   var Color$6 = Color_1;
   var clip_rgb$1 = utils.clip_rgb;
@@ -2629,7 +2458,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     }
     return new Color$6(clip_rgb$1(xyz));
   };
-
   var chroma$4 = chroma_1;
   var type$2 = utils.type;
   var pow$3 = Math.pow;
@@ -2649,7 +2477,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     var _colorCache = {};
     var _useCache = true;
     var _gamma = 1;
-
     var setColors = function setColors(colors) {
       colors = colors || ['#fff', '#000'];
       if (colors && type$2(colors) === 'string' && chroma$4.brewer && chroma$4.brewer[colors.toLowerCase()]) {
@@ -2688,7 +2515,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     var tMapDomain = function tMapDomain(t) {
       return t;
     };
-
     var getColor = function getColor(val, bypassMap) {
       var col, t;
       if (bypassMap == null) {
@@ -2709,12 +2535,10 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       } else {
         t = val;
       }
-
       t = tMapDomain(t);
       if (!bypassMap) {
         t = tMapLightness(t);
       }
-
       if (_gamma !== 1) {
         t = pow$3(t, _gamma);
       }
@@ -2754,7 +2578,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       return _colorCache = {};
     };
     setColors(colors);
-
     var f = function f(v) {
       var c = chroma$4(getColor(v));
       if (_out && c[_out]) {
@@ -2972,10 +2795,8 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     }
     return range;
   }
-
   var Color$5 = Color_1;
   var scale$1 = scale$2;
-
   var binom_row = function binom_row(n) {
     var row = [1, 1];
     for (var i = 1; i < n; i++) {
@@ -3052,7 +2873,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     };
     return f;
   };
-
   var chroma$3 = chroma_1;
   var blend = function blend(bottom, top, mode) {
     if (!blend[mode]) {
@@ -3104,7 +2924,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     a = 255 * (b / 255) / (1 - a / 255);
     return a > 255 ? 255 : a;
   };
-
   blend.normal = blend_f(each(normal));
   blend.multiply = blend_f(each(multiply));
   blend.screen = blend_f(each(screen));
@@ -3113,9 +2932,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   blend.lighten = blend_f(each(lighten));
   blend.dodge = blend_f(each(dodge));
   blend.burn = blend_f(each(burn));
-
   var blend_1 = blend;
-
   var type$1 = utils.type;
   var clip_rgb = utils.clip_rgb;
   var TWOPI = utils.TWOPI;
@@ -3311,7 +3128,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       var repeat = true;
       var nb_iters = 0;
       var centroids = null;
-
       centroids = [];
       centroids.push(min);
       for (var i$3 = 1; i$3 < num; i$3++) {
@@ -3336,7 +3152,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
             assignments[i$4] = best;
           }
         }
-
         var newCentroids = new Array(num);
         for (var j$2 = 0; j$2 < num; j$2++) {
           newCentroids[j$2] = null;
@@ -3352,7 +3167,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
         for (var j$3 = 0; j$3 < num; j$3++) {
           newCentroids[j$3] *= 1 / clusterSizes[j$3];
         }
-
         repeat = false;
         for (var j$4 = 0; j$4 < num; j$4++) {
           if (newCentroids[j$4] !== centroids[j$4]) {
@@ -3366,7 +3180,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
           repeat = false;
         }
       }
-
       var kClusters = {};
       for (var j$5 = 0; j$5 < num; j$5++) {
         kClusters[j$5] = [];
@@ -3420,7 +3233,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     if (Kl === void 0) Kl = 1;
     if (Kc === void 0) Kc = 1;
     if (Kh === void 0) Kh = 1;
-
     var rad2deg = function rad2deg(rad) {
       return 360 * rad / (2 * PI);
     };
@@ -3468,10 +3280,8 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     return max(0, min(100, result));
   };
   var Color$1 = Color_1;
-
   var distance = function distance(a, b, mode) {
     if (mode === void 0) mode = 'lab';
-
     a = new Color$1(a);
     b = new Color$1(b);
     var l1 = a.get(mode);
@@ -3487,9 +3297,7 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   var valid = function valid() {
     var args = [],
       len = arguments.length;
-    while (len--) {
-      args[len] = arguments[len];
-    }
+    while (len--) args[len] = arguments[len];
     try {
       new (Function.prototype.bind.apply(Color, [null].concat(args)))();
       return true;
@@ -3497,7 +3305,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       return false;
     }
   };
-
   var chroma$1 = chroma_1;
   var scale = scale$2;
   var scales = {
@@ -3508,7 +3315,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
       return scale(['#000', '#f00', '#ff0', '#fff']).mode('rgb');
     }
   };
-
   var colorbrewer = {
     OrRd: ['#fff7ec', '#fee8c8', '#fdd49e', '#fdbb84', '#fc8d59', '#ef6548', '#d7301f', '#b30000', '#7f0000'],
     PuBu: ['#fff7fb', '#ece7f2', '#d0d1e6', '#a6bddb', '#74a9cf', '#3690c0', '#0570b0', '#045a8d', '#023858'],
@@ -3529,7 +3335,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     Blues: ['#f7fbff', '#deebf7', '#c6dbef', '#9ecae1', '#6baed6', '#4292c6', '#2171b5', '#08519c', '#08306b'],
     PuBuGn: ['#fff7fb', '#ece2f0', '#d0d1e6', '#a6bddb', '#67a9cf', '#3690c0', '#02818a', '#016c59', '#014636'],
     Viridis: ['#440154', '#482777', '#3f4a8a', '#31678e', '#26838f', '#1f9d8a', '#6cce5a', '#b6de2b', '#fee825'],
-
     Spectral: ['#9e0142', '#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#ffffbf', '#e6f598', '#abdda4', '#66c2a5', '#3288bd', '#5e4fa2'],
     RdYlGn: ['#a50026', '#d73027', '#f46d43', '#fdae61', '#fee08b', '#ffffbf', '#d9ef8b', '#a6d96a', '#66bd63', '#1a9850', '#006837'],
     RdBu: ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#f7f7f7', '#d1e5f0', '#92c5de', '#4393c3', '#2166ac', '#053061'],
@@ -3539,7 +3344,6 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     BrBG: ['#543005', '#8c510a', '#bf812d', '#dfc27d', '#f6e8c3', '#f5f5f5', '#c7eae5', '#80cdc1', '#35978f', '#01665e', '#003c30'],
     RdGy: ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#ffffff', '#e0e0e0', '#bababa', '#878787', '#4d4d4d', '#1a1a1a'],
     PuOr: ['#7f3b08', '#b35806', '#e08214', '#fdb863', '#fee0b6', '#f7f7f7', '#d8daeb', '#b2abd2', '#8073ac', '#542788', '#2d004b'],
-
     Set2: ['#66c2a5', '#fc8d62', '#8da0cb', '#e78ac3', '#a6d854', '#ffd92f', '#e5c494', '#b3b3b3'],
     Accent: ['#7fc97f', '#beaed4', '#fdc086', '#ffff99', '#386cb0', '#f0027f', '#bf5b17', '#666666'],
     Set1: ['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33', '#a65628', '#f781bf', '#999999'],
@@ -3549,14 +3353,12 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
     Pastel2: ['#b3e2cd', '#fdcdac', '#cbd5e8', '#f4cae4', '#e6f5c9', '#fff2ae', '#f1e2cc', '#cccccc'],
     Pastel1: ['#fbb4ae', '#b3cde3', '#ccebc5', '#decbe4', '#fed9a6', '#ffffcc', '#e5d8bd', '#fddaec', '#f2f2f2']
   };
-
   for (var i = 0, list = Object.keys(colorbrewer); i < list.length; i += 1) {
     var key = list[i];
     colorbrewer[key.toLowerCase()] = colorbrewer[key];
   }
   var colorbrewer_1 = colorbrewer;
   var chroma = chroma_1;
-
   chroma.average = average;
   chroma.bezier = bezier_1;
   chroma.blend = blend_1;
@@ -3564,16 +3366,13 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
   chroma.mix = chroma.interpolate = mix$1;
   chroma.random = random_1;
   chroma.scale = scale$2;
-
   chroma.analyze = analyze_1.analyze;
   chroma.contrast = contrast;
   chroma.deltaE = deltaE;
   chroma.distance = distance;
   chroma.limits = analyze_1.limits;
   chroma.valid = valid;
-
   chroma.scales = scales;
-
   chroma.colors = w3cx11_1;
   chroma.brewer = colorbrewer_1;
   var chroma_js = chroma;
