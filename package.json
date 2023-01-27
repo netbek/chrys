@@ -65,7 +65,7 @@
     "chroma-js": "2.4.2",
     "chrys-cli": "1.0.25",
     "connect": "3.7.0",
-    "d3-color": "1.4.1",
+    "d3-color": "3.1.0",
     "d3-interpolate": "1.4.0",
     "d3-scale": "3.3.0",
     "eslint": "8.32.0",
