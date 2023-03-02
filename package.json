@@ -115,7 +115,7 @@
     "serve-static": "1.15.0",
     "terser-webpack-plugin": "4.2.3",
     "through2": "4.0.2",
-    "vega": "5.22.1",
+    "vega": "5.23.0",
     "webpack": "4.46.0"
   }
 }
