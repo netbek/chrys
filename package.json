@@ -1,5 +1,9 @@
 {
   "name": "chrys",
+  "engines": {
+    "node": "18.16.0",
+    "npm": "9.6.7"
+  },
   "version": "4.0.26",
   "description": "A collection of color palettes for visualisation in JavaScript, Python and Sass",
   "main": "cjs/index.js",
@@ -63,7 +67,7 @@
     "chai-as-promised": "7.1.1",
     "chokidar": "3.5.3",
     "chroma-js": "2.4.2",
-    "chrys-cli": "1.0.26",
+    "chrys-cli": "1.0.27",
     "connect": "3.7.0",
     "d3-color": "1.4.1",
     "d3-interpolate": "1.4.0",
