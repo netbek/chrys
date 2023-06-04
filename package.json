@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "build-data": "node -r esm scripts/bokeh-palettes.js && node -r esm scripts/vega-palettes.js",
-    "build-dist": "node -r esm scripts/clean.js && node -r esm scripts/build-js.js && node -r esm scripts/build-css.js && node -r esm scripts/build-illustrator.js && node -r esm scripts/build-demo.js && rm -fr build && rm -fr dist && python3.8 setup.py sdist bdist_wheel --universal && twine check dist/*",
+    "build-dist": "./scripts/npm/build-dist.sh",
     "deploy": "node -r esm scripts/deploy.js",
     "livereload": "node -r esm scripts/livereload.js",
     "publish-py": "twine upload --verbose dist/*",
