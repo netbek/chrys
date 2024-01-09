@@ -1,6 +1,5 @@
 FROM python:3.8.18-slim-bookworm
 
-COPY scripts /build/scripts
 COPY package.json /build/package.json
 COPY package-lock.json /build/package-lock.json
 COPY pyproject.toml /build/pyproject.toml
@@ -8,6 +7,7 @@ COPY README.md /build/README.md
 COPY requirements.txt /build/requirements.txt
 COPY setup.cfg /build/setup.cfg
 COPY setup.py /build/setup.py
+COPY scripts/npm/postinstall.sh /build/scripts/npm/postinstall.sh
 
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
