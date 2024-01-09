@@ -7,17 +7,21 @@ root_dir="${scripts_dir}/.."
 cd "${root_dir}"
 
 src_volumes=(
-    .ncurc.json
-    .npmrc
     chrys
     config
     data
     docker/scripts
-    package.json
-    package-lock.json
     scripts
     src
     tests
+    .ncurc.json
+    .npmrc
+    package.json
+    package-lock.json
+    pyproject.toml
+    README.md
+    setup.cfg
+    setup.py
     webpack.config.base.js
     webpack.config.dev.js
     webpack.config.prod.js
