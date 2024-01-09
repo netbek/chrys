@@ -26,13 +26,23 @@ pip install chrys
 
 For instructions, refer to [the docs](https://netbek.github.io/chrys#usage).
 
-## Development
+## Development: Installation
 
-Build the Docker container:
+1. Build the Docker container:
 
-```shell
-./docker/install.sh
-```
+    ```shell
+    ./docker/install.sh
+    ```
+
+2. Create `.pypirc`:
+
+    ```shell
+    cp example.pypirc .pypirc
+    ```
+
+3. Enter a [PyPI API token](https://pypi.org/manage/account/#api-tokens) as the password in `.pypirc`.
+
+## Development: Usage
 
 Upgrade Node dependencies:
 

@@ -19,7 +19,7 @@
     "build-dist": "./scripts/npm/build-dist.sh",
     "deploy": "node -r esm scripts/deploy.js",
     "livereload": "node -r esm scripts/livereload.js",
-    "publish-py": "twine upload --verbose dist/*",
+    "publish-py": "twine upload --config-file .pypirc --verbose dist/*",
     "test": "mocha --require tests/js/setup.js --require @babel/register tests/js/*.spec.js"
   },
   "author": {
