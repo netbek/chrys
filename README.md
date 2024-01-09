@@ -28,31 +28,19 @@ For instructions, refer to [the docs](https://netbek.github.io/chrys#usage).
 
 ## Development
 
-Install Node and Python dependencies:
+Build the Docker container:
 
 ```shell
-./scripts/install.sh
+./docker/install.sh
 ```
 
-Build palette data:
+Build the palette data, JavaScript and Python distribution packages, Sass, CSS, Illustrator scripts:
 
 ```shell
-npm run build-data
+./docker/build.sh
 ```
 
-Build JavaScript and Python distribution packages, Sass, CSS, Illustrator scripts:
-
-```shell
-npm run build-dist
-```
-
-Deploy documentation to GitHub Pages:
-
-```shell
-npm run deploy
-```
-
-Publish JavaScript and Python distribution packages:
+Publish the JavaScript and Python distribution packages:
 
 ```shell
 npm publish
