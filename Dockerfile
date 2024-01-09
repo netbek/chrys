@@ -23,7 +23,8 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | b
     . "${HOME}/.bashrc" && \
     nvm install v16.20.2 && \
     nvm alias default v16.20.2 && \
+    npm i -g npm-check-updates && \
     npm ci && \
     ./scripts/npm/postinstall.sh
 
-CMD . /root/.bashrc && npm run build-data && npm run build-dist
+CMD ./docker/scripts/build.sh

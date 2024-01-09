@@ -6,10 +6,15 @@ root_dir="${scripts_dir}/.."
 
 cd "${root_dir}"
 
-src_dirs=(
+src_volumes=(
+    .ncurc.json
+    .npmrc
     chrys
     config
     data
+    docker/scripts
+    package.json
+    package-lock.json
     scripts
     src
     tests
@@ -18,8 +23,7 @@ src_dirs=(
     webpack.config.prod.js
 )
 
-dist_dirs=(
-    # chrys.egg-info
+dist_volumes=(
     cjs
     css
     demo
@@ -29,13 +33,13 @@ dist_dirs=(
 )
 
 cmd="docker run --rm -it"
-for dir in "${src_dirs[@]}"; do
-    cmd+=" -v ./$dir:/build/$dir"
+for volume in "${src_volumes[@]}"; do
+    cmd+=" -v ./$volume:/build/$volume"
 done
-for dir in "${dist_dirs[@]}"; do
-    cmd+=" -v ./$dir:/build/$dir"
+for volume in "${dist_volumes[@]}"; do
+    cmd+=" -v ./$volume:/build/$volume"
 done
-cmd+=" chrys"
+cmd+=" chrys $@"
 
 $cmd
 

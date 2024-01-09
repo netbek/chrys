@@ -34,10 +34,16 @@ Build the Docker container:
 ./docker/install.sh
 ```
 
+Upgrade Node dependencies:
+
+```shell
+./docker/run.sh ./docker/scripts/upgrade_node_deps.sh
+```
+
 Build the palette data, JavaScript and Python distribution packages, Sass, CSS, Illustrator scripts:
 
 ```shell
-./docker/build.sh
+./docker/run.sh ./docker/scripts/build.sh
 ```
 
 Publish the JavaScript and Python distribution packages:
