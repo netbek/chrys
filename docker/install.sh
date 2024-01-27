@@ -6,7 +6,7 @@ root_dir="${scripts_dir}/.."
 
 cd "${root_dir}"
 
-docker build . -t chrys
+docker build . -t chrys $@
 
 # echo "Updating Python dependencies ..."
 # pip3 install --user setuptools==51.1.2 twine==3.3.0 wheel==0.36.2
