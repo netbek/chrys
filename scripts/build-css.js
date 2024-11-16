@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import autoprefixer from 'autoprefixer';
+import esbuild from 'esbuild';
 import fs from 'fs-extra';
+import globby from 'globby';
 import jsonSass from 'json-sass';
 import nunjucks from 'nunjucks';
 import postcssColorRgbaFallback from 'postcss-color-rgba-fallback';
@@ -14,42 +16,43 @@ import {
   VEGA_PALETTE_NAMES
 } from '../cjs';
 
-// TODO Replace gulp
-const gulpCssmin = require('gulp-cssmin');
-const gulp = require('gulp');
-const gulpPostcss = require('gulp-postcss');
-const gulpRename = require('gulp-rename');
-const gulpSass = require('gulp-sass')(require('node-sass'));
+async function _buildCss(src, destDir) {
+  const files = await globby(src);
 
-function _buildCss(src, dist) {
-  return new Promise(function (resolve, reject) {
-    gulp
-      .src(src)
-      .pipe(gulpSass(config.css.params).on('error', gulpSass.logError))
-      .pipe(
-        gulpPostcss([
-          autoprefixer(config.autoprefixer),
-          postcssColorRgbaFallback,
-          postcssOpacity
-        ])
-      )
-      .pipe(gulp.dest(dist))
-      .pipe(
-        gulpCssmin({
-          advanced: false
-        })
-      )
-      .pipe(
-        gulpRename({
-          suffix: '.min'
-        })
-      )
-      .pipe(gulp.dest(dist))
-      .on('end', function () {
-        resolve();
-      });
-  });
+  for (const file of files) {
+    let css = (await sass.compileAsync(file, config.sass)).css;
+
+    css = (
+      await postcss([
+        autoprefixer(config.autoprefixer),
+        postcssColorRgbaFallback,
+        postcssOpacity
+      ]).process(css, {
+        from: undefined,
+        to: destDir
+      })
+    ).css;
+
+    const cssMin = (
+      await esbuild.transform(css, {
+        loader: 'css',
+        minify: true,
+        legalComments: 'none'
+      })
+    ).code;
+
+    const basename = path.basename(file);
+    const destPath = path.join(destDir, basename.replace(/\.scss$/, '.css'));
+    const destMinPath = path.join(
+      destDir,
+      basename.replace(/\.scss$/, '.min.css')
+    );
+
+    await fs.outputFile(destPath, css, 'utf-8');
+    await fs.outputFile(destMinPath, cssMin, 'utf-8');
+  }
 }
+
 
 function buildSassVars() {
   const sassVars = {
@@ -151,7 +154,7 @@ function buildSassPartials() {
 }
 
 function buildCss() {
-  return _buildCss(['src/css/**/*.scss'], 'css/');
+  return _buildCss(['src/css/**/*.scss'], 'css');
 }
 
 Promise.each([buildSassVars, buildSassPartials, buildCss], (task) => task());
