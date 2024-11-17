@@ -3,7 +3,7 @@ import {illustratorSwatches} from 'chrys-cli';
 import chroma from 'chroma-js';
 import path from 'path';
 import Promise from 'bluebird';
-import {config} from '../config';
+import {config} from '../config/index.js';
 
 import {
   BOKEH_PALETTE_DATA,
@@ -15,11 +15,11 @@ import {
 function buildIllustrator() {
   const illustratorPalettes = [];
 
-  Object.keys(BOKEH_PALETTE_NAMES).forEach(varName => {
+  Object.keys(BOKEH_PALETTE_NAMES).forEach((varName) => {
     const sassName = _.kebabCase(varName);
 
     Object.values(BOKEH_PALETTE_DATA[BOKEH_PALETTE_NAMES[varName]]).forEach(
-      values => {
+      (values) => {
         const group = sassName + '-' + values.length;
 
         illustratorPalettes.push({
@@ -34,11 +34,11 @@ function buildIllustrator() {
     );
   });
 
-  Object.keys(VEGA_PALETTE_NAMES).forEach(varName => {
+  Object.keys(VEGA_PALETTE_NAMES).forEach((varName) => {
     const sassName = _.kebabCase(varName);
 
     Object.values(VEGA_PALETTE_DATA[VEGA_PALETTE_NAMES[varName]]).forEach(
-      values => {
+      (values) => {
         const group = sassName + '-' + values.length;
 
         illustratorPalettes.push({
@@ -53,7 +53,7 @@ function buildIllustrator() {
     );
   });
 
-  return Promise.each(illustratorPalettes, palette => {
+  return Promise.each(illustratorPalettes, (palette) => {
     const illustratorConfig = _.cloneDeep(config.illustratorTasks.swatches);
     illustratorConfig.document.mode = 'rgb';
     illustratorConfig.colors = palette.colors;
@@ -64,4 +64,4 @@ function buildIllustrator() {
   });
 }
 
-Promise.each([buildIllustrator], task => task());
+Promise.each([buildIllustrator], (task) => task());

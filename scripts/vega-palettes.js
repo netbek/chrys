@@ -1,10 +1,12 @@
 import _ from 'lodash';
 import fs from 'fs-extra';
 import path from 'path';
+import {fileURLToPath} from 'url';
 import {color} from 'd3-color';
-import {discrete, continuous} from 'vega-scale/src/palettes';
-import {scheme, quantizeInterpolator} from 'vega-scale';
-import {continuousPalette, jsSerialize, pySerialize} from './utils';
+import {discrete, continuous} from 'vega-scale/src/palettes.js';
+import {scheme} from 'vega-scale/src/schemes.js';
+import {quantizeInterpolator} from 'vega-scale/src/interpolate.js';
+import {continuousPalette, jsSerialize, pySerialize} from './utils.js';
 
 function getColors(palette) {
   var n = (palette.length / 6) | 0;
@@ -14,6 +16,8 @@ function getColors(palette) {
   return c;
 }
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const basename = path.basename(__filename, path.extname(__filename));
 const jsFile = path.join(__dirname, '../data/' + _.kebabCase(basename) + '.js');
 const pyFile = path.join(
@@ -29,7 +33,7 @@ const vars = {
 let maxSize = 0;
 const docsMaxSize = 11;
 
-Object.keys(discrete).forEach(vendorName => {
+Object.keys(discrete).forEach((vendorName) => {
   const uniqueName = 'vega_' + vendorName.toLowerCase();
   const constantName = _.snakeCase('vega_' + vendorName).toUpperCase();
 
@@ -45,7 +49,7 @@ Object.keys(discrete).forEach(vendorName => {
   vars.docsPalettes[uniqueName] = scheme(vendorName);
 });
 
-Object.keys(continuous).forEach(vendorName => {
+Object.keys(continuous).forEach((vendorName) => {
   const uniqueName = 'vega_' + vendorName.toLowerCase();
   const constantName = _.snakeCase('vega_' + vendorName).toUpperCase();
   const docsPalette = getColors(continuous[vendorName]);
@@ -59,7 +63,7 @@ Object.keys(continuous).forEach(vendorName => {
     vars.palettes[uniqueName][i] = quantizeInterpolator(
       scheme(vendorName),
       i
-    ).map(d => color(d).formatHex());
+    ).map((d) => color(d).formatHex());
   }
 
   if (~['viridis', 'magma', 'inferno', 'plasma'].indexOf(vendorName)) {
@@ -68,7 +72,7 @@ Object.keys(continuous).forEach(vendorName => {
     vars.palettes[uniqueName][256] = quantizeInterpolator(
       scheme(vendorName),
       256
-    ).map(d => color(d).formatHex());
+    ).map((d) => color(d).formatHex());
   }
 
   vars.docsPalettes[uniqueName] = continuousPalette(docsPalette, docsMaxSize);

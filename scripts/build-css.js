@@ -8,13 +8,13 @@ import nunjucks from 'nunjucks';
 import postcssColorRgbaFallback from 'postcss-color-rgba-fallback';
 import postcssOpacity from 'postcss-opacity';
 import Promise from 'bluebird';
-import {config} from '../config';
+import {config} from '../config/index.js';
 import {
   BOKEH_PALETTE_DATA,
   BOKEH_PALETTE_NAMES,
   VEGA_PALETTE_DATA,
   VEGA_PALETTE_NAMES
-} from '../cjs';
+} from '../cjs/index.js';
 
 async function _buildCss(src, destDir) {
   const files = await globby(src);
@@ -52,7 +52,6 @@ async function _buildCss(src, destDir) {
     await fs.outputFile(destMinPath, cssMin, 'utf-8');
   }
 }
-
 
 function buildSassVars() {
   const sassVars = {

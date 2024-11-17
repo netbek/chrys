@@ -1,3 +1,3 @@
-import {buildDemo} from './build';
+import {buildDemo} from './build.js';
 
 buildDemo();
