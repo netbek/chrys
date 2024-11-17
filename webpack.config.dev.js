@@ -1,7 +1,7 @@
-const webpack = require('webpack');
-const webpackConfigBase = require('./webpack.config.base');
+import webpack from 'webpack';
+import webpackConfigBase from './webpack.config.base.js';
 
-module.exports = {
+export default {
   ...webpackConfigBase,
   mode: 'development',
   plugins: [

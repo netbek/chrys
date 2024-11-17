@@ -3,8 +3,6 @@ import path from 'path';
 import {fileURLToPath} from 'url';
 import pkg from '../package.json' assert {type: 'json'};
 
-const {browserslist} = pkg;
-
 export const BOKEH_TO_VEGA = {
   YlGn: 'yellowGreen',
   YlGnBu: 'yellowGreenBlue',
@@ -60,7 +58,7 @@ const rootPath = path.resolve(path.join(__dirname, '..')) + '/';
 
 export const config = {
   autoprefixer: {
-    browsersOverride: browserslist
+    browsersOverride: pkg.browserslist
   },
   sass: {
     loadPaths: ['.'],

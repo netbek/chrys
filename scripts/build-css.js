@@ -5,9 +5,12 @@ import fs from 'fs-extra';
 import globby from 'globby';
 import jsonSass from 'json-sass';
 import nunjucks from 'nunjucks';
+import path from 'path';
+import postcss from 'postcss';
 import postcssColorRgbaFallback from 'postcss-color-rgba-fallback';
 import postcssOpacity from 'postcss-opacity';
 import Promise from 'bluebird';
+import sass from 'sass-embedded';
 import {config} from '../config/index.js';
 import {
   BOKEH_PALETTE_DATA,

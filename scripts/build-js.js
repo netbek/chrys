@@ -5,7 +5,7 @@ import Promise from 'bluebird';
 import webpack from 'webpack';
 import {config} from '../config/index.js';
 import webpackConfig from '../webpack.config.prod.js';
-import {name as packageName} from '../package.json';
+import pkg from '../package.json' assert {type: 'json'};
 
 function _buildJs(buildConfig) {
   return new Promise((resolve, reject) => {
@@ -78,7 +78,7 @@ function buildJsModules() {
             output: {
               filename: '[name].js',
               path: path.resolve(config.module.dist.umd),
-              library: packageName,
+              library: pkg.name,
               libraryTarget: 'umd'
             }
           }
