@@ -3,6 +3,7 @@ import fs from 'fs-extra';
 import globby from 'globby';
 import nunjucks from 'nunjucks';
 import path from 'path';
+import {fileURLToPath} from 'url';
 import Promise from 'bluebird';
 import {
   BOKEH,
@@ -18,6 +19,9 @@ import {
   parsePaletteName,
   discretePalette
 } from '../src/js/index.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
 
