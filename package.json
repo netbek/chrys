@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "chrys",
   "version": "4.0.31",
   "description": "A collection of color palettes for visualisation in JavaScript, Python and Sass",
@@ -15,11 +16,12 @@
     "umd"
   ],
   "scripts": {
-    "build-data": "node -r esm scripts/bokeh-palettes.js && node -r esm scripts/vega-palettes.js",
+    "build-data": "node scripts/bokeh-palettes.js && node scripts/vega-palettes.js",
     "build-dist": "./scripts/npm/build-dist.sh",
     "deploy": "node -r esm scripts/deploy.js",
     "format-js": "prettier --parser babel --write \"src/**/*.js\"",
     "livereload": "node -r esm scripts/livereload.js",
+    "postinstall": "patch-package",
     "publish-py": "twine upload --config-file .pypirc --verbose dist/*",
     "test": "mocha --require tests/js/setup.js --require @babel/register tests/js/*.spec.js"
   },
@@ -89,6 +91,7 @@
     "nunjucks": "3.2.4",
     "open": "8.4.2",
     "os": "0.1.2",
+    "patch-package": "8.0.0",
     "postcss": "8.4.49",
     "postcss-color-rgba-fallback": "4.0.0",
     "postcss-js": "4.0.1",
@@ -102,7 +105,7 @@
     "terser-webpack-plugin": "4.2.3",
     "through2": "4.0.2",
     "typescript": "5.6.3",
-    "vega": "5.30.0",
+    "vega-scale": "7.4.1",
     "webpack": "4.47.0"
   }
 }
