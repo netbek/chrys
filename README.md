@@ -28,17 +28,26 @@ For instructions, refer to [the docs](https://netbek.github.io/chrys#usage).
 
 ## Development: Installation
 
-1. Create `.pypirc`:
+1. Install Node 18.x:
+
+    ```shell
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    source ~/.bashrc
+    nvm install 18
+    nvm use 18
+    ```
+
+2. Create `.pypirc`:
 
     ```shell
     cp example.pypirc .pypirc
     ```
 
-2. Enter a [PyPI API token](https://pypi.org/manage/account/#api-tokens) as the password in `.pypirc`.
+3. Enter a [PyPI API token](https://pypi.org/manage/account/#api-tokens) as the password in `.pypirc`.
 
 ## Development: Usage
 
-Patch Node dependencies:
+Patch Node dependencies to fix ESM imports:
 
 ```shell
 npx patch-package @bokeh/bokehjs --exclude 'nothing'
