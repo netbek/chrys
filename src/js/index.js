@@ -124,7 +124,10 @@ import {
   VEGA_DARK_GOLD,
   VEGA_DARK_GREEN,
   VEGA_DARK_MULTI,
-  VEGA_DARK_RED
+  VEGA_DARK_RED,
+  VEGA_OBSERVABLE_10,
+  VEGA_CIVIDIS,
+  VEGA_TURBO
 } from '../../data/vega-palettes.js';
 
 export * from '../../data/vega-palettes.js';
@@ -164,6 +167,7 @@ export const CATEGORICAL_PALETTE_VENDORS = [
   {[BOKEH]: BOKEH_SET_3, [VEGA]: VEGA_SET_3},
   {[BOKEH]: undefined, [VEGA]: VEGA_TABLEAU_10},
   {[BOKEH]: undefined, [VEGA]: VEGA_TABLEAU_20},
+  {[BOKEH]: undefined, [VEGA]: VEGA_OBSERVABLE_10},
   {[BOKEH]: BOKEH_COLORBLIND, [VEGA]: undefined}
 ];
 
@@ -221,6 +225,8 @@ export const SEQUENTIAL_PALETTE_VENDORS = [
   {[BOKEH]: BOKEH_MAGMA, [VEGA]: VEGA_MAGMA},
   {[BOKEH]: BOKEH_INFERNO, [VEGA]: VEGA_INFERNO},
   {[BOKEH]: BOKEH_PLASMA, [VEGA]: VEGA_PLASMA},
+  {[BOKEH]: undefined, [VEGA]: VEGA_CIVIDIS},
+  {[BOKEH]: undefined, [VEGA]: VEGA_TURBO},
   {[BOKEH]: BOKEH_BLUE_GREEN, [VEGA]: VEGA_BLUE_GREEN},
   {
     [BOKEH]: BOKEH_BLUE_PURPLE,
