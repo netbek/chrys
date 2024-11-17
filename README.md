@@ -44,6 +44,13 @@ For instructions, refer to [the docs](https://netbek.github.io/chrys#usage).
 
 ## Development: Usage
 
+Patch Node dependencies:
+
+```shell
+npx patch-package @bokeh/bokehjs --exclude 'nothing'
+npx patch-package vega-scale --exclude 'nothing'
+```
+
 Upgrade Node dependencies:
 
 ```shell
