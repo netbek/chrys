@@ -10,7 +10,7 @@ import {
   BOKEH_PALETTE_NAMES,
   VEGA_PALETTE_DATA,
   VEGA_PALETTE_NAMES
-} from '../cjs';
+} from '../cjs/index.js';
 
 function buildIllustrator() {
   const illustratorPalettes = [];
