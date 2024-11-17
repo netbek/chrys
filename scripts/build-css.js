@@ -2,6 +2,7 @@ import _ from 'lodash';
 import autoprefixer from 'autoprefixer';
 import esbuild from 'esbuild';
 import fs from 'fs-extra';
+import globParent from 'glob-parent';
 import globby from 'globby';
 import jsonSass from 'json-sass';
 import nunjucks from 'nunjucks';
@@ -10,50 +11,52 @@ import postcss from 'postcss';
 import postcssColorRgbaFallback from 'postcss-color-rgba-fallback';
 import postcssOpacity from 'postcss-opacity';
 import Promise from 'bluebird';
-import sass from 'sass-embedded';
+import * as sass from 'sass-embedded';
 import {config} from '../config/index.js';
 import {
   BOKEH_PALETTE_DATA,
-  BOKEH_PALETTE_NAMES,
-  VEGA_PALETTE_DATA,
-  VEGA_PALETTE_NAMES
-} from '../cjs/index.js';
+  BOKEH_PALETTE_NAMES
+} from '../data/bokeh-palettes.js';
+import {VEGA_PALETTE_DATA, VEGA_PALETTE_NAMES} from '../data/vega-palettes.js';
 
 async function _buildCss(src, destDir) {
-  const files = await globby(src);
+  src.forEach(async (pattern) => {
+    const parentDir = globParent(pattern);
+    const files = await globby([pattern]);
 
-  for (const file of files) {
-    let css = (await sass.compileAsync(file, config.sass)).css;
+    for (const file of files) {
+      let css = (await sass.compileAsync(file, config.sass)).css;
 
-    css = (
-      await postcss([
-        autoprefixer(config.autoprefixer),
-        postcssColorRgbaFallback,
-        postcssOpacity
-      ]).process(css, {
-        from: undefined,
-        to: destDir
-      })
-    ).css;
+      css = (
+        await postcss([
+          autoprefixer(config.autoprefixer),
+          postcssColorRgbaFallback,
+          postcssOpacity
+        ]).process(css, {
+          from: undefined,
+          to: destDir
+        })
+      ).css;
 
-    const cssMin = (
-      await esbuild.transform(css, {
-        loader: 'css',
-        minify: true,
-        legalComments: 'none'
-      })
-    ).code;
+      const cssMin = (
+        await esbuild.transform(css, {
+          loader: 'css',
+          minify: true,
+          legalComments: 'none'
+        })
+      ).code;
 
-    const basename = path.basename(file);
-    const destPath = path.join(destDir, basename.replace(/\.scss$/, '.css'));
-    const destMinPath = path.join(
-      destDir,
-      basename.replace(/\.scss$/, '.min.css')
-    );
+      const destPath = path.relative(parentDir, file);
+      const cssPath = path.join(destDir, destPath.replace(/\.scss$/, '.css'));
+      const cssMinPath = path.join(
+        destDir,
+        destPath.replace(/\.scss$/, '.min.css')
+      );
 
-    await fs.outputFile(destPath, css, 'utf-8');
-    await fs.outputFile(destMinPath, cssMin, 'utf-8');
-  }
+      await fs.outputFile(cssPath, css, 'utf-8');
+      await fs.outputFile(cssMinPath, cssMin, 'utf-8');
+    }
+  });
 }
 
 function buildSassVars() {
@@ -156,7 +159,7 @@ function buildSassPartials() {
 }
 
 function buildCss() {
-  return _buildCss(['src/css/**/*.scss'], 'css');
+  return _buildCss(['src/css/**/!(_)*.scss'], 'css');
 }
 
 Promise.each([buildSassVars, buildSassPartials, buildCss], (task) => task());

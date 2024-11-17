@@ -80,6 +80,7 @@
     "fancy-log": "2.0.0",
     "fs-extra": "11.2.0",
     "gh-pages": "3.2.3",
+    "glob-parent": "6.0.2",
     "globby": "11.1.0",
     "jquery": "3.7.1",
     "json-sass": "1.2.1",
