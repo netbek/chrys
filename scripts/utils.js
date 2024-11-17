@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import {scaleQuantile} from 'd3-scale';
-import {BOKEH_TO_VEGA, VEGA_TO_BOKEH} from '../config';
+import {BOKEH_TO_VEGA, VEGA_TO_BOKEH} from '../config/index.js';
 
 export function continuousPalette(colors, count) {
   const scale = scaleQuantile(
-    _.times(count, i => i),
+    _.times(count, (i) => i),
     colors
   );
-  return _.times(count, i => scale(i));
+  return _.times(count, (i) => scale(i));
 }
 
 export function bokehToVega(name) {
@@ -33,7 +33,7 @@ export function jsSerialize(vendor, vars, maxSize, docsMaxSize) {
     ' = ' +
     JSON.stringify(vars.palettes, null, 2) +
     '\n';
-  _.times(maxSize, i => {
+  _.times(maxSize, (i) => {
     result = result.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
   });
   result += '\n';
@@ -44,7 +44,7 @@ export function jsSerialize(vendor, vars, maxSize, docsMaxSize) {
     ' = ' +
     JSON.stringify(vars.docsPalettes, null, 2) +
     '\n';
-  _.times(docsMaxSize, i => {
+  _.times(docsMaxSize, (i) => {
     result = result.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
   });
   result += '\n';
@@ -88,7 +88,7 @@ export function pySerialize(vendor, vars, maxSize, docsMaxSize) {
 
   result +=
     VENDOR_PALETTE_DATA + ' = ' + JSON.stringify(vars.palettes, null, 2) + '\n';
-  _.times(maxSize, i => {
+  _.times(maxSize, (i) => {
     result = result.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
   });
   result += '\n';
@@ -98,7 +98,7 @@ export function pySerialize(vendor, vars, maxSize, docsMaxSize) {
     ' = ' +
     JSON.stringify(vars.docsPalettes, null, 2) +
     '\n';
-  _.times(docsMaxSize, i => {
+  _.times(docsMaxSize, (i) => {
     result = result.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
   });
   result += '\n';

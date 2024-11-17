@@ -1,6 +1,6 @@
-const {browserslist} = require('./package.json');
+import pkg from './package.json' assert {type: 'json'};
 
-module.exports = {
+export default {
   resolve: {
     extensions: ['.js', '.jsx'],
     modules: ['node_modules/']
@@ -54,7 +54,7 @@ module.exports = {
                 loose: true,
                 modules: 'commonjs',
                 targets: {
-                  browsers: browserslist
+                  browsers: pkg.browserslist
                 },
                 useBuiltIns: false
               }

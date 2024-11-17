@@ -1,6 +1,6 @@
 import chroma from 'chroma-js';
-import {passesAA} from './passesAA';
-import {passesAAA} from './passesAAA';
+import {passesAA} from './passesAA.js';
+import {passesAAA} from './passesAAA.js';
 
 function scoreContrast(a, b, large, AAA) {
   const contrast = chroma.contrast(a, b); // Between 1 and 21
@@ -18,7 +18,7 @@ export function bestColorContrast(
   large = false,
   AAA = false
 ) {
-  const scores = fgColors.map(fgColor =>
+  const scores = fgColors.map((fgColor) =>
     scoreContrast(bgColor, fgColor, large, AAA)
   );
 

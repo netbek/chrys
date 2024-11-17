@@ -1,6 +1,6 @@
-export {passesAA} from './passesAA';
-export {passesAAA} from './passesAAA';
-export {bestColorContrast} from './bestColorContrast';
+export {passesAA} from './passesAA.js';
+export {passesAAA} from './passesAAA.js';
+export {bestColorContrast} from './bestColorContrast.js';
 
 import {
   BOKEH_PALETTE_DATA,
@@ -52,7 +52,7 @@ import {
   BOKEH_MAGMA,
   BOKEH_PLASMA,
   BOKEH_VIRIDIS
-} from '../../data/bokeh-palettes';
+} from '../../data/bokeh-palettes.js';
 
 import {
   VEGA_PALETTE_DATA,
@@ -125,10 +125,10 @@ import {
   VEGA_DARK_GREEN,
   VEGA_DARK_MULTI,
   VEGA_DARK_RED
-} from '../../data/vega-palettes';
+} from '../../data/vega-palettes.js';
 
-export * from '../../data/vega-palettes';
-export * from '../../data/bokeh-palettes';
+export * from '../../data/vega-palettes.js';
+export * from '../../data/bokeh-palettes.js';
 
 export const BOKEH = 'bokeh';
 export const VEGA = 'vega';
@@ -289,9 +289,9 @@ const PALETTE_TO_VENDOR_MAP = {};
   CATEGORICAL_PALETTE_VENDORS,
   SEQUENTIAL_PALETTE_VENDORS,
   CYCLICAL_PALETTE_VENDORS
-].forEach(mappings => {
-  mappings.forEach(mapping => {
-    Object.keys(mapping).forEach(vendor => {
+].forEach((mappings) => {
+  mappings.forEach((mapping) => {
+    Object.keys(mapping).forEach((vendor) => {
       const name = mapping[vendor];
       if (name) {
         PALETTE_TO_VENDOR_MAP[name] = vendor;
@@ -301,16 +301,16 @@ const PALETTE_TO_VENDOR_MAP = {};
 });
 
 const BOKEH_CONTINUOUS_PALETTE_NAMES = Object.keys(BOKEH_PALETTE_DATA).filter(
-  name => ~Object.keys(BOKEH_PALETTE_DATA[name]).indexOf(256)
+  (name) => ~Object.keys(BOKEH_PALETTE_DATA[name]).indexOf(256)
 );
 
 const VEGA_CONTINUOUS_PALETTE_NAMES = Object.keys(VEGA_PALETTE_DATA).filter(
-  name => ~Object.keys(VEGA_PALETTE_DATA[name]).indexOf(256)
+  (name) => ~Object.keys(VEGA_PALETTE_DATA[name]).indexOf(256)
 );
 
 export function parsePaletteName(name) {
   if (!Object.prototype.hasOwnProperty.call(PALETTE_TO_VENDOR_MAP, name)) {
-    throw new Error(`Palette name "${name}" no recognized.`);
+    throw new Error(`Palette name "${name}" not recognized.`);
   }
 
   const vendor = PALETTE_TO_VENDOR_MAP[name];

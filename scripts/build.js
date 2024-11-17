@@ -3,6 +3,7 @@ import fs from 'fs-extra';
 import globby from 'globby';
 import nunjucks from 'nunjucks';
 import path from 'path';
+import {fileURLToPath} from 'url';
 import Promise from 'bluebird';
 import {
   BOKEH,
@@ -17,7 +18,10 @@ import {
   docsPalette,
   parsePaletteName,
   discretePalette
-} from '../src/js';
+} from '../src/js/index.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
 
@@ -68,12 +72,12 @@ export function buildDemo() {
   ];
 
   const BOKEH_PALETTE_NAMES_MAP = _.zipObject(
-    Object.keys(BOKEH_PALETTE_NAMES).map(k => BOKEH_PALETTE_NAMES[k]),
+    Object.keys(BOKEH_PALETTE_NAMES).map((k) => BOKEH_PALETTE_NAMES[k]),
     Object.keys(BOKEH_PALETTE_NAMES)
   );
 
   const VEGA_PALETTE_NAMES_MAP = _.zipObject(
-    Object.keys(VEGA_PALETTE_NAMES).map(k => VEGA_PALETTE_NAMES[k]),
+    Object.keys(VEGA_PALETTE_NAMES).map((k) => VEGA_PALETTE_NAMES[k]),
     Object.keys(VEGA_PALETTE_NAMES)
   );
 
@@ -96,7 +100,7 @@ export function buildDemo() {
     const sassVar = _.kebabCase(jsVar);
 
     if (discreteSizes) {
-      discretePalettes = discreteSizes.map(i => discretePalette(name, i));
+      discretePalettes = discreteSizes.map((i) => discretePalette(name, i));
     }
 
     const palette = docsPalette(name);
@@ -113,29 +117,29 @@ export function buildDemo() {
   }
 
   const categoricalPalettes = CATEGORICAL_PALETTE_VENDORS.filter(
-    x => x[BOKEH] || x[VEGA]
-  ).map(x => ({
+    (x) => x[BOKEH] || x[VEGA]
+  ).map((x) => ({
     [BOKEH]: getItem(x[BOKEH]),
     [VEGA]: getItem(x[VEGA])
   }));
 
   const divergingPalettes = DIVERGING_PALETTE_VENDORS.filter(
-    x => x[BOKEH] || x[VEGA]
-  ).map(x => ({
+    (x) => x[BOKEH] || x[VEGA]
+  ).map((x) => ({
     [BOKEH]: getItem(x[BOKEH], [3, 5, 7, 9]),
     [VEGA]: getItem(x[VEGA], [3, 5, 7, 9])
   }));
 
   const sequentialPalettes = SEQUENTIAL_PALETTE_VENDORS.filter(
-    x => x[BOKEH] || x[VEGA]
-  ).map(x => ({
+    (x) => x[BOKEH] || x[VEGA]
+  ).map((x) => ({
     [BOKEH]: getItem(x[BOKEH], [3, 4, 5, 6, 7, 8, 9]),
     [VEGA]: getItem(x[VEGA], [3, 4, 5, 6, 7, 8, 9])
   }));
 
   const cyclicalPalettes = CYCLICAL_PALETTE_VENDORS.filter(
-    x => x[BOKEH] || x[VEGA]
-  ).map(x => ({
+    (x) => x[BOKEH] || x[VEGA]
+  ).map((x) => ({
     [BOKEH]: getItem(x[BOKEH]),
     [VEGA]: getItem(x[VEGA])
   }));
@@ -147,9 +151,9 @@ export function buildDemo() {
     cyclicalPalettes
   };
 
-  return Promise.each(copyFiles, d =>
-    globby(d.patterns).then(files =>
-      Promise.each(files, file => {
+  return Promise.each(copyFiles, (d) =>
+    globby(d.patterns).then((files) =>
+      Promise.each(files, (file) => {
         const x = file.substring(path.join(rootPath, d.base).length);
         const y = path.join(demoDest, _.get(d, 'destBase', d.base), x);
         const z = path.dirname(y);
@@ -160,7 +164,7 @@ export function buildDemo() {
   )
     .then(() => fs.readFile(path.join(rootPath, 'src/demo/index.njk'), 'utf-8'))
     .then(
-      data =>
+      (data) =>
         new Promise((resolve, reject) => {
           env.renderString(data, context, (err, res) => {
             if (err) {

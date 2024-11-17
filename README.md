@@ -28,10 +28,13 @@ For instructions, refer to [the docs](https://netbek.github.io/chrys#usage).
 
 ## Development: Installation
 
-1. Build the Docker container:
+1. Install Node 18.x:
 
     ```shell
-    ./docker/install.sh
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    source ~/.bashrc
+    nvm install 18
+    nvm use 18
     ```
 
 2. Create `.pypirc`:
@@ -44,16 +47,18 @@ For instructions, refer to [the docs](https://netbek.github.io/chrys#usage).
 
 ## Development: Usage
 
-Upgrade Node dependencies:
+Patch Node dependencies to fix ESM imports:
 
 ```shell
-./docker/run.sh ./docker/scripts/upgrade_node_deps.sh
+npx patch-package @bokeh/bokehjs --exclude 'nothing'
+npx patch-package vega-scale --exclude 'nothing'
 ```
 
 Build the palette data, JavaScript and Python distribution packages, Sass, CSS, Illustrator scripts:
 
 ```shell
-./docker/run.sh ./docker/scripts/build.sh
+npm run build-data
+npm run build-dist
 ```
 
 Publish the JavaScript and Python distribution packages:

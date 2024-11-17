@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import path from 'path';
-import {browserslist} from '../package';
+import {fileURLToPath} from 'url';
+import pkg from '../package.json' assert {type: 'json'};
 
 export const BOKEH_TO_VEGA = {
   YlGn: 'yellowGreen',
@@ -51,11 +52,13 @@ export const BOKEH_TO_VEGA = {
 
 export const VEGA_TO_BOKEH = _.invert(BOKEH_TO_VEGA);
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const rootPath = path.resolve(path.join(__dirname, '..')) + '/';
 
 export const config = {
   autoprefixer: {
-    browsersOverride: browserslist
+    browsersOverride: pkg.browserslist
   },
   sass: {
     loadPaths: ['.'],
