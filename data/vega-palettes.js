@@ -1,4 +1,58 @@
 export const VEGA_PALETTE_DATA = {
+  "vega_accent": {
+    1: [
+      "#7fc97f"
+    ],
+    2: [
+      "#7fc97f",
+      "#beaed4"
+    ],
+    3: [
+      "#7fc97f",
+      "#beaed4",
+      "#fdc086"
+    ],
+    4: [
+      "#7fc97f",
+      "#beaed4",
+      "#fdc086",
+      "#ffff99"
+    ],
+    5: [
+      "#7fc97f",
+      "#beaed4",
+      "#fdc086",
+      "#ffff99",
+      "#386cb0"
+    ],
+    6: [
+      "#7fc97f",
+      "#beaed4",
+      "#fdc086",
+      "#ffff99",
+      "#386cb0",
+      "#f0027f"
+    ],
+    7: [
+      "#7fc97f",
+      "#beaed4",
+      "#fdc086",
+      "#ffff99",
+      "#386cb0",
+      "#f0027f",
+      "#bf5b17"
+    ],
+    8: [
+      "#7fc97f",
+      "#beaed4",
+      "#fdc086",
+      "#ffff99",
+      "#386cb0",
+      "#f0027f",
+      "#bf5b17",
+      "#666666"
+    ]
+  },
   "vega_category10": {
     1: [
       "#1f77b4"
@@ -832,389 +886,6 @@ export const VEGA_PALETTE_DATA = {
       "#d9d9d9"
     ]
   },
-  "vega_tableau10": {
-    1: [
-      "#4c78a8"
-    ],
-    2: [
-      "#4c78a8",
-      "#f58518"
-    ],
-    3: [
-      "#4c78a8",
-      "#f58518",
-      "#e45756"
-    ],
-    4: [
-      "#4c78a8",
-      "#f58518",
-      "#e45756",
-      "#72b7b2"
-    ],
-    5: [
-      "#4c78a8",
-      "#f58518",
-      "#e45756",
-      "#72b7b2",
-      "#54a24b"
-    ],
-    6: [
-      "#4c78a8",
-      "#f58518",
-      "#e45756",
-      "#72b7b2",
-      "#54a24b",
-      "#eeca3b"
-    ],
-    7: [
-      "#4c78a8",
-      "#f58518",
-      "#e45756",
-      "#72b7b2",
-      "#54a24b",
-      "#eeca3b",
-      "#b279a2"
-    ],
-    8: [
-      "#4c78a8",
-      "#f58518",
-      "#e45756",
-      "#72b7b2",
-      "#54a24b",
-      "#eeca3b",
-      "#b279a2",
-      "#ff9da6"
-    ],
-    9: [
-      "#4c78a8",
-      "#f58518",
-      "#e45756",
-      "#72b7b2",
-      "#54a24b",
-      "#eeca3b",
-      "#b279a2",
-      "#ff9da6",
-      "#9d755d"
-    ],
-    10: [
-      "#4c78a8",
-      "#f58518",
-      "#e45756",
-      "#72b7b2",
-      "#54a24b",
-      "#eeca3b",
-      "#b279a2",
-      "#ff9da6",
-      "#9d755d",
-      "#bab0ac"
-    ]
-  },
-  "vega_tableau20": {
-    1: [
-      "#4c78a8"
-    ],
-    2: [
-      "#4c78a8",
-      "#9ecae9"
-    ],
-    3: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518"
-    ],
-    4: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79"
-    ],
-    5: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b"
-    ],
-    6: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a"
-    ],
-    7: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20"
-    ],
-    8: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20",
-      "#f2cf5b"
-    ],
-    9: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20",
-      "#f2cf5b",
-      "#439894"
-    ],
-    10: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20",
-      "#f2cf5b",
-      "#439894",
-      "#83bcb6"
-    ],
-    11: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20",
-      "#f2cf5b",
-      "#439894",
-      "#83bcb6",
-      "#e45756"
-    ],
-    12: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20",
-      "#f2cf5b",
-      "#439894",
-      "#83bcb6",
-      "#e45756",
-      "#ff9d98"
-    ],
-    13: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20",
-      "#f2cf5b",
-      "#439894",
-      "#83bcb6",
-      "#e45756",
-      "#ff9d98",
-      "#79706e"
-    ],
-    14: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20",
-      "#f2cf5b",
-      "#439894",
-      "#83bcb6",
-      "#e45756",
-      "#ff9d98",
-      "#79706e",
-      "#bab0ac"
-    ],
-    15: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20",
-      "#f2cf5b",
-      "#439894",
-      "#83bcb6",
-      "#e45756",
-      "#ff9d98",
-      "#79706e",
-      "#bab0ac",
-      "#d67195"
-    ],
-    16: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20",
-      "#f2cf5b",
-      "#439894",
-      "#83bcb6",
-      "#e45756",
-      "#ff9d98",
-      "#79706e",
-      "#bab0ac",
-      "#d67195",
-      "#fcbfd2"
-    ],
-    17: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20",
-      "#f2cf5b",
-      "#439894",
-      "#83bcb6",
-      "#e45756",
-      "#ff9d98",
-      "#79706e",
-      "#bab0ac",
-      "#d67195",
-      "#fcbfd2",
-      "#b279a2"
-    ],
-    18: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20",
-      "#f2cf5b",
-      "#439894",
-      "#83bcb6",
-      "#e45756",
-      "#ff9d98",
-      "#79706e",
-      "#bab0ac",
-      "#d67195",
-      "#fcbfd2",
-      "#b279a2",
-      "#d6a5c9"
-    ],
-    19: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20",
-      "#f2cf5b",
-      "#439894",
-      "#83bcb6",
-      "#e45756",
-      "#ff9d98",
-      "#79706e",
-      "#bab0ac",
-      "#d67195",
-      "#fcbfd2",
-      "#b279a2",
-      "#d6a5c9",
-      "#9e765f"
-    ],
-    20: [
-      "#4c78a8",
-      "#9ecae9",
-      "#f58518",
-      "#ffbf79",
-      "#54a24b",
-      "#88d27a",
-      "#b79a20",
-      "#f2cf5b",
-      "#439894",
-      "#83bcb6",
-      "#e45756",
-      "#ff9d98",
-      "#79706e",
-      "#bab0ac",
-      "#d67195",
-      "#fcbfd2",
-      "#b279a2",
-      "#d6a5c9",
-      "#9e765f",
-      "#d8b5a5"
-    ]
-  },
-  "vega_accent": {
-    1: [
-      "#7fc97f"
-    ],
-    2: [
-      "#7fc97f",
-      "#beaed4"
-    ],
-    3: [
-      "#7fc97f",
-      "#beaed4",
-      "#fdc086"
-    ],
-    4: [
-      "#7fc97f",
-      "#beaed4",
-      "#fdc086",
-      "#ffff99"
-    ],
-    5: [
-      "#7fc97f",
-      "#beaed4",
-      "#fdc086",
-      "#ffff99",
-      "#386cb0"
-    ],
-    6: [
-      "#7fc97f",
-      "#beaed4",
-      "#fdc086",
-      "#ffff99",
-      "#386cb0",
-      "#f0027f"
-    ],
-    7: [
-      "#7fc97f",
-      "#beaed4",
-      "#fdc086",
-      "#ffff99",
-      "#386cb0",
-      "#f0027f",
-      "#bf5b17"
-    ],
-    8: [
-      "#7fc97f",
-      "#beaed4",
-      "#fdc086",
-      "#ffff99",
-      "#386cb0",
-      "#f0027f",
-      "#bf5b17",
-      "#666666"
-    ]
-  },
   "vega_dark2": {
     1: [
       "#1b9e77"
@@ -1267,6 +938,83 @@ export const VEGA_PALETTE_DATA = {
       "#e6ab02",
       "#a6761d",
       "#666666"
+    ]
+  },
+  "vega_observable10": {
+    1: [
+      "#4269d0"
+    ],
+    2: [
+      "#4269d0",
+      "#efb118"
+    ],
+    3: [
+      "#4269d0",
+      "#efb118",
+      "#ff725c"
+    ],
+    4: [
+      "#4269d0",
+      "#efb118",
+      "#ff725c",
+      "#6cc5b0"
+    ],
+    5: [
+      "#4269d0",
+      "#efb118",
+      "#ff725c",
+      "#6cc5b0",
+      "#3ca951"
+    ],
+    6: [
+      "#4269d0",
+      "#efb118",
+      "#ff725c",
+      "#6cc5b0",
+      "#3ca951",
+      "#ff8ab7"
+    ],
+    7: [
+      "#4269d0",
+      "#efb118",
+      "#ff725c",
+      "#6cc5b0",
+      "#3ca951",
+      "#ff8ab7",
+      "#a463f2"
+    ],
+    8: [
+      "#4269d0",
+      "#efb118",
+      "#ff725c",
+      "#6cc5b0",
+      "#3ca951",
+      "#ff8ab7",
+      "#a463f2",
+      "#97bbf5"
+    ],
+    9: [
+      "#4269d0",
+      "#efb118",
+      "#ff725c",
+      "#6cc5b0",
+      "#3ca951",
+      "#ff8ab7",
+      "#a463f2",
+      "#97bbf5",
+      "#9c6b4e"
+    ],
+    10: [
+      "#4269d0",
+      "#efb118",
+      "#ff725c",
+      "#6cc5b0",
+      "#3ca951",
+      "#ff8ab7",
+      "#a463f2",
+      "#97bbf5",
+      "#9c6b4e",
+      "#9498a0"
     ]
   },
   "vega_paired": {
@@ -1713,6 +1461,335 @@ export const VEGA_PALETTE_DATA = {
       "#bc80bd",
       "#ccebc5",
       "#ffed6f"
+    ]
+  },
+  "vega_tableau10": {
+    1: [
+      "#4c78a8"
+    ],
+    2: [
+      "#4c78a8",
+      "#f58518"
+    ],
+    3: [
+      "#4c78a8",
+      "#f58518",
+      "#e45756"
+    ],
+    4: [
+      "#4c78a8",
+      "#f58518",
+      "#e45756",
+      "#72b7b2"
+    ],
+    5: [
+      "#4c78a8",
+      "#f58518",
+      "#e45756",
+      "#72b7b2",
+      "#54a24b"
+    ],
+    6: [
+      "#4c78a8",
+      "#f58518",
+      "#e45756",
+      "#72b7b2",
+      "#54a24b",
+      "#eeca3b"
+    ],
+    7: [
+      "#4c78a8",
+      "#f58518",
+      "#e45756",
+      "#72b7b2",
+      "#54a24b",
+      "#eeca3b",
+      "#b279a2"
+    ],
+    8: [
+      "#4c78a8",
+      "#f58518",
+      "#e45756",
+      "#72b7b2",
+      "#54a24b",
+      "#eeca3b",
+      "#b279a2",
+      "#ff9da6"
+    ],
+    9: [
+      "#4c78a8",
+      "#f58518",
+      "#e45756",
+      "#72b7b2",
+      "#54a24b",
+      "#eeca3b",
+      "#b279a2",
+      "#ff9da6",
+      "#9d755d"
+    ],
+    10: [
+      "#4c78a8",
+      "#f58518",
+      "#e45756",
+      "#72b7b2",
+      "#54a24b",
+      "#eeca3b",
+      "#b279a2",
+      "#ff9da6",
+      "#9d755d",
+      "#bab0ac"
+    ]
+  },
+  "vega_tableau20": {
+    1: [
+      "#4c78a8"
+    ],
+    2: [
+      "#4c78a8",
+      "#9ecae9"
+    ],
+    3: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518"
+    ],
+    4: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79"
+    ],
+    5: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b"
+    ],
+    6: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a"
+    ],
+    7: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20"
+    ],
+    8: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20",
+      "#f2cf5b"
+    ],
+    9: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20",
+      "#f2cf5b",
+      "#439894"
+    ],
+    10: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20",
+      "#f2cf5b",
+      "#439894",
+      "#83bcb6"
+    ],
+    11: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20",
+      "#f2cf5b",
+      "#439894",
+      "#83bcb6",
+      "#e45756"
+    ],
+    12: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20",
+      "#f2cf5b",
+      "#439894",
+      "#83bcb6",
+      "#e45756",
+      "#ff9d98"
+    ],
+    13: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20",
+      "#f2cf5b",
+      "#439894",
+      "#83bcb6",
+      "#e45756",
+      "#ff9d98",
+      "#79706e"
+    ],
+    14: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20",
+      "#f2cf5b",
+      "#439894",
+      "#83bcb6",
+      "#e45756",
+      "#ff9d98",
+      "#79706e",
+      "#bab0ac"
+    ],
+    15: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20",
+      "#f2cf5b",
+      "#439894",
+      "#83bcb6",
+      "#e45756",
+      "#ff9d98",
+      "#79706e",
+      "#bab0ac",
+      "#d67195"
+    ],
+    16: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20",
+      "#f2cf5b",
+      "#439894",
+      "#83bcb6",
+      "#e45756",
+      "#ff9d98",
+      "#79706e",
+      "#bab0ac",
+      "#d67195",
+      "#fcbfd2"
+    ],
+    17: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20",
+      "#f2cf5b",
+      "#439894",
+      "#83bcb6",
+      "#e45756",
+      "#ff9d98",
+      "#79706e",
+      "#bab0ac",
+      "#d67195",
+      "#fcbfd2",
+      "#b279a2"
+    ],
+    18: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20",
+      "#f2cf5b",
+      "#439894",
+      "#83bcb6",
+      "#e45756",
+      "#ff9d98",
+      "#79706e",
+      "#bab0ac",
+      "#d67195",
+      "#fcbfd2",
+      "#b279a2",
+      "#d6a5c9"
+    ],
+    19: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20",
+      "#f2cf5b",
+      "#439894",
+      "#83bcb6",
+      "#e45756",
+      "#ff9d98",
+      "#79706e",
+      "#bab0ac",
+      "#d67195",
+      "#fcbfd2",
+      "#b279a2",
+      "#d6a5c9",
+      "#9e765f"
+    ],
+    20: [
+      "#4c78a8",
+      "#9ecae9",
+      "#f58518",
+      "#ffbf79",
+      "#54a24b",
+      "#88d27a",
+      "#b79a20",
+      "#f2cf5b",
+      "#439894",
+      "#83bcb6",
+      "#e45756",
+      "#ff9d98",
+      "#79706e",
+      "#bab0ac",
+      "#d67195",
+      "#fcbfd2",
+      "#b279a2",
+      "#d6a5c9",
+      "#9e765f",
+      "#d8b5a5"
     ]
   },
   "vega_blues": {
@@ -6195,6 +6272,16 @@ export const VEGA_PALETTE_DATA = {
 }
 
 export const VEGA_DOCS_PALETTE_DATA = {
+  "vega_accent": [
+    "#7fc97f",
+    "#beaed4",
+    "#fdc086",
+    "#ffff99",
+    "#386cb0",
+    "#f0027f",
+    "#bf5b17",
+    "#666666"
+  ],
   "vega_category10": [
     "#1f77b4",
     "#ff7f0e",
@@ -6273,50 +6360,6 @@ export const VEGA_DOCS_PALETTE_DATA = {
     "#bdbdbd",
     "#d9d9d9"
   ],
-  "vega_tableau10": [
-    "#4c78a8",
-    "#f58518",
-    "#e45756",
-    "#72b7b2",
-    "#54a24b",
-    "#eeca3b",
-    "#b279a2",
-    "#ff9da6",
-    "#9d755d",
-    "#bab0ac"
-  ],
-  "vega_tableau20": [
-    "#4c78a8",
-    "#9ecae9",
-    "#f58518",
-    "#ffbf79",
-    "#54a24b",
-    "#88d27a",
-    "#b79a20",
-    "#f2cf5b",
-    "#439894",
-    "#83bcb6",
-    "#e45756",
-    "#ff9d98",
-    "#79706e",
-    "#bab0ac",
-    "#d67195",
-    "#fcbfd2",
-    "#b279a2",
-    "#d6a5c9",
-    "#9e765f",
-    "#d8b5a5"
-  ],
-  "vega_accent": [
-    "#7fc97f",
-    "#beaed4",
-    "#fdc086",
-    "#ffff99",
-    "#386cb0",
-    "#f0027f",
-    "#bf5b17",
-    "#666666"
-  ],
   "vega_dark2": [
     "#1b9e77",
     "#d95f02",
@@ -6326,6 +6369,18 @@ export const VEGA_DOCS_PALETTE_DATA = {
     "#e6ab02",
     "#a6761d",
     "#666666"
+  ],
+  "vega_observable10": [
+    "#4269d0",
+    "#efb118",
+    "#ff725c",
+    "#6cc5b0",
+    "#3ca951",
+    "#ff8ab7",
+    "#a463f2",
+    "#97bbf5",
+    "#9c6b4e",
+    "#9498a0"
   ],
   "vega_paired": [
     "#a6cee3",
@@ -6396,6 +6451,40 @@ export const VEGA_DOCS_PALETTE_DATA = {
     "#bc80bd",
     "#ccebc5",
     "#ffed6f"
+  ],
+  "vega_tableau10": [
+    "#4c78a8",
+    "#f58518",
+    "#e45756",
+    "#72b7b2",
+    "#54a24b",
+    "#eeca3b",
+    "#b279a2",
+    "#ff9da6",
+    "#9d755d",
+    "#bab0ac"
+  ],
+  "vega_tableau20": [
+    "#4c78a8",
+    "#9ecae9",
+    "#f58518",
+    "#ffbf79",
+    "#54a24b",
+    "#88d27a",
+    "#b79a20",
+    "#f2cf5b",
+    "#439894",
+    "#83bcb6",
+    "#e45756",
+    "#ff9d98",
+    "#79706e",
+    "#bab0ac",
+    "#d67195",
+    "#fcbfd2",
+    "#b279a2",
+    "#d6a5c9",
+    "#9e765f",
+    "#d8b5a5"
   ],
   "vega_blues": [
     "#cfe1f2",
@@ -7088,20 +7177,21 @@ export const VEGA_DOCS_PALETTE_DATA = {
   ]
 }
 
+export const VEGA_ACCENT = "vega_accent"
 export const VEGA_CATEGORY_10 = "vega_category10"
 export const VEGA_CATEGORY_20 = "vega_category20"
 export const VEGA_CATEGORY_20_B = "vega_category20b"
 export const VEGA_CATEGORY_20_C = "vega_category20c"
-export const VEGA_TABLEAU_10 = "vega_tableau10"
-export const VEGA_TABLEAU_20 = "vega_tableau20"
-export const VEGA_ACCENT = "vega_accent"
 export const VEGA_DARK_2 = "vega_dark2"
+export const VEGA_OBSERVABLE_10 = "vega_observable10"
 export const VEGA_PAIRED = "vega_paired"
 export const VEGA_PASTEL_1 = "vega_pastel1"
 export const VEGA_PASTEL_2 = "vega_pastel2"
 export const VEGA_SET_1 = "vega_set1"
 export const VEGA_SET_2 = "vega_set2"
 export const VEGA_SET_3 = "vega_set3"
+export const VEGA_TABLEAU_10 = "vega_tableau10"
+export const VEGA_TABLEAU_20 = "vega_tableau20"
 export const VEGA_BLUES = "vega_blues"
 export const VEGA_GREENS = "vega_greens"
 export const VEGA_GREYS = "vega_greys"
@@ -7157,20 +7247,21 @@ export const VEGA_DARK_MULTI = "vega_darkmulti"
 export const VEGA_DARK_RED = "vega_darkred"
 
 const _VEGA_PALETTE_NAMES = {}
+_VEGA_PALETTE_NAMES['VEGA_ACCENT'] = 'vega_accent'
 _VEGA_PALETTE_NAMES['VEGA_CATEGORY_10'] = 'vega_category10'
 _VEGA_PALETTE_NAMES['VEGA_CATEGORY_20'] = 'vega_category20'
 _VEGA_PALETTE_NAMES['VEGA_CATEGORY_20_B'] = 'vega_category20b'
 _VEGA_PALETTE_NAMES['VEGA_CATEGORY_20_C'] = 'vega_category20c'
-_VEGA_PALETTE_NAMES['VEGA_TABLEAU_10'] = 'vega_tableau10'
-_VEGA_PALETTE_NAMES['VEGA_TABLEAU_20'] = 'vega_tableau20'
-_VEGA_PALETTE_NAMES['VEGA_ACCENT'] = 'vega_accent'
 _VEGA_PALETTE_NAMES['VEGA_DARK_2'] = 'vega_dark2'
+_VEGA_PALETTE_NAMES['VEGA_OBSERVABLE_10'] = 'vega_observable10'
 _VEGA_PALETTE_NAMES['VEGA_PAIRED'] = 'vega_paired'
 _VEGA_PALETTE_NAMES['VEGA_PASTEL_1'] = 'vega_pastel1'
 _VEGA_PALETTE_NAMES['VEGA_PASTEL_2'] = 'vega_pastel2'
 _VEGA_PALETTE_NAMES['VEGA_SET_1'] = 'vega_set1'
 _VEGA_PALETTE_NAMES['VEGA_SET_2'] = 'vega_set2'
 _VEGA_PALETTE_NAMES['VEGA_SET_3'] = 'vega_set3'
+_VEGA_PALETTE_NAMES['VEGA_TABLEAU_10'] = 'vega_tableau10'
+_VEGA_PALETTE_NAMES['VEGA_TABLEAU_20'] = 'vega_tableau20'
 _VEGA_PALETTE_NAMES['VEGA_BLUES'] = 'vega_blues'
 _VEGA_PALETTE_NAMES['VEGA_GREENS'] = 'vega_greens'
 _VEGA_PALETTE_NAMES['VEGA_GREYS'] = 'vega_greys'
@@ -7227,20 +7318,21 @@ _VEGA_PALETTE_NAMES['VEGA_DARK_RED'] = 'vega_darkred'
 export const VEGA_PALETTE_NAMES = _VEGA_PALETTE_NAMES
 
 const _VEGA_PALETTES = {}
+_VEGA_PALETTES['accent'] = VEGA_PALETTE_DATA[VEGA_ACCENT]
 _VEGA_PALETTES['category10'] = VEGA_PALETTE_DATA[VEGA_CATEGORY_10]
 _VEGA_PALETTES['category20'] = VEGA_PALETTE_DATA[VEGA_CATEGORY_20]
 _VEGA_PALETTES['category20b'] = VEGA_PALETTE_DATA[VEGA_CATEGORY_20_B]
 _VEGA_PALETTES['category20c'] = VEGA_PALETTE_DATA[VEGA_CATEGORY_20_C]
-_VEGA_PALETTES['tableau10'] = VEGA_PALETTE_DATA[VEGA_TABLEAU_10]
-_VEGA_PALETTES['tableau20'] = VEGA_PALETTE_DATA[VEGA_TABLEAU_20]
-_VEGA_PALETTES['accent'] = VEGA_PALETTE_DATA[VEGA_ACCENT]
 _VEGA_PALETTES['dark2'] = VEGA_PALETTE_DATA[VEGA_DARK_2]
+_VEGA_PALETTES['observable10'] = VEGA_PALETTE_DATA[VEGA_OBSERVABLE_10]
 _VEGA_PALETTES['paired'] = VEGA_PALETTE_DATA[VEGA_PAIRED]
 _VEGA_PALETTES['pastel1'] = VEGA_PALETTE_DATA[VEGA_PASTEL_1]
 _VEGA_PALETTES['pastel2'] = VEGA_PALETTE_DATA[VEGA_PASTEL_2]
 _VEGA_PALETTES['set1'] = VEGA_PALETTE_DATA[VEGA_SET_1]
 _VEGA_PALETTES['set2'] = VEGA_PALETTE_DATA[VEGA_SET_2]
 _VEGA_PALETTES['set3'] = VEGA_PALETTE_DATA[VEGA_SET_3]
+_VEGA_PALETTES['tableau10'] = VEGA_PALETTE_DATA[VEGA_TABLEAU_10]
+_VEGA_PALETTES['tableau20'] = VEGA_PALETTE_DATA[VEGA_TABLEAU_20]
 _VEGA_PALETTES['blues'] = VEGA_PALETTE_DATA[VEGA_BLUES]
 _VEGA_PALETTES['greens'] = VEGA_PALETTE_DATA[VEGA_GREENS]
 _VEGA_PALETTES['greys'] = VEGA_PALETTE_DATA[VEGA_GREYS]
@@ -7297,20 +7389,21 @@ _VEGA_PALETTES['darkred'] = VEGA_PALETTE_DATA[VEGA_DARK_RED]
 export const VEGA_PALETTES = _VEGA_PALETTES
 
 const _VEGA_DOCS_PALETTES = {}
+_VEGA_DOCS_PALETTES['accent'] = VEGA_DOCS_PALETTE_DATA[VEGA_ACCENT]
 _VEGA_DOCS_PALETTES['category10'] = VEGA_DOCS_PALETTE_DATA[VEGA_CATEGORY_10]
 _VEGA_DOCS_PALETTES['category20'] = VEGA_DOCS_PALETTE_DATA[VEGA_CATEGORY_20]
 _VEGA_DOCS_PALETTES['category20b'] = VEGA_DOCS_PALETTE_DATA[VEGA_CATEGORY_20_B]
 _VEGA_DOCS_PALETTES['category20c'] = VEGA_DOCS_PALETTE_DATA[VEGA_CATEGORY_20_C]
-_VEGA_DOCS_PALETTES['tableau10'] = VEGA_DOCS_PALETTE_DATA[VEGA_TABLEAU_10]
-_VEGA_DOCS_PALETTES['tableau20'] = VEGA_DOCS_PALETTE_DATA[VEGA_TABLEAU_20]
-_VEGA_DOCS_PALETTES['accent'] = VEGA_DOCS_PALETTE_DATA[VEGA_ACCENT]
 _VEGA_DOCS_PALETTES['dark2'] = VEGA_DOCS_PALETTE_DATA[VEGA_DARK_2]
+_VEGA_DOCS_PALETTES['observable10'] = VEGA_DOCS_PALETTE_DATA[VEGA_OBSERVABLE_10]
 _VEGA_DOCS_PALETTES['paired'] = VEGA_DOCS_PALETTE_DATA[VEGA_PAIRED]
 _VEGA_DOCS_PALETTES['pastel1'] = VEGA_DOCS_PALETTE_DATA[VEGA_PASTEL_1]
 _VEGA_DOCS_PALETTES['pastel2'] = VEGA_DOCS_PALETTE_DATA[VEGA_PASTEL_2]
 _VEGA_DOCS_PALETTES['set1'] = VEGA_DOCS_PALETTE_DATA[VEGA_SET_1]
 _VEGA_DOCS_PALETTES['set2'] = VEGA_DOCS_PALETTE_DATA[VEGA_SET_2]
 _VEGA_DOCS_PALETTES['set3'] = VEGA_DOCS_PALETTE_DATA[VEGA_SET_3]
+_VEGA_DOCS_PALETTES['tableau10'] = VEGA_DOCS_PALETTE_DATA[VEGA_TABLEAU_10]
+_VEGA_DOCS_PALETTES['tableau20'] = VEGA_DOCS_PALETTE_DATA[VEGA_TABLEAU_20]
 _VEGA_DOCS_PALETTES['blues'] = VEGA_DOCS_PALETTE_DATA[VEGA_BLUES]
 _VEGA_DOCS_PALETTES['greens'] = VEGA_DOCS_PALETTE_DATA[VEGA_GREENS]
 _VEGA_DOCS_PALETTES['greys'] = VEGA_DOCS_PALETTE_DATA[VEGA_GREYS]
