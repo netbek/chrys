@@ -28,19 +28,13 @@ For instructions, refer to [the docs](https://netbek.github.io/chrys#usage).
 
 ## Development: Installation
 
-1. Build the Docker container:
-
-    ```shell
-    ./docker/install.sh
-    ```
-
-2. Create `.pypirc`:
+1. Create `.pypirc`:
 
     ```shell
     cp example.pypirc .pypirc
     ```
 
-3. Enter a [PyPI API token](https://pypi.org/manage/account/#api-tokens) as the password in `.pypirc`.
+2. Enter a [PyPI API token](https://pypi.org/manage/account/#api-tokens) as the password in `.pypirc`.
 
 ## Development: Usage
 
@@ -51,16 +45,11 @@ npx patch-package @bokeh/bokehjs --exclude 'nothing'
 npx patch-package vega-scale --exclude 'nothing'
 ```
 
-Upgrade Node dependencies:
-
-```shell
-./docker/run.sh ./docker/scripts/upgrade_node_deps.sh
-```
-
 Build the palette data, JavaScript and Python distribution packages, Sass, CSS, Illustrator scripts:
 
 ```shell
-./docker/run.sh ./docker/scripts/build.sh
+npm run build-data
+npm run build-dist
 ```
 
 Publish the JavaScript and Python distribution packages:
