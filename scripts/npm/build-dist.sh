@@ -15,10 +15,10 @@ rm -fr demo/*
 rm -fr illustrator/*
 rm -fr umd/*
 
-node -r esm scripts/build-js.js
-node -r esm scripts/build-css.js
-node -r esm scripts/build-illustrator.js
-node -r esm scripts/build-demo.js
+node scripts/build-js.js
+node scripts/build-css.js
+node scripts/build-illustrator.js
+node scripts/build-demo.js
 
 rm -fr build/*
 rm -fr dist/*
