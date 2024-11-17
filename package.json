@@ -105,7 +105,7 @@
     "terser-webpack-plugin": "4.2.3",
     "through2": "4.0.2",
     "typescript": "5.6.3",
-    "vega-scale": "7.4.1",
+    "vega-scale": "6.1.0",
     "webpack": "4.47.0"
   }
 }
