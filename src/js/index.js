@@ -310,7 +310,7 @@ const VEGA_CONTINUOUS_PALETTE_NAMES = Object.keys(VEGA_PALETTE_DATA).filter(
 
 export function parsePaletteName(name) {
   if (!Object.prototype.hasOwnProperty.call(PALETTE_TO_VENDOR_MAP, name)) {
-    throw new Error(`Palette name "${name}" no recognized.`);
+    throw new Error(`Palette name "${name}" not recognized.`);
   }
 
   const vendor = PALETTE_TO_VENDOR_MAP[name];
