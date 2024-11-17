@@ -4,13 +4,11 @@ import chroma from 'chroma-js';
 import path from 'path';
 import Promise from 'bluebird';
 import {config} from '../config/index.js';
-
 import {
   BOKEH_PALETTE_DATA,
-  BOKEH_PALETTE_NAMES,
-  VEGA_PALETTE_DATA,
-  VEGA_PALETTE_NAMES
-} from '../cjs/index.js';
+  BOKEH_PALETTE_NAMES
+} from '../data/bokeh-palettes.js';
+import {VEGA_PALETTE_DATA, VEGA_PALETTE_NAMES} from '../data/vega-palettes.js';
 
 function buildIllustrator() {
   const illustratorPalettes = [];
