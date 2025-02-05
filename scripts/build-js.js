@@ -60,7 +60,7 @@ function buildJsModules() {
               )
             },
             output: {
-              filename: '[name].js',
+              filename: '[name].cjs',
               path: path.resolve(config.module.dist.cjs),
               libraryTarget: 'commonjs'
             }
