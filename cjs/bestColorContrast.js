@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 34);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -92,25 +92,36 @@
 
 
 exports.__esModule = true;
-exports.unpack = exports.type = exports.min = exports.max = exports.limit = exports.last = exports.clip_rgb = exports.TWOPI = exports.RAD2DEG = exports.PITHIRD = exports.PI = exports.DEG2RAD = void 0;
-var _clip_rgb = _interopRequireDefault(__webpack_require__(36));
+exports.min = exports.max = exports.limit = exports.last = exports.clip_rgb = exports.TWOPI = exports.RAD2DEG = exports.PITHIRD = exports.PI = exports.DEG2RAD = void 0;
+exports.reverse3 = reverse3;
+exports.unpack = exports.type = exports.rnd3 = exports.rnd2 = void 0;
+var _clip_rgb = _interopRequireDefault(__webpack_require__(40));
 exports.clip_rgb = _clip_rgb["default"];
 var _limit = _interopRequireDefault(__webpack_require__(13));
 exports.limit = _limit["default"];
-var _type = _interopRequireDefault(__webpack_require__(7));
+var _type = _interopRequireDefault(__webpack_require__(8));
 exports.type = _type["default"];
-var _unpack = _interopRequireDefault(__webpack_require__(37));
+var _unpack = _interopRequireDefault(__webpack_require__(41));
 exports.unpack = _unpack["default"];
-var _last = _interopRequireDefault(__webpack_require__(38));
+var _last = _interopRequireDefault(__webpack_require__(42));
 exports.last = _last["default"];
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 var PI = exports.PI = Math.PI,
   min = exports.min = Math.min,
   max = exports.max = Math.max;
+var rnd2 = exports.rnd2 = function rnd2(a) {
+  return Math.round(a * 100) / 100;
+};
+var rnd3 = exports.rnd3 = function rnd3(a) {
+  return Math.round(a * 100) / 100;
+};
 var TWOPI = exports.TWOPI = PI * 2;
 var PITHIRD = exports.PITHIRD = PI / 3;
 var DEG2RAD = exports.DEG2RAD = PI / 180;
 var RAD2DEG = exports.RAD2DEG = 180 / PI;
+function reverse3(arr) {
+  return [].concat(arr.slice(0, 3).reverse(), arr.slice(3));
+}
 
 /***/ }),
 /* 1 */
@@ -179,20 +190,19 @@ var _default = exports["default"] = Color;
 exports.__esModule = true;
 exports["default"] = void 0;
 var _Color = _interopRequireDefault(__webpack_require__(1));
-var _version = __webpack_require__(39);
+var _version = __webpack_require__(43);
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
 function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
 function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-var _chroma = function chroma() {
+var chroma = function chroma() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
-  return _construct(_chroma.Color, args);
+  return _construct(_Color["default"], args);
 };
-_chroma.Color = _Color["default"];
-_chroma.version = _version.version;
-var _default = exports["default"] = _chroma;
+chroma.version = _version.version;
+var _default = exports["default"] = chroma;
 
 /***/ }),
 /* 3 */
@@ -221,6 +231,98 @@ var _default = exports["default"] = {};
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+exports.getLabWhitePoint = getLabWhitePoint;
+exports.setLabWhitePoint = setLabWhitePoint;
+var labConstants = {
+  Kn: 18,
+  labWhitePoint: 'd65',
+  Xn: 0.95047,
+  Yn: 1,
+  Zn: 1.08883,
+  t0: 0.137931034,
+  t1: 0.206896552,
+  t2: 0.12841855,
+  t3: 0.008856452,
+  kE: 216.0 / 24389.0,
+  kKE: 8.0,
+  kK: 24389.0 / 27.0,
+  RefWhiteRGB: {
+    X: 0.95047,
+    Y: 1,
+    Z: 1.08883
+  },
+  MtxRGB2XYZ: {
+    m00: 0.4124564390896922,
+    m01: 0.21267285140562253,
+    m02: 0.0193338955823293,
+    m10: 0.357576077643909,
+    m11: 0.715152155287818,
+    m12: 0.11919202588130297,
+    m20: 0.18043748326639894,
+    m21: 0.07217499330655958,
+    m22: 0.9503040785363679
+  },
+  MtxXYZ2RGB: {
+    m00: 3.2404541621141045,
+    m01: -0.9692660305051868,
+    m02: 0.055643430959114726,
+    m10: -1.5371385127977166,
+    m11: 1.8760108454466942,
+    m12: -0.2040259135167538,
+    m20: -0.498531409556016,
+    m21: 0.041556017530349834,
+    m22: 1.0572251882231791
+  },
+  As: 0.9414285350000001,
+  Bs: 1.040417467,
+  Cs: 1.089532651,
+  MtxAdaptMa: {
+    m00: 0.8951,
+    m01: -0.7502,
+    m02: 0.0389,
+    m10: 0.2664,
+    m11: 1.7135,
+    m12: -0.0685,
+    m20: -0.1614,
+    m21: 0.0367,
+    m22: 1.0296
+  },
+  MtxAdaptMaI: {
+    m00: 0.9869929054667123,
+    m01: 0.43230526972339456,
+    m02: -0.008528664575177328,
+    m10: -0.14705425642099013,
+    m11: 0.5183602715367776,
+    m12: 0.04004282165408487,
+    m20: 0.15996265166373125,
+    m21: 0.0492912282128556,
+    m22: 0.9684866957875502
+  }
+};
+var _default = exports["default"] = labConstants;
+var ILLUMINANTS = new Map([['a', [1.0985, 0.35585]], ['b', [1.0985, 0.35585]], ['c', [0.98074, 1.18232]], ['d50', [0.96422, 0.82521]], ['d55', [0.95682, 0.92149]], ['d65', [0.95047, 1.08883]], ['e', [1, 1, 1]], ['f2', [0.99186, 0.67393]], ['f7', [0.95041, 1.08747]], ['f11', [1.00962, 0.6435]], ['icc', [0.96422, 0.82521]]]);
+function setLabWhitePoint(name) {
+  var ill = ILLUMINANTS.get(String(name).toLowerCase());
+  if (!ill) {
+    throw new Error('unknown Lab illuminant ' + name);
+  }
+  labConstants.labWhitePoint = name;
+  labConstants.Xn = ill[0];
+  labConstants.Zn = ill[1];
+}
+function getLabWhitePoint() {
+  return labConstants.labWhitePoint;
+}
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -288,31 +390,42 @@ var _default = exports["default"] = function _default(col1, col2, f, m) {
 };
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+exports.__esModule = true;
+exports.lab = void 0;
 var _index = __webpack_require__(0);
 var _chroma = _interopRequireDefault(__webpack_require__(2));
 var _Color = _interopRequireDefault(__webpack_require__(1));
 var _input = _interopRequireDefault(__webpack_require__(3));
-var _lab2rgb = _interopRequireDefault(__webpack_require__(21));
-var _rgb2lab = _interopRequireDefault(__webpack_require__(22));
+var _lab2rgb = _interopRequireDefault(__webpack_require__(9));
+var _rgb2lab = _interopRequireDefault(__webpack_require__(10));
+var _labConstants = __webpack_require__(5);
+exports.getLabWhitePoint = _labConstants.getLabWhitePoint;
+exports.setLabWhitePoint = _labConstants.setLabWhitePoint;
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
 function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
 function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 _Color["default"].prototype.lab = function () {
   return (0, _rgb2lab["default"])(this._rgb);
 };
-_chroma["default"].lab = function () {
+var lab = exports.lab = function lab() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
   return _construct(_Color["default"], args.concat(['lab']));
 };
+_extends(_chroma["default"], {
+  lab: lab,
+  getLabWhitePoint: _labConstants.getLabWhitePoint,
+  setLabWhitePoint: _labConstants.setLabWhitePoint
+});
 _input["default"].format.lab = _lab2rgb["default"];
 _input["default"].autodetect.push({
   p: 2,
@@ -328,7 +441,7 @@ _input["default"].autodetect.push({
 });
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -346,77 +459,87 @@ function _default(obj) {
 }
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _default = exports["default"] = {
-  Kn: 18,
-  Xn: 0.95047,
-  Yn: 1,
-  Zn: 1.08883,
-  t0: 0.137931034,
-  t1: 0.206896552,
-  t2: 0.12841855,
-  t3: 0.008856452
-};
-
-/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+exports.__esModule = true;
+exports.xyz2rgb = exports["default"] = void 0;
+var _labConstants = _interopRequireDefault(__webpack_require__(5));
 var _index = __webpack_require__(0);
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _lch2rgb = _interopRequireDefault(__webpack_require__(23));
-var _hcl2rgb = _interopRequireDefault(__webpack_require__(55));
-var _rgb2lch = _interopRequireDefault(__webpack_require__(56));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-_Color["default"].prototype.lch = function () {
-  return (0, _rgb2lch["default"])(this._rgb);
-};
-_Color["default"].prototype.hcl = function () {
-  return (0, _rgb2lch["default"])(this._rgb).reverse();
-};
-_chroma["default"].lch = function () {
+var lab2rgb = function lab2rgb() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
-  return _construct(_Color["default"], args.concat(['lch']));
+  args = (0, _index.unpack)(args, 'lab');
+  var _args = args,
+    L = _args[0],
+    a = _args[1],
+    b = _args[2];
+  var _lab2xyz = lab2xyz(L, a, b),
+    x = _lab2xyz[0],
+    y = _lab2xyz[1],
+    z = _lab2xyz[2];
+  var _xyz2rgb = xyz2rgb(x, y, z),
+    r = _xyz2rgb[0],
+    g = _xyz2rgb[1],
+    b_ = _xyz2rgb[2];
+  return [r, g, b_, args.length > 3 ? args[3] : 1];
 };
-_chroma["default"].hcl = function () {
-  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    args[_key2] = arguments[_key2];
-  }
-  return _construct(_Color["default"], args.concat(['hcl']));
+var lab2xyz = function lab2xyz(L, a, b) {
+  var kE = _labConstants["default"].kE,
+    kK = _labConstants["default"].kK,
+    kKE = _labConstants["default"].kKE,
+    Xn = _labConstants["default"].Xn,
+    Yn = _labConstants["default"].Yn,
+    Zn = _labConstants["default"].Zn;
+  var fy = (L + 16.0) / 116.0;
+  var fx = 0.002 * a + fy;
+  var fz = fy - 0.005 * b;
+  var fx3 = fx * fx * fx;
+  var fz3 = fz * fz * fz;
+  var xr = fx3 > kE ? fx3 : (116.0 * fx - 16.0) / kK;
+  var yr = L > kKE ? Math.pow((L + 16.0) / 116.0, 3.0) : L / kK;
+  var zr = fz3 > kE ? fz3 : (116.0 * fz - 16.0) / kK;
+  var x = xr * Xn;
+  var y = yr * Yn;
+  var z = zr * Zn;
+  return [x, y, z];
 };
-_input["default"].format.lch = _lch2rgb["default"];
-_input["default"].format.hcl = _hcl2rgb["default"];
-['lch', 'hcl'].forEach(function (m) {
-  return _input["default"].autodetect.push({
-    p: 2,
-    test: function test() {
-      for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-        args[_key3] = arguments[_key3];
-      }
-      args = (0, _index.unpack)(args, m);
-      if ((0, _index.type)(args) === 'array' && args.length === 3) {
-        return m;
-      }
-    }
-  });
-});
+var compand = function compand(linear) {
+  var sign = Math.sign(linear);
+  linear = Math.abs(linear);
+  return (linear <= 0.0031308 ? linear * 12.92 : 1.055 * Math.pow(linear, 1.0 / 2.4) - 0.055) * sign;
+};
+var xyz2rgb = exports.xyz2rgb = function xyz2rgb(x, y, z) {
+  var MtxAdaptMa = _labConstants["default"].MtxAdaptMa,
+    MtxAdaptMaI = _labConstants["default"].MtxAdaptMaI,
+    MtxXYZ2RGB = _labConstants["default"].MtxXYZ2RGB,
+    RefWhiteRGB = _labConstants["default"].RefWhiteRGB,
+    Xn = _labConstants["default"].Xn,
+    Yn = _labConstants["default"].Yn,
+    Zn = _labConstants["default"].Zn;
+  var As = Xn * MtxAdaptMa.m00 + Yn * MtxAdaptMa.m10 + Zn * MtxAdaptMa.m20;
+  var Bs = Xn * MtxAdaptMa.m01 + Yn * MtxAdaptMa.m11 + Zn * MtxAdaptMa.m21;
+  var Cs = Xn * MtxAdaptMa.m02 + Yn * MtxAdaptMa.m12 + Zn * MtxAdaptMa.m22;
+  var Ad = RefWhiteRGB.X * MtxAdaptMa.m00 + RefWhiteRGB.Y * MtxAdaptMa.m10 + RefWhiteRGB.Z * MtxAdaptMa.m20;
+  var Bd = RefWhiteRGB.X * MtxAdaptMa.m01 + RefWhiteRGB.Y * MtxAdaptMa.m11 + RefWhiteRGB.Z * MtxAdaptMa.m21;
+  var Cd = RefWhiteRGB.X * MtxAdaptMa.m02 + RefWhiteRGB.Y * MtxAdaptMa.m12 + RefWhiteRGB.Z * MtxAdaptMa.m22;
+  var X1 = (x * MtxAdaptMa.m00 + y * MtxAdaptMa.m10 + z * MtxAdaptMa.m20) * (Ad / As);
+  var Y1 = (x * MtxAdaptMa.m01 + y * MtxAdaptMa.m11 + z * MtxAdaptMa.m21) * (Bd / Bs);
+  var Z1 = (x * MtxAdaptMa.m02 + y * MtxAdaptMa.m12 + z * MtxAdaptMa.m22) * (Cd / Cs);
+  var X2 = X1 * MtxAdaptMaI.m00 + Y1 * MtxAdaptMaI.m10 + Z1 * MtxAdaptMaI.m20;
+  var Y2 = X1 * MtxAdaptMaI.m01 + Y1 * MtxAdaptMaI.m11 + Z1 * MtxAdaptMaI.m21;
+  var Z2 = X1 * MtxAdaptMaI.m02 + Y1 * MtxAdaptMaI.m12 + Z1 * MtxAdaptMaI.m22;
+  var r = compand(X2 * MtxXYZ2RGB.m00 + Y2 * MtxXYZ2RGB.m10 + Z2 * MtxXYZ2RGB.m20);
+  var g = compand(X2 * MtxXYZ2RGB.m01 + Y2 * MtxXYZ2RGB.m11 + Z2 * MtxXYZ2RGB.m21);
+  var b = compand(X2 * MtxXYZ2RGB.m02 + Y2 * MtxXYZ2RGB.m12 + Z2 * MtxXYZ2RGB.m22);
+  return [r * 255, g * 255, b * 255];
+};
+var _default = exports["default"] = lab2rgb;
 
 /***/ }),
 /* 10 */
@@ -425,38 +548,81 @@ _input["default"].format.hcl = _hcl2rgb["default"];
 "use strict";
 
 
+exports.__esModule = true;
+exports.rgb2xyz = exports["default"] = void 0;
+var _labConstants = _interopRequireDefault(__webpack_require__(5));
 var _index = __webpack_require__(0);
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _hsl2rgb = _interopRequireDefault(__webpack_require__(15));
-var _rgb2hsl = _interopRequireDefault(__webpack_require__(14));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-_Color["default"].prototype.hsl = function () {
-  return (0, _rgb2hsl["default"])(this._rgb);
-};
-_chroma["default"].hsl = function () {
+var rgb2lab = function rgb2lab() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
-  return _construct(_Color["default"], args.concat(['hsl']));
+  var _unpack = (0, _index.unpack)(args, 'rgb'),
+    r = _unpack[0],
+    g = _unpack[1],
+    b = _unpack[2],
+    rest = _unpack.slice(3);
+  var _rgb2xyz = rgb2xyz(r, g, b),
+    x = _rgb2xyz[0],
+    y = _rgb2xyz[1],
+    z = _rgb2xyz[2];
+  var _xyz2lab = xyz2lab(x, y, z),
+    L = _xyz2lab[0],
+    a = _xyz2lab[1],
+    b_ = _xyz2lab[2];
+  return [L, a, b_].concat(rest.length > 0 && rest[0] < 1 ? [rest[0]] : []);
 };
-_input["default"].format.hsl = _hsl2rgb["default"];
-_input["default"].autodetect.push({
-  p: 2,
-  test: function test() {
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-    args = (0, _index.unpack)(args, 'hsl');
-    if ((0, _index.type)(args) === 'array' && args.length === 3) {
-      return 'hsl';
-    }
-  }
-});
+function xyz2lab(x, y, z) {
+  var Xn = _labConstants["default"].Xn,
+    Yn = _labConstants["default"].Yn,
+    Zn = _labConstants["default"].Zn,
+    kE = _labConstants["default"].kE,
+    kK = _labConstants["default"].kK;
+  var xr = x / Xn;
+  var yr = y / Yn;
+  var zr = z / Zn;
+  var fx = xr > kE ? Math.pow(xr, 1.0 / 3.0) : (kK * xr + 16.0) / 116.0;
+  var fy = yr > kE ? Math.pow(yr, 1.0 / 3.0) : (kK * yr + 16.0) / 116.0;
+  var fz = zr > kE ? Math.pow(zr, 1.0 / 3.0) : (kK * zr + 16.0) / 116.0;
+  return [116.0 * fy - 16.0, 500.0 * (fx - fy), 200.0 * (fy - fz)];
+}
+function gammaAdjustSRGB(companded) {
+  var sign = Math.sign(companded);
+  companded = Math.abs(companded);
+  var linear = companded <= 0.04045 ? companded / 12.92 : Math.pow((companded + 0.055) / 1.055, 2.4);
+  return linear * sign;
+}
+var rgb2xyz = exports.rgb2xyz = function rgb2xyz(r, g, b) {
+  r = gammaAdjustSRGB(r / 255);
+  g = gammaAdjustSRGB(g / 255);
+  b = gammaAdjustSRGB(b / 255);
+  var MtxRGB2XYZ = _labConstants["default"].MtxRGB2XYZ,
+    MtxAdaptMa = _labConstants["default"].MtxAdaptMa,
+    MtxAdaptMaI = _labConstants["default"].MtxAdaptMaI,
+    Xn = _labConstants["default"].Xn,
+    Yn = _labConstants["default"].Yn,
+    Zn = _labConstants["default"].Zn,
+    As = _labConstants["default"].As,
+    Bs = _labConstants["default"].Bs,
+    Cs = _labConstants["default"].Cs;
+  var x = r * MtxRGB2XYZ.m00 + g * MtxRGB2XYZ.m10 + b * MtxRGB2XYZ.m20;
+  var y = r * MtxRGB2XYZ.m01 + g * MtxRGB2XYZ.m11 + b * MtxRGB2XYZ.m21;
+  var z = r * MtxRGB2XYZ.m02 + g * MtxRGB2XYZ.m12 + b * MtxRGB2XYZ.m22;
+  var Ad = Xn * MtxAdaptMa.m00 + Yn * MtxAdaptMa.m10 + Zn * MtxAdaptMa.m20;
+  var Bd = Xn * MtxAdaptMa.m01 + Yn * MtxAdaptMa.m11 + Zn * MtxAdaptMa.m21;
+  var Cd = Xn * MtxAdaptMa.m02 + Yn * MtxAdaptMa.m12 + Zn * MtxAdaptMa.m22;
+  var X = x * MtxAdaptMa.m00 + y * MtxAdaptMa.m10 + z * MtxAdaptMa.m20;
+  var Y = x * MtxAdaptMa.m01 + y * MtxAdaptMa.m11 + z * MtxAdaptMa.m21;
+  var Z = x * MtxAdaptMa.m02 + y * MtxAdaptMa.m12 + z * MtxAdaptMa.m22;
+  X *= Ad / As;
+  Y *= Bd / Bs;
+  Z *= Cd / Cs;
+  x = X * MtxAdaptMaI.m00 + Y * MtxAdaptMaI.m10 + Z * MtxAdaptMaI.m20;
+  y = X * MtxAdaptMaI.m01 + Y * MtxAdaptMaI.m11 + Z * MtxAdaptMaI.m21;
+  z = X * MtxAdaptMaI.m02 + Y * MtxAdaptMaI.m12 + Z * MtxAdaptMaI.m22;
+  return [x, y, z];
+};
+var _default = exports["default"] = rgb2lab;
 
 /***/ }),
 /* 11 */
@@ -489,6 +655,243 @@ var _default = exports["default"] = function _default(col1, col2, f) {
 
 /***/ }),
 /* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.lch = exports.hcl = void 0;
+var _index = __webpack_require__(0);
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _lch2rgb = _interopRequireDefault(__webpack_require__(14));
+var _hcl2rgb = _interopRequireDefault(__webpack_require__(52));
+var _rgb2lch = _interopRequireDefault(__webpack_require__(24));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_Color["default"].prototype.lch = function () {
+  return (0, _rgb2lch["default"])(this._rgb);
+};
+_Color["default"].prototype.hcl = function () {
+  return (0, _index.reverse3)((0, _rgb2lch["default"])(this._rgb));
+};
+var lch = exports.lch = function lch() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return _construct(_Color["default"], args.concat(['lch']));
+};
+var hcl = exports.hcl = function hcl() {
+  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    args[_key2] = arguments[_key2];
+  }
+  return _construct(_Color["default"], args.concat(['hcl']));
+};
+_extends(_chroma["default"], {
+  lch: lch,
+  hcl: hcl
+});
+_input["default"].format.lch = _lch2rgb["default"];
+_input["default"].format.hcl = _hcl2rgb["default"];
+['lch', 'hcl'].forEach(function (m) {
+  return _input["default"].autodetect.push({
+    p: 2,
+    test: function test() {
+      for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
+      }
+      args = (0, _index.unpack)(args, m);
+      if ((0, _index.type)(args) === 'array' && args.length === 3) {
+        return m;
+      }
+    }
+  });
+});
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var min = Math.min,
+  max = Math.max;
+var _default = exports["default"] = function _default(x, low, high) {
+  if (low === void 0) {
+    low = 0;
+  }
+  if (high === void 0) {
+    high = 1;
+  }
+  return min(max(low, x), high);
+};
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var _lch2lab2 = _interopRequireDefault(__webpack_require__(23));
+var _lab2rgb2 = _interopRequireDefault(__webpack_require__(9));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var lch2rgb = function lch2rgb() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  args = (0, _index.unpack)(args, 'lch');
+  var _args = args,
+    l = _args[0],
+    c = _args[1],
+    h = _args[2];
+  var _lch2lab = (0, _lch2lab2["default"])(l, c, h),
+    L = _lch2lab[0],
+    a = _lch2lab[1],
+    b_ = _lch2lab[2];
+  var _lab2rgb = (0, _lab2rgb2["default"])(L, a, b_),
+    r = _lab2rgb[0],
+    g = _lab2rgb[1],
+    b = _lab2rgb[2];
+  return [r, g, b, args.length > 3 ? args[3] : 1];
+};
+var _default = exports["default"] = lch2rgb;
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.hsl = void 0;
+var _index = __webpack_require__(0);
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _hsl2rgb = _interopRequireDefault(__webpack_require__(29));
+var _rgb2hsl = _interopRequireDefault(__webpack_require__(30));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_Color["default"].prototype.hsl = function () {
+  return (0, _rgb2hsl["default"])(this._rgb);
+};
+var hsl = exports.hsl = function hsl() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return _construct(_Color["default"], args.concat(['hsl']));
+};
+_chroma["default"].hsl = hsl;
+_input["default"].format.hsl = _hsl2rgb["default"];
+_input["default"].autodetect.push({
+  p: 2,
+  test: function test() {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+    args = (0, _index.unpack)(args, 'hsl');
+    if ((0, _index.type)(args) === 'array' && args.length === 3) {
+      return 'hsl';
+    }
+  }
+});
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var _multiplyMatrices = _interopRequireDefault(__webpack_require__(33));
+var _lab2rgb = __webpack_require__(9);
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var oklab2rgb = function oklab2rgb() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  args = (0, _index.unpack)(args, 'lab');
+  var _args = args,
+    L = _args[0],
+    a = _args[1],
+    b = _args[2],
+    rest = _args.slice(3);
+  var _OKLab_to_XYZ = OKLab_to_XYZ([L, a, b]),
+    X = _OKLab_to_XYZ[0],
+    Y = _OKLab_to_XYZ[1],
+    Z = _OKLab_to_XYZ[2];
+  var _xyz2rgb = (0, _lab2rgb.xyz2rgb)(X, Y, Z),
+    r = _xyz2rgb[0],
+    g = _xyz2rgb[1],
+    b_ = _xyz2rgb[2];
+  return [r, g, b_].concat(rest.length > 0 && rest[0] < 1 ? [rest[0]] : []);
+};
+function OKLab_to_XYZ(OKLab) {
+  var LMStoXYZ = [[1.2268798758459243, -0.5578149944602171, 0.2813910456659647], [-0.0405757452148008, 1.112286803280317, -0.0717110580655164], [-0.0763729366746601, -0.4214933324022432, 1.5869240198367816]];
+  var OKLabtoLMS = [[1.0, 0.3963377773761749, 0.2158037573099136], [1.0, -0.1055613458156586, -0.0638541728258133], [1.0, -0.0894841775298119, -1.2914855480194092]];
+  var LMSnl = (0, _multiplyMatrices["default"])(OKLabtoLMS, OKLab);
+  return (0, _multiplyMatrices["default"])(LMStoXYZ, LMSnl.map(function (c) {
+    return Math.pow(c, 3);
+  }));
+}
+var _default = exports["default"] = oklab2rgb;
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var _multiplyMatrices = _interopRequireDefault(__webpack_require__(33));
+var _rgb2lab = __webpack_require__(10);
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var rgb2oklab = function rgb2oklab() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var _unpack = (0, _index.unpack)(args, 'rgb'),
+    r = _unpack[0],
+    g = _unpack[1],
+    b = _unpack[2],
+    rest = _unpack.slice(3);
+  var xyz = (0, _rgb2lab.rgb2xyz)(r, g, b);
+  var oklab = XYZ_to_OKLab(xyz);
+  return [].concat(oklab, rest.length > 0 && rest[0] < 1 ? [rest[0]] : []);
+};
+function XYZ_to_OKLab(XYZ) {
+  var XYZtoLMS = [[0.819022437996703, 0.3619062600528904, -0.1288737815209879], [0.0329836539323885, 0.9292868615863434, 0.0361446663506424], [0.0481771893596242, 0.2642395317527308, 0.6335478284694309]];
+  var LMStoOKLab = [[0.210454268309314, 0.7936177747023054, -0.0040720430116193], [1.9779985324311684, -2.4285922420485799, 0.450593709617411], [0.0259040424655478, 0.7827717124575296, -0.8086757549230774]];
+  var LMS = (0, _multiplyMatrices["default"])(XYZtoLMS, XYZ);
+  return (0, _multiplyMatrices["default"])(LMStoOKLab, LMS.map(function (c) {
+    return Math.cbrt(c);
+  }));
+}
+var _default = exports["default"] = rgb2oklab;
+
+/***/ }),
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -832,502 +1235,7 @@ function __range__(left, right, inclusive) {
 }
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var _default = exports["default"] = function _default(x, low, high) {
-  if (low === void 0) {
-    low = 0;
-  }
-  if (high === void 0) {
-    high = 1;
-  }
-  return (0, _index.min)((0, _index.max)(low, x), high);
-};
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var rgb2hsl = function rgb2hsl() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  args = (0, _index.unpack)(args, 'rgba');
-  var _args = args,
-    r = _args[0],
-    g = _args[1],
-    b = _args[2];
-  r /= 255;
-  g /= 255;
-  b /= 255;
-  var minRgb = (0, _index.min)(r, g, b);
-  var maxRgb = (0, _index.max)(r, g, b);
-  var l = (maxRgb + minRgb) / 2;
-  var s, h;
-  if (maxRgb === minRgb) {
-    s = 0;
-    h = Number.NaN;
-  } else {
-    s = l < 0.5 ? (maxRgb - minRgb) / (maxRgb + minRgb) : (maxRgb - minRgb) / (2 - maxRgb - minRgb);
-  }
-  if (r == maxRgb) h = (g - b) / (maxRgb - minRgb);else if (g == maxRgb) h = 2 + (b - r) / (maxRgb - minRgb);else if (b == maxRgb) h = 4 + (r - g) / (maxRgb - minRgb);
-  h *= 60;
-  if (h < 0) h += 360;
-  if (args.length > 3 && args[3] !== undefined) return [h, s, l, args[3]];
-  return [h, s, l];
-};
-var _default = exports["default"] = rgb2hsl;
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var round = Math.round;
-var hsl2rgb = function hsl2rgb() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  args = (0, _index.unpack)(args, 'hsl');
-  var _args = args,
-    h = _args[0],
-    s = _args[1],
-    l = _args[2];
-  var r, g, b;
-  if (s === 0) {
-    r = g = b = l * 255;
-  } else {
-    var t3 = [0, 0, 0];
-    var c = [0, 0, 0];
-    var t2 = l < 0.5 ? l * (1 + s) : l + s - l * s;
-    var t1 = 2 * l - t2;
-    var h_ = h / 360;
-    t3[0] = h_ + 1 / 3;
-    t3[1] = h_;
-    t3[2] = h_ - 1 / 3;
-    for (var i = 0; i < 3; i++) {
-      if (t3[i] < 0) t3[i] += 1;
-      if (t3[i] > 1) t3[i] -= 1;
-      if (6 * t3[i] < 1) c[i] = t1 + (t2 - t1) * 6 * t3[i];else if (2 * t3[i] < 1) c[i] = t2;else if (3 * t3[i] < 2) c[i] = t1 + (t2 - t1) * (2 / 3 - t3[i]) * 6;else c[i] = t1;
-    }
-    var _ref = [round(c[0] * 255), round(c[1] * 255), round(c[2] * 255)];
-    r = _ref[0];
-    g = _ref[1];
-    b = _ref[2];
-  }
-  if (args.length > 3) {
-    return [r, g, b, args[3]];
-  }
-  return [r, g, b, 1];
-};
-var _default = exports["default"] = hsl2rgb;
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _hcg2rgb = _interopRequireDefault(__webpack_require__(48));
-var _rgb2hcg = _interopRequireDefault(__webpack_require__(49));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-_Color["default"].prototype.hcg = function () {
-  return (0, _rgb2hcg["default"])(this._rgb);
-};
-_chroma["default"].hcg = function () {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  return _construct(_Color["default"], args.concat(['hcg']));
-};
-_input["default"].format.hcg = _hcg2rgb["default"];
-_input["default"].autodetect.push({
-  p: 1,
-  test: function test() {
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-    args = (0, _index.unpack)(args, 'hcg');
-    if ((0, _index.type)(args) === 'array' && args.length === 3) {
-      return 'hcg';
-    }
-  }
-});
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var RE_HEX = /^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
-var RE_HEXA = /^#?([A-Fa-f0-9]{8}|[A-Fa-f0-9]{4})$/;
-var hex2rgb = function hex2rgb(hex) {
-  if (hex.match(RE_HEX)) {
-    if (hex.length === 4 || hex.length === 7) {
-      hex = hex.substr(1);
-    }
-    if (hex.length === 3) {
-      hex = hex.split('');
-      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-    }
-    var u = parseInt(hex, 16);
-    var r = u >> 16;
-    var g = u >> 8 & 0xff;
-    var b = u & 0xff;
-    return [r, g, b, 1];
-  }
-  if (hex.match(RE_HEXA)) {
-    if (hex.length === 5 || hex.length === 9) {
-      hex = hex.substr(1);
-    }
-    if (hex.length === 4) {
-      hex = hex.split('');
-      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
-    }
-    var _u = parseInt(hex, 16);
-    var _r = _u >> 24 & 0xff;
-    var _g = _u >> 16 & 0xff;
-    var _b = _u >> 8 & 0xff;
-    var a = Math.round((_u & 0xff) / 0xff * 100) / 100;
-    return [_r, _g, _b, a];
-  }
-  throw new Error("unknown hex color: " + hex);
-};
-var _default = exports["default"] = hex2rgb;
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var round = Math.round;
-var rgb2hex = function rgb2hex() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  var _unpack = (0, _index.unpack)(args, 'rgba'),
-    r = _unpack[0],
-    g = _unpack[1],
-    b = _unpack[2],
-    a = _unpack[3];
-  var mode = (0, _index.last)(args) || 'auto';
-  if (a === undefined) a = 1;
-  if (mode === 'auto') {
-    mode = a < 1 ? 'rgba' : 'rgb';
-  }
-  r = round(r);
-  g = round(g);
-  b = round(b);
-  var u = r << 16 | g << 8 | b;
-  var str = '000000' + u.toString(16);
-  str = str.substr(str.length - 6);
-  var hxa = '0' + round(a * 255).toString(16);
-  hxa = hxa.substr(hxa.length - 2);
-  switch (mode.toLowerCase()) {
-    case 'rgba':
-      return "#" + str + hxa;
-    case 'argb':
-      return "#" + hxa + str;
-    default:
-      return "#" + str;
-  }
-};
-var _default = exports["default"] = rgb2hex;
-
-/***/ }),
 /* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _hsi2rgb = _interopRequireDefault(__webpack_require__(51));
-var _rgb2hsi = _interopRequireDefault(__webpack_require__(52));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-_Color["default"].prototype.hsi = function () {
-  return (0, _rgb2hsi["default"])(this._rgb);
-};
-_chroma["default"].hsi = function () {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  return _construct(_Color["default"], args.concat(['hsi']));
-};
-_input["default"].format.hsi = _hsi2rgb["default"];
-_input["default"].autodetect.push({
-  p: 2,
-  test: function test() {
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-    args = (0, _index.unpack)(args, 'hsi');
-    if ((0, _index.type)(args) === 'array' && args.length === 3) {
-      return 'hsi';
-    }
-  }
-});
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _hsv2rgb = _interopRequireDefault(__webpack_require__(53));
-var _rgb2hsv = _interopRequireDefault(__webpack_require__(54));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-_Color["default"].prototype.hsv = function () {
-  return (0, _rgb2hsv["default"])(this._rgb);
-};
-_chroma["default"].hsv = function () {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  return _construct(_Color["default"], args.concat(['hsv']));
-};
-_input["default"].format.hsv = _hsv2rgb["default"];
-_input["default"].autodetect.push({
-  p: 2,
-  test: function test() {
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-    args = (0, _index.unpack)(args, 'hsv');
-    if ((0, _index.type)(args) === 'array' && args.length === 3) {
-      return 'hsv';
-    }
-  }
-});
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _labConstants = _interopRequireDefault(__webpack_require__(8));
-var _index = __webpack_require__(0);
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var pow = Math.pow;
-var lab2rgb = function lab2rgb() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  args = (0, _index.unpack)(args, 'lab');
-  var _args = args,
-    l = _args[0],
-    a = _args[1],
-    b = _args[2];
-  var x, y, z, r, g, b_;
-  y = (l + 16) / 116;
-  x = isNaN(a) ? y : y + a / 500;
-  z = isNaN(b) ? y : y - b / 200;
-  y = _labConstants["default"].Yn * lab_xyz(y);
-  x = _labConstants["default"].Xn * lab_xyz(x);
-  z = _labConstants["default"].Zn * lab_xyz(z);
-  r = xyz_rgb(3.2404542 * x - 1.5371385 * y - 0.4985314 * z);
-  g = xyz_rgb(-0.969266 * x + 1.8760108 * y + 0.041556 * z);
-  b_ = xyz_rgb(0.0556434 * x - 0.2040259 * y + 1.0572252 * z);
-  return [r, g, b_, args.length > 3 ? args[3] : 1];
-};
-var xyz_rgb = function xyz_rgb(r) {
-  return 255 * (r <= 0.00304 ? 12.92 * r : 1.055 * pow(r, 1 / 2.4) - 0.055);
-};
-var lab_xyz = function lab_xyz(t) {
-  return t > _labConstants["default"].t1 ? t * t * t : _labConstants["default"].t2 * (t - _labConstants["default"].t0);
-};
-var _default = exports["default"] = lab2rgb;
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _labConstants = _interopRequireDefault(__webpack_require__(8));
-var _index = __webpack_require__(0);
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var pow = Math.pow;
-var rgb2lab = function rgb2lab() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  var _unpack = (0, _index.unpack)(args, 'rgb'),
-    r = _unpack[0],
-    g = _unpack[1],
-    b = _unpack[2];
-  var _rgb2xyz = rgb2xyz(r, g, b),
-    x = _rgb2xyz[0],
-    y = _rgb2xyz[1],
-    z = _rgb2xyz[2];
-  var l = 116 * y - 16;
-  return [l < 0 ? 0 : l, 500 * (x - y), 200 * (y - z)];
-};
-var rgb_xyz = function rgb_xyz(r) {
-  if ((r /= 255) <= 0.04045) return r / 12.92;
-  return pow((r + 0.055) / 1.055, 2.4);
-};
-var xyz_lab = function xyz_lab(t) {
-  if (t > _labConstants["default"].t3) return pow(t, 1 / 3);
-  return t / _labConstants["default"].t2 + _labConstants["default"].t0;
-};
-var rgb2xyz = function rgb2xyz(r, g, b) {
-  r = rgb_xyz(r);
-  g = rgb_xyz(g);
-  b = rgb_xyz(b);
-  var x = xyz_lab((0.4124564 * r + 0.3575761 * g + 0.1804375 * b) / _labConstants["default"].Xn);
-  var y = xyz_lab((0.2126729 * r + 0.7151522 * g + 0.072175 * b) / _labConstants["default"].Yn);
-  var z = xyz_lab((0.0193339 * r + 0.119192 * g + 0.9503041 * b) / _labConstants["default"].Zn);
-  return [x, y, z];
-};
-var _default = exports["default"] = rgb2lab;
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var _lch2lab2 = _interopRequireDefault(__webpack_require__(24));
-var _lab2rgb2 = _interopRequireDefault(__webpack_require__(21));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var lch2rgb = function lch2rgb() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  args = (0, _index.unpack)(args, 'lch');
-  var _args = args,
-    l = _args[0],
-    c = _args[1],
-    h = _args[2];
-  var _lch2lab = (0, _lch2lab2["default"])(l, c, h),
-    L = _lch2lab[0],
-    a = _lch2lab[1],
-    b_ = _lch2lab[2];
-  var _lab2rgb = (0, _lab2rgb2["default"])(L, a, b_),
-    r = _lab2rgb[0],
-    g = _lab2rgb[1],
-    b = _lab2rgb[2];
-  return [r, g, b, args.length > 3 ? args[3] : 1];
-};
-var _default = exports["default"] = lch2rgb;
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var sin = Math.sin,
-  cos = Math.cos;
-var lch2lab = function lch2lab() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  var _unpack = (0, _index.unpack)(args, 'lch'),
-    l = _unpack[0],
-    c = _unpack[1],
-    h = _unpack[2];
-  if (isNaN(h)) h = 0;
-  h = h * _index.DEG2RAD;
-  return [l, cos(h) * c, sin(h) * c];
-};
-var _default = exports["default"] = lch2lab;
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var sqrt = Math.sqrt,
-  atan2 = Math.atan2,
-  round = Math.round;
-var lab2lch = function lab2lch() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  var _unpack = (0, _index.unpack)(args, 'lab'),
-    l = _unpack[0],
-    a = _unpack[1],
-    b = _unpack[2];
-  var c = sqrt(a * a + b * b);
-  var h = (atan2(b, a) * _index.RAD2DEG + 360) % 360;
-  if (round(c * 10000) === 0) h = Number.NaN;
-  return [l, c, h];
-};
-var _default = exports["default"] = lab2lch;
-
-/***/ }),
-/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1494,241 +1402,96 @@ var w3cx11 = {
 var _default = exports["default"] = w3cx11;
 
 /***/ }),
-/* 27 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _index = __webpack_require__(0);
-var _num2rgb = _interopRequireDefault(__webpack_require__(58));
-var _rgb2num = _interopRequireDefault(__webpack_require__(59));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-_Color["default"].prototype.num = function () {
-  return (0, _rgb2num["default"])(this._rgb);
-};
-_chroma["default"].num = function () {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  return _construct(_Color["default"], args.concat(['num']));
-};
-_input["default"].format.num = _num2rgb["default"];
-_input["default"].autodetect.push({
-  p: 5,
-  test: function test() {
-    if (arguments.length === 1 && (0, _index.type)(arguments.length <= 0 ? undefined : arguments[0]) === 'number' && (arguments.length <= 0 ? undefined : arguments[0]) >= 0 && (arguments.length <= 0 ? undefined : arguments[0]) <= 0xffffff) {
-      return 'num';
+exports.__esModule = true;
+exports["default"] = void 0;
+var RE_HEX = /^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+var RE_HEXA = /^#?([A-Fa-f0-9]{8}|[A-Fa-f0-9]{4})$/;
+var hex2rgb = function hex2rgb(hex) {
+  if (hex.match(RE_HEX)) {
+    if (hex.length === 4 || hex.length === 7) {
+      hex = hex.substr(1);
     }
+    if (hex.length === 3) {
+      hex = hex.split('');
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    var u = parseInt(hex, 16);
+    var r = u >> 16;
+    var g = u >> 8 & 0xff;
+    var b = u & 0xff;
+    return [r, g, b, 1];
   }
-});
+  if (hex.match(RE_HEXA)) {
+    if (hex.length === 5 || hex.length === 9) {
+      hex = hex.substr(1);
+    }
+    if (hex.length === 4) {
+      hex = hex.split('');
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
+    }
+    var _u = parseInt(hex, 16);
+    var _r = _u >> 24 & 0xff;
+    var _g = _u >> 16 & 0xff;
+    var _b = _u >> 8 & 0xff;
+    var a = Math.round((_u & 0xff) / 0xff * 100) / 100;
+    return [_r, _g, _b, a];
+  }
+  throw new Error("unknown hex color: " + hex);
+};
+var _default = exports["default"] = hex2rgb;
 
 /***/ }),
-/* 28 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _input = _interopRequireDefault(__webpack_require__(3));
+exports.__esModule = true;
+exports["default"] = void 0;
 var _index = __webpack_require__(0);
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
 var round = Math.round;
-_Color["default"].prototype.rgb = function (rnd) {
-  if (rnd === void 0) {
-    rnd = true;
-  }
-  if (rnd === false) return this._rgb.slice(0, 3);
-  return this._rgb.slice(0, 3).map(round);
-};
-_Color["default"].prototype.rgba = function (rnd) {
-  if (rnd === void 0) {
-    rnd = true;
-  }
-  return this._rgb.slice(0, 4).map(function (v, i) {
-    return i < 3 ? rnd === false ? v : round(v) : v;
-  });
-};
-_chroma["default"].rgb = function () {
+var rgb2hex = function rgb2hex() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
-  return _construct(_Color["default"], args.concat(['rgb']));
-};
-_input["default"].format.rgb = function () {
-  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    args[_key2] = arguments[_key2];
-  }
-  var rgba = (0, _index.unpack)(args, 'rgba');
-  if (rgba[3] === undefined) rgba[3] = 1;
-  return rgba;
-};
-_input["default"].autodetect.push({
-  p: 3,
-  test: function test() {
-    for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-      args[_key3] = arguments[_key3];
-    }
-    args = (0, _index.unpack)(args, 'rgba');
-    if ((0, _index.type)(args) === 'array' && (args.length === 3 || args.length === 4 && (0, _index.type)(args[3]) == 'number' && args[3] >= 0 && args[3] <= 1)) {
-      return 'rgb';
-    }
-  }
-});
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var log = Math.log;
-var temperature2rgb = function temperature2rgb(kelvin) {
-  var temp = kelvin / 100;
-  var r, g, b;
-  if (temp < 66) {
-    r = 255;
-    g = temp < 6 ? 0 : -155.25485562709179 - 0.44596950469579133 * (g = temp - 2) + 104.49216199393888 * log(g);
-    b = temp < 20 ? 0 : -254.76935184120902 + 0.8274096064007395 * (b = temp - 10) + 115.67994401066147 * log(b);
-  } else {
-    r = 351.97690566805693 + 0.114206453784165 * (r = temp - 55) - 40.25366309332127 * log(r);
-    g = 325.4494125711974 + 0.07943456536662342 * (g = temp - 50) - 28.0852963507957 * log(g);
-    b = 255;
-  }
-  return [r, g, b, 1];
-};
-var _default = exports["default"] = temperature2rgb;
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _oklab2rgb = _interopRequireDefault(__webpack_require__(31));
-var _rgb2oklab = _interopRequireDefault(__webpack_require__(32));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-_Color["default"].prototype.oklab = function () {
-  return (0, _rgb2oklab["default"])(this._rgb);
-};
-_chroma["default"].oklab = function () {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  return _construct(_Color["default"], args.concat(['oklab']));
-};
-_input["default"].format.oklab = _oklab2rgb["default"];
-_input["default"].autodetect.push({
-  p: 3,
-  test: function test() {
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-    args = (0, _index.unpack)(args, 'oklab');
-    if ((0, _index.type)(args) === 'array' && args.length === 3) {
-      return 'oklab';
-    }
-  }
-});
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var pow = Math.pow,
-  sign = Math.sign;
-var oklab2rgb = function oklab2rgb() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  args = (0, _index.unpack)(args, 'lab');
-  var _args = args,
-    L = _args[0],
-    a = _args[1],
-    b = _args[2];
-  var l = pow(L + 0.3963377774 * a + 0.2158037573 * b, 3);
-  var m = pow(L - 0.1055613458 * a - 0.0638541728 * b, 3);
-  var s = pow(L - 0.0894841775 * a - 1.291485548 * b, 3);
-  return [255 * lrgb2rgb(+4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s), 255 * lrgb2rgb(-1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s), 255 * lrgb2rgb(-0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s), args.length > 3 ? args[3] : 1];
-};
-var _default = exports["default"] = oklab2rgb;
-function lrgb2rgb(c) {
-  var abs = Math.abs(c);
-  if (abs > 0.0031308) {
-    return (sign(c) || 1) * (1.055 * pow(abs, 1 / 2.4) - 0.055);
-  }
-  return c * 12.92;
-}
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var cbrt = Math.cbrt,
-  pow = Math.pow,
-  sign = Math.sign;
-var rgb2oklab = function rgb2oklab() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  var _unpack = (0, _index.unpack)(args, 'rgb'),
+  var _unpack = (0, _index.unpack)(args, 'rgba'),
     r = _unpack[0],
     g = _unpack[1],
-    b = _unpack[2];
-  var _ref = [rgb2lrgb(r / 255), rgb2lrgb(g / 255), rgb2lrgb(b / 255)],
-    lr = _ref[0],
-    lg = _ref[1],
-    lb = _ref[2];
-  var l = cbrt(0.4122214708 * lr + 0.5363325363 * lg + 0.0514459929 * lb);
-  var m = cbrt(0.2119034982 * lr + 0.6806995451 * lg + 0.1073969566 * lb);
-  var s = cbrt(0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb);
-  return [0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s, 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s];
-};
-var _default = exports["default"] = rgb2oklab;
-function rgb2lrgb(c) {
-  var abs = Math.abs(c);
-  if (abs < 0.04045) {
-    return c / 12.92;
+    b = _unpack[2],
+    a = _unpack[3];
+  var mode = (0, _index.last)(args) || 'auto';
+  if (a === undefined) a = 1;
+  if (mode === 'auto') {
+    mode = a < 1 ? 'rgba' : 'rgb';
   }
-  return (sign(c) || 1) * pow((abs + 0.055) / 1.055, 2.4);
-}
+  r = round(r);
+  g = round(g);
+  b = round(b);
+  var u = r << 16 | g << 8 | b;
+  var str = '000000' + u.toString(16);
+  str = str.substr(str.length - 6);
+  var hxa = '0' + round(a * 255).toString(16);
+  hxa = hxa.substr(hxa.length - 2);
+  switch (mode.toLowerCase()) {
+    case 'rgba':
+      return "#" + str + hxa;
+    case 'argb':
+      return "#" + hxa + str;
+    default:
+      return "#" + str;
+  }
+};
+var _default = exports["default"] = rgb2hex;
 
 /***/ }),
-/* 33 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1778,6 +1541,446 @@ var luminance_x = function luminance_x(x) {
 };
 
 /***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var sin = Math.sin,
+  cos = Math.cos;
+var lch2lab = function lch2lab() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var _unpack = (0, _index.unpack)(args, 'lch'),
+    l = _unpack[0],
+    c = _unpack[1],
+    h = _unpack[2];
+  if (isNaN(h)) h = 0;
+  h = h * _index.DEG2RAD;
+  return [l, cos(h) * c, sin(h) * c];
+};
+var _default = exports["default"] = lch2lab;
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var _rgb2lab2 = _interopRequireDefault(__webpack_require__(10));
+var _lab2lch2 = _interopRequireDefault(__webpack_require__(25));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var rgb2lch = function rgb2lch() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var _unpack = (0, _index.unpack)(args, 'rgb'),
+    r = _unpack[0],
+    g = _unpack[1],
+    b = _unpack[2],
+    rest = _unpack.slice(3);
+  var _rgb2lab = (0, _rgb2lab2["default"])(r, g, b),
+    l = _rgb2lab[0],
+    a = _rgb2lab[1],
+    b_ = _rgb2lab[2];
+  var _lab2lch = (0, _lab2lch2["default"])(l, a, b_),
+    L = _lab2lch[0],
+    c = _lab2lch[1],
+    h = _lab2lch[2];
+  return [L, c, h].concat(rest.length > 0 && rest[0] < 1 ? [rest[0]] : []);
+};
+var _default = exports["default"] = rgb2lch;
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var sqrt = Math.sqrt,
+  atan2 = Math.atan2,
+  round = Math.round;
+var lab2lch = function lab2lch() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var _unpack = (0, _index.unpack)(args, 'lab'),
+    l = _unpack[0],
+    a = _unpack[1],
+    b = _unpack[2];
+  var c = sqrt(a * a + b * b);
+  var h = (atan2(b, a) * _index.RAD2DEG + 360) % 360;
+  if (round(c * 10000) === 0) h = Number.NaN;
+  return [l, c, h];
+};
+var _default = exports["default"] = lab2lch;
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.num = void 0;
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _index = __webpack_require__(0);
+var _num2rgb = _interopRequireDefault(__webpack_require__(60));
+var _rgb2num = _interopRequireDefault(__webpack_require__(61));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_Color["default"].prototype.num = function () {
+  return (0, _rgb2num["default"])(this._rgb);
+};
+var num = exports.num = function num() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return _construct(_Color["default"], args.concat(['num']));
+};
+_extends(_chroma["default"], {
+  num: num
+});
+_input["default"].format.num = _num2rgb["default"];
+_input["default"].autodetect.push({
+  p: 5,
+  test: function test() {
+    if (arguments.length === 1 && (0, _index.type)(arguments.length <= 0 ? undefined : arguments[0]) === 'number' && (arguments.length <= 0 ? undefined : arguments[0]) >= 0 && (arguments.length <= 0 ? undefined : arguments[0]) <= 0xffffff) {
+      return 'num';
+    }
+  }
+});
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.hcg = void 0;
+var _index = __webpack_require__(0);
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _hcg2rgb = _interopRequireDefault(__webpack_require__(63));
+var _rgb2hcg = _interopRequireDefault(__webpack_require__(64));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_Color["default"].prototype.hcg = function () {
+  return (0, _rgb2hcg["default"])(this._rgb);
+};
+var hcg = exports.hcg = function hcg() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return _construct(_Color["default"], args.concat(['hcg']));
+};
+_chroma["default"].hcg = hcg;
+_input["default"].format.hcg = _hcg2rgb["default"];
+_input["default"].autodetect.push({
+  p: 1,
+  test: function test() {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+    args = (0, _index.unpack)(args, 'hcg');
+    if ((0, _index.type)(args) === 'array' && args.length === 3) {
+      return 'hcg';
+    }
+  }
+});
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.hsi = void 0;
+var _index = __webpack_require__(0);
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _hsi2rgb = _interopRequireDefault(__webpack_require__(66));
+var _rgb2hsi = _interopRequireDefault(__webpack_require__(67));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_Color["default"].prototype.hsi = function () {
+  return (0, _rgb2hsi["default"])(this._rgb);
+};
+var hsi = exports.hsi = function hsi() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return _construct(_Color["default"], args.concat(['hsi']));
+};
+_chroma["default"].hsi = hsi;
+_input["default"].format.hsi = _hsi2rgb["default"];
+_input["default"].autodetect.push({
+  p: 2,
+  test: function test() {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+    args = (0, _index.unpack)(args, 'hsi');
+    if ((0, _index.type)(args) === 'array' && args.length === 3) {
+      return 'hsi';
+    }
+  }
+});
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var hsl2rgb = function hsl2rgb() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  args = (0, _index.unpack)(args, 'hsl');
+  var _args = args,
+    h = _args[0],
+    s = _args[1],
+    l = _args[2];
+  var r, g, b;
+  if (s === 0) {
+    r = g = b = l * 255;
+  } else {
+    var t3 = [0, 0, 0];
+    var c = [0, 0, 0];
+    var t2 = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    var t1 = 2 * l - t2;
+    var h_ = h / 360;
+    t3[0] = h_ + 1 / 3;
+    t3[1] = h_;
+    t3[2] = h_ - 1 / 3;
+    for (var i = 0; i < 3; i++) {
+      if (t3[i] < 0) t3[i] += 1;
+      if (t3[i] > 1) t3[i] -= 1;
+      if (6 * t3[i] < 1) c[i] = t1 + (t2 - t1) * 6 * t3[i];else if (2 * t3[i] < 1) c[i] = t2;else if (3 * t3[i] < 2) c[i] = t1 + (t2 - t1) * (2 / 3 - t3[i]) * 6;else c[i] = t1;
+    }
+    r = c[0] * 255;
+    g = c[1] * 255;
+    b = c[2] * 255;
+  }
+  if (args.length > 3) {
+    return [r, g, b, args[3]];
+  }
+  return [r, g, b, 1];
+};
+var _default = exports["default"] = hsl2rgb;
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var rgb2hsl = function rgb2hsl() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  args = (0, _index.unpack)(args, 'rgba');
+  var _args = args,
+    r = _args[0],
+    g = _args[1],
+    b = _args[2];
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  var minRgb = (0, _index.min)(r, g, b);
+  var maxRgb = (0, _index.max)(r, g, b);
+  var l = (maxRgb + minRgb) / 2;
+  var s, h;
+  if (maxRgb === minRgb) {
+    s = 0;
+    h = Number.NaN;
+  } else {
+    s = l < 0.5 ? (maxRgb - minRgb) / (maxRgb + minRgb) : (maxRgb - minRgb) / (2 - maxRgb - minRgb);
+  }
+  if (r == maxRgb) h = (g - b) / (maxRgb - minRgb);else if (g == maxRgb) h = 2 + (b - r) / (maxRgb - minRgb);else if (b == maxRgb) h = 4 + (r - g) / (maxRgb - minRgb);
+  h *= 60;
+  if (h < 0) h += 360;
+  if (args.length > 3 && args[3] !== undefined) return [h, s, l, args[3]];
+  return [h, s, l];
+};
+var _default = exports["default"] = rgb2hsl;
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.hsv = void 0;
+var _index = __webpack_require__(0);
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _hsv2rgb = _interopRequireDefault(__webpack_require__(70));
+var _rgb2hsv = _interopRequireDefault(__webpack_require__(71));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_Color["default"].prototype.hsv = function () {
+  return (0, _rgb2hsv["default"])(this._rgb);
+};
+var hsv = exports.hsv = function hsv() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return _construct(_Color["default"], args.concat(['hsv']));
+};
+_chroma["default"].hsv = hsv;
+_input["default"].format.hsv = _hsv2rgb["default"];
+_input["default"].autodetect.push({
+  p: 2,
+  test: function test() {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+    args = (0, _index.unpack)(args, 'hsv');
+    if ((0, _index.type)(args) === 'array' && args.length === 3) {
+      return 'hsv';
+    }
+  }
+});
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.oklab = void 0;
+var _index = __webpack_require__(0);
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _oklab2rgb = _interopRequireDefault(__webpack_require__(16));
+var _rgb2oklab = _interopRequireDefault(__webpack_require__(17));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_Color["default"].prototype.oklab = function () {
+  return (0, _rgb2oklab["default"])(this._rgb);
+};
+var oklab = exports.oklab = function oklab() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return _construct(_Color["default"], args.concat(['oklab']));
+};
+_extends(_chroma["default"], {
+  oklab: oklab
+});
+_input["default"].format.oklab = _oklab2rgb["default"];
+_input["default"].autodetect.push({
+  p: 2,
+  test: function test() {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+    args = (0, _index.unpack)(args, 'oklab');
+    if ((0, _index.type)(args) === 'array' && args.length === 3) {
+      return 'oklab';
+    }
+  }
+});
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = multiplyMatrices;
+function multiplyMatrices(A, B) {
+  var m = A.length;
+  if (!Array.isArray(A[0])) {
+    A = [A];
+  }
+  if (!Array.isArray(B[0])) {
+    B = B.map(function (x) {
+      return [x];
+    });
+  }
+  var p = B[0].length;
+  var B_cols = B[0].map(function (_, i) {
+    return B.map(function (x) {
+      return x[i];
+    });
+  });
+  var product = A.map(function (row) {
+    return B_cols.map(function (col) {
+      if (!Array.isArray(row)) {
+        return col.reduce(function (a, c) {
+          return a + c * row;
+        }, 0);
+      }
+      return row.reduce(function (a, c, i) {
+        return a + c * (col[i] || 0);
+      }, 0);
+    });
+  });
+  if (m === 1) {
+    product = product[0];
+  }
+  if (p === 1) {
+    return product.map(function (x) {
+      return x[0];
+    });
+  }
+  return product;
+}
+
+/***/ }),
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1785,27 +1988,61 @@ var luminance_x = function luminance_x(x) {
 
 
 exports.__esModule = true;
-exports.bestColorContrast = bestColorContrast;
-var _chromaJs = _interopRequireDefault(__webpack_require__(35));
-var _passesAA = __webpack_require__(97);
-var _passesAAA = __webpack_require__(98);
+exports.rgb = void 0;
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _index = __webpack_require__(0);
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function scoreContrast(a, b, large, AAA) {
-  var contrast = _chromaJs["default"].contrast(a, b);
-  return contrast + Number(AAA && (0, _passesAAA.passesAAA)(contrast, large)) * 100 + Number(!AAA && (0, _passesAA.passesAA)(contrast, large)) * 100;
-}
-function bestColorContrast(bgColor, fgColors, large, AAA) {
-  if (large === void 0) {
-    large = false;
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+var round = Math.round;
+_Color["default"].prototype.rgb = function (rnd) {
+  if (rnd === void 0) {
+    rnd = true;
   }
-  if (AAA === void 0) {
-    AAA = false;
+  if (rnd === false) return this._rgb.slice(0, 3);
+  return this._rgb.slice(0, 3).map(round);
+};
+_Color["default"].prototype.rgba = function (rnd) {
+  if (rnd === void 0) {
+    rnd = true;
   }
-  var scores = fgColors.map(function (fgColor) {
-    return scoreContrast(bgColor, fgColor, large, AAA);
+  return this._rgb.slice(0, 4).map(function (v, i) {
+    return i < 3 ? rnd === false ? v : round(v) : v;
   });
-  return fgColors[scores.indexOf(Math.max.apply(Math, scores))];
-}
+};
+var rgb = exports.rgb = function rgb() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return _construct(_Color["default"], args.concat(['rgb']));
+};
+_extends(_chroma["default"], {
+  rgb: rgb
+});
+_input["default"].format.rgb = function () {
+  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    args[_key2] = arguments[_key2];
+  }
+  var rgba = (0, _index.unpack)(args, 'rgba');
+  if (rgba[3] === undefined) rgba[3] = 1;
+  return rgba;
+};
+_input["default"].autodetect.push({
+  p: 3,
+  test: function test() {
+    for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+      args[_key3] = arguments[_key3];
+    }
+    args = (0, _index.unpack)(args, 'rgba');
+    if ((0, _index.type)(args) === 'array' && (args.length === 3 || args.length === 4 && (0, _index.type)(args[3]) == 'number' && args[3] >= 0 && args[3] <= 1)) {
+      return 'rgb';
+    }
+  }
+});
 
 /***/ }),
 /* 35 */
@@ -1816,86 +2053,350 @@ function bestColorContrast(bgColor, fgColors, large, AAA) {
 
 exports.__esModule = true;
 exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var _rgb2oklab2 = _interopRequireDefault(__webpack_require__(17));
+var _lab2lch2 = _interopRequireDefault(__webpack_require__(25));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var rgb2oklch = function rgb2oklch() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var _unpack = (0, _index.unpack)(args, 'rgb'),
+    r = _unpack[0],
+    g = _unpack[1],
+    b = _unpack[2],
+    rest = _unpack.slice(3);
+  var _rgb2oklab = (0, _rgb2oklab2["default"])(r, g, b),
+    l = _rgb2oklab[0],
+    a = _rgb2oklab[1],
+    b_ = _rgb2oklab[2];
+  var _lab2lch = (0, _lab2lch2["default"])(l, a, b_),
+    L = _lab2lch[0],
+    c = _lab2lch[1],
+    h = _lab2lch[2];
+  return [L, c, h].concat(rest.length > 0 && rest[0] < 1 ? [rest[0]] : []);
+};
+var _default = exports["default"] = rgb2oklch;
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var _lch2lab2 = _interopRequireDefault(__webpack_require__(23));
+var _oklab2rgb2 = _interopRequireDefault(__webpack_require__(16));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var oklch2rgb = function oklch2rgb() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  args = (0, _index.unpack)(args, 'lch');
+  var _args = args,
+    l = _args[0],
+    c = _args[1],
+    h = _args[2],
+    rest = _args.slice(3);
+  var _lch2lab = (0, _lch2lab2["default"])(l, c, h),
+    L = _lch2lab[0],
+    a = _lch2lab[1],
+    b_ = _lch2lab[2];
+  var _oklab2rgb = (0, _oklab2rgb2["default"])(L, a, b_),
+    r = _oklab2rgb[0],
+    g = _oklab2rgb[1],
+    b = _oklab2rgb[2];
+  return [r, g, b].concat(rest.length > 0 && rest[0] < 1 ? [rest[0]] : []);
+};
+var _default = exports["default"] = oklch2rgb;
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var log = Math.log;
+var temperature2rgb = function temperature2rgb(kelvin) {
+  var temp = kelvin / 100;
+  var r, g, b;
+  if (temp < 66) {
+    r = 255;
+    g = temp < 6 ? 0 : -155.25485562709179 - 0.44596950469579133 * (g = temp - 2) + 104.49216199393888 * log(g);
+    b = temp < 20 ? 0 : -254.76935184120902 + 0.8274096064007395 * (b = temp - 10) + 115.67994401066147 * log(b);
+  } else {
+    r = 351.97690566805693 + 0.114206453784165 * (r = temp - 55) - 40.25366309332127 * log(r);
+    g = 325.4494125711974 + 0.07943456536662342 * (g = temp - 50) - 28.0852963507957 * log(g);
+    b = 255;
+  }
+  return [r, g, b, 1];
+};
+var _default = exports["default"] = temperature2rgb;
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.bestColorContrast = bestColorContrast;
+var _chromaJs = _interopRequireDefault(__webpack_require__(39));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var ALGORITHM = {
+  APCA: 'apca',
+  WCAG: 'wcag'
+};
+function bestColorContrast(bgColor, fgColors, algorithm) {
+  if (algorithm === void 0) {
+    algorithm = ALGORITHM.APCA;
+  }
+  var fn;
+  if (algorithm === ALGORITHM.APCA) {
+    fn = _chromaJs["default"].contrastAPCA;
+  } else {
+    fn = _chromaJs["default"].contrast;
+  }
+  var scores = fgColors.map(function (fgColor) {
+    return Math.abs(fn(bgColor, fgColor));
+  });
+  var maxScore = Math.max.apply(Math, scores);
+  var maxScoreIndex = scores.indexOf(maxScore);
+  return fgColors[maxScoreIndex];
+}
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+var _exportNames = {
+  average: true,
+  bezier: true,
+  blend: true,
+  cubehelix: true,
+  mix: true,
+  interpolate: true,
+  random: true,
+  scale: true,
+  analyze: true,
+  limits: true,
+  contrast: true,
+  contrastAPCA: true,
+  deltaE: true,
+  distance: true,
+  valid: true,
+  input: true,
+  scales: true,
+  colors: true,
+  brewer: true,
+  Color: true
+};
+exports["default"] = void 0;
 var _chroma = _interopRequireDefault(__webpack_require__(2));
-__webpack_require__(40);
-__webpack_require__(43);
+__webpack_require__(44);
+__webpack_require__(45);
+__webpack_require__(46);
 __webpack_require__(47);
-__webpack_require__(16);
+__webpack_require__(48);
+__webpack_require__(22);
+__webpack_require__(49);
 __webpack_require__(50);
-__webpack_require__(19);
-__webpack_require__(10);
-__webpack_require__(20);
-__webpack_require__(6);
-__webpack_require__(9);
+__webpack_require__(51);
+__webpack_require__(53);
+__webpack_require__(54);
+__webpack_require__(55);
+__webpack_require__(56);
 __webpack_require__(57);
-__webpack_require__(27);
-__webpack_require__(28);
-__webpack_require__(60);
-__webpack_require__(30);
+__webpack_require__(58);
+__webpack_require__(59);
 __webpack_require__(62);
 __webpack_require__(65);
-__webpack_require__(66);
-__webpack_require__(67);
 __webpack_require__(68);
-__webpack_require__(33);
 __webpack_require__(69);
-__webpack_require__(70);
-__webpack_require__(71);
 __webpack_require__(72);
 __webpack_require__(73);
-__webpack_require__(74);
-__webpack_require__(75);
-__webpack_require__(76);
-__webpack_require__(77);
-__webpack_require__(78);
-__webpack_require__(79);
-__webpack_require__(80);
-__webpack_require__(81);
-__webpack_require__(82);
-__webpack_require__(83);
-__webpack_require__(84);
-var _average = _interopRequireDefault(__webpack_require__(85));
-var _bezier = _interopRequireDefault(__webpack_require__(86));
-var _blend = _interopRequireDefault(__webpack_require__(87));
-var _cubehelix = _interopRequireDefault(__webpack_require__(88));
+var _average = _interopRequireDefault(__webpack_require__(74));
+exports.average = _average["default"];
+var _bezier = _interopRequireDefault(__webpack_require__(75));
+exports.bezier = _bezier["default"];
+var _blend = _interopRequireDefault(__webpack_require__(76));
+exports.blend = _blend["default"];
+var _cubehelix = _interopRequireDefault(__webpack_require__(77));
+exports.cubehelix = _cubehelix["default"];
 var _mix2 = _interopRequireDefault(__webpack_require__(11));
-var _random = _interopRequireDefault(__webpack_require__(89));
-var _scale = _interopRequireDefault(__webpack_require__(12));
-var _analyze = __webpack_require__(90);
-var _contrast = _interopRequireDefault(__webpack_require__(91));
-var _deltaE = _interopRequireDefault(__webpack_require__(92));
-var _distance = _interopRequireDefault(__webpack_require__(93));
-var _valid = _interopRequireDefault(__webpack_require__(94));
+exports.mix = _mix2["default"];
+exports.interpolate = _mix2["default"];
+var _random = _interopRequireDefault(__webpack_require__(78));
+exports.random = _random["default"];
+var _scale = _interopRequireDefault(__webpack_require__(18));
+exports.scale = _scale["default"];
+var _analyze = __webpack_require__(79);
+exports.analyze = _analyze.analyze;
+exports.limits = _analyze.limits;
+var _contrast = _interopRequireDefault(__webpack_require__(80));
+exports.contrast = _contrast["default"];
+var _contrastAPCA = _interopRequireDefault(__webpack_require__(81));
+exports.contrastAPCA = _contrastAPCA["default"];
+var _deltaE = _interopRequireDefault(__webpack_require__(82));
+exports.deltaE = _deltaE["default"];
+var _distance = _interopRequireDefault(__webpack_require__(83));
+exports.distance = _distance["default"];
+var _valid = _interopRequireDefault(__webpack_require__(84));
+exports.valid = _valid["default"];
 var _input = _interopRequireDefault(__webpack_require__(3));
-var _scales = _interopRequireDefault(__webpack_require__(95));
-var _w3cx = _interopRequireDefault(__webpack_require__(26));
-var _colorbrewer = _interopRequireDefault(__webpack_require__(96));
+exports.input = _input["default"];
+var _scales = _interopRequireDefault(__webpack_require__(85));
+exports.scales = _scales["default"];
+var _w3cx = _interopRequireDefault(__webpack_require__(19));
+exports.colors = _w3cx["default"];
+var _colorbrewer = _interopRequireDefault(__webpack_require__(86));
+exports.brewer = _colorbrewer["default"];
+var _Color = _interopRequireDefault(__webpack_require__(1));
+exports.Color = _Color["default"];
+var _index2 = __webpack_require__(87);
+Object.keys(_index2).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index2[key]) return;
+  exports[key] = _index2[key];
+});
+var _index3 = __webpack_require__(90);
+Object.keys(_index3).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index3[key]) return;
+  exports[key] = _index3[key];
+});
+var _index4 = __webpack_require__(98);
+Object.keys(_index4).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index4[key]) return;
+  exports[key] = _index4[key];
+});
+var _index5 = __webpack_require__(27);
+Object.keys(_index5).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index5[key]) return;
+  exports[key] = _index5[key];
+});
+var _index6 = __webpack_require__(99);
+Object.keys(_index6).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index6[key]) return;
+  exports[key] = _index6[key];
+});
+var _index7 = __webpack_require__(28);
+Object.keys(_index7).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index7[key]) return;
+  exports[key] = _index7[key];
+});
+var _index8 = __webpack_require__(15);
+Object.keys(_index8).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index8[key]) return;
+  exports[key] = _index8[key];
+});
+var _index9 = __webpack_require__(31);
+Object.keys(_index9).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index9[key]) return;
+  exports[key] = _index9[key];
+});
+var _index10 = __webpack_require__(7);
+Object.keys(_index10).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index10[key]) return;
+  exports[key] = _index10[key];
+});
+var _index11 = __webpack_require__(12);
+Object.keys(_index11).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index11[key]) return;
+  exports[key] = _index11[key];
+});
+var _index12 = __webpack_require__(26);
+Object.keys(_index12).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index12[key]) return;
+  exports[key] = _index12[key];
+});
+var _index13 = __webpack_require__(34);
+Object.keys(_index13).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index13[key]) return;
+  exports[key] = _index13[key];
+});
+var _index14 = __webpack_require__(100);
+Object.keys(_index14).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index14[key]) return;
+  exports[key] = _index14[key];
+});
+var _index15 = __webpack_require__(32);
+Object.keys(_index15).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index15[key]) return;
+  exports[key] = _index15[key];
+});
+var _index16 = __webpack_require__(102);
+Object.keys(_index16).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  if (key in exports && exports[key] === _index16[key]) return;
+  exports[key] = _index16[key];
+});
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 _extends(_chroma["default"], {
+  analyze: _analyze.analyze,
   average: _average["default"],
   bezier: _bezier["default"],
   blend: _blend["default"],
-  cubehelix: _cubehelix["default"],
-  mix: _mix2["default"],
-  interpolate: _mix2["default"],
-  random: _random["default"],
-  scale: _scale["default"],
-  analyze: _analyze.analyze,
+  brewer: _colorbrewer["default"],
+  Color: _Color["default"],
+  colors: _w3cx["default"],
   contrast: _contrast["default"],
+  contrastAPCA: _contrastAPCA["default"],
+  cubehelix: _cubehelix["default"],
   deltaE: _deltaE["default"],
   distance: _distance["default"],
-  limits: _analyze.limits,
-  valid: _valid["default"],
-  scales: _scales["default"],
   input: _input["default"],
-  colors: _w3cx["default"],
-  brewer: _colorbrewer["default"]
+  interpolate: _mix2["default"],
+  limits: _analyze.limits,
+  mix: _mix2["default"],
+  random: _random["default"],
+  scale: _scale["default"],
+  scales: _scales["default"],
+  valid: _valid["default"]
 });
 var _default = exports["default"] = _chroma["default"];
 
 /***/ }),
-/* 36 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1920,7 +2421,7 @@ var _default = exports["default"] = function _default(rgb) {
 };
 
 /***/ }),
-/* 37 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1928,7 +2429,7 @@ var _default = exports["default"] = function _default(rgb) {
 
 exports.__esModule = true;
 exports["default"] = void 0;
-var _type = _interopRequireDefault(__webpack_require__(7));
+var _type = _interopRequireDefault(__webpack_require__(8));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 var _default = exports["default"] = function _default(args, keyOrder) {
   if (keyOrder === void 0) {
@@ -1942,103 +2443,8 @@ var _default = exports["default"] = function _default(args, keyOrder) {
       return args[0][k];
     });
   }
-  return args[0];
+  return args[0].slice(0);
 };
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _type = _interopRequireDefault(__webpack_require__(7));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var _default = exports["default"] = function _default(args) {
-  if (args.length < 2) return null;
-  var l = args.length - 1;
-  if ((0, _type["default"])(args[l]) == 'string') return args[l].toLowerCase();
-  return null;
-};
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.version = void 0;
-var version = exports.version = '2.6.0';
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _index = __webpack_require__(0);
-var _cmyk2rgb = _interopRequireDefault(__webpack_require__(41));
-var _rgb2cmyk = _interopRequireDefault(__webpack_require__(42));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-_Color["default"].prototype.cmyk = function () {
-  return (0, _rgb2cmyk["default"])(this._rgb);
-};
-_chroma["default"].cmyk = function () {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  return _construct(_Color["default"], args.concat(['cmyk']));
-};
-_input["default"].format.cmyk = _cmyk2rgb["default"];
-_input["default"].autodetect.push({
-  p: 2,
-  test: function test() {
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-    args = (0, _index.unpack)(args, 'cmyk');
-    if ((0, _index.type)(args) === 'array' && args.length === 4) {
-      return 'cmyk';
-    }
-  }
-});
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var cmyk2rgb = function cmyk2rgb() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  args = (0, _index.unpack)(args, 'cmyk');
-  var _args = args,
-    c = _args[0],
-    m = _args[1],
-    y = _args[2],
-    k = _args[3];
-  var alpha = args.length > 4 ? args[4] : 1;
-  if (k === 1) return [0, 0, 0, alpha];
-  return [c >= 1 ? 0 : 255 * (1 - c) * (1 - k), m >= 1 ? 0 : 255 * (1 - m) * (1 - k), y >= 1 ? 0 : 255 * (1 - y) * (1 - k), alpha];
-};
-var _default = exports["default"] = cmyk2rgb;
 
 /***/ }),
 /* 42 */
@@ -2049,27 +2455,14 @@ var _default = exports["default"] = cmyk2rgb;
 
 exports.__esModule = true;
 exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var max = Math.max;
-var rgb2cmyk = function rgb2cmyk() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  var _unpack = (0, _index.unpack)(args, 'rgb'),
-    r = _unpack[0],
-    g = _unpack[1],
-    b = _unpack[2];
-  r = r / 255;
-  g = g / 255;
-  b = b / 255;
-  var k = 1 - max(r, max(g, b));
-  var f = k < 1 ? 1 / (1 - k) : 0;
-  var c = (1 - r - k) * f;
-  var m = (1 - g - k) * f;
-  var y = (1 - b - k) * f;
-  return [c, m, y, k];
+var _type = _interopRequireDefault(__webpack_require__(8));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var _default = exports["default"] = function _default(args) {
+  if (args.length < 2) return null;
+  var l = args.length - 1;
+  if ((0, _type["default"])(args[l]) == 'string') return args[l].toLowerCase();
+  return null;
 };
-var _default = exports["default"] = rgb2cmyk;
 
 /***/ }),
 /* 43 */
@@ -2078,34 +2471,9 @@ var _default = exports["default"] = rgb2cmyk;
 "use strict";
 
 
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _index = __webpack_require__(0);
-var _rgb2css = _interopRequireDefault(__webpack_require__(44));
-var _css2rgb = _interopRequireDefault(__webpack_require__(46));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-_Color["default"].prototype.css = function (mode) {
-  return (0, _rgb2css["default"])(this._rgb, mode);
-};
-_chroma["default"].css = function () {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  return _construct(_Color["default"], args.concat(['css']));
-};
-_input["default"].format.css = _css2rgb["default"];
-_input["default"].autodetect.push({
-  p: 5,
-  test: function test(h) {
-    if (!(arguments.length <= 1 ? 0 : arguments.length - 1) && (0, _index.type)(h) === 'string' && _css2rgb["default"].test(h)) {
-      return 'css';
-    }
-  }
-});
+exports.__esModule = true;
+exports.version = void 0;
+var version = exports.version = '3.1.2';
 
 /***/ }),
 /* 44 */
@@ -2114,32 +2482,34 @@ _input["default"].autodetect.push({
 "use strict";
 
 
-exports.__esModule = true;
-exports["default"] = void 0;
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _input = _interopRequireDefault(__webpack_require__(3));
 var _index = __webpack_require__(0);
-var _hsl2css = _interopRequireDefault(__webpack_require__(45));
-var _rgb2hsl = _interopRequireDefault(__webpack_require__(14));
+var _w3cx = _interopRequireDefault(__webpack_require__(19));
+var _hex2rgb = _interopRequireDefault(__webpack_require__(20));
+var _rgb2hex = _interopRequireDefault(__webpack_require__(21));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var round = Math.round;
-var rgb2css = function rgb2css() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
+_Color["default"].prototype.name = function () {
+  var hex = (0, _rgb2hex["default"])(this._rgb, 'rgb');
+  for (var _i = 0, _Object$keys = Object.keys(_w3cx["default"]); _i < _Object$keys.length; _i++) {
+    var n = _Object$keys[_i];
+    if (_w3cx["default"][n] === hex) return n.toLowerCase();
   }
-  var rgba = (0, _index.unpack)(args, 'rgba');
-  var mode = (0, _index.last)(args) || 'rgb';
-  if (mode.substr(0, 3) == 'hsl') {
-    return (0, _hsl2css["default"])((0, _rgb2hsl["default"])(rgba), mode);
-  }
-  rgba[0] = round(rgba[0]);
-  rgba[1] = round(rgba[1]);
-  rgba[2] = round(rgba[2]);
-  if (mode === 'rgba' || rgba.length > 3 && rgba[3] < 1) {
-    rgba[3] = rgba.length > 3 ? rgba[3] : 1;
-    mode = 'rgba';
-  }
-  return mode + "(" + rgba.slice(0, mode === 'rgb' ? 3 : 4).join(',') + ")";
+  return hex;
 };
-var _default = exports["default"] = rgb2css;
+_input["default"].format.named = function (name) {
+  name = name.toLowerCase();
+  if (_w3cx["default"][name]) return (0, _hex2rgb["default"])(_w3cx["default"][name]);
+  throw new Error('unknown color name: ' + name);
+};
+_input["default"].autodetect.push({
+  p: 5,
+  test: function test(h) {
+    if (!(arguments.length <= 1 ? 0 : arguments.length - 1) && (0, _index.type)(h) === 'string' && _w3cx["default"][h.toLowerCase()]) {
+      return 'named';
+    }
+  }
+});
 
 /***/ }),
 /* 45 */
@@ -2148,30 +2518,22 @@ var _default = exports["default"] = rgb2css;
 "use strict";
 
 
-exports.__esModule = true;
-exports["default"] = void 0;
+var _Color = _interopRequireDefault(__webpack_require__(1));
 var _index = __webpack_require__(0);
-var rnd = function rnd(a) {
-  return Math.round(a * 100) / 100;
-};
-var hsl2css = function hsl2css() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+_Color["default"].prototype.alpha = function (a, mutate) {
+  if (mutate === void 0) {
+    mutate = false;
   }
-  var hsla = (0, _index.unpack)(args, 'hsla');
-  var mode = (0, _index.last)(args) || 'lsa';
-  hsla[0] = rnd(hsla[0] || 0);
-  hsla[1] = rnd(hsla[1] * 100) + '%';
-  hsla[2] = rnd(hsla[2] * 100) + '%';
-  if (mode === 'hsla' || hsla.length > 3 && hsla[3] < 1) {
-    hsla[3] = hsla.length > 3 ? hsla[3] : 1;
-    mode = 'hsla';
-  } else {
-    hsla.length = 3;
+  if (a !== undefined && (0, _index.type)(a) === 'number') {
+    if (mutate) {
+      this._rgb[3] = a;
+      return this;
+    }
+    return new _Color["default"]([this._rgb[0], this._rgb[1], this._rgb[2], a], 'rgb');
   }
-  return mode + "(" + hsla.join(',') + ")";
+  return this._rgb[3];
 };
-var _default = exports["default"] = hsl2css;
 
 /***/ }),
 /* 46 */
@@ -2180,78 +2542,11 @@ var _default = exports["default"] = hsl2css;
 "use strict";
 
 
-exports.__esModule = true;
-exports["default"] = void 0;
-var _hsl2rgb = _interopRequireDefault(__webpack_require__(15));
-var _input = _interopRequireDefault(__webpack_require__(3));
+var _Color = _interopRequireDefault(__webpack_require__(1));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var RE_RGB = /^rgb\(\s*(-?\d+),\s*(-?\d+)\s*,\s*(-?\d+)\s*\)$/;
-var RE_RGBA = /^rgba\(\s*(-?\d+),\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*([01]|[01]?\.\d+)\)$/;
-var RE_RGB_PCT = /^rgb\(\s*(-?\d+(?:\.\d+)?)%,\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*\)$/;
-var RE_RGBA_PCT = /^rgba\(\s*(-?\d+(?:\.\d+)?)%,\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*,\s*([01]|[01]?\.\d+)\)$/;
-var RE_HSL = /^hsl\(\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*\)$/;
-var RE_HSLA = /^hsla\(\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*,\s*([01]|[01]?\.\d+)\)$/;
-var round = Math.round;
-var css2rgb = function css2rgb(css) {
-  css = css.toLowerCase().trim();
-  var m;
-  if (_input["default"].format.named) {
-    try {
-      return _input["default"].format.named(css);
-    } catch (e) {}
-  }
-  if (m = css.match(RE_RGB)) {
-    var rgb = m.slice(1, 4);
-    for (var i = 0; i < 3; i++) {
-      rgb[i] = +rgb[i];
-    }
-    rgb[3] = 1;
-    return rgb;
-  }
-  if (m = css.match(RE_RGBA)) {
-    var _rgb = m.slice(1, 5);
-    for (var _i = 0; _i < 4; _i++) {
-      _rgb[_i] = +_rgb[_i];
-    }
-    return _rgb;
-  }
-  if (m = css.match(RE_RGB_PCT)) {
-    var _rgb2 = m.slice(1, 4);
-    for (var _i2 = 0; _i2 < 3; _i2++) {
-      _rgb2[_i2] = round(_rgb2[_i2] * 2.55);
-    }
-    _rgb2[3] = 1;
-    return _rgb2;
-  }
-  if (m = css.match(RE_RGBA_PCT)) {
-    var _rgb3 = m.slice(1, 5);
-    for (var _i3 = 0; _i3 < 3; _i3++) {
-      _rgb3[_i3] = round(_rgb3[_i3] * 2.55);
-    }
-    _rgb3[3] = +_rgb3[3];
-    return _rgb3;
-  }
-  if (m = css.match(RE_HSL)) {
-    var hsl = m.slice(1, 4);
-    hsl[1] *= 0.01;
-    hsl[2] *= 0.01;
-    var _rgb4 = (0, _hsl2rgb["default"])(hsl);
-    _rgb4[3] = 1;
-    return _rgb4;
-  }
-  if (m = css.match(RE_HSLA)) {
-    var _hsl = m.slice(1, 4);
-    _hsl[1] *= 0.01;
-    _hsl[2] *= 0.01;
-    var _rgb5 = (0, _hsl2rgb["default"])(_hsl);
-    _rgb5[3] = +m[4];
-    return _rgb5;
-  }
+_Color["default"].prototype.clipped = function () {
+  return this._rgb._clipped || false;
 };
-css2rgb.test = function (s) {
-  return RE_RGB.test(s) || RE_RGBA.test(s) || RE_RGB_PCT.test(s) || RE_RGBA_PCT.test(s) || RE_HSL.test(s) || RE_HSLA.test(s);
-};
-var _default = exports["default"] = css2rgb;
 
 /***/ }),
 /* 47 */
@@ -2260,37 +2555,403 @@ var _default = exports["default"] = css2rgb;
 "use strict";
 
 
+__webpack_require__(7);
 var _Color = _interopRequireDefault(__webpack_require__(1));
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _index = __webpack_require__(0);
+var _labConstants = _interopRequireDefault(__webpack_require__(5));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-_input["default"].format.gl = function () {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
+_Color["default"].prototype.darken = function (amount) {
+  if (amount === void 0) {
+    amount = 1;
   }
-  var rgb = (0, _index.unpack)(args, 'rgba');
-  rgb[0] *= 255;
-  rgb[1] *= 255;
-  rgb[2] *= 255;
-  return rgb;
+  var me = this;
+  var lab = me.lab();
+  lab[0] -= _labConstants["default"].Kn * amount;
+  return new _Color["default"](lab, 'lab').alpha(me.alpha(), true);
 };
-_chroma["default"].gl = function () {
-  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    args[_key2] = arguments[_key2];
+_Color["default"].prototype.brighten = function (amount) {
+  if (amount === void 0) {
+    amount = 1;
   }
-  return _construct(_Color["default"], args.concat(['gl']));
+  return this.darken(-amount);
 };
-_Color["default"].prototype.gl = function () {
-  var rgb = this._rgb;
-  return [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, rgb[3]];
-};
+_Color["default"].prototype.darker = _Color["default"].prototype.darken;
+_Color["default"].prototype.brighter = _Color["default"].prototype.brighten;
 
 /***/ }),
 /* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _Color = _interopRequireDefault(__webpack_require__(1));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+_Color["default"].prototype.get = function (mc) {
+  var _mc$split = mc.split('.'),
+    mode = _mc$split[0],
+    channel = _mc$split[1];
+  var src = this[mode]();
+  if (channel) {
+    var i = mode.indexOf(channel) - (mode.substr(0, 2) === 'ok' ? 2 : 0);
+    if (i > -1) return src[i];
+    throw new Error("unknown channel " + channel + " in mode " + mode);
+  } else {
+    return src;
+  }
+};
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _mix = _interopRequireDefault(__webpack_require__(11));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+_Color["default"].prototype.mix = _Color["default"].prototype.interpolate = function (col2, f) {
+  if (f === void 0) {
+    f = 0.5;
+  }
+  for (var _len = arguments.length, rest = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+    rest[_key - 2] = arguments[_key];
+  }
+  return _mix["default"].apply(void 0, [this, col2, f].concat(rest));
+};
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _Color = _interopRequireDefault(__webpack_require__(1));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+_Color["default"].prototype.premultiply = function (mutate) {
+  if (mutate === void 0) {
+    mutate = false;
+  }
+  var rgb = this._rgb;
+  var a = rgb[3];
+  if (mutate) {
+    this._rgb = [rgb[0] * a, rgb[1] * a, rgb[2] * a, a];
+    return this;
+  } else {
+    return new _Color["default"]([rgb[0] * a, rgb[1] * a, rgb[2] * a, a], 'rgb');
+  }
+};
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(12);
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _labConstants = _interopRequireDefault(__webpack_require__(5));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+_Color["default"].prototype.saturate = function (amount) {
+  if (amount === void 0) {
+    amount = 1;
+  }
+  var me = this;
+  var lch = me.lch();
+  lch[1] += _labConstants["default"].Kn * amount;
+  if (lch[1] < 0) lch[1] = 0;
+  return new _Color["default"](lch, 'lch').alpha(me.alpha(), true);
+};
+_Color["default"].prototype.desaturate = function (amount) {
+  if (amount === void 0) {
+    amount = 1;
+  }
+  return this.saturate(-amount);
+};
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var _lch2rgb = _interopRequireDefault(__webpack_require__(14));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var hcl2rgb = function hcl2rgb() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var hcl = (0, _index.reverse3)((0, _index.unpack)(args, 'hcl'));
+  return _lch2rgb["default"].apply(void 0, hcl);
+};
+var _default = exports["default"] = hcl2rgb;
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _index = __webpack_require__(0);
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+_Color["default"].prototype.set = function (mc, value, mutate) {
+  if (mutate === void 0) {
+    mutate = false;
+  }
+  var _mc$split = mc.split('.'),
+    mode = _mc$split[0],
+    channel = _mc$split[1];
+  var src = this[mode]();
+  if (channel) {
+    var i = mode.indexOf(channel) - (mode.substr(0, 2) === 'ok' ? 2 : 0);
+    if (i > -1) {
+      if ((0, _index.type)(value) == 'string') {
+        switch (value.charAt(0)) {
+          case '+':
+            src[i] += +value;
+            break;
+          case '-':
+            src[i] += +value;
+            break;
+          case '*':
+            src[i] *= +value.substr(1);
+            break;
+          case '/':
+            src[i] /= +value.substr(1);
+            break;
+          default:
+            src[i] = +value;
+        }
+      } else if ((0, _index.type)(value) === 'number') {
+        src[i] = value;
+      } else {
+        throw new Error("unsupported value for Color.set");
+      }
+      var out = new _Color["default"](src, mode);
+      if (mutate) {
+        this._rgb = out._rgb;
+        return this;
+      }
+      return out;
+    }
+    throw new Error("unknown channel " + channel + " in mode " + mode);
+  } else {
+    return src;
+  }
+};
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(7);
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _mix = _interopRequireDefault(__webpack_require__(11));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+_Color["default"].prototype.tint = function (f) {
+  if (f === void 0) {
+    f = 0.5;
+  }
+  for (var _len = arguments.length, rest = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    rest[_key - 1] = arguments[_key];
+  }
+  return _mix["default"].apply(void 0, [this, 'white', f].concat(rest));
+};
+_Color["default"].prototype.shade = function (f) {
+  if (f === void 0) {
+    f = 0.5;
+  }
+  for (var _len2 = arguments.length, rest = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+    rest[_key2 - 1] = arguments[_key2];
+  }
+  return _mix["default"].apply(void 0, [this, 'black', f].concat(rest));
+};
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _index = _interopRequireDefault(__webpack_require__(4));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var rgb = function rgb(col1, col2, f) {
+  var xyz0 = col1._rgb;
+  var xyz1 = col2._rgb;
+  return new _Color["default"](xyz0[0] + f * (xyz1[0] - xyz0[0]), xyz0[1] + f * (xyz1[1] - xyz0[1]), xyz0[2] + f * (xyz1[2] - xyz0[2]), 'rgb');
+};
+_index["default"].rgb = rgb;
+var _default = exports["default"] = rgb;
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _index = _interopRequireDefault(__webpack_require__(4));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var sqrt = Math.sqrt,
+  pow = Math.pow;
+var lrgb = function lrgb(col1, col2, f) {
+  var _col1$_rgb = col1._rgb,
+    x1 = _col1$_rgb[0],
+    y1 = _col1$_rgb[1],
+    z1 = _col1$_rgb[2];
+  var _col2$_rgb = col2._rgb,
+    x2 = _col2$_rgb[0],
+    y2 = _col2$_rgb[1],
+    z2 = _col2$_rgb[2];
+  return new _Color["default"](sqrt(pow(x1, 2) * (1 - f) + pow(x2, 2) * f), sqrt(pow(y1, 2) * (1 - f) + pow(y2, 2) * f), sqrt(pow(z1, 2) * (1 - f) + pow(z2, 2) * f), 'rgb');
+};
+_index["default"].lrgb = lrgb;
+var _default = exports["default"] = lrgb;
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+__webpack_require__(7);
+var _index2 = _interopRequireDefault(__webpack_require__(4));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var lab = function lab(col1, col2, f) {
+  var xyz0 = col1.lab();
+  var xyz1 = col2.lab();
+  return new _Color["default"](xyz0[0] + f * (xyz1[0] - xyz0[0]), xyz0[1] + f * (xyz1[1] - xyz0[1]), xyz0[2] + f * (xyz1[2] - xyz0[2]), 'lab');
+};
+_index2["default"].lab = lab;
+var _default = exports["default"] = lab;
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+__webpack_require__(12);
+var _hsx = _interopRequireDefault(__webpack_require__(6));
+var _index2 = _interopRequireDefault(__webpack_require__(4));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var lch = function lch(col1, col2, f) {
+  return (0, _hsx["default"])(col1, col2, f, 'lch');
+};
+_index2["default"].lch = lch;
+_index2["default"].hcl = lch;
+var _default = exports["default"] = lch;
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+__webpack_require__(26);
+var _index2 = _interopRequireDefault(__webpack_require__(4));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var num = function num(col1, col2, f) {
+  var c1 = col1.num();
+  var c2 = col2.num();
+  return new _Color["default"](c1 + f * (c2 - c1), 'num');
+};
+_index2["default"].num = num;
+var _default = exports["default"] = num;
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var num2rgb = function num2rgb(num) {
+  if ((0, _index.type)(num) == 'number' && num >= 0 && num <= 0xffffff) {
+    var r = num >> 16;
+    var g = num >> 8 & 0xff;
+    var b = num & 0xff;
+    return [r, g, b, 1];
+  }
+  throw new Error('unknown num color: ' + num);
+};
+var _default = exports["default"] = num2rgb;
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var rgb2num = function rgb2num() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var _unpack = (0, _index.unpack)(args, 'rgb'),
+    r = _unpack[0],
+    g = _unpack[1],
+    b = _unpack[2];
+  return (r << 16) + (g << 8) + b;
+};
+var _default = exports["default"] = rgb2num;
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+__webpack_require__(27);
+var _hsx = _interopRequireDefault(__webpack_require__(6));
+var _index2 = _interopRequireDefault(__webpack_require__(4));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var hcg = function hcg(col1, col2, f) {
+  return (0, _hsx["default"])(col1, col2, f, 'hcg');
+};
+_index2["default"].hcg = hcg;
+var _default = exports["default"] = hcg;
+
+/***/ }),
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2363,7 +3024,7 @@ var hcg2rgb = function hcg2rgb() {
 var _default = exports["default"] = hcg2rgb;
 
 /***/ }),
-/* 49 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2400,43 +3061,26 @@ var rgb2hcg = function rgb2hcg() {
 var _default = exports["default"] = rgb2hcg;
 
 /***/ }),
-/* 50 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _index = __webpack_require__(0);
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _hex2rgb = _interopRequireDefault(__webpack_require__(17));
-var _rgb2hex = _interopRequireDefault(__webpack_require__(18));
+exports.__esModule = true;
+exports["default"] = void 0;
+__webpack_require__(28);
+var _hsx = _interopRequireDefault(__webpack_require__(6));
+var _index2 = _interopRequireDefault(__webpack_require__(4));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-_Color["default"].prototype.hex = function (mode) {
-  return (0, _rgb2hex["default"])(this._rgb, mode);
+var hsi = function hsi(col1, col2, f) {
+  return (0, _hsx["default"])(col1, col2, f, 'hsi');
 };
-_chroma["default"].hex = function () {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  return _construct(_Color["default"], args.concat(['hex']));
-};
-_input["default"].format.hex = _hex2rgb["default"];
-_input["default"].autodetect.push({
-  p: 4,
-  test: function test(h) {
-    if (!(arguments.length <= 1 ? 0 : arguments.length - 1) && (0, _index.type)(h) === 'string' && [3, 4, 5, 6, 7, 8, 9].indexOf(h.length) >= 0) {
-      return 'hex';
-    }
-  }
-});
+_index2["default"].hsi = hsi;
+var _default = exports["default"] = hsi;
 
 /***/ }),
-/* 51 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2484,7 +3128,7 @@ var hsi2rgb = function hsi2rgb() {
 var _default = exports["default"] = hsi2rgb;
 
 /***/ }),
-/* 52 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2527,7 +3171,45 @@ var rgb2hsi = function rgb2hsi() {
 var _default = exports["default"] = rgb2hsi;
 
 /***/ }),
-/* 53 */
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+__webpack_require__(15);
+var _hsx = _interopRequireDefault(__webpack_require__(6));
+var _index2 = _interopRequireDefault(__webpack_require__(4));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var hsl = function hsl(col1, col2, f) {
+  return (0, _hsx["default"])(col1, col2, f, 'hsl');
+};
+_index2["default"].hsl = hsl;
+var _default = exports["default"] = hsl;
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+__webpack_require__(31);
+var _hsx = _interopRequireDefault(__webpack_require__(6));
+var _index2 = _interopRequireDefault(__webpack_require__(4));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var hsv = function hsv(col1, col2, f) {
+  return (0, _hsx["default"])(col1, col2, f, 'hsv');
+};
+_index2["default"].hsv = hsv;
+var _default = exports["default"] = hsv;
+
+/***/ }),
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2598,7 +3280,7 @@ var hsv2rgb = function hsv2rgb() {
 var _default = exports["default"] = hsv2rgb;
 
 /***/ }),
-/* 54 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2639,743 +3321,15 @@ var rgb2hsl = function rgb2hsl() {
 var _default = exports["default"] = rgb2hsl;
 
 /***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var _lch2rgb = _interopRequireDefault(__webpack_require__(23));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var hcl2rgb = function hcl2rgb() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  var hcl = (0, _index.unpack)(args, 'hcl').reverse();
-  return _lch2rgb["default"].apply(void 0, hcl);
-};
-var _default = exports["default"] = hcl2rgb;
-
-/***/ }),
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var _rgb2lab2 = _interopRequireDefault(__webpack_require__(22));
-var _lab2lch = _interopRequireDefault(__webpack_require__(25));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var rgb2lch = function rgb2lch() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  var _unpack = (0, _index.unpack)(args, 'rgb'),
-    r = _unpack[0],
-    g = _unpack[1],
-    b = _unpack[2];
-  var _rgb2lab = (0, _rgb2lab2["default"])(r, g, b),
-    l = _rgb2lab[0],
-    a = _rgb2lab[1],
-    b_ = _rgb2lab[2];
-  return (0, _lab2lch["default"])(l, a, b_);
-};
-var _default = exports["default"] = rgb2lch;
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _index = __webpack_require__(0);
-var _w3cx = _interopRequireDefault(__webpack_require__(26));
-var _hex2rgb = _interopRequireDefault(__webpack_require__(17));
-var _rgb2hex = _interopRequireDefault(__webpack_require__(18));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-_Color["default"].prototype.name = function () {
-  var hex = (0, _rgb2hex["default"])(this._rgb, 'rgb');
-  for (var _i = 0, _Object$keys = Object.keys(_w3cx["default"]); _i < _Object$keys.length; _i++) {
-    var n = _Object$keys[_i];
-    if (_w3cx["default"][n] === hex) return n.toLowerCase();
-  }
-  return hex;
-};
-_input["default"].format.named = function (name) {
-  name = name.toLowerCase();
-  if (_w3cx["default"][name]) return (0, _hex2rgb["default"])(_w3cx["default"][name]);
-  throw new Error('unknown color name: ' + name);
-};
-_input["default"].autodetect.push({
-  p: 5,
-  test: function test(h) {
-    if (!(arguments.length <= 1 ? 0 : arguments.length - 1) && (0, _index.type)(h) === 'string' && _w3cx["default"][h.toLowerCase()]) {
-      return 'named';
-    }
-  }
-});
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var num2rgb = function num2rgb(num) {
-  if ((0, _index.type)(num) == 'number' && num >= 0 && num <= 0xffffff) {
-    var r = num >> 16;
-    var g = num >> 8 & 0xff;
-    var b = num & 0xff;
-    return [r, g, b, 1];
-  }
-  throw new Error('unknown num color: ' + num);
-};
-var _default = exports["default"] = num2rgb;
-
-/***/ }),
-/* 59 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var rgb2num = function rgb2num() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  var _unpack = (0, _index.unpack)(args, 'rgb'),
-    r = _unpack[0],
-    g = _unpack[1],
-    b = _unpack[2];
-  return (r << 16) + (g << 8) + b;
-};
-var _default = exports["default"] = rgb2num;
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _temperature2rgb = _interopRequireDefault(__webpack_require__(29));
-var _rgb2temperature = _interopRequireDefault(__webpack_require__(61));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-_Color["default"].prototype.temp = _Color["default"].prototype.kelvin = _Color["default"].prototype.temperature = function () {
-  return (0, _rgb2temperature["default"])(this._rgb);
-};
-_chroma["default"].temp = _chroma["default"].kelvin = _chroma["default"].temperature = function () {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  return _construct(_Color["default"], args.concat(['temp']));
-};
-_input["default"].format.temp = _input["default"].format.kelvin = _input["default"].format.temperature = _temperature2rgb["default"];
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _temperature2rgb = _interopRequireDefault(__webpack_require__(29));
-var _index = __webpack_require__(0);
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var round = Math.round;
-var rgb2temperature = function rgb2temperature() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  var rgb = (0, _index.unpack)(args, 'rgb');
-  var r = rgb[0],
-    b = rgb[2];
-  var minTemp = 1000;
-  var maxTemp = 40000;
-  var eps = 0.4;
-  var temp;
-  while (maxTemp - minTemp > eps) {
-    temp = (maxTemp + minTemp) * 0.5;
-    var _rgb = (0, _temperature2rgb["default"])(temp);
-    if (_rgb[2] / _rgb[0] >= b / r) {
-      maxTemp = temp;
-    } else {
-      minTemp = temp;
-    }
-  }
-  return round(temp);
-};
-var _default = exports["default"] = rgb2temperature;
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _index = __webpack_require__(0);
-var _chroma = _interopRequireDefault(__webpack_require__(2));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _input = _interopRequireDefault(__webpack_require__(3));
-var _oklch2rgb = _interopRequireDefault(__webpack_require__(63));
-var _rgb2oklch = _interopRequireDefault(__webpack_require__(64));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
-function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
-function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
-_Color["default"].prototype.oklch = function () {
-  return (0, _rgb2oklch["default"])(this._rgb);
-};
-_chroma["default"].oklch = function () {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  return _construct(_Color["default"], args.concat(['oklch']));
-};
-_input["default"].format.oklch = _oklch2rgb["default"];
-_input["default"].autodetect.push({
-  p: 3,
-  test: function test() {
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-    args = (0, _index.unpack)(args, 'oklch');
-    if ((0, _index.type)(args) === 'array' && args.length === 3) {
-      return 'oklch';
-    }
-  }
-});
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var _lch2lab2 = _interopRequireDefault(__webpack_require__(24));
-var _oklab2rgb2 = _interopRequireDefault(__webpack_require__(31));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var oklch2rgb = function oklch2rgb() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  args = (0, _index.unpack)(args, 'lch');
-  var _args = args,
-    l = _args[0],
-    c = _args[1],
-    h = _args[2];
-  var _lch2lab = (0, _lch2lab2["default"])(l, c, h),
-    L = _lch2lab[0],
-    a = _lch2lab[1],
-    b_ = _lch2lab[2];
-  var _oklab2rgb = (0, _oklab2rgb2["default"])(L, a, b_),
-    r = _oklab2rgb[0],
-    g = _oklab2rgb[1],
-    b = _oklab2rgb[2];
-  return [r, g, b, args.length > 3 ? args[3] : 1];
-};
-var _default = exports["default"] = oklch2rgb;
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _index = __webpack_require__(0);
-var _rgb2oklab2 = _interopRequireDefault(__webpack_require__(32));
-var _lab2lch = _interopRequireDefault(__webpack_require__(25));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var rgb2oklch = function rgb2oklch() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  var _unpack = (0, _index.unpack)(args, 'rgb'),
-    r = _unpack[0],
-    g = _unpack[1],
-    b = _unpack[2];
-  var _rgb2oklab = (0, _rgb2oklab2["default"])(r, g, b),
-    l = _rgb2oklab[0],
-    a = _rgb2oklab[1],
-    b_ = _rgb2oklab[2];
-  return (0, _lab2lch["default"])(l, a, b_);
-};
-var _default = exports["default"] = rgb2oklch;
-
-/***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _index = __webpack_require__(0);
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-_Color["default"].prototype.alpha = function (a, mutate) {
-  if (mutate === void 0) {
-    mutate = false;
-  }
-  if (a !== undefined && (0, _index.type)(a) === 'number') {
-    if (mutate) {
-      this._rgb[3] = a;
-      return this;
-    }
-    return new _Color["default"]([this._rgb[0], this._rgb[1], this._rgb[2], a], 'rgb');
-  }
-  return this._rgb[3];
-};
-
-/***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _Color = _interopRequireDefault(__webpack_require__(1));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-_Color["default"].prototype.clipped = function () {
-  return this._rgb._clipped || false;
-};
-
-/***/ }),
-/* 67 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(6);
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _labConstants = _interopRequireDefault(__webpack_require__(8));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-_Color["default"].prototype.darken = function (amount) {
-  if (amount === void 0) {
-    amount = 1;
-  }
-  var me = this;
-  var lab = me.lab();
-  lab[0] -= _labConstants["default"].Kn * amount;
-  return new _Color["default"](lab, 'lab').alpha(me.alpha(), true);
-};
-_Color["default"].prototype.brighten = function (amount) {
-  if (amount === void 0) {
-    amount = 1;
-  }
-  return this.darken(-amount);
-};
-_Color["default"].prototype.darker = _Color["default"].prototype.darken;
-_Color["default"].prototype.brighter = _Color["default"].prototype.brighten;
-
-/***/ }),
-/* 68 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _Color = _interopRequireDefault(__webpack_require__(1));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-_Color["default"].prototype.get = function (mc) {
-  var _mc$split = mc.split('.'),
-    mode = _mc$split[0],
-    channel = _mc$split[1];
-  var src = this[mode]();
-  if (channel) {
-    var i = mode.indexOf(channel) - (mode.substr(0, 2) === 'ok' ? 2 : 0);
-    if (i > -1) return src[i];
-    throw new Error("unknown channel " + channel + " in mode " + mode);
-  } else {
-    return src;
-  }
-};
-
-/***/ }),
-/* 69 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _mix = _interopRequireDefault(__webpack_require__(11));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-_Color["default"].prototype.mix = _Color["default"].prototype.interpolate = function (col2, f) {
-  if (f === void 0) {
-    f = 0.5;
-  }
-  for (var _len = arguments.length, rest = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-    rest[_key - 2] = arguments[_key];
-  }
-  return _mix["default"].apply(void 0, [this, col2, f].concat(rest));
-};
-
-/***/ }),
-/* 70 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _Color = _interopRequireDefault(__webpack_require__(1));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-_Color["default"].prototype.premultiply = function (mutate) {
-  if (mutate === void 0) {
-    mutate = false;
-  }
-  var rgb = this._rgb;
-  var a = rgb[3];
-  if (mutate) {
-    this._rgb = [rgb[0] * a, rgb[1] * a, rgb[2] * a, a];
-    return this;
-  } else {
-    return new _Color["default"]([rgb[0] * a, rgb[1] * a, rgb[2] * a, a], 'rgb');
-  }
-};
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(9);
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _labConstants = _interopRequireDefault(__webpack_require__(8));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-_Color["default"].prototype.saturate = function (amount) {
-  if (amount === void 0) {
-    amount = 1;
-  }
-  var me = this;
-  var lch = me.lch();
-  lch[1] += _labConstants["default"].Kn * amount;
-  if (lch[1] < 0) lch[1] = 0;
-  return new _Color["default"](lch, 'lch').alpha(me.alpha(), true);
-};
-_Color["default"].prototype.desaturate = function (amount) {
-  if (amount === void 0) {
-    amount = 1;
-  }
-  return this.saturate(-amount);
-};
-
-/***/ }),
 /* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _index = __webpack_require__(0);
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-_Color["default"].prototype.set = function (mc, value, mutate) {
-  if (mutate === void 0) {
-    mutate = false;
-  }
-  var _mc$split = mc.split('.'),
-    mode = _mc$split[0],
-    channel = _mc$split[1];
-  var src = this[mode]();
-  if (channel) {
-    var i = mode.indexOf(channel) - (mode.substr(0, 2) === 'ok' ? 2 : 0);
-    if (i > -1) {
-      if ((0, _index.type)(value) == 'string') {
-        switch (value.charAt(0)) {
-          case '+':
-            src[i] += +value;
-            break;
-          case '-':
-            src[i] += +value;
-            break;
-          case '*':
-            src[i] *= +value.substr(1);
-            break;
-          case '/':
-            src[i] /= +value.substr(1);
-            break;
-          default:
-            src[i] = +value;
-        }
-      } else if ((0, _index.type)(value) === 'number') {
-        src[i] = value;
-      } else {
-        throw new Error("unsupported value for Color.set");
-      }
-      var out = new _Color["default"](src, mode);
-      if (mutate) {
-        this._rgb = out._rgb;
-        return this;
-      }
-      return out;
-    }
-    throw new Error("unknown channel " + channel + " in mode " + mode);
-  } else {
-    return src;
-  }
-};
-
-/***/ }),
-/* 73 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(6);
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _mix = _interopRequireDefault(__webpack_require__(11));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-_Color["default"].prototype.tint = function (f) {
-  if (f === void 0) {
-    f = 0.5;
-  }
-  for (var _len = arguments.length, rest = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    rest[_key - 1] = arguments[_key];
-  }
-  return _mix["default"].apply(void 0, [this, 'white', f].concat(rest));
-};
-_Color["default"].prototype.shade = function (f) {
-  if (f === void 0) {
-    f = 0.5;
-  }
-  for (var _len2 = arguments.length, rest = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-    rest[_key2 - 1] = arguments[_key2];
-  }
-  return _mix["default"].apply(void 0, [this, 'black', f].concat(rest));
-};
-
-/***/ }),
-/* 74 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 exports.__esModule = true;
 exports["default"] = void 0;
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _index = _interopRequireDefault(__webpack_require__(4));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var rgb = function rgb(col1, col2, f) {
-  var xyz0 = col1._rgb;
-  var xyz1 = col2._rgb;
-  return new _Color["default"](xyz0[0] + f * (xyz1[0] - xyz0[0]), xyz0[1] + f * (xyz1[1] - xyz0[1]), xyz0[2] + f * (xyz1[2] - xyz0[2]), 'rgb');
-};
-_index["default"].rgb = rgb;
-var _default = exports["default"] = rgb;
-
-/***/ }),
-/* 75 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-var _Color = _interopRequireDefault(__webpack_require__(1));
-var _index = _interopRequireDefault(__webpack_require__(4));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var sqrt = Math.sqrt,
-  pow = Math.pow;
-var lrgb = function lrgb(col1, col2, f) {
-  var _col1$_rgb = col1._rgb,
-    x1 = _col1$_rgb[0],
-    y1 = _col1$_rgb[1],
-    z1 = _col1$_rgb[2];
-  var _col2$_rgb = col2._rgb,
-    x2 = _col2$_rgb[0],
-    y2 = _col2$_rgb[1],
-    z2 = _col2$_rgb[2];
-  return new _Color["default"](sqrt(pow(x1, 2) * (1 - f) + pow(x2, 2) * f), sqrt(pow(y1, 2) * (1 - f) + pow(y2, 2) * f), sqrt(pow(z1, 2) * (1 - f) + pow(z2, 2) * f), 'rgb');
-};
-_index["default"].lrgb = lrgb;
-var _default = exports["default"] = lrgb;
-
-/***/ }),
-/* 76 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-__webpack_require__(6);
-var _index2 = _interopRequireDefault(__webpack_require__(4));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var lab = function lab(col1, col2, f) {
-  var xyz0 = col1.lab();
-  var xyz1 = col2.lab();
-  return new _Color["default"](xyz0[0] + f * (xyz1[0] - xyz0[0]), xyz0[1] + f * (xyz1[1] - xyz0[1]), xyz0[2] + f * (xyz1[2] - xyz0[2]), 'lab');
-};
-_index2["default"].lab = lab;
-var _default = exports["default"] = lab;
-
-/***/ }),
-/* 77 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-__webpack_require__(9);
-var _hsx = _interopRequireDefault(__webpack_require__(5));
-var _index2 = _interopRequireDefault(__webpack_require__(4));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var lch = function lch(col1, col2, f) {
-  return (0, _hsx["default"])(col1, col2, f, 'lch');
-};
-_index2["default"].lch = lch;
-_index2["default"].hcl = lch;
-var _default = exports["default"] = lch;
-
-/***/ }),
-/* 78 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-__webpack_require__(27);
-var _index2 = _interopRequireDefault(__webpack_require__(4));
-var _Color = _interopRequireDefault(__webpack_require__(1));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var num = function num(col1, col2, f) {
-  var c1 = col1.num();
-  var c2 = col2.num();
-  return new _Color["default"](c1 + f * (c2 - c1), 'num');
-};
-_index2["default"].num = num;
-var _default = exports["default"] = num;
-
-/***/ }),
-/* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-__webpack_require__(16);
-var _hsx = _interopRequireDefault(__webpack_require__(5));
-var _index2 = _interopRequireDefault(__webpack_require__(4));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var hcg = function hcg(col1, col2, f) {
-  return (0, _hsx["default"])(col1, col2, f, 'hcg');
-};
-_index2["default"].hcg = hcg;
-var _default = exports["default"] = hcg;
-
-/***/ }),
-/* 80 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-__webpack_require__(19);
-var _hsx = _interopRequireDefault(__webpack_require__(5));
-var _index2 = _interopRequireDefault(__webpack_require__(4));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var hsi = function hsi(col1, col2, f) {
-  return (0, _hsx["default"])(col1, col2, f, 'hsi');
-};
-_index2["default"].hsi = hsi;
-var _default = exports["default"] = hsi;
-
-/***/ }),
-/* 81 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-__webpack_require__(10);
-var _hsx = _interopRequireDefault(__webpack_require__(5));
-var _index2 = _interopRequireDefault(__webpack_require__(4));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var hsl = function hsl(col1, col2, f) {
-  return (0, _hsx["default"])(col1, col2, f, 'hsl');
-};
-_index2["default"].hsl = hsl;
-var _default = exports["default"] = hsl;
-
-/***/ }),
-/* 82 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-__webpack_require__(20);
-var _hsx = _interopRequireDefault(__webpack_require__(5));
-var _index2 = _interopRequireDefault(__webpack_require__(4));
-function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
-var hsv = function hsv(col1, col2, f) {
-  return (0, _hsx["default"])(col1, col2, f, 'hsv');
-};
-_index2["default"].hsv = hsv;
-var _default = exports["default"] = hsv;
-
-/***/ }),
-/* 83 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-__webpack_require__(30);
+__webpack_require__(32);
 var _index2 = _interopRequireDefault(__webpack_require__(4));
 var _Color = _interopRequireDefault(__webpack_require__(1));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
@@ -3388,7 +3342,7 @@ _index2["default"].oklab = oklab;
 var _default = exports["default"] = oklab;
 
 /***/ }),
-/* 84 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3396,8 +3350,8 @@ var _default = exports["default"] = oklab;
 
 exports.__esModule = true;
 exports["default"] = void 0;
-__webpack_require__(9);
-var _hsx = _interopRequireDefault(__webpack_require__(5));
+__webpack_require__(12);
+var _hsx = _interopRequireDefault(__webpack_require__(6));
 var _index2 = _interopRequireDefault(__webpack_require__(4));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 var oklch = function oklch(col1, col2, f) {
@@ -3407,7 +3361,7 @@ _index2["default"].oklch = oklch;
 var _default = exports["default"] = oklch;
 
 /***/ }),
-/* 85 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3511,7 +3465,7 @@ var _average_lrgb = function _average_lrgb(colors, weights) {
 };
 
 /***/ }),
-/* 86 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3520,8 +3474,8 @@ var _average_lrgb = function _average_lrgb(colors, weights) {
 exports.__esModule = true;
 exports["default"] = void 0;
 var _Color = _interopRequireDefault(__webpack_require__(1));
-__webpack_require__(6);
-var _scale = _interopRequireDefault(__webpack_require__(12));
+__webpack_require__(7);
+var _scale = _interopRequireDefault(__webpack_require__(18));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 var binom_row = function binom_row(n) {
   var row = [1, 1];
@@ -3609,7 +3563,7 @@ var _default = exports["default"] = function _default(colors) {
 };
 
 /***/ }),
-/* 87 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3617,7 +3571,7 @@ var _default = exports["default"] = function _default(colors) {
 
 exports.__esModule = true;
 exports["default"] = void 0;
-__webpack_require__(28);
+__webpack_require__(34);
 var _chroma = _interopRequireDefault(__webpack_require__(2));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 var _blend = function blend(bottom, top, mode) {
@@ -3679,7 +3633,7 @@ _blend.burn = blend_f(each(burn));
 var _default = exports["default"] = _blend;
 
 /***/ }),
-/* 88 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3786,7 +3740,7 @@ function _default(start, rotations, hue, gamma, lightness) {
 }
 
 /***/ }),
-/* 89 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3808,7 +3762,7 @@ var _default = exports["default"] = function _default() {
 };
 
 /***/ }),
-/* 90 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3817,7 +3771,7 @@ var _default = exports["default"] = function _default() {
 exports.__esModule = true;
 exports.analyze = analyze;
 exports.limits = limits;
-var _type = _interopRequireDefault(__webpack_require__(7));
+var _type = _interopRequireDefault(__webpack_require__(8));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 var log = Math.log,
   pow = Math.pow,
@@ -3995,7 +3949,7 @@ function limits(data, mode, num) {
 }
 
 /***/ }),
-/* 91 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4004,7 +3958,7 @@ function limits(data, mode, num) {
 exports.__esModule = true;
 exports["default"] = void 0;
 var _Color = _interopRequireDefault(__webpack_require__(1));
-__webpack_require__(33);
+__webpack_require__(22);
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 var _default = exports["default"] = function _default(a, b) {
   a = new _Color["default"](a);
@@ -4015,7 +3969,57 @@ var _default = exports["default"] = function _default(a, b) {
 };
 
 /***/ }),
-/* 92 */
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _mix = _interopRequireDefault(__webpack_require__(11));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+/**
+ * @license
+ *
+ * The APCA contrast prediction algorithm is based of the formulas published
+ * in the APCA-1.0.98G specification by Myndex. The specification is available at:
+ * https://raw.githubusercontent.com/Myndex/apca-w3/master/images/APCAw3_0.1.17_APCA0.0.98G.svg
+ *
+ * Note that the APCA implementation is still beta, so please update to
+ * future versions of chroma.js when they become available.
+ *
+ * You can read more about the APCA Readability Criterion at
+ * https://readtech.org/ARC/
+ */var W_offset = 0.027;
+var P_in = 0.0005;
+var P_out = 0.1;
+var R_scale = 1.14;
+var B_threshold = 0.022;
+var B_exp = 1.414;
+var _default = exports["default"] = function _default(text, bg) {
+  text = new _Color["default"](text);
+  bg = new _Color["default"](bg);
+  if (text.alpha() < 1) {
+    text = (0, _mix["default"])(bg, text, text.alpha(), 'rgb');
+  }
+  var l_text = lum.apply(void 0, text.rgb());
+  var l_bg = lum.apply(void 0, bg.rgb());
+  var Y_text = l_text >= B_threshold ? l_text : l_text + Math.pow(B_threshold - l_text, B_exp);
+  var Y_bg = l_bg >= B_threshold ? l_bg : l_bg + Math.pow(B_threshold - l_bg, B_exp);
+  var S_norm = Math.pow(Y_bg, 0.56) - Math.pow(Y_text, 0.57);
+  var S_rev = Math.pow(Y_bg, 0.65) - Math.pow(Y_text, 0.62);
+  var C = Math.abs(Y_bg - Y_text) < P_in ? 0 : Y_text < Y_bg ? S_norm * R_scale : S_rev * R_scale;
+  var S_apc = Math.abs(C) < P_out ? 0 : C > 0 ? C - W_offset : C + W_offset;
+  return S_apc * 100;
+};
+function lum(r, g, b) {
+  return 0.2126729 * Math.pow(r / 255, 2.4) + 0.7151522 * Math.pow(g / 255, 2.4) + 0.072175 * Math.pow(b / 255, 2.4);
+}
+
+/***/ }),
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4093,7 +4097,7 @@ function _default(a, b, Kl, Kc, Kh) {
 }
 
 /***/ }),
-/* 93 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4120,7 +4124,7 @@ function _default(a, b, mode) {
 }
 
 /***/ }),
-/* 94 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4146,7 +4150,7 @@ var _default = exports["default"] = function _default() {
 };
 
 /***/ }),
-/* 95 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4155,8 +4159,8 @@ var _default = exports["default"] = function _default() {
 exports.__esModule = true;
 exports["default"] = void 0;
 var _chroma = _interopRequireDefault(__webpack_require__(2));
-__webpack_require__(10);
-var _scale = _interopRequireDefault(__webpack_require__(12));
+__webpack_require__(15);
+var _scale = _interopRequireDefault(__webpack_require__(18));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 var _default = exports["default"] = {
   cool: function cool() {
@@ -4168,7 +4172,7 @@ var _default = exports["default"] = {
 };
 
 /***/ }),
-/* 96 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4214,11 +4218,366 @@ var colorbrewer = {
   Pastel2: ['#b3e2cd', '#fdcdac', '#cbd5e8', '#f4cae4', '#e6f5c9', '#fff2ae', '#f1e2cc', '#cccccc'],
   Pastel1: ['#fbb4ae', '#b3cde3', '#ccebc5', '#decbe4', '#fed9a6', '#ffffcc', '#e5d8bd', '#fddaec', '#f2f2f2']
 };
-for (var _i = 0, _Object$keys = Object.keys(colorbrewer); _i < _Object$keys.length; _i++) {
-  var key = _Object$keys[_i];
-  colorbrewer[key.toLowerCase()] = colorbrewer[key];
-}
-var _default = exports["default"] = colorbrewer;
+var colorbrewerTypes = Object.keys(colorbrewer);
+var typeMap = new Map(colorbrewerTypes.map(function (key) {
+  return [key.toLowerCase(), key];
+}));
+var colorbrewerProxy = typeof Proxy === 'function' ? new Proxy(colorbrewer, {
+  get: function get(target, prop) {
+    var lower = prop.toLowerCase();
+    if (typeMap.has(lower)) {
+      return target[typeMap.get(lower)];
+    }
+  },
+  getOwnPropertyNames: function getOwnPropertyNames() {
+    return Object.getOwnPropertyNames(colorbrewerTypes);
+  }
+}) : colorbrewer;
+var _default = exports["default"] = colorbrewerProxy;
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.cmyk = void 0;
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _index = __webpack_require__(0);
+var _cmyk2rgb = _interopRequireDefault(__webpack_require__(88));
+var _rgb2cmyk = _interopRequireDefault(__webpack_require__(89));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_Color["default"].prototype.cmyk = function () {
+  return (0, _rgb2cmyk["default"])(this._rgb);
+};
+var cmyk = exports.cmyk = function cmyk() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return _construct(_Color["default"], args.concat(['cmyk']));
+};
+_extends(_chroma["default"], {
+  cmyk: cmyk
+});
+_input["default"].format.cmyk = _cmyk2rgb["default"];
+_input["default"].autodetect.push({
+  p: 2,
+  test: function test() {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+    args = (0, _index.unpack)(args, 'cmyk');
+    if ((0, _index.type)(args) === 'array' && args.length === 4) {
+      return 'cmyk';
+    }
+  }
+});
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var cmyk2rgb = function cmyk2rgb() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  args = (0, _index.unpack)(args, 'cmyk');
+  var _args = args,
+    c = _args[0],
+    m = _args[1],
+    y = _args[2],
+    k = _args[3];
+  var alpha = args.length > 4 ? args[4] : 1;
+  if (k === 1) return [0, 0, 0, alpha];
+  return [c >= 1 ? 0 : 255 * (1 - c) * (1 - k), m >= 1 ? 0 : 255 * (1 - m) * (1 - k), y >= 1 ? 0 : 255 * (1 - y) * (1 - k), alpha];
+};
+var _default = exports["default"] = cmyk2rgb;
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var max = Math.max;
+var rgb2cmyk = function rgb2cmyk() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var _unpack = (0, _index.unpack)(args, 'rgb'),
+    r = _unpack[0],
+    g = _unpack[1],
+    b = _unpack[2];
+  r = r / 255;
+  g = g / 255;
+  b = b / 255;
+  var k = 1 - max(r, max(g, b));
+  var f = k < 1 ? 1 / (1 - k) : 0;
+  var c = (1 - r - k) * f;
+  var m = (1 - g - k) * f;
+  var y = (1 - b - k) * f;
+  return [c, m, y, k];
+};
+var _default = exports["default"] = rgb2cmyk;
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.css = void 0;
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _index = __webpack_require__(0);
+var _rgb2css = _interopRequireDefault(__webpack_require__(91));
+var _css2rgb = _interopRequireDefault(__webpack_require__(97));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_Color["default"].prototype.css = function (mode) {
+  return (0, _rgb2css["default"])(this._rgb, mode);
+};
+var css = exports.css = function css() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return _construct(_Color["default"], args.concat(['css']));
+};
+_chroma["default"].css = css;
+_input["default"].format.css = _css2rgb["default"];
+_input["default"].autodetect.push({
+  p: 5,
+  test: function test(h) {
+    if (!(arguments.length <= 1 ? 0 : arguments.length - 1) && (0, _index.type)(h) === 'string' && _css2rgb["default"].test(h)) {
+      return 'css';
+    }
+  }
+});
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var _hsl2css = _interopRequireDefault(__webpack_require__(92));
+var _rgb2hsl = _interopRequireDefault(__webpack_require__(30));
+var _lab2css = _interopRequireDefault(__webpack_require__(93));
+var _rgb2lab = _interopRequireDefault(__webpack_require__(10));
+var _lch2css = _interopRequireDefault(__webpack_require__(94));
+var _rgb2lch = _interopRequireDefault(__webpack_require__(24));
+var _rgb2oklab = _interopRequireDefault(__webpack_require__(17));
+var _oklab2css = _interopRequireDefault(__webpack_require__(95));
+var _rgb2oklch = _interopRequireDefault(__webpack_require__(35));
+var _oklch2css = _interopRequireDefault(__webpack_require__(96));
+var _labConstants = __webpack_require__(5);
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var round = Math.round;
+var rgb2css = function rgb2css() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var rgba = (0, _index.unpack)(args, 'rgba');
+  var mode = (0, _index.last)(args) || 'rgb';
+  if (mode.substr(0, 3) === 'hsl') {
+    return (0, _hsl2css["default"])((0, _rgb2hsl["default"])(rgba), mode);
+  }
+  if (mode.substr(0, 3) === 'lab') {
+    var prevWhitePoint = (0, _labConstants.getLabWhitePoint)();
+    (0, _labConstants.setLabWhitePoint)('d50');
+    var cssColor = (0, _lab2css["default"])((0, _rgb2lab["default"])(rgba), mode);
+    (0, _labConstants.setLabWhitePoint)(prevWhitePoint);
+    return cssColor;
+  }
+  if (mode.substr(0, 3) === 'lch') {
+    var _prevWhitePoint = (0, _labConstants.getLabWhitePoint)();
+    (0, _labConstants.setLabWhitePoint)('d50');
+    var _cssColor = (0, _lch2css["default"])((0, _rgb2lch["default"])(rgba), mode);
+    (0, _labConstants.setLabWhitePoint)(_prevWhitePoint);
+    return _cssColor;
+  }
+  if (mode.substr(0, 5) === 'oklab') {
+    return (0, _oklab2css["default"])((0, _rgb2oklab["default"])(rgba));
+  }
+  if (mode.substr(0, 5) === 'oklch') {
+    return (0, _oklch2css["default"])((0, _rgb2oklch["default"])(rgba));
+  }
+  rgba[0] = round(rgba[0]);
+  rgba[1] = round(rgba[1]);
+  rgba[2] = round(rgba[2]);
+  if (mode === 'rgba' || rgba.length > 3 && rgba[3] < 1) {
+    rgba[3] = '/ ' + (rgba.length > 3 ? rgba[3] : 1);
+    mode = 'rgba';
+  }
+  return mode.substr(0, 3) + "(" + rgba.slice(0, mode === 'rgb' ? 3 : 4).join(' ') + ")";
+};
+var _default = exports["default"] = rgb2css;
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var hsl2css = function hsl2css() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var hsla = (0, _index.unpack)(args, 'hsla');
+  var mode = (0, _index.last)(args) || 'lsa';
+  hsla[0] = (0, _index.rnd2)(hsla[0] || 0) + 'deg';
+  hsla[1] = (0, _index.rnd2)(hsla[1] * 100) + '%';
+  hsla[2] = (0, _index.rnd2)(hsla[2] * 100) + '%';
+  if (mode === 'hsla' || hsla.length > 3 && hsla[3] < 1) {
+    hsla[3] = '/ ' + (hsla.length > 3 ? hsla[3] : 1);
+    mode = 'hsla';
+  } else {
+    hsla.length = 3;
+  }
+  return mode.substr(0, 3) + "(" + hsla.join(' ') + ")";
+};
+var _default = exports["default"] = hsl2css;
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var lab2css = function lab2css() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var laba = (0, _index.unpack)(args, 'lab');
+  var mode = (0, _index.last)(args) || 'lab';
+  laba[0] = (0, _index.rnd2)(laba[0]) + '%';
+  laba[1] = (0, _index.rnd2)(laba[1]);
+  laba[2] = (0, _index.rnd2)(laba[2]);
+  if (mode === 'laba' || laba.length > 3 && laba[3] < 1) {
+    laba[3] = '/ ' + (laba.length > 3 ? laba[3] : 1);
+  } else {
+    laba.length = 3;
+  }
+  return "lab(" + laba.join(' ') + ")";
+};
+var _default = exports["default"] = lab2css;
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var lch2css = function lch2css() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var lcha = (0, _index.unpack)(args, 'lch');
+  var mode = (0, _index.last)(args) || 'lab';
+  lcha[0] = (0, _index.rnd2)(lcha[0]) + '%';
+  lcha[1] = (0, _index.rnd2)(lcha[1]);
+  lcha[2] = isNaN(lcha[2]) ? 'none' : (0, _index.rnd2)(lcha[2]) + 'deg';
+  if (mode === 'lcha' || lcha.length > 3 && lcha[3] < 1) {
+    lcha[3] = '/ ' + (lcha.length > 3 ? lcha[3] : 1);
+  } else {
+    lcha.length = 3;
+  }
+  return "lch(" + lcha.join(' ') + ")";
+};
+var _default = exports["default"] = lch2css;
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var oklab2css = function oklab2css() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var laba = (0, _index.unpack)(args, 'lab');
+  laba[0] = (0, _index.rnd2)(laba[0] * 100) + '%';
+  laba[1] = (0, _index.rnd3)(laba[1]);
+  laba[2] = (0, _index.rnd3)(laba[2]);
+  if (laba.length > 3 && laba[3] < 1) {
+    laba[3] = '/ ' + (laba.length > 3 ? laba[3] : 1);
+  } else {
+    laba.length = 3;
+  }
+  return "oklab(" + laba.join(' ') + ")";
+};
+var _default = exports["default"] = oklab2css;
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _index = __webpack_require__(0);
+var oklch2css = function oklch2css() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var lcha = (0, _index.unpack)(args, 'lch');
+  lcha[0] = (0, _index.rnd2)(lcha[0] * 100) + '%';
+  lcha[1] = (0, _index.rnd3)(lcha[1]);
+  lcha[2] = isNaN(lcha[2]) ? 'none' : (0, _index.rnd2)(lcha[2]) + 'deg';
+  if (lcha.length > 3 && lcha[3] < 1) {
+    lcha[3] = '/ ' + (lcha.length > 3 ? lcha[3] : 1);
+  } else {
+    lcha.length = 3;
+  }
+  return "oklch(" + lcha.join(' ') + ")";
+};
+var _default = exports["default"] = oklch2css;
 
 /***/ }),
 /* 97 */
@@ -4228,16 +4587,164 @@ var _default = exports["default"] = colorbrewer;
 
 
 exports.__esModule = true;
-exports.passesAA = passesAA;
-function passesAA(contrast, large) {
-  if (large === void 0) {
-    large = false;
+exports["default"] = void 0;
+var _hsl2rgb = _interopRequireDefault(__webpack_require__(29));
+var _lab2rgb = _interopRequireDefault(__webpack_require__(9));
+var _lch2rgb = _interopRequireDefault(__webpack_require__(14));
+var _oklab2rgb = _interopRequireDefault(__webpack_require__(16));
+var _oklch2rgb = _interopRequireDefault(__webpack_require__(36));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _limit = _interopRequireDefault(__webpack_require__(13));
+var _labConstants = __webpack_require__(5);
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var INT_OR_PCT = /((?:-?\d+)|(?:-?\d+(?:\.\d+)?)%|none)/.source;
+var FLOAT_OR_PCT = /((?:-?(?:\d+(?:\.\d*)?|\.\d+)%?)|none)/.source;
+var PCT = /((?:-?(?:\d+(?:\.\d*)?|\.\d+)%)|none)/.source;
+var RE_S = /\s*/.source;
+var SEP = /\s+/.source;
+var COMMA = /\s*,\s*/.source;
+var ANLGE = /((?:-?(?:\d+(?:\.\d*)?|\.\d+)(?:deg)?)|none)/.source;
+var ALPHA = /\s*(?:\/\s*((?:[01]|[01]?\.\d+)|\d+(?:\.\d+)?%))?/.source;
+var RE_RGB = new RegExp('^rgba?\\(' + RE_S + [INT_OR_PCT, INT_OR_PCT, INT_OR_PCT].join(SEP) + ALPHA + '\\)$');
+var RE_RGB_LEGACY = new RegExp('^rgb\\(' + RE_S + [INT_OR_PCT, INT_OR_PCT, INT_OR_PCT].join(COMMA) + RE_S + '\\)$');
+var RE_RGBA_LEGACY = new RegExp('^rgba\\(' + RE_S + [INT_OR_PCT, INT_OR_PCT, INT_OR_PCT, FLOAT_OR_PCT].join(COMMA) + RE_S + '\\)$');
+var RE_HSL = new RegExp('^hsla?\\(' + RE_S + [ANLGE, PCT, PCT].join(SEP) + ALPHA + '\\)$');
+var RE_HSL_LEGACY = new RegExp('^hsl?\\(' + RE_S + [ANLGE, PCT, PCT].join(COMMA) + RE_S + '\\)$');
+var RE_HSLA_LEGACY = /^hsla\(\s*(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)%\s*,\s*(-?\d+(?:\.\d+)?)%\s*,\s*([01]|[01]?\.\d+)\)$/;
+var RE_LAB = new RegExp('^lab\\(' + RE_S + [FLOAT_OR_PCT, FLOAT_OR_PCT, FLOAT_OR_PCT].join(SEP) + ALPHA + '\\)$');
+var RE_LCH = new RegExp('^lch\\(' + RE_S + [FLOAT_OR_PCT, FLOAT_OR_PCT, ANLGE].join(SEP) + ALPHA + '\\)$');
+var RE_OKLAB = new RegExp('^oklab\\(' + RE_S + [FLOAT_OR_PCT, FLOAT_OR_PCT, FLOAT_OR_PCT].join(SEP) + ALPHA + '\\)$');
+var RE_OKLCH = new RegExp('^oklch\\(' + RE_S + [FLOAT_OR_PCT, FLOAT_OR_PCT, ANLGE].join(SEP) + ALPHA + '\\)$');
+var round = Math.round;
+var roundRGB = function roundRGB(rgb) {
+  return rgb.map(function (v, i) {
+    return i <= 2 ? (0, _limit["default"])(round(v), 0, 255) : v;
+  });
+};
+var percentToAbsolute = function percentToAbsolute(pct, min, max, signed) {
+  if (min === void 0) {
+    min = 0;
   }
-  if (large) {
-    return contrast > 3;
+  if (max === void 0) {
+    max = 100;
   }
-  return contrast > 4.5;
-}
+  if (signed === void 0) {
+    signed = false;
+  }
+  if (typeof pct === 'string' && pct.endsWith('%')) {
+    pct = parseFloat(pct.substring(0, pct.length - 1)) / 100;
+    if (signed) {
+      pct = min + (pct + 1) * 0.5 * (max - min);
+    } else {
+      pct = min + pct * (max - min);
+    }
+  }
+  return +pct;
+};
+var noneToValue = function noneToValue(v, noneValue) {
+  return v === 'none' ? noneValue : v;
+};
+var css2rgb = function css2rgb(css) {
+  css = css.toLowerCase().trim();
+  if (css === 'transparent') {
+    return [0, 0, 0, 0];
+  }
+  var m;
+  if (_input["default"].format.named) {
+    try {
+      return _input["default"].format.named(css);
+    } catch (e) {}
+  }
+  if ((m = css.match(RE_RGB)) || (m = css.match(RE_RGB_LEGACY))) {
+    var rgb = m.slice(1, 4);
+    for (var i = 0; i < 3; i++) {
+      rgb[i] = +percentToAbsolute(noneToValue(rgb[i], 0), 0, 255);
+    }
+    rgb = roundRGB(rgb);
+    var alpha = m[4] !== undefined ? +percentToAbsolute(m[4], 0, 1) : 1;
+    rgb[3] = alpha;
+    return rgb;
+  }
+  if (m = css.match(RE_RGBA_LEGACY)) {
+    var _rgb = m.slice(1, 5);
+    for (var _i = 0; _i < 4; _i++) {
+      _rgb[_i] = +percentToAbsolute(_rgb[_i], 0, 255);
+    }
+    return _rgb;
+  }
+  if ((m = css.match(RE_HSL)) || (m = css.match(RE_HSL_LEGACY))) {
+    var hsl = m.slice(1, 4);
+    hsl[0] = +noneToValue(hsl[0].replace('deg', ''), 0);
+    hsl[1] = +percentToAbsolute(noneToValue(hsl[1], 0), 0, 100) * 0.01;
+    hsl[2] = +percentToAbsolute(noneToValue(hsl[2], 0), 0, 100) * 0.01;
+    var _rgb2 = roundRGB((0, _hsl2rgb["default"])(hsl));
+    var _alpha = m[4] !== undefined ? +percentToAbsolute(m[4], 0, 1) : 1;
+    _rgb2[3] = _alpha;
+    return _rgb2;
+  }
+  if (m = css.match(RE_HSLA_LEGACY)) {
+    var _hsl = m.slice(1, 4);
+    _hsl[1] *= 0.01;
+    _hsl[2] *= 0.01;
+    var _rgb3 = (0, _hsl2rgb["default"])(_hsl);
+    for (var _i2 = 0; _i2 < 3; _i2++) {
+      _rgb3[_i2] = round(_rgb3[_i2]);
+    }
+    _rgb3[3] = +m[4];
+    return _rgb3;
+  }
+  if (m = css.match(RE_LAB)) {
+    var lab = m.slice(1, 4);
+    lab[0] = percentToAbsolute(noneToValue(lab[0], 0), 0, 100);
+    lab[1] = percentToAbsolute(noneToValue(lab[1], 0), -125, 125, true);
+    lab[2] = percentToAbsolute(noneToValue(lab[2], 0), -125, 125, true);
+    var wp = (0, _labConstants.getLabWhitePoint)();
+    (0, _labConstants.setLabWhitePoint)('d50');
+    var _rgb4 = roundRGB((0, _lab2rgb["default"])(lab));
+    (0, _labConstants.setLabWhitePoint)(wp);
+    var _alpha2 = m[4] !== undefined ? +percentToAbsolute(m[4], 0, 1) : 1;
+    _rgb4[3] = _alpha2;
+    return _rgb4;
+  }
+  if (m = css.match(RE_LCH)) {
+    var lch = m.slice(1, 4);
+    lch[0] = percentToAbsolute(lch[0], 0, 100);
+    lch[1] = percentToAbsolute(noneToValue(lch[1], 0), 0, 150, false);
+    lch[2] = +noneToValue(lch[2].replace('deg', ''), 0);
+    var _wp = (0, _labConstants.getLabWhitePoint)();
+    (0, _labConstants.setLabWhitePoint)('d50');
+    var _rgb5 = roundRGB((0, _lch2rgb["default"])(lch));
+    (0, _labConstants.setLabWhitePoint)(_wp);
+    var _alpha3 = m[4] !== undefined ? +percentToAbsolute(m[4], 0, 1) : 1;
+    _rgb5[3] = _alpha3;
+    return _rgb5;
+  }
+  if (m = css.match(RE_OKLAB)) {
+    var oklab = m.slice(1, 4);
+    oklab[0] = percentToAbsolute(noneToValue(oklab[0], 0), 0, 1);
+    oklab[1] = percentToAbsolute(noneToValue(oklab[1], 0), -0.4, 0.4, true);
+    oklab[2] = percentToAbsolute(noneToValue(oklab[2], 0), -0.4, 0.4, true);
+    var _rgb6 = roundRGB((0, _oklab2rgb["default"])(oklab));
+    var _alpha4 = m[4] !== undefined ? +percentToAbsolute(m[4], 0, 1) : 1;
+    _rgb6[3] = _alpha4;
+    return _rgb6;
+  }
+  if (m = css.match(RE_OKLCH)) {
+    var oklch = m.slice(1, 4);
+    oklch[0] = percentToAbsolute(noneToValue(oklch[0], 0), 0, 1);
+    oklch[1] = percentToAbsolute(noneToValue(oklch[1], 0), 0, 0.4, false);
+    oklch[2] = +noneToValue(oklch[2].replace('deg', ''), 0);
+    var _rgb7 = roundRGB((0, _oklch2rgb["default"])(oklch));
+    var _alpha5 = m[4] !== undefined ? +percentToAbsolute(m[4], 0, 1) : 1;
+    _rgb7[3] = _alpha5;
+    return _rgb7;
+  }
+};
+css2rgb.test = function (s) {
+  return (RE_RGB.test(s) || RE_HSL.test(s) || RE_LAB.test(s) || RE_LCH.test(s) || RE_OKLAB.test(s) || RE_OKLCH.test(s) || RE_RGB_LEGACY.test(s) || RE_RGBA_LEGACY.test(s) || RE_HSL_LEGACY.test(s) || RE_HSLA_LEGACY.test(s) || s === 'transparent'
+  );
+};
+var _default = exports["default"] = css2rgb;
 
 /***/ }),
 /* 98 */
@@ -4247,16 +4754,193 @@ function passesAA(contrast, large) {
 
 
 exports.__esModule = true;
-exports.passesAAA = passesAAA;
-function passesAAA(contrast, large) {
-  if (large === void 0) {
-    large = false;
+exports.gl = void 0;
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _index = __webpack_require__(0);
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_input["default"].format.gl = function () {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
   }
-  if (large) {
-    return contrast > 4.5;
+  var rgb = (0, _index.unpack)(args, 'rgba');
+  rgb[0] *= 255;
+  rgb[1] *= 255;
+  rgb[2] *= 255;
+  return rgb;
+};
+var gl = exports.gl = function gl() {
+  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    args[_key2] = arguments[_key2];
   }
-  return contrast > 7;
-}
+  return _construct(_Color["default"], args.concat(['gl']));
+};
+_chroma["default"].gl = gl;
+_Color["default"].prototype.gl = function () {
+  var rgb = this._rgb;
+  return [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255, rgb[3]];
+};
+
+/***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.hex = void 0;
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _index = __webpack_require__(0);
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _hex2rgb = _interopRequireDefault(__webpack_require__(20));
+var _rgb2hex = _interopRequireDefault(__webpack_require__(21));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_Color["default"].prototype.hex = function (mode) {
+  return (0, _rgb2hex["default"])(this._rgb, mode);
+};
+var hex = exports.hex = function hex() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return _construct(_Color["default"], args.concat(['hex']));
+};
+_chroma["default"].hex = hex;
+_input["default"].format.hex = _hex2rgb["default"];
+_input["default"].autodetect.push({
+  p: 4,
+  test: function test(h) {
+    if (!(arguments.length <= 1 ? 0 : arguments.length - 1) && (0, _index.type)(h) === 'string' && [3, 4, 5, 6, 7, 8, 9].indexOf(h.length) >= 0) {
+      return 'hex';
+    }
+  }
+});
+
+/***/ }),
+/* 100 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.temperature = exports.temp = exports.kelvin = void 0;
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _temperature2rgb = _interopRequireDefault(__webpack_require__(37));
+var _rgb2temperature = _interopRequireDefault(__webpack_require__(101));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_Color["default"].prototype.temp = _Color["default"].prototype.kelvin = _Color["default"].prototype.temperature = function () {
+  return (0, _rgb2temperature["default"])(this._rgb);
+};
+var temp = exports.temperature = exports.kelvin = exports.temp = function temp() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return _construct(_Color["default"], args.concat(['temp']));
+};
+_extends(_chroma["default"], {
+  temp: temp,
+  kelvin: temp,
+  temperature: temp
+});
+_input["default"].format.temp = _input["default"].format.kelvin = _input["default"].format.temperature = _temperature2rgb["default"];
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = void 0;
+var _temperature2rgb = _interopRequireDefault(__webpack_require__(37));
+var _index = __webpack_require__(0);
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var round = Math.round;
+var rgb2temperature = function rgb2temperature() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  var rgb = (0, _index.unpack)(args, 'rgb');
+  var r = rgb[0],
+    b = rgb[2];
+  var minTemp = 1000;
+  var maxTemp = 40000;
+  var eps = 0.4;
+  var temp;
+  while (maxTemp - minTemp > eps) {
+    temp = (maxTemp + minTemp) * 0.5;
+    var _rgb = (0, _temperature2rgb["default"])(temp);
+    if (_rgb[2] / _rgb[0] >= b / r) {
+      maxTemp = temp;
+    } else {
+      minTemp = temp;
+    }
+  }
+  return round(temp);
+};
+var _default = exports["default"] = rgb2temperature;
+
+/***/ }),
+/* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.oklch = void 0;
+var _index = __webpack_require__(0);
+var _chroma = _interopRequireDefault(__webpack_require__(2));
+var _Color = _interopRequireDefault(__webpack_require__(1));
+var _input = _interopRequireDefault(__webpack_require__(3));
+var _oklch2rgb = _interopRequireDefault(__webpack_require__(36));
+var _rgb2oklch = _interopRequireDefault(__webpack_require__(35));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+function _construct(t, e, r) { if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments); var o = [null]; o.push.apply(o, e); var p = new (t.bind.apply(t, o))(); return r && _setPrototypeOf(p, r.prototype), p; }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+_Color["default"].prototype.oklch = function () {
+  return (0, _rgb2oklch["default"])(this._rgb);
+};
+var oklch = exports.oklch = function oklch() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return _construct(_Color["default"], args.concat(['oklch']));
+};
+_extends(_chroma["default"], {
+  oklch: oklch
+});
+_input["default"].format.oklch = _oklch2rgb["default"];
+_input["default"].autodetect.push({
+  p: 2,
+  test: function test() {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+    args = (0, _index.unpack)(args, 'oklch');
+    if ((0, _index.type)(args) === 'array' && args.length === 3) {
+      return 'oklch';
+    }
+  }
+});
 
 /***/ })
 /******/ ])));
