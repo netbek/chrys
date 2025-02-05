@@ -1,26 +1,26 @@
 import chroma from 'chroma-js';
-import {passesAA} from './passesAA.js';
-import {passesAAA} from './passesAAA.js';
 
-function scoreContrast(a, b, large, AAA) {
-  const contrast = chroma.contrast(a, b); // Between 1 and 21
-
-  return (
-    contrast +
-    Number(AAA && passesAAA(contrast, large)) * 100 +
-    Number(!AAA && passesAA(contrast, large)) * 100
-  );
-}
+const ALGORITHM = {
+  APCA: 'apca',
+  WCAG: 'wcag'
+};
 
 export function bestColorContrast(
   bgColor,
   fgColors,
-  large = false,
-  AAA = false
+  algorithm = ALGORITHM.APCA
 ) {
-  const scores = fgColors.map((fgColor) =>
-    scoreContrast(bgColor, fgColor, large, AAA)
-  );
+  let fn;
 
-  return fgColors[scores.indexOf(Math.max(...scores))];
+  if (algorithm === ALGORITHM.APCA) {
+    fn = chroma.contrastAPCA;
+  } else {
+    fn = chroma.contrast;
+  }
+
+  const scores = fgColors.map((fgColor) => Math.abs(fn(bgColor, fgColor)));
+  const maxScore = Math.max(...scores);
+  const maxScoreIndex = scores.indexOf(maxScore);
+
+  return fgColors[maxScoreIndex];
 }
