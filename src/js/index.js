@@ -1,5 +1,3 @@
-export {passesAA} from './passesAA.js';
-export {passesAAA} from './passesAAA.js';
 export {bestColorContrast} from './bestColorContrast.js';
 
 import {

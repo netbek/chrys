@@ -5,7 +5,7 @@ import Promise from 'bluebird';
 import webpack from 'webpack';
 import {config} from '../config/index.js';
 import webpackConfig from '../webpack.config.prod.js';
-import pkg from '../package.json' assert {type: 'json'};
+import pkg from '../package.json' with {type: 'json'};
 
 function _buildJs(buildConfig) {
   return new Promise((resolve, reject) => {
