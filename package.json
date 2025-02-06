@@ -65,7 +65,7 @@
     "babel-loader": "8.4.1",
     "bluebird": "3.7.2",
     "chokidar": "3.6.0",
-    "chrys-cli": "2.0.3",
+    "chrys-cli": "2.0.4",
     "connect": "3.7.0",
     "d3-color": "1.4.1",
     "d3-interpolate": "1.4.0",
