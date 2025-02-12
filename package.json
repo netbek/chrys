@@ -70,7 +70,7 @@
     "d3-color": "1.4.1",
     "d3-interpolate": "1.4.0",
     "d3-scale": "3.3.0",
-    "esbuild": "0.24.2",
+    "esbuild": "0.25.0",
     "eslint": "8.57.1",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.2.3",
