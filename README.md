@@ -1,7 +1,5 @@
 # chrys
 
-[![CircleCI](https://circleci.com/gh/netbek/chrys.svg?style=svg)](https://circleci.com/gh/netbek/chrys)
-
 A collection of color palettes for visualisation in JavaScript, Python and Sass.
 
 ## Demo
@@ -16,7 +14,7 @@ A collection of color palettes for visualisation in JavaScript, Python and Sass.
 npm install chrys
 ```
 
-### Python 3.6 and up
+### Python 3.10 and up
 
 ```shell
 pip install chrys
@@ -28,22 +26,35 @@ For instructions, refer to [the docs](https://netbek.github.io/chrys#usage).
 
 ## Development: Installation
 
-1. Install Node 18.x:
+1. Install Node 22.x:
 
     ```shell
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     source ~/.bashrc
-    nvm install 18
-    nvm use 18
+    nvm install 22
+    nvm use 22
     ```
 
-2. Create `.pypirc`:
+2. Install uv:
+
+    ```shell
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
+
+3. Create `.pypirc`:
 
     ```shell
     cp example.pypirc .pypirc
     ```
 
-3. Enter a [PyPI API token](https://pypi.org/manage/account/#api-tokens) as the password in `.pypirc`.
+4. Enter a [PyPI API token](https://pypi.org/manage/account/#api-tokens) as the password in `.pypirc`.
+
+5. Install Node and Python dependencies:
+
+    ```shell
+    npm ci
+    uv sync
+    ```
 
 ## Development: Usage
 
@@ -64,8 +75,7 @@ npm run build-dist
 Publish the JavaScript and Python distribution packages:
 
 ```shell
-npm publish
-npm run publish-py
+npm run publish-dist
 ```
 
 ## Credit
