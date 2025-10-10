@@ -1,37 +1,137 @@
+from chrys.data.bokeh_palettes import (
+    BOKEH_ACCENT,
+    BOKEH_BLUE_GREEN,
+    BOKEH_BLUE_PURPLE,
+    BOKEH_BLUES,
+    BOKEH_BROWN_BLUE_GREEN,
+    BOKEH_CATEGORY_10,
+    BOKEH_CATEGORY_20,
+    BOKEH_CATEGORY_20_B,
+    BOKEH_CATEGORY_20_C,
+    BOKEH_COLORBLIND,
+    BOKEH_DARK_2,
+    BOKEH_DOCS_PALETTE_DATA,
+    BOKEH_DOCS_PALETTES,
+    BOKEH_GREEN_BLUE,
+    BOKEH_GREENS,
+    BOKEH_GREYS,
+    BOKEH_INFERNO,
+    BOKEH_MAGMA,
+    BOKEH_ORANGE_RED,
+    BOKEH_ORANGES,
+    BOKEH_PAIRED,
+    BOKEH_PALETTE_DATA,
+    BOKEH_PALETTE_NAMES,
+    BOKEH_PALETTES,
+    BOKEH_PASTEL_1,
+    BOKEH_PASTEL_2,
+    BOKEH_PINK_YELLOW_GREEN,
+    BOKEH_PLASMA,
+    BOKEH_PURPLE_BLUE,
+    BOKEH_PURPLE_BLUE_GREEN,
+    BOKEH_PURPLE_GREEN,
+    BOKEH_PURPLE_ORANGE,
+    BOKEH_PURPLE_RED,
+    BOKEH_PURPLES,
+    BOKEH_RED_BLUE,
+    BOKEH_RED_GREY,
+    BOKEH_RED_PURPLE,
+    BOKEH_RED_YELLOW_BLUE,
+    BOKEH_RED_YELLOW_GREEN,
+    BOKEH_REDS,
+    BOKEH_SET_1,
+    BOKEH_SET_2,
+    BOKEH_SET_3,
+    BOKEH_SPECTRAL,
+    BOKEH_VIRIDIS,
+    BOKEH_YELLOW_GREEN,
+    BOKEH_YELLOW_GREEN_BLUE,
+    BOKEH_YELLOW_ORANGE_BROWN,
+    BOKEH_YELLOW_ORANGE_RED,
+)
+from chrys.data.vega_palettes import (
+    VEGA_ACCENT,
+    VEGA_BLUE_GREEN,
+    VEGA_BLUE_ORANGE,
+    VEGA_BLUE_PURPLE,
+    VEGA_BLUES,
+    VEGA_BROWN_BLUE_GREEN,
+    VEGA_BROWNS,
+    VEGA_CATEGORY_10,
+    VEGA_CATEGORY_20,
+    VEGA_CATEGORY_20_B,
+    VEGA_CATEGORY_20_C,
+    VEGA_CIVIDIS,
+    VEGA_DARK_2,
+    VEGA_DARK_BLUE,
+    VEGA_DARK_GOLD,
+    VEGA_DARK_GREEN,
+    VEGA_DARK_MULTI,
+    VEGA_DARK_RED,
+    VEGA_DOCS_PALETTE_DATA,
+    VEGA_DOCS_PALETTES,
+    VEGA_GOLD_GREEN,
+    VEGA_GOLD_ORANGE,
+    VEGA_GOLD_RED,
+    VEGA_GREEN_BLUE,
+    VEGA_GREENS,
+    VEGA_GREYS,
+    VEGA_INFERNO,
+    VEGA_LIGHT_GREY_RED,
+    VEGA_LIGHT_GREY_TEAL,
+    VEGA_LIGHT_MULTI,
+    VEGA_LIGHT_ORANGE,
+    VEGA_LIGHT_TEAL_BLUE,
+    VEGA_MAGMA,
+    VEGA_OBSERVABLE_10,
+    VEGA_ORANGE_RED,
+    VEGA_ORANGES,
+    VEGA_PAIRED,
+    VEGA_PALETTE_DATA,
+    VEGA_PALETTE_NAMES,
+    VEGA_PALETTES,
+    VEGA_PASTEL_1,
+    VEGA_PASTEL_2,
+    VEGA_PINK_YELLOW_GREEN,
+    VEGA_PLASMA,
+    VEGA_PURPLE_BLUE,
+    VEGA_PURPLE_BLUE_GREEN,
+    VEGA_PURPLE_GREEN,
+    VEGA_PURPLE_ORANGE,
+    VEGA_PURPLE_RED,
+    VEGA_PURPLES,
+    VEGA_RAINBOW,
+    VEGA_RED_BLUE,
+    VEGA_RED_GREY,
+    VEGA_RED_PURPLE,
+    VEGA_RED_YELLOW_BLUE,
+    VEGA_RED_YELLOW_GREEN,
+    VEGA_REDS,
+    VEGA_SET_1,
+    VEGA_SET_2,
+    VEGA_SET_3,
+    VEGA_SINEBOW,
+    VEGA_SPECTRAL,
+    VEGA_TABLEAU_10,
+    VEGA_TABLEAU_20,
+    VEGA_TEAL_BLUES,
+    VEGA_TEALS,
+    VEGA_TURBO,
+    VEGA_VIRIDIS,
+    VEGA_WARM_GREYS,
+    VEGA_YELLOW_GREEN,
+    VEGA_YELLOW_GREEN_BLUE,
+    VEGA_YELLOW_ORANGE_BROWN,
+    VEGA_YELLOW_ORANGE_RED,
+)
+from collections import namedtuple
+
 import math
 import matplotlib as mpl
 import numpy as np
 
-from collections import namedtuple
-from chrys.data.bokeh_palettes import BOKEH_PALETTE_DATA, BOKEH_PALETTES, BOKEH_PALETTE_NAMES, \
-    BOKEH_DOCS_PALETTE_DATA, BOKEH_DOCS_PALETTES, BOKEH_CATEGORY_10, BOKEH_CATEGORY_20, \
-    BOKEH_CATEGORY_20_B, BOKEH_CATEGORY_20_C, BOKEH_COLORBLIND, BOKEH_ACCENT, BOKEH_DARK_2, \
-    BOKEH_PAIRED, BOKEH_PASTEL_1, BOKEH_PASTEL_2, BOKEH_SET_1, BOKEH_SET_2, BOKEH_SET_3, \
-    BOKEH_YELLOW_GREEN, BOKEH_YELLOW_GREEN_BLUE, BOKEH_GREEN_BLUE, BOKEH_BLUE_GREEN, \
-    BOKEH_PURPLE_BLUE_GREEN, BOKEH_PURPLE_BLUE, BOKEH_BLUE_PURPLE, BOKEH_RED_PURPLE, \
-    BOKEH_PURPLE_RED, BOKEH_ORANGE_RED, BOKEH_YELLOW_ORANGE_RED, BOKEH_YELLOW_ORANGE_BROWN, \
-    BOKEH_PURPLES, BOKEH_BLUES, BOKEH_GREENS, BOKEH_ORANGES, BOKEH_REDS, BOKEH_GREYS, \
-    BOKEH_PURPLE_ORANGE, BOKEH_BROWN_BLUE_GREEN, BOKEH_PURPLE_GREEN, BOKEH_PINK_YELLOW_GREEN, \
-    BOKEH_RED_BLUE, BOKEH_RED_GREY, BOKEH_RED_YELLOW_BLUE, BOKEH_SPECTRAL, BOKEH_RED_YELLOW_GREEN, \
-    BOKEH_INFERNO, BOKEH_MAGMA, BOKEH_PLASMA, BOKEH_VIRIDIS
-from chrys.data.vega_palettes import VEGA_PALETTE_DATA, VEGA_PALETTES, VEGA_PALETTE_NAMES, \
-    VEGA_DOCS_PALETTE_DATA, VEGA_DOCS_PALETTES, VEGA_CATEGORY_10, VEGA_CATEGORY_20, \
-    VEGA_CATEGORY_20_B, VEGA_CATEGORY_20_C, VEGA_TABLEAU_10, VEGA_TABLEAU_20, VEGA_ACCENT, \
-    VEGA_DARK_2, VEGA_PAIRED, VEGA_PASTEL_1, VEGA_PASTEL_2, VEGA_SET_1, VEGA_SET_2, VEGA_SET_3, \
-    VEGA_BLUES, VEGA_GREENS, VEGA_GREYS, VEGA_ORANGES, VEGA_PURPLES, VEGA_REDS, VEGA_BLUE_GREEN, \
-    VEGA_BLUE_PURPLE, VEGA_GREEN_BLUE, VEGA_ORANGE_RED, VEGA_PURPLE_BLUE, VEGA_PURPLE_BLUE_GREEN, \
-    VEGA_PURPLE_RED, VEGA_RED_PURPLE, VEGA_YELLOW_GREEN, VEGA_YELLOW_ORANGE_BROWN, \
-    VEGA_YELLOW_ORANGE_RED, VEGA_BLUE_ORANGE, VEGA_BROWN_BLUE_GREEN, VEGA_PURPLE_GREEN, \
-    VEGA_PURPLE_ORANGE, VEGA_RED_BLUE, VEGA_RED_GREY, VEGA_YELLOW_GREEN_BLUE, \
-    VEGA_RED_YELLOW_BLUE, VEGA_RED_YELLOW_GREEN, VEGA_PINK_YELLOW_GREEN, VEGA_SPECTRAL, \
-    VEGA_VIRIDIS, VEGA_MAGMA, VEGA_INFERNO, VEGA_PLASMA, VEGA_RAINBOW, VEGA_SINEBOW, VEGA_BROWNS, \
-    VEGA_TEAL_BLUES, VEGA_TEALS, VEGA_WARM_GREYS, VEGA_GOLD_GREEN, VEGA_GOLD_ORANGE, \
-    VEGA_GOLD_RED, VEGA_LIGHT_GREY_RED, VEGA_LIGHT_GREY_TEAL, VEGA_LIGHT_MULTI, VEGA_LIGHT_ORANGE, \
-    VEGA_LIGHT_TEAL_BLUE, VEGA_DARK_BLUE, VEGA_DARK_GOLD, VEGA_DARK_GREEN, VEGA_DARK_MULTI, \
-    VEGA_DARK_RED, VEGA_OBSERVABLE_10, VEGA_CIVIDIS, VEGA_TURBO
-
-BOKEH = 'bokeh'
-VEGA = 'vega'
+BOKEH = "bokeh"
+VEGA = "vega"
 
 CATEGORICAL_PALETTE_VENDORS = (
     {BOKEH: BOKEH_ACCENT, VEGA: VEGA_ACCENT},
@@ -119,22 +219,32 @@ CYCLICAL_PALETTE_VENDORS = (
 )
 
 PALETTE_TO_VENDOR_MAP = {}
-mappings = (DIVERGING_PALETTE_VENDORS, CATEGORICAL_PALETTE_VENDORS,
-            SEQUENTIAL_PALETTE_VENDORS, CYCLICAL_PALETTE_VENDORS)
+mappings = (
+    DIVERGING_PALETTE_VENDORS,
+    CATEGORICAL_PALETTE_VENDORS,
+    SEQUENTIAL_PALETTE_VENDORS,
+    CYCLICAL_PALETTE_VENDORS,
+)
 for mapping in mappings:
     for palette in mapping:
         for vendor, name in palette.items():
             if name:
                 PALETTE_TO_VENDOR_MAP[name] = vendor
 
-BOKEH_CONTINUOUS_PALETTE_NAMES = [name for name, palette in BOKEH_PALETTE_DATA.items()
-                                  if [x for x in list(palette.keys()) if x == 256]]
+BOKEH_CONTINUOUS_PALETTE_NAMES = [
+    name
+    for name, palette in BOKEH_PALETTE_DATA.items()
+    if [x for x in list(palette.keys()) if x == 256]
+]
 
-VEGA_CONTINUOUS_PALETTE_NAMES = [name for name, palette in VEGA_PALETTE_DATA.items()
-                                 if [x for x in list(palette.keys()) if x == 256]]
+VEGA_CONTINUOUS_PALETTE_NAMES = [
+    name
+    for name, palette in VEGA_PALETTE_DATA.items()
+    if [x for x in list(palette.keys()) if x == 256]
+]
 
 
-PaletteName = namedtuple('PaletteName', ['vendor', 'palette'])
+PaletteName = namedtuple("PaletteName", ["vendor", "palette"])
 
 
 def parse_palette_name(name):
@@ -142,7 +252,7 @@ def parse_palette_name(name):
         raise ValueError('Palette name "{}" not recognized'.format(name))
 
     vendor = PALETTE_TO_VENDOR_MAP[name]
-    palette = name[len(vendor)+1:]
+    palette = name[len(vendor) + 1 :]
 
     return PaletteName._make([vendor, palette])
 
@@ -231,9 +341,10 @@ def to_continuous_palette(palette, n=6, as_rgb=False):
     if n > len(palette):
         raise ValueError(
             "Requested %(r)s colors, function can only return colors up to the base palette's"
-            "length (%(l)s)" % dict(r=n, l=len(palette)))
+            "length (%(l)s)" % dict(r=n, l=len(palette))
+        )
 
-    result = [palette[int(math.floor(i))] for i in np.linspace(0, len(palette)-1, num=n)]
+    result = [palette[int(math.floor(i))] for i in np.linspace(0, len(palette) - 1, num=n)]
 
     if as_rgb:
         result = [mpl.colors.to_rgb(color) for color in result]

@@ -5,9 +5,11 @@ import wcag_contrast_ratio as cr
 def score_contrast(a, b, large, AAA):
     contrast = cr.rgb(a, b)  # Between 1 and 21
 
-    return contrast \
-        + int((AAA and cr.passes_AAA(contrast, large=large))) * 100 \
+    return (
+        contrast
+        + int((AAA and cr.passes_AAA(contrast, large=large))) * 100
         + int(not AAA and cr.passes_AA(contrast, large=large)) * 100
+    )
 
 
 def best_color_contrast(bg_color, fg_colors, large=False, AAA=False):
