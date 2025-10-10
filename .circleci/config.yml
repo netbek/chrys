@@ -2,19 +2,17 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cimg/python:3.8.18-node
+      - image: cimg/python:3.10.18-node
     steps:
       - checkout
       - run:
           name: Install dependencies
           command: |
             npm ci
-            virtualenv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
+            pip install uv
+            uv sync --all-extras --dev
       - run:
           name: Run tests
           command: |
             npm test
-            . venv/bin/activate
-            nosetests -v tests/py
+            uv run --frozen pytest

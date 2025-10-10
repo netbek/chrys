@@ -4,15 +4,15 @@ npm-debug.log
 *.bak
 *.egg-info
 *.pyc
-build/
-venv/
+build
+venv
+.venv
 .pypirc
 
 # IDE files
 nbproject
 .idea
 .netbeans.xml
-.vscode
 
 # GH pages
 .publish
