@@ -1,13 +1,16 @@
-bower_components
-node_modules
-npm-debug.log
+__pycache__
+.pypirc
+.pytest_cache
+.ruff_cache
+.venv
 *.bak
 *.egg-info
 *.pyc
+bower_components
 build
+node_modules
+npm-debug.log
 venv
-.venv
-.pypirc
 
 # IDE files
 nbproject
