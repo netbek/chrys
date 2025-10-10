@@ -128,7 +128,6 @@ from collections import namedtuple
 
 import math
 import matplotlib as mpl
-import numpy as np
 
 BOKEH = "bokeh"
 VEGA = "vega"
@@ -344,7 +343,12 @@ def to_continuous_palette(palette, n=6, as_rgb=False):
             "length (%(l)s)" % dict(r=n, l=len(palette))
         )
 
-    result = [palette[int(math.floor(i))] for i in np.linspace(0, len(palette) - 1, num=n)]
+    if n == 1:
+        indices = [0.0]
+    else:
+        step = (len(palette) - 1) / (n - 1)
+        indices = [i * step for i in range(n)]
+    result = [palette[int(math.floor(i))] for i in indices]
 
     if as_rgb:
         result = [mpl.colors.to_rgb(color) for color in result]
