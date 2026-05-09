@@ -3,7 +3,7 @@ name = "chrys"
 version = "4.2.4"
 description = "A collection of color palettes for mapping and visualisation"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.13"
 dependencies = [
     "matplotlib>=3.3.2",
     "wcag-contrast-ratio>=0.9",
