@@ -78,17 +78,14 @@ npx patch-package @bokeh/bokehjs --exclude 'nothing'
 npx patch-package vega-scale --exclude 'nothing'
 ```
 
-Build the palette data, JavaScript and Python distribution packages, Sass, CSS, Illustrator scripts:
+Build and publish the JavaScript and Python distribution packages:
 
 ```shell
-npm run build-data
-npm run build-dist
-```
-
-Publish the JavaScript and Python distribution packages:
-
-```shell
-npm run publish-dist
+make bump-version [major|minor|patch]
+git push
+make build
+make create-release
+make publish
 ```
 
 ## Credit
