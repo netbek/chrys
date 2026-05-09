@@ -93,12 +93,12 @@
     "run-sequence": "2.2.1",
     "sass-embedded": "1.99.0",
     "serve-static": "1.16.3",
-    "terser-webpack-plugin": "4.2.3",
+    "terser-webpack-plugin": "5.6.0",
     "through2": "4.0.2",
     "typescript": "6.0.3",
     "vega-scale": "7.4.3",
     "vitest": "3.2.4",
-    "webpack": "4.47.0"
+    "webpack": "5.106.2"
   },
   "dependencies": {
     "chroma-js": "3.2.0",
