@@ -14,7 +14,7 @@ A collection of color palettes for visualisation in JavaScript, Python and Sass.
 npm install chrys
 ```
 
-### Python 3.10 and up
+### Python 3.13 and up
 
 ```shell
 pip install chrys
@@ -26,35 +26,48 @@ For instructions, refer to [the docs](https://netbek.github.io/chrys#usage).
 
 ## Development: Installation
 
-1. Install Node 22.x:
+1. Install Nix:
 
     ```shell
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-    source ~/.bashrc
-    nvm install 22
-    nvm use 22
+    sh <(curl -L https://nixos.org/nix/install) --daemon
     ```
 
-2. Install uv:
+2. Configure Nix. Edit `/etc/nix/nix.conf` (for a multi-user installation) or `~/.config/nix/nix.conf` (for a single-user installation) to include the following lines:
 
     ```shell
-    curl -LsSf https://astral.sh/uv/install.sh | sh
+    experimental-features = nix-command flakes
+    trusted-users = root <USER>
     ```
 
-3. Create `.pypirc`:
+    Replace `<USER>` with your username on your computer.
+
+3. Install direnv:
+
+    ```shell
+    sudo apt install direnv
+    ```
+
+4. Enable direnv in your shell by adding a line to your shell configuration file.
+
+    For Bash, edit `~/.bashrc`:
+
+    ```shell
+    eval "$(direnv hook bash)"
+    ```
+
+5. Allow `.envrc`:
+
+    ```shell
+    direnv allow
+    ```
+
+6. Create `.pypirc`:
 
     ```shell
     cp example.pypirc .pypirc
     ```
 
-4. Enter a [PyPI API token](https://pypi.org/manage/account/#api-tokens) as the password in `.pypirc`.
-
-5. Install Node and Python dependencies:
-
-    ```shell
-    npm ci
-    uv sync
-    ```
+7. Enter a [PyPI API token](https://pypi.org/manage/account/#api-tokens) as the password in `.pypirc`.
 
 ## Development: Usage
 
