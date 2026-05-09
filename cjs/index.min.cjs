@@ -553,6 +553,7 @@ exports.rgb2xyz = exports["default"] = void 0;
 var _labConstants = _interopRequireDefault(__webpack_require__(5));
 var _index = __webpack_require__(0);
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 var rgb2lab = function rgb2lab() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
@@ -561,7 +562,7 @@ var rgb2lab = function rgb2lab() {
     r = _unpack[0],
     g = _unpack[1],
     b = _unpack[2],
-    rest = _unpack.slice(3);
+    rest = _arrayLikeToArray(_unpack).slice(3);
   var _rgb2xyz = rgb2xyz(r, g, b),
     x = _rgb2xyz[0],
     y = _rgb2xyz[1],
@@ -824,6 +825,7 @@ var _index = __webpack_require__(0);
 var _multiplyMatrices = _interopRequireDefault(__webpack_require__(33));
 var _lab2rgb = __webpack_require__(9);
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 var oklab2rgb = function oklab2rgb() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
@@ -833,7 +835,7 @@ var oklab2rgb = function oklab2rgb() {
     L = _args[0],
     a = _args[1],
     b = _args[2],
-    rest = _args.slice(3);
+    rest = _arrayLikeToArray(_args).slice(3);
   var _OKLab_to_XYZ = OKLab_to_XYZ([L, a, b]),
     X = _OKLab_to_XYZ[0],
     Y = _OKLab_to_XYZ[1],
@@ -867,6 +869,7 @@ var _index = __webpack_require__(0);
 var _multiplyMatrices = _interopRequireDefault(__webpack_require__(33));
 var _rgb2lab = __webpack_require__(10);
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 var rgb2oklab = function rgb2oklab() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
@@ -875,7 +878,7 @@ var rgb2oklab = function rgb2oklab() {
     r = _unpack[0],
     g = _unpack[1],
     b = _unpack[2],
-    rest = _unpack.slice(3);
+    rest = _arrayLikeToArray(_unpack).slice(3);
   var xyz = (0, _rgb2lab.rgb2xyz)(r, g, b);
   var oklab = XYZ_to_OKLab(xyz);
   return [].concat(oklab, rest.length > 0 && rest[0] < 1 ? [rest[0]] : []);
@@ -907,6 +910,7 @@ function _default(colors) {
   var _mode = 'rgb';
   var _nacol = (0, _chroma["default"])('#ccc');
   var _spread = 0;
+  var _positions = [0, 1];
   var _domain = [0, 1];
   var _pos = [];
   var _padding = [0, 0];
@@ -1032,9 +1036,9 @@ function _default(colors) {
     if (classes != null) {
       if ((0, _index.type)(classes) === 'array') {
         _classes = classes;
-        _domain = [classes[0], classes[classes.length - 1]];
+        _positions = [classes[0], classes[classes.length - 1]];
       } else {
-        var d = _chroma["default"].analyze(_domain);
+        var d = _chroma["default"].analyze(_positions);
         if (classes === 0) {
           _classes = [d.min, d.max];
         } else {
@@ -1049,6 +1053,7 @@ function _default(colors) {
     if (!arguments.length) {
       return _domain;
     }
+    _domain = domain.slice(0);
     _min = domain[0];
     _max = domain[domain.length - 1];
     _pos = [];
@@ -1083,7 +1088,7 @@ function _default(colors) {
         }
       }
     }
-    _domain = [_min, _max];
+    _positions = [_min, _max];
     return f;
   };
   f.mode = function (_m) {
@@ -1172,8 +1177,8 @@ function _default(colors) {
     } else if (numColors === 1) {
       result = [f(0.5)];
     } else if (numColors > 1) {
-      var dm = _domain[0];
-      var dd = _domain[1] - dm;
+      var dm = _positions[0];
+      var dd = _positions[1] - dm;
       result = __range__(0, numColors, false).map(function (i) {
         return f(dm + i / (numColors - 1) * dd);
       });
@@ -1185,7 +1190,7 @@ function _default(colors) {
           samples.push((_classes[i - 1] + _classes[i]) * 0.5);
         }
       } else {
-        samples = _domain;
+        samples = _positions;
       }
       result = samples.map(function (v) {
         return f(v);
@@ -1579,6 +1584,7 @@ var _index = __webpack_require__(0);
 var _rgb2lab2 = _interopRequireDefault(__webpack_require__(10));
 var _lab2lch2 = _interopRequireDefault(__webpack_require__(25));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 var rgb2lch = function rgb2lch() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
@@ -1587,7 +1593,7 @@ var rgb2lch = function rgb2lch() {
     r = _unpack[0],
     g = _unpack[1],
     b = _unpack[2],
-    rest = _unpack.slice(3);
+    rest = _arrayLikeToArray(_unpack).slice(3);
   var _rgb2lab = (0, _rgb2lab2["default"])(r, g, b),
     l = _rgb2lab[0],
     a = _rgb2lab[1],
@@ -2057,6 +2063,7 @@ var _index = __webpack_require__(0);
 var _rgb2oklab2 = _interopRequireDefault(__webpack_require__(17));
 var _lab2lch2 = _interopRequireDefault(__webpack_require__(25));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 var rgb2oklch = function rgb2oklch() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
@@ -2065,7 +2072,7 @@ var rgb2oklch = function rgb2oklch() {
     r = _unpack[0],
     g = _unpack[1],
     b = _unpack[2],
-    rest = _unpack.slice(3);
+    rest = _arrayLikeToArray(_unpack).slice(3);
   var _rgb2oklab = (0, _rgb2oklab2["default"])(r, g, b),
     l = _rgb2oklab[0],
     a = _rgb2oklab[1],
@@ -2091,6 +2098,7 @@ var _index = __webpack_require__(0);
 var _lch2lab2 = _interopRequireDefault(__webpack_require__(23));
 var _oklab2rgb2 = _interopRequireDefault(__webpack_require__(16));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 var oklch2rgb = function oklch2rgb() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
@@ -2100,7 +2108,7 @@ var oklch2rgb = function oklch2rgb() {
     l = _args[0],
     c = _args[1],
     h = _args[2],
-    rest = _args.slice(3);
+    rest = _arrayLikeToArray(_args).slice(3);
   var _lch2lab = (0, _lch2lab2["default"])(l, c, h),
     L = _lch2lab[0],
     a = _lch2lab[1],
@@ -2609,7 +2617,7 @@ var _default = exports["default"] = function _default(args) {
 
 exports.__esModule = true;
 exports.version = void 0;
-var version = exports.version = '3.1.2';
+var version = exports.version = '3.2.0';
 
 /***/ }),
 /* 45 */
@@ -3889,10 +3897,13 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default":
 var digits = '0123456789abcdef';
 var floor = Math.floor,
   random = Math.random;
-var _default = exports["default"] = function _default() {
+var _default = exports["default"] = function _default(rng) {
+  if (rng === void 0) {
+    rng = random;
+  }
   var code = '#';
   for (var i = 0; i < 6; i++) {
-    code += digits.charAt(floor(random() * 16));
+    code += digits.charAt(floor(rng() * 16));
   }
   return new _Color["default"](code, 'hex');
 };
