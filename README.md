@@ -83,7 +83,8 @@ Build and publish the JavaScript and Python distribution packages:
 ```shell
 make bump-version [major|minor|patch]
 git push
-make build
+make build-and-commit
+git push
 make create-release
 make publish
 ```

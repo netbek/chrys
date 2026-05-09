@@ -67,6 +67,11 @@ build:
 	uv build
 	twine check dist/*
 
+build-and-commit:
+	@VERSION=$$(uv version --short); \
+	git add cjs css demo illustrator umd; \
+	git commit -m "Build $$VERSION";
+
 create-release:
 	@VERSION=$$(uv version --short); \
 	gh release create $$VERSION;
