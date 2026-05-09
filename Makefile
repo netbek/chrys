@@ -21,10 +21,10 @@ format:
 
 bump-version:
 	@BUMP=$(word 2,$(MAKECMDGOALS)); \
-	VALID_BUMP="major minor patch premajor preminor prepatch prerelease"; \
+	VALID_BUMP="major minor patch"; \
 	if [ -z "$$BUMP" ]; then \
 		echo "$(RED)Error: Bump is required.$(RESET)"; \
-		echo "Usage: make bump-version [major|minor|patch|premajor|preminor|prepatch|prerelease]"; \
+		echo "Usage: make bump-version [major|minor|patch]"; \
 		exit 1; \
 	fi; \
 	if ! echo "$$VALID_BUMP" | grep -qw "$$BUMP"; then \
@@ -32,7 +32,13 @@ bump-version:
 		echo "Must be one of: $(CYAN)$$VALID_BUMP$(RESET)"; \
 		exit 1; \
 	fi; \
-	npm version $$BUMP;
+	npm version $$BUMP; \
+	uv version --bump $$BUMP; \
+	VERSION=$$(uv version --short); \
+	git add \
+		pyproject.toml \
+		uv.lock; \
+	git commit -m $$VERSION;
 
 create-release:
 	@VERSION=$$(npm pkg get version --browser=false | tr -d '"'); \
