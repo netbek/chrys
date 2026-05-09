@@ -8,9 +8,16 @@ ifneq ($(shell which tput),)
 	endif
 endif
 
+lint:
+	@echo "Linting code..."
+	pre-commit run ruff-check --hook-stage manual --all-files
+
 format:
 	@echo "Formatting code..."
-	pre-commit run format-js --all-files
+	pre-commit run prettier-js --all-files
+	pre-commit run pyupgrade --all-files
+	pre-commit run isort --all-files
+	pre-commit run ruff-format --all-files
 
 bump-version:
 	@BUMP=$(word 2,$(MAKECMDGOALS)); \
