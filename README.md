@@ -78,12 +78,18 @@ npx patch-package @bokeh/bokehjs --exclude 'nothing'
 npx patch-package vega-scale --exclude 'nothing'
 ```
 
+Build the palette data:
+
+```shell
+make build-data
+```
+
 Build and publish the JavaScript and Python distribution packages:
 
 ```shell
 make bump-version [major|minor|patch]
 git push
-make build-and-commit
+make build-dist-and-commit
 git push
 make create-release
 make publish

@@ -46,9 +46,11 @@ bump-version:
 		uv.lock; \
 	git commit -m $$VERSION;
 
-build:
+build-data:
 	node scripts/bokeh-palettes.js
 	node scripts/vega-palettes.js
+
+build-dist:
 	rm -fr src/css/background-color/*
 	rm -fr src/css/color/*
 	rm -f src/css/background-color.scss
@@ -67,8 +69,9 @@ build:
 	uv build
 	twine check dist/*
 
-build-and-commit:
+build-dist-and-commit:
 	@VERSION=$$(uv version --short); \
+	@$(MAKE) --no-print-directory build-dist; \
 	git add cjs css demo illustrator umd; \
 	git commit -m "Build $$VERSION";
 
