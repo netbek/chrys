@@ -16,12 +16,7 @@
     "umd"
   ],
   "scripts": {
-    "build-data": "node scripts/bokeh-palettes.js && node scripts/vega-palettes.js",
-    "build-dist": "./scripts/build.sh",
-    "deploy": "node scripts/deploy.js",
-    "livereload": "node scripts/livereload.js",
     "postinstall": "patch-package",
-    "publish-dist": "./scripts/publish.sh",
     "test": "vitest run"
   },
   "author": {

@@ -19,6 +19,12 @@ format:
 	pre-commit run isort --all-files
 	pre-commit run ruff-format --all-files
 
+livereload:
+	node scripts/livereload.js
+
+test:
+	vitest run
+
 bump-version:
 	@BUMP=$(word 2,$(MAKECMDGOALS)); \
 	VALID_BUMP="major minor patch"; \
@@ -40,9 +46,37 @@ bump-version:
 		uv.lock; \
 	git commit -m $$VERSION;
 
+build:
+	node scripts/bokeh-palettes.js
+	node scripts/vega-palettes.js
+	rm -fr src/css/background-color/*
+	rm -fr src/css/color/*
+	rm -f src/css/background-color.scss
+	rm -f src/css/color.scss
+	rm -fr cjs/*
+	rm -fr css/*
+	rm -fr demo/*
+	rm -fr illustrator/*
+	rm -fr umd/*
+	node scripts/build-js.js
+	node scripts/build-css.js
+	node scripts/build-illustrator.js
+	node scripts/build-demo.js
+	rm -fr build/*
+	rm -fr dist/*
+	uv build
+	twine check dist/*
+
 create-release:
-	@VERSION=$$(npm pkg get version --browser=false | tr -d '"'); \
+	@VERSION=$$(uv version --short); \
 	gh release create $$VERSION;
+
+publish:
+	npm publish
+	twine upload --config-file .pypirc --verbose dist/*
+
+deploy:
+	node scripts/deploy.js
 
 # Prevent make from treating arguments to bump-version as targets
 ifeq (bump-version,$(firstword $(MAKECMDGOALS)))
