@@ -100,9 +100,9 @@
     "serve-static": "1.16.3",
     "terser-webpack-plugin": "4.2.3",
     "through2": "4.0.2",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "vega-scale": "7.4.3",
-    "vitest": "2.1.9",
+    "vitest": "3.2.4",
     "webpack": "4.47.0"
   },
   "dependencies": {
