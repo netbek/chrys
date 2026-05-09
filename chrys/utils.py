@@ -7,7 +7,7 @@ def score_contrast(a, b, large, AAA):
 
     return (
         contrast
-        + int((AAA and cr.passes_AAA(contrast, large=large))) * 100
+        + int(AAA and cr.passes_AAA(contrast, large=large)) * 100
         + int(not AAA and cr.passes_AA(contrast, large=large)) * 100
     )
 
