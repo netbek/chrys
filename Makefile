@@ -71,7 +71,7 @@ build-dist:
 
 build-dist-and-commit:
 	@VERSION=$$(uv version --short); \
-	@$(MAKE) --no-print-directory build-dist; \
+	$(MAKE) --no-print-directory build-dist; \
 	git add cjs css demo illustrator umd; \
 	git commit -m "Build $$VERSION";
 
