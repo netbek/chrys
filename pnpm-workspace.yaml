@@ -1,0 +1,6 @@
+allowBuilds:
+  "esbuild@0.27.7": true
+
+# Create flat node_modules without symlinks. This is a workaround for this error:
+# Failed to create bin at /path/to/chrys/node_modules/.pnpm/vite@7.3.3_@types+node@25.7.0_sass-embedded@1.99.0_sass@1.99.0_terser@5.47.1_yaml@2.9.0/node_modules/vite/node_modules/.bin/sass. ENOENT: no such file or directory, open '/path/to/chrys/node_modules/.pnpm/sass@1.99.0/node_modules/sass/sass.js'
+nodeLinker: hoisted

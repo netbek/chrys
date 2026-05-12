@@ -38,7 +38,7 @@ bump-version:
 		echo "Must be one of: $(CYAN)$$VALID_BUMP$(RESET)"; \
 		exit 1; \
 	fi; \
-	npm version $$BUMP; \
+	pnpm version $$BUMP; \
 	uv version --bump $$BUMP; \
 	VERSION=$$(uv version --short); \
 	git add \
@@ -80,7 +80,7 @@ create-release:
 	gh release create $$VERSION;
 
 publish:
-	npm publish
+	pnpm publish
 	twine upload --config-file .pypirc --verbose dist/*
 
 deploy:
