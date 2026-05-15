@@ -61,8 +61,8 @@ importers:
         specifier: 3.6.0
         version: 3.6.0
       chrys-cli:
-        specifier: 2.1.0
-        version: 2.1.0
+        specifier: 2.1.1
+        version: 2.1.1
       connect:
         specifier: 3.7.0
         version: 3.7.0
@@ -1893,8 +1893,8 @@ packages:
     resolution: {integrity: sha512-rNjApaLzuwaOTjCiT8lSDdGN1APCiqkChLMJxJPWLunPAt5fy8xgU9/jNOchV84wfIxrA0lRQB7oCT8jrn/wrQ==}
     engines: {node: '>=6.0'}
 
-  chrys-cli@2.1.0:
-    resolution: {integrity: sha512-rl3vMmFSQgahJTFOAP8V4tiCeYY+rSrFiudXQZX9C77g/zzwKtZMCl9oNZPgCetd6prOMbZJMGe6Whh7oxzrgg==}
+  chrys-cli@2.1.1:
+    resolution: {integrity: sha512-hAYsg1Vmms4V84lwQW6y5JexvJepFPik4E4db2xUMu6tG/06i55OzekhtqvsCtmTJ1tuativmq8ab9xmjqN9oQ==}
 
   ci-info@3.9.0:
     resolution: {integrity: sha512-NIxF55hv4nSqQswkAeiOi1r83xy8JldOFDTWiug55KBu9Jnblncd2U6ViHmYgHf01TPZS77NJBhBMKdWj9HQMQ==}
@@ -6257,7 +6257,7 @@ snapshots:
 
   chrome-trace-event@1.0.4: {}
 
-  chrys-cli@2.1.0: {}
+  chrys-cli@2.1.1: {}
 
   ci-info@3.9.0: {}
 
