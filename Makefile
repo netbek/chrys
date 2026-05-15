@@ -77,7 +77,8 @@ build-dist-and-commit:
 
 create-release:
 	@VERSION=$$(uv version --short); \
-	gh release create $$VERSION;
+	gh release create $$VERSION; \
+	git fetch --tags;
 
 publish:
 	pnpm publish
