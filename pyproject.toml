@@ -38,3 +38,6 @@ target-version = "py313"
 
 [tool.ruff.lint]
 ignore = ["D100", "D101", "D102", "D103", "D104", "D107", "D205"]
+
+[tool.uv]
+exclude-newer = "7 days"
