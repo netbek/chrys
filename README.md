@@ -26,48 +26,31 @@ For instructions, refer to [the docs](https://netbek.github.io/chrys#usage).
 
 ## Development: Installation
 
-1. Install Nix:
+1. Clone the repo:
 
     ```shell
-    sh <(curl -L https://nixos.org/nix/install) --daemon
+    git clone git@github.com:netbek/chrys.git
     ```
 
-2. Configure Nix. Edit `/etc/nix/nix.conf` (for a multi-user installation) or `~/.config/nix/nix.conf` (for a single-user installation) to include the following lines:
+2. Install Mise and add activation to `~/.bashrc`, e.g.
 
     ```shell
-    experimental-features = nix-command flakes
-    trusted-users = root <USER>
+    curl -fsSL https://github.com/jdx/mise/releases/download/v2026.7.13/install.sh | sh
     ```
 
-    Replace `<USER>` with your username on your computer.
+    See [other installation methods](https://mise.en.dev/installing-mise.html).
 
-3. Install direnv:
+3. Trust `mise.toml`:
 
     ```shell
-    sudo apt install direnv
+    mise trust
     ```
 
-4. Enable direnv in your shell by adding a line to your shell configuration file.
-
-    For Bash, edit `~/.bashrc`:
+4. Create a [PyPI API token](https://pypi.org/manage/account/#api-tokens), and add the token to the system keyring as the password:
 
     ```shell
-    eval "$(direnv hook bash)"
+    keyring set pypi-chrys __token__
     ```
-
-5. Allow `.envrc`:
-
-    ```shell
-    direnv allow
-    ```
-
-6. Create `.pypirc`:
-
-    ```shell
-    cp example.pypirc .pypirc
-    ```
-
-7. Enter a [PyPI API token](https://pypi.org/manage/account/#api-tokens) as the password in `.pypirc`.
 
 ## Development: Usage
 
