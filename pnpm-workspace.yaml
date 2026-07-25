@@ -1,6 +1,6 @@
 allowBuilds:
-  es5-ext: true
-  esbuild: true
+  "es5-ext@0.10.64": true
+  "esbuild@0.28.1": true
 
 blockExoticSubdeps: true
 
