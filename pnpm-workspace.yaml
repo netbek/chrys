@@ -6,6 +6,9 @@ blockExoticSubdeps: true
 
 minimumReleaseAge: 10080
 
+minimumReleaseAgeExclude:
+  - chrys-cli@2.1.4
+
 # Create flat node_modules without symlinks. This is a workaround for this error:
 # Failed to create bin at /path/to/chrys/node_modules/.pnpm/vite@7.3.3_@types+node@25.7.0_sass-embedded@1.99.0_sass@1.99.0_terser@5.47.1_yaml@2.9.0/node_modules/vite/node_modules/.bin/sass. ENOENT: no such file or directory, open '/path/to/chrys/node_modules/.pnpm/sass@1.99.0/node_modules/sass/sass.js'
 nodeLinker: hoisted
@@ -13,7 +16,7 @@ nodeLinker: hoisted
 trustPolicy: no-downgrade
 
 trustPolicyExclude:
-  - "chokidar@4.0.3"
-  - "eslint-config-prettier@9.1.2"
-  - "semver@5.7.2"
-  - "semver@6.3.1"
+  - chokidar@4.0.3
+  - eslint-config-prettier@9.1.2
+  - semver@5.7.2
+  - semver@6.3.1
