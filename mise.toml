@@ -1,6 +1,6 @@
 [tools]
 node = "24"
-pnpm = "10"
+pnpm = "latest"
 pre-commit = "latest"
 python = "3.13"
 ripgrep = "latest"
