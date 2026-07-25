@@ -27,6 +27,6 @@ if [ -d .git ]; then pre-commit install --overwrite > /dev/null 2>&1; fi
 [tasks.pnpm-install]
 description = "Installs dependencies with pnpm"
 quiet = true
-run = "pnpm install"
+run = "pnpm install --loglevel error"
 sources = ["package.json", "pnpm-lock.yaml", "mise.toml"]
 outputs = ["node_modules/.pnpm/lock.yaml"]
