@@ -4,7 +4,7 @@ import esbuild from 'esbuild';
 import fs from 'fs-extra';
 import globParent from 'glob-parent';
 import globby from 'globby';
-import jsonSass from 'json-sass';
+import convertJs from 'json-sass/lib/jsToSassString.js';
 import nunjucks from 'nunjucks';
 import path from 'path';
 import postcss from 'postcss';
@@ -90,7 +90,7 @@ function buildSassVars() {
 
   const sassData = _.map(
     sassVars,
-    (value, name) => name + ': ' + jsonSass.convertJs(value) + ';'
+    (value, name) => name + ': ' + convertJs(value) + ';'
   ).join('\n\n');
 
   return fs.outputFile('src/css/_variables.scss', sassData, 'utf-8');
