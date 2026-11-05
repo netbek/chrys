@@ -1,23 +1,10 @@
 {
-  "type": "module",
   "name": "chrys",
   "version": "4.3.3",
   "description": "A collection of color palettes for visualisation in JavaScript, Python and Sass",
-  "main": "cjs/index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/netbek/chrys.git"
-  },
-  "files": [
-    "cjs",
-    "css",
-    "illustrator",
-    "src",
-    "umd"
-  ],
-  "scripts": {
-    "postinstall": "patch-package",
-    "test": "vitest run"
   },
   "author": {
     "name": "Hein Bekker",
@@ -28,77 +15,144 @@
   "bugs": {
     "url": "https://github.com/netbek/chrys/issues"
   },
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/cjs/index.d.ts",
+  "unpkg": "./dist/umd/index.min.js",
+  "jsdelivr": "./dist/umd/index.min.js",
+  "sideEffects": false,
   "browserslist": [
-    "last 5 years",
-    "android >= 2",
-    "bb >= 6",
-    "chrome >= 21",
-    "edge >= 12",
-    "firefox >= 28",
-    "ie >= 8",
-    "ios >= 6",
-    "op_mini all",
-    "op_mob >= 12",
-    "opera >= 12",
-    "safari >= 6",
-    "samsung >= 5"
+    "chrome >= 93",
+    "and_chr >= 93",
+    "edge >= 93",
+    "safari >= 15.4",
+    "ios_saf >= 15.4",
+    "firefox >= 92",
+    "and_ff >= 92",
+    "samsung >= 17",
+    "opera >= 79"
   ],
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/es/index.d.ts",
+        "default": "./dist/es/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      },
+      "default": "./dist/es/index.js"
+    },
+    "./best-color-contrast": {
+      "import": {
+        "types": "./dist/es/bestColorContrast.d.ts",
+        "default": "./dist/es/bestColorContrast.js"
+      },
+      "require": {
+        "types": "./dist/cjs/bestColorContrast.d.ts",
+        "default": "./dist/cjs/bestColorContrast.js"
+      },
+      "default": "./dist/es/bestColorContrast.js"
+    },
+    "./core": {
+      "import": {
+        "types": "./dist/es/toDiscretePalette.d.ts",
+        "default": "./dist/es/toDiscretePalette.js"
+      },
+      "require": {
+        "types": "./dist/cjs/toDiscretePalette.d.ts",
+        "default": "./dist/cjs/toDiscretePalette.js"
+      },
+      "default": "./dist/es/toDiscretePalette.js"
+    },
+    "./bokeh": {
+      "import": {
+        "types": "./dist/es/palettes/bokeh/index.d.ts",
+        "default": "./dist/es/palettes/bokeh/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/palettes/bokeh/index.d.ts",
+        "default": "./dist/cjs/palettes/bokeh/index.js"
+      },
+      "default": "./dist/es/palettes/bokeh/index.js"
+    },
+    "./vega": {
+      "import": {
+        "types": "./dist/es/palettes/vega/index.d.ts",
+        "default": "./dist/es/palettes/vega/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/palettes/vega/index.d.ts",
+        "default": "./dist/cjs/palettes/vega/index.js"
+      },
+      "default": "./dist/es/palettes/vega/index.js"
+    },
+    "./palettes/*": {
+      "import": {
+        "types": "./dist/es/palettes/*.d.ts",
+        "default": "./dist/es/palettes/*.js"
+      },
+      "require": {
+        "types": "./dist/cjs/palettes/*.d.ts",
+        "default": "./dist/cjs/palettes/*.js"
+      },
+      "default": "./dist/es/palettes/*.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build:cjs": "vite build --mode cjs",
+    "build:css": "node scripts/build-css.js",
+    "build:demo": "node scripts/build-demo.js",
+    "build:es": "vite build --mode es",
+    "build:illustrator": "node scripts/build-illustrator.js",
+    "build:types:cjs": "tsc -p tsconfig.build.cjs.json",
+    "build:types:es": "tsc -p tsconfig.build.json",
+    "build:umd": "vite build --mode umd && vite build --mode umd-min",
+    "build": "npm run clean && npm run generate:palettes && npm run build:es && npm run build:cjs && npm run build:umd && npm run build:types:es && npm run build:types:cjs && npm run build:css && npm run build:illustrator && npm run build:demo",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "dev": "npm run generate:palettes && vite",
+    "generate:palettes": "node scripts/build-palette-modules.js",
+    "lint:fix": "oxlint --fix",
+    "lint": "oxlint",
+    "postinstall": "patch-package",
+    "preview": "vite preview",
+    "test": "npm run generate:palettes && vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit"
+  },
   "devDependencies": {
-    "@babel/core": "7.29.7",
-    "@babel/eslint-parser": "7.29.9",
-    "@babel/plugin-proposal-class-properties": "7.18.6",
-    "@babel/plugin-proposal-object-rest-spread": "7.20.7",
-    "@babel/plugin-transform-object-assign": "7.29.7",
-    "@babel/plugin-transform-runtime": "7.29.7",
-    "@babel/preset-env": "7.29.7",
-    "@babel/register": "7.29.7",
     "@bokeh/bokehjs": "2.4.3",
-    "@typescript-eslint/eslint-plugin": "8.71.2",
-    "@typescript-eslint/parser": "8.71.2",
-    "autoprefixer": "10.6.1",
-    "babel-loader": "8.4.1",
-    "bluebird": "3.7.2",
-    "chokidar": "3.6.0",
+    "@types/chroma-js": "3.1.3",
+    "@types/node": "26.6.6",
+    "autoprefixer": "10.6.2",
+    "browserslist": "4.29.5",
     "chrys-cli": "2.1.4",
-    "connect": "3.7.0",
-    "d3-color": "1.4.1",
-    "d3-interpolate": "1.4.0",
-    "d3-scale": "3.3.0",
     "esbuild": "0.28.2",
-    "eslint": "8.57.1",
-    "eslint-config-prettier": "9.1.2",
-    "eslint-plugin-prettier": "5.5.7",
-    "fancy-log": "2.0.0",
+    "esbuild-plugin-browserslist": "4.0.0",
     "fs-extra": "11.4.1",
-    "gh-pages": "3.2.3",
-    "glob-parent": "6.0.2",
-    "globby": "11.1.0",
-    "jquery": "3.7.1",
-    "json-sass": "1.3.5",
-    "livereload": "0.10.3",
+    "gh-pages": "6.3.0",
+    "globby": "16.2.4",
+    "jquery": "4.0.0",
     "lodash": "4.18.1",
-    "normalize-css": "git+https://github.com/necolas/normalize.css.git#02c5c7adbbec1707900fde86068405735c733b42",
-    "npm-check-updates": "22.2.9",
+    "normalize-css": "github:necolas/normalize.css#02c5c7adbbec1707900fde86068405735c733b42",
+    "npm-check-updates": "23.1.1",
     "nunjucks": "3.2.4",
-    "open": "8.4.2",
-    "os": "0.1.2",
+    "oxlint": "1.90.0",
     "patch-package": "8.0.1",
-    "postcss": "8.5.30",
-    "postcss-color-rgba-fallback": "4.0.0",
-    "postcss-js": "4.1.0",
-    "postcss-opacity": "5.0.0",
+    "postcss": "8.5.32",
     "prettier": "3.9.10",
     "prism-themes": "1.9.0",
     "prismjs": "1.30.0",
-    "run-sequence": "2.2.1",
-    "sass-embedded": "1.105.2",
-    "serve-static": "1.16.3",
-    "terser-webpack-plugin": "4.2.3",
-    "through2": "4.0.2",
-    "typescript": "6.0.3",
+    "sass-embedded": "1.106.1",
+    "typescript": "7.0.2",
     "vega-scale": "7.4.3",
-    "vitest": "3.2.7",
-    "webpack": "4.47.0"
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
   },
   "dependencies": {
     "chroma-js": "3.2.0",

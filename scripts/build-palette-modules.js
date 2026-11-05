@@ -1,14 +1,10 @@
 import _ from 'lodash';
 import fs from 'fs-extra';
-import path from 'path';
-import {fileURLToPath} from 'url';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {jsSerializePalettes, jsSerializeVendorIndex} from './utils.js';
 import * as bokeh from '../data/bokeh-palettes.js';
 import * as vega from '../data/vega-palettes.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const palettesDir = path.join(__dirname, '../chrys-next/src/js/palettes');
 
 function getVars(vendor, data) {
   const VENDOR = vendor.toUpperCase();
@@ -36,7 +32,7 @@ function getMaxSize(values) {
   );
 }
 
-function build(vendor, data) {
+function build(palettesDir, vendor, data) {
   const vars = getVars(vendor, data);
   const vendorDir = path.join(palettesDir, vendor);
 
@@ -58,5 +54,8 @@ function build(vendor, data) {
   );
 }
 
-build('bokeh', bokeh);
-build('vega', vega);
+const packageDir = fileURLToPath(new URL('..', import.meta.url));
+const palettesDir = path.join(packageDir, 'src/js/palettes');
+
+build(palettesDir, 'bokeh', bokeh);
+build(palettesDir, 'vega', vega);

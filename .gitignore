@@ -5,11 +5,10 @@ __pycache__
 *.bak
 *.egg-info
 *.pyc
-bower_components
-build
+dist
+dist-python
 node_modules
 npm-debug.log
-venv
 
 # IDE files
 nbproject

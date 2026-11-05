@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import {illustratorSwatches} from 'chrys-cli';
 import chroma from 'chroma-js';
-import path from 'path';
-import Promise from 'bluebird';
+import fs from 'fs-extra';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {config} from '../config/index.js';
 import {
   BOKEH_PALETTE_DATA,
@@ -10,7 +11,13 @@ import {
 } from '../data/bokeh-palettes.js';
 import {VEGA_PALETTE_DATA, VEGA_PALETTE_NAMES} from '../data/vega-palettes.js';
 
-function buildIllustrator() {
+/**
+ * Builds Illustrator swatch files from the Bokeh and Vega palette data.
+ *
+ * @param {string} destDir Directory to write the swatch files to.
+ * @returns {Promise<void>}
+ */
+async function buildIllustrator(destDir) {
   const illustratorPalettes = [];
 
   Object.keys(BOKEH_PALETTE_NAMES).forEach((varName) => {
@@ -51,15 +58,19 @@ function buildIllustrator() {
     );
   });
 
-  return Promise.each(illustratorPalettes, (palette) => {
+  for (const palette of illustratorPalettes) {
     const illustratorConfig = _.cloneDeep(config.illustratorTasks.swatches);
     illustratorConfig.document.mode = 'rgb';
     illustratorConfig.colors = palette.colors;
 
-    const dist = path.resolve('illustrator/' + palette.name + '.js');
+    const dist = path.join(destDir, `${palette.name}.js`);
 
-    return illustratorSwatches(illustratorConfig, dist);
-  });
+    await illustratorSwatches(illustratorConfig, dist);
+  }
 }
 
-Promise.each([buildIllustrator], (task) => task());
+const packageDir = fileURLToPath(new URL('..', import.meta.url));
+const destDir = path.join(packageDir, 'dist/illustrator');
+
+await fs.remove(destDir);
+await buildIllustrator(destDir);
