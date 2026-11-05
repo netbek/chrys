@@ -37,8 +37,11 @@ jobs:
       - name: Install Python dependencies
         run: uv sync --all-extras --dev
 
-      # - name: Typecheck
-      #   run: pnpm run typecheck
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Typecheck
+        run: pnpm run typecheck
 
       - name: Run Node tests
         run: pnpm run test

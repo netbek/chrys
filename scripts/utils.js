@@ -30,16 +30,11 @@ function unquoteNumericKeys(json, maxSize) {
 
 function paletteSlug(vendor, constantName) {
   return _.kebabCase(
-    constantName.replace(
-      new RegExp('^' + vendor.toUpperCase() + '_'),
-      ''
-    )
+    constantName.replace(new RegExp('^' + vendor.toUpperCase() + '_'), '')
   );
 }
 
 export function jsSerializePalettes(vendor, vars, maxSize, docsMaxSize) {
-  const VENDOR = vendor.toUpperCase();
-
   return _.map(vars.constantNames, (uniqueName, constantName) => {
     const dataName = `${constantName}_PALETTE_DATA`;
     const docsName = `${constantName}_DOCS_PALETTE_DATA`;
