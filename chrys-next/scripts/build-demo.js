@@ -192,7 +192,7 @@ async function buildDemo(packageDir, destDir) {
     });
   });
 
-  await fs.outputFile(path.join(destDir, 'index.html'), res, 'utf-8');
+  await fs.outputFile(path.join(destDir, 'index.html'), res.trim(), 'utf-8');
 }
 
 const packageDir = fileURLToPath(new URL('..', import.meta.url));
