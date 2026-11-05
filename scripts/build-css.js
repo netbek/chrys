@@ -11,11 +11,13 @@ import {fileURLToPath} from 'node:url';
 import postcss from 'postcss';
 import * as sass from 'sass-embedded';
 import {config} from '../config/index.js';
+import {paletteSassName} from './utils.js';
 import {
   BOKEH_PALETTE_DATA,
   BOKEH_PALETTE_NAMES
 } from '../data/bokeh-palettes.js';
 import {VEGA_PALETTE_DATA, VEGA_PALETTE_NAMES} from '../data/vega-palettes.js';
+import {D3_PALETTE_DATA, D3_PALETTE_NAMES} from '../data/d3-palettes.js';
 
 /**
  * Compiles matching SCSS files, runs autoprefixer, and writes both normal and
@@ -62,7 +64,7 @@ async function buildCss(packageDir, cssSrcDir, pattern, destDir) {
 }
 
 /**
- * Generates the `_variables.scss` file from the Bokeh and Vega palette data.
+ * Generates the `_variables.scss` file from the Bokeh, Vega, and d3 palette data.
  *
  * @param {string} cssSrcDir Directory to write the generated variables file to.
  * @returns {Promise<void>}
@@ -73,7 +75,7 @@ function buildSassVars(cssSrcDir) {
   };
 
   Object.keys(BOKEH_PALETTE_NAMES).forEach((varName) => {
-    const sassName = _.kebabCase(varName);
+    const sassName = paletteSassName(varName);
 
     sassVars['$chrys-palettes'][sassName] = {};
 
@@ -85,11 +87,23 @@ function buildSassVars(cssSrcDir) {
   });
 
   Object.keys(VEGA_PALETTE_NAMES).forEach((varName) => {
-    const sassName = _.kebabCase(varName);
+    const sassName = paletteSassName(varName);
 
     sassVars['$chrys-palettes'][sassName] = {};
 
     Object.values(VEGA_PALETTE_DATA[VEGA_PALETTE_NAMES[varName]]).forEach(
+      (values) => {
+        sassVars['$chrys-palettes'][sassName][values.length] = values;
+      }
+    );
+  });
+
+  Object.keys(D3_PALETTE_NAMES).forEach((varName) => {
+    const sassName = paletteSassName(varName);
+
+    sassVars['$chrys-palettes'][sassName] = {};
+
+    Object.values(D3_PALETTE_DATA[D3_PALETTE_NAMES[varName]]).forEach(
       (values) => {
         sassVars['$chrys-palettes'][sassName][values.length] = values;
       }
@@ -138,9 +152,10 @@ function renderTemplate(template, context) {
 async function buildSassPartials(cssSrcDir, templatesSrcDir) {
   const varNames = [
     ...Object.keys(BOKEH_PALETTE_NAMES),
-    ...Object.keys(VEGA_PALETTE_NAMES)
+    ...Object.keys(VEGA_PALETTE_NAMES),
+    ...Object.keys(D3_PALETTE_NAMES)
   ];
-  const sassNames = varNames.map((varName) => _.kebabCase(varName));
+  const sassNames = varNames.map((varName) => paletteSassName(varName));
 
   for (const task of ['background-color', 'color']) {
     const data = await renderTemplate(

@@ -1,6 +1,4 @@
-import _ from 'lodash';
-
-export const BOKEH_TO_VEGA = {
+export const PALETTE_TO_VEGA = {
   YlGn: 'yellowGreen',
   YlGnBu: 'yellowGreenBlue',
   GnBu: 'greenBlue',
@@ -44,10 +42,17 @@ export const BOKEH_TO_VEGA = {
   Category20: 'category20',
   Category20b: 'category20b',
   Category20c: 'category20c',
-  Colorblind: 'colorblind'
+  Colorblind: 'colorblind',
+  Observable10: 'observable10',
+  Tableau10: 'tableau10',
+  Cividis: 'cividis',
+  CubehelixDefault: 'cubehelixDefault',
+  Rainbow: 'rainbow',
+  Warm: 'warm',
+  Cool: 'cool',
+  Sinebow: 'sinebow',
+  Turbo: 'turbo'
 };
-
-export const VEGA_TO_BOKEH = _.invert(BOKEH_TO_VEGA);
 
 export const config = {
   sass: {

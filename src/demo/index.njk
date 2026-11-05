@@ -32,15 +32,16 @@
 {% macro table_head() %}
   <thead>
     <tr>
-      <th scope="col" colspan="3">Vega</th>
-      <th scope="col" colspan="3">Bokeh</th>
+      <th scope="col" colspan="2">Vega</th>
+      <th scope="col" colspan="2">Bokeh</th>
+      <th scope="col" colspan="2">D3</th>
     </tr>
     <tr>
       <th scope="col">Variable name</th>
-      <th scope="col">Vendor name</th>
       <th scope="col">Palette</th>
       <th scope="col">Variable name</th>
-      <th scope="col">Vendor name</th>
+      <th scope="col">Palette</th>
+      <th scope="col">Variable name</th>
       <th scope="col">Palette</th>
     </tr>
   </thead>
@@ -49,7 +50,6 @@
 {% macro table_continuous_row(type, palette) %}
   <tr>
     <td>{% if palette.vega %}{{ variables(palette.vega.jsVar, palette.vega.sassVar) }}{% endif %}</td>
-    <td>{% if palette.vega %}{{ palette.vega.vendorName }}{% endif %}</td>
     <td>
       {% if palette.vega %}
         {{ legend_gradient(palette.vega.name, palette.vega.palette) }}
@@ -59,12 +59,20 @@
       {% endif %}
     </td>
     <td>{% if palette.bokeh %}{{ variables(palette.bokeh.jsVar, palette.bokeh.sassVar) }}{% endif %}</td>
-    <td>{% if palette.bokeh %}{{ palette.bokeh.vendorName }}{% endif %}</td>
     <td>
       {% if palette.bokeh %}
         {{ legend_gradient(palette.bokeh.name, palette.bokeh.palette) }}
         <div class="nb-discrete-palettes-all nb-discrete-palettes-all--{{ type }}">
           {{ discrete_palettes_html(palette.bokeh.name, palette.bokeh.discretePalettes) }}
+        </div>
+      {% endif %}
+    </td>
+    <td>{% if palette.d3 %}{{ variables(palette.d3.jsVar, palette.d3.sassVar) }}{% endif %}</td>
+    <td>
+      {% if palette.d3 %}
+        {{ legend_gradient(palette.d3.name, palette.d3.palette) }}
+        <div class="nb-discrete-palettes-all nb-discrete-palettes-all--{{ type }}">
+          {{ discrete_palettes_html(palette.d3.name, palette.d3.discretePalettes) }}
         </div>
       {% endif %}
     </td>
@@ -269,11 +277,11 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
               {% for palette in categoricalPalettes %}
                 <tr>
                   <td>{% if palette.vega %}{{ variables(palette.vega.jsVar, palette.vega.sassVar) }}{% endif %}</td>
-                  <td>{% if palette.vega %}{{ palette.vega.vendorName }}{% endif %}</td>
                   <td>{% if palette.vega %}{{ discrete_palette_html(palette.vega.name, palette.vega.palette) }}{% endif %}</td>
                   <td>{% if palette.bokeh %}{{ variables(palette.bokeh.jsVar, palette.bokeh.sassVar) }}{% endif %}</td>
-                  <td>{% if palette.bokeh %}{{ palette.bokeh.vendorName }}{% endif %}</td>
                   <td>{% if palette.bokeh %}{{ discrete_palette_html(palette.bokeh.name, palette.bokeh.palette) }}{% endif %}</td>
+                  <td>{% if palette.d3 %}{{ variables(palette.d3.jsVar, palette.d3.sassVar) }}{% endif %}</td>
+                  <td>{% if palette.d3 %}{{ discrete_palette_html(palette.d3.name, palette.d3.palette) }}{% endif %}</td>
                 </tr>
               {% endfor %}
             </tbody>
@@ -334,11 +342,11 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
               {% for palette in cyclicalPalettes %}
                 <tr>
                   <td>{% if palette.vega %}{{ variables(palette.vega.jsVar, palette.vega.sassVar) }}{% endif %}</td>
-                  <td>{% if palette.vega %}{{ palette.vega.vendorName }}{% endif %}</td>
                   <td>{% if palette.vega %}{{ legend_gradient(palette.vega.name, palette.vega.palette) }}{% endif %}</td>
                   <td>{% if palette.bokeh %}{{ variables(palette.bokeh.jsVar, palette.bokeh.sassVar) }}{% endif %}</td>
-                  <td>{% if palette.bokeh %}{{ palette.bokeh.vendorName }}{% endif %}</td>
                   <td>{% if palette.bokeh %}{{ legend_gradient(palette.bokeh.name, palette.bokeh.palette) }}{% endif %}</td>
+                  <td>{% if palette.d3 %}{{ variables(palette.d3.jsVar, palette.d3.sassVar) }}{% endif %}</td>
+                  <td>{% if palette.d3 %}{{ legend_gradient(palette.d3.name, palette.d3.palette) }}{% endif %}</td>
                 </tr>
               {% endfor %}
             </tbody>

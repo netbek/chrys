@@ -5,6 +5,7 @@ import {fileURLToPath} from 'node:url';
 import {jsSerializePalettes, jsSerializeVendorIndex} from './utils.js';
 import * as bokeh from '../data/bokeh-palettes.js';
 import * as vega from '../data/vega-palettes.js';
+import * as d3 from '../data/d3-palettes.js';
 
 function getVars(vendor, data) {
   const VENDOR = vendor.toUpperCase();
@@ -59,3 +60,4 @@ const palettesDir = path.join(packageDir, 'src/js/palettes');
 
 build(palettesDir, 'bokeh', bokeh);
 build(palettesDir, 'vega', vega);
+build(palettesDir, 'd3', d3);

@@ -146,6 +146,7 @@ bump-version:
 build-data:
 	node scripts/bokeh-palettes.js
 	node scripts/vega-palettes.js
+	node scripts/d3-palettes.js
 
 build-dist:
 	pnpm build

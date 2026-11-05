@@ -50,7 +50,7 @@ import {
 } from '@bokeh/bokehjs/build/js/lib/api/palettes.js';
 import {
   continuousPalette,
-  bokehToVega,
+  toVegaName,
   jsSerialize,
   pySerialize
 } from './utils.js';
@@ -125,7 +125,7 @@ const docsMaxSize = 11;
 _.forEach(discrete, (palettes, vendorName) => {
   const uniqueName = 'bokeh_' + vendorName;
   const constantName = _.snakeCase(
-    'bokeh_' + bokehToVega(vendorName)
+    'bokeh_' + toVegaName(vendorName)
   ).toUpperCase();
 
   vars.constantNames[constantName] = uniqueName;
@@ -149,7 +149,7 @@ _.forEach(discrete, (palettes, vendorName) => {
 _.forEach(continuous, (palettes, vendorName) => {
   const uniqueName = 'bokeh_' + vendorName;
   const constantName = _.snakeCase(
-    'bokeh_' + bokehToVega(vendorName)
+    'bokeh_' + toVegaName(vendorName)
   ).toUpperCase();
 
   vars.constantNames[constantName] = uniqueName;

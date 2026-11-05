@@ -1,7 +1,26 @@
 import _ from 'lodash';
 import {scaleQuantile} from 'd3-scale';
-import {BOKEH_TO_VEGA, VEGA_TO_BOKEH} from '../config/index.js';
+import {PALETTE_TO_VEGA} from '../config/index.js';
 
+/**
+ * Converts a palette constant name to a Sass variable name.
+ *
+ * @param {string} varName Palette constant name.
+ * @returns {string} Sass variable name.
+ */
+export function paletteSassName(varName) {
+  return varName.startsWith('D3_')
+    ? 'd3-' + _.kebabCase(varName.slice(3))
+    : _.kebabCase(varName);
+}
+
+/**
+ * Quantizes a palette into a fixed number of colors.
+ *
+ * @param {string[]} colors Palette colors.
+ * @param {number} count Number of colors to return.
+ * @returns {string[]} Quantized palette colors.
+ */
 export function continuousPalette(colors, count) {
   const scale = scaleQuantile(
     _.times(count, (i) => i),
@@ -10,14 +29,23 @@ export function continuousPalette(colors, count) {
   return _.times(count, (i) => scale(i));
 }
 
-export function bokehToVega(name) {
-  return BOKEH_TO_VEGA[name];
+/**
+ * Resolves a vendor palette name to its Vega palette name.
+ *
+ * @param {string} name Vendor palette name.
+ * @returns {string} Vega-style palette name.
+ */
+export function toVegaName(name) {
+  return PALETTE_TO_VEGA[name] || _.camelCase(name);
 }
 
-export function vegaToBokeh(name) {
-  return VEGA_TO_BOKEH[name];
-}
-
+/**
+ * Replaces quoted numeric object keys in serialized JSON with unquoted keys.
+ *
+ * @param {string} json Serialized JSON.
+ * @param {number} maxSize Maximum numeric key to unquote.
+ * @returns {string} Serialized JSON with unquoted numeric keys.
+ */
 function unquoteNumericKeys(json, maxSize) {
   let result = json;
 
@@ -28,12 +56,28 @@ function unquoteNumericKeys(json, maxSize) {
   return result;
 }
 
+/**
+ * Creates a filename slug from a palette constant name.
+ *
+ * @param {string} vendor Palette vendor.
+ * @param {string} constantName Palette constant name.
+ * @returns {string} Kebab-case palette slug.
+ */
 function paletteSlug(vendor, constantName) {
   return _.kebabCase(
     constantName.replace(new RegExp('^' + vendor.toUpperCase() + '_'), '')
   );
 }
 
+/**
+ * Generates JavaScript module files for each palette in a vendor.
+ *
+ * @param {string} vendor Palette vendor.
+ * @param {object} vars Palette data keyed by constant, unique, and vendor names.
+ * @param {number} maxSize Maximum palette size.
+ * @param {number} docsMaxSize Maximum documentation palette size.
+ * @returns {Array<{fileName: string, content: string}>} Generated module files.
+ */
 export function jsSerializePalettes(vendor, vars, maxSize, docsMaxSize) {
   return _.map(vars.constantNames, (uniqueName, constantName) => {
     const dataName = `${constantName}_PALETTE_DATA`;
@@ -59,6 +103,13 @@ export function jsSerializePalettes(vendor, vars, maxSize, docsMaxSize) {
   });
 }
 
+/**
+ * Generates the JavaScript index module for a vendor.
+ *
+ * @param {string} vendor Palette vendor.
+ * @param {object} vars Palette data keyed by constant, unique, and vendor names.
+ * @returns {string} Generated module source.
+ */
 export function jsSerializeVendorIndex(vendor, vars) {
   const VENDOR = vendor.toUpperCase();
   const entries = _.map(vars.constantNames, (uniqueName, constantName) => ({
@@ -93,7 +144,7 @@ export function jsSerializeVendorIndex(vendor, vars) {
 
   result += `export const ${VENDOR}_PALETTE_NAMES = {\n`;
   _.forEach(entries, ({constantName, uniqueName}) => {
-    result += `  [${constantName}]: ${JSON.stringify(uniqueName)},\n`;
+    result += `  ${constantName}: ${JSON.stringify(uniqueName)},\n`;
   });
   result += '}\n\n';
 
@@ -112,6 +163,15 @@ export function jsSerializeVendorIndex(vendor, vars) {
   return result;
 }
 
+/**
+ * Generates the combined JavaScript module for a vendor.
+ *
+ * @param {string} vendor Palette vendor.
+ * @param {object} vars Palette data keyed by constant, unique, and vendor names.
+ * @param {number} maxSize Maximum palette size.
+ * @param {number} docsMaxSize Maximum documentation palette size.
+ * @returns {string} Generated module source.
+ */
 export function jsSerialize(vendor, vars, maxSize, docsMaxSize) {
   const VENDOR_PALETTES = `${vendor.toUpperCase()}_PALETTES`;
   const VENDOR_PALETTE_DATA = `${vendor.toUpperCase()}_PALETTE_DATA`;
@@ -171,6 +231,15 @@ export function jsSerialize(vendor, vars, maxSize, docsMaxSize) {
   return result;
 }
 
+/**
+ * Generates the combined Python module for a vendor.
+ *
+ * @param {string} vendor Palette vendor.
+ * @param {object} vars Palette data keyed by constant, unique, and vendor names.
+ * @param {number} maxSize Maximum palette size.
+ * @param {number} docsMaxSize Maximum documentation palette size.
+ * @returns {string} Generated Python source.
+ */
 export function pySerialize(vendor, vars, maxSize, docsMaxSize) {
   const VENDOR_PALETTES = `${vendor.toUpperCase()}_PALETTES`;
   const VENDOR_PALETTE_DATA = `${vendor.toUpperCase()}_PALETTE_DATA`;

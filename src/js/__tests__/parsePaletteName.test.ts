@@ -1,10 +1,17 @@
 import {describe, expect, test} from 'vitest';
-import {parsePaletteName, VEGA_ACCENT} from '..';
+import {D3_ACCENT, parsePaletteName, VEGA_ACCENT} from '..';
 
 describe('parsePaletteName', () => {
   test('Should parse a valid palette name', () => {
     expect(parsePaletteName(VEGA_ACCENT)).toEqual({
       vendor: 'vega',
+      palette: 'accent'
+    });
+  });
+
+  test('Should parse a valid d3 palette name', () => {
+    expect(parsePaletteName(D3_ACCENT)).toEqual({
+      vendor: 'd3',
       palette: 'accent'
     });
   });

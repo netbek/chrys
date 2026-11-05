@@ -5,10 +5,10 @@ import nunjucks from 'nunjucks';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {
-  BOKEH,
-  VEGA,
+  VENDOR,
   BOKEH_PALETTE_NAMES,
   VEGA_PALETTE_NAMES,
+  D3_PALETTE_NAMES,
   CATEGORICAL_PALETTE_VENDORS,
   DIVERGING_PALETTE_VENDORS,
   SEQUENTIAL_PALETTE_VENDORS,
@@ -18,6 +18,7 @@ import {
   parsePaletteName,
   discretePalette
 } from '../src/js/index.ts';
+import {paletteSassName} from './utils.js';
 
 /**
  * Copies vendor and demo assets, builds the palette context, and renders the
@@ -86,6 +87,11 @@ async function buildDemo(packageDir, destDir) {
     Object.keys(VEGA_PALETTE_NAMES)
   );
 
+  const D3_PALETTE_NAMES_MAP = _.zipObject(
+    Object.keys(D3_PALETTE_NAMES).map((k) => D3_PALETTE_NAMES[k]),
+    Object.keys(D3_PALETTE_NAMES)
+  );
+
   /**
    * Builds the demo data for a single palette.
    *
@@ -99,18 +105,20 @@ async function buildDemo(packageDir, destDir) {
       return undefined;
     }
 
-    const {vendor, palette: vendorName} = parsePaletteName(name);
+    const {vendor} = parsePaletteName(name);
     let jsVar;
     let discretePalettes;
 
-    if (vendor === BOKEH) {
+    if (vendor === VENDOR.BOKEH) {
       jsVar = BOKEH_PALETTE_NAMES_MAP[name];
-    } else if (vendor === VEGA) {
+    } else if (vendor === VENDOR.VEGA) {
       jsVar = VEGA_PALETTE_NAMES_MAP[name];
+    } else if (vendor === VENDOR.D3) {
+      jsVar = D3_PALETTE_NAMES_MAP[name];
     }
 
     const pythonVar = jsVar;
-    const sassVar = _.kebabCase(jsVar);
+    const sassVar = paletteSassName(jsVar);
 
     if (discreteSizes) {
       discretePalettes = discreteSizes.map((i) => discretePalette(name, i));
@@ -123,38 +131,41 @@ async function buildDemo(packageDir, destDir) {
       pythonVar,
       sassVar,
       name,
-      vendorName,
       palette,
       discretePalettes
     };
   }
 
   const categoricalPalettes = CATEGORICAL_PALETTE_VENDORS.filter(
-    (x) => x[BOKEH] || x[VEGA]
+    (x) => x[VENDOR.BOKEH] || x[VENDOR.VEGA] || x[VENDOR.D3]
   ).map((x) => ({
-    [BOKEH]: getItem(x[BOKEH]),
-    [VEGA]: getItem(x[VEGA])
+    [VENDOR.BOKEH]: getItem(x[VENDOR.BOKEH]),
+    [VENDOR.VEGA]: getItem(x[VENDOR.VEGA]),
+    [VENDOR.D3]: getItem(x[VENDOR.D3])
   }));
 
   const divergingPalettes = DIVERGING_PALETTE_VENDORS.filter(
-    (x) => x[BOKEH] || x[VEGA]
+    (x) => x[VENDOR.BOKEH] || x[VENDOR.VEGA] || x[VENDOR.D3]
   ).map((x) => ({
-    [BOKEH]: getItem(x[BOKEH], [3, 5, 7, 9]),
-    [VEGA]: getItem(x[VEGA], [3, 5, 7, 9])
+    [VENDOR.BOKEH]: getItem(x[VENDOR.BOKEH], [3, 5, 7, 9]),
+    [VENDOR.VEGA]: getItem(x[VENDOR.VEGA], [3, 5, 7, 9]),
+    [VENDOR.D3]: getItem(x[VENDOR.D3], [3, 5, 7, 9])
   }));
 
   const sequentialPalettes = SEQUENTIAL_PALETTE_VENDORS.filter(
-    (x) => x[BOKEH] || x[VEGA]
+    (x) => x[VENDOR.BOKEH] || x[VENDOR.VEGA] || x[VENDOR.D3]
   ).map((x) => ({
-    [BOKEH]: getItem(x[BOKEH], [3, 4, 5, 6, 7, 8, 9]),
-    [VEGA]: getItem(x[VEGA], [3, 4, 5, 6, 7, 8, 9])
+    [VENDOR.BOKEH]: getItem(x[VENDOR.BOKEH], [3, 4, 5, 6, 7, 8, 9]),
+    [VENDOR.VEGA]: getItem(x[VENDOR.VEGA], [3, 4, 5, 6, 7, 8, 9]),
+    [VENDOR.D3]: getItem(x[VENDOR.D3], [3, 4, 5, 6, 7, 8, 9])
   }));
 
   const cyclicalPalettes = CYCLICAL_PALETTE_VENDORS.filter(
-    (x) => x[BOKEH] || x[VEGA]
+    (x) => x[VENDOR.BOKEH] || x[VENDOR.VEGA] || x[VENDOR.D3]
   ).map((x) => ({
-    [BOKEH]: getItem(x[BOKEH]),
-    [VEGA]: getItem(x[VEGA])
+    [VENDOR.BOKEH]: getItem(x[VENDOR.BOKEH]),
+    [VENDOR.VEGA]: getItem(x[VENDOR.VEGA]),
+    [VENDOR.D3]: getItem(x[VENDOR.D3])
   }));
 
   const context = {
