@@ -18,6 +18,105 @@ export function vegaToBokeh(name) {
   return VEGA_TO_BOKEH[name];
 }
 
+function unquoteNumericKeys(json, maxSize) {
+  let result = json;
+
+  _.times(maxSize, (i) => {
+    result = result.replace(new RegExp('"' + (i + 1) + '"', 'g'), i + 1);
+  });
+
+  return result;
+}
+
+function paletteSlug(vendor, constantName) {
+  return _.kebabCase(
+    constantName.replace(
+      new RegExp('^' + vendor.toUpperCase() + '_'),
+      ''
+    )
+  );
+}
+
+export function jsSerializePalettes(vendor, vars, maxSize, docsMaxSize) {
+  const VENDOR = vendor.toUpperCase();
+
+  return _.map(vars.constantNames, (uniqueName, constantName) => {
+    const dataName = `${constantName}_PALETTE_DATA`;
+    const docsName = `${constantName}_DOCS_PALETTE_DATA`;
+    let content = '';
+
+    content += `export const ${constantName} = ${JSON.stringify(uniqueName)}\n`;
+    content += '\n';
+    content += `export const ${dataName} = ${unquoteNumericKeys(
+      JSON.stringify(vars.palettes[uniqueName], null, 2),
+      maxSize
+    )}\n`;
+    content += '\n';
+    content += `export const ${docsName} = ${unquoteNumericKeys(
+      JSON.stringify(vars.docsPalettes[uniqueName], null, 2),
+      docsMaxSize
+    )}\n`;
+
+    return {
+      fileName: `${vendor}/${paletteSlug(vendor, constantName)}.js`,
+      content
+    };
+  });
+}
+
+export function jsSerializeVendorIndex(vendor, vars) {
+  const VENDOR = vendor.toUpperCase();
+  const entries = _.map(vars.constantNames, (uniqueName, constantName) => ({
+    constantName,
+    uniqueName,
+    fileName: `./${paletteSlug(vendor, constantName)}.js`
+  }));
+
+  let result = '';
+
+  _.forEach(entries, ({constantName, fileName}) => {
+    result += `import {${constantName}, ${constantName}_PALETTE_DATA, ${constantName}_DOCS_PALETTE_DATA} from '${fileName}'\n`;
+  });
+  result += '\n';
+
+  _.forEach(entries, ({constantName}) => {
+    result += `export {${constantName}}\n`;
+  });
+  result += '\n';
+
+  result += `export const ${VENDOR}_PALETTE_DATA = {\n`;
+  _.forEach(entries, ({constantName}) => {
+    result += `  [${constantName}]: ${constantName}_PALETTE_DATA,\n`;
+  });
+  result += '}\n\n';
+
+  result += `export const ${VENDOR}_DOCS_PALETTE_DATA = {\n`;
+  _.forEach(entries, ({constantName}) => {
+    result += `  [${constantName}]: ${constantName}_DOCS_PALETTE_DATA,\n`;
+  });
+  result += '}\n\n';
+
+  result += `export const ${VENDOR}_PALETTE_NAMES = {\n`;
+  _.forEach(entries, ({constantName, uniqueName}) => {
+    result += `  [${constantName}]: ${JSON.stringify(uniqueName)},\n`;
+  });
+  result += '}\n\n';
+
+  result += `export const ${VENDOR}_PALETTES = {\n`;
+  _.forEach(vars.vendorNames, (constantName, vendorName) => {
+    result += `  [${JSON.stringify(vendorName)}]: ${constantName}_PALETTE_DATA,\n`;
+  });
+  result += '}\n\n';
+
+  result += `export const ${VENDOR}_DOCS_PALETTES = {\n`;
+  _.forEach(vars.vendorNames, (constantName, vendorName) => {
+    result += `  [${JSON.stringify(vendorName)}]: ${constantName}_DOCS_PALETTE_DATA,\n`;
+  });
+  result += '}\n';
+
+  return result;
+}
+
 export function jsSerialize(vendor, vars, maxSize, docsMaxSize) {
   const VENDOR_PALETTES = `${vendor.toUpperCase()}_PALETTES`;
   const VENDOR_PALETTE_DATA = `${vendor.toUpperCase()}_PALETTE_DATA`;
