@@ -66,10 +66,8 @@ async function buildIllustrator(destDir) {
   }
 }
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..');
-const destDir = path.join(rootDir, 'dist/illustrator');
+const packageDir = fileURLToPath(new URL('..', import.meta.url));
+const destDir = path.join(packageDir, 'dist/illustrator');
 
 await fs.remove(destDir);
 await buildIllustrator(destDir);

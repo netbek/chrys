@@ -20,7 +20,7 @@ import {
   VEGA_PALETTE_NAMES
 } from '../../data/vega-palettes.js';
 
-async function buildCss(rootDir, cssSrcDir, pattern, destDir) {
+async function buildCss(packageDir, cssSrcDir, pattern, destDir) {
   const files = await globby(pattern, {cwd: cssSrcDir});
 
   for (const file of files) {
@@ -30,7 +30,7 @@ async function buildCss(rootDir, cssSrcDir, pattern, destDir) {
     css = (
       await postcss([
         autoprefixer({
-          overrideBrowserslist: browserslist(undefined, {path: rootDir})
+          overrideBrowserslist: browserslist(undefined, {path: packageDir})
         })
       ]).process(css, {
         from: undefined,
@@ -147,14 +147,12 @@ async function buildSassPartials(cssSrcDir, templatesSrcDir) {
   }
 }
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..');
-const cssSrcDir = path.join(rootDir, 'src/css');
-const templatesSrcDir = path.join(rootDir, 'src/templates');
-const destDir = path.join(rootDir, 'dist/css');
+const packageDir = fileURLToPath(new URL('..', import.meta.url));
+const cssSrcDir = path.join(packageDir, 'src/css');
+const templatesSrcDir = path.join(packageDir, 'src/templates');
+const destDir = path.join(packageDir, 'dist/css');
 
 await buildSassVars(cssSrcDir);
 await buildSassPartials(cssSrcDir, templatesSrcDir);
 await fs.remove(destDir);
-await buildCss(rootDir, cssSrcDir, '**/!(_)*.scss', destDir);
+await buildCss(packageDir, cssSrcDir, '**/!(_)*.scss', destDir);
