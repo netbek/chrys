@@ -114,167 +114,428 @@ import {
   VEGA_DARK_RED,
   VEGA_OBSERVABLE_10,
   VEGA_CIVIDIS,
-  VEGA_TURBO
+  VEGA_TURBO,
+  D3_PALETTE_DATA,
+  D3_DOCS_PALETTE_DATA,
+  D3_ACCENT,
+  D3_CATEGORY_10,
+  D3_DARK_2,
+  D3_OBSERVABLE_10,
+  D3_PAIRED,
+  D3_PASTEL_1,
+  D3_PASTEL_2,
+  D3_SET_1,
+  D3_SET_2,
+  D3_SET_3,
+  D3_TABLEAU_10,
+  D3_BROWN_BLUE_GREEN,
+  D3_PURPLE_GREEN,
+  D3_PINK_YELLOW_GREEN,
+  D3_PURPLE_ORANGE,
+  D3_RED_BLUE,
+  D3_RED_GREY,
+  D3_RED_YELLOW_BLUE,
+  D3_RED_YELLOW_GREEN,
+  D3_SPECTRAL,
+  D3_BLUE_GREEN,
+  D3_BLUE_PURPLE,
+  D3_GREEN_BLUE,
+  D3_ORANGE_RED,
+  D3_PURPLE_BLUE_GREEN,
+  D3_PURPLE_BLUE,
+  D3_PURPLE_RED,
+  D3_RED_PURPLE,
+  D3_YELLOW_GREEN_BLUE,
+  D3_YELLOW_GREEN,
+  D3_YELLOW_ORANGE_BROWN,
+  D3_YELLOW_ORANGE_RED,
+  D3_BLUES,
+  D3_GREENS,
+  D3_GREYS,
+  D3_ORANGES,
+  D3_PURPLES,
+  D3_REDS,
+  D3_CIVIDIS,
+  D3_CUBEHELIX_DEFAULT,
+  D3_RAINBOW,
+  D3_WARM,
+  D3_COOL,
+  D3_SINEBOW,
+  D3_TURBO,
+  D3_VIRIDIS,
+  D3_MAGMA,
+  D3_INFERNO,
+  D3_PLASMA
 } from './paletteModules.js';
 
 import {toDiscretePalette} from './toDiscretePalette.ts';
 
-export const BOKEH = 'bokeh';
-export const VEGA = 'vega';
+export const VENDOR = {
+  BOKEH: 'bokeh',
+  VEGA: 'vega',
+  D3: 'd3'
+} as const;
 
-type Vendor = typeof BOKEH | typeof VEGA;
+type Vendor = (typeof VENDOR)[keyof typeof VENDOR];
 
 export const CATEGORICAL_PALETTE_VENDORS = [
-  {[BOKEH]: BOKEH_ACCENT, [VEGA]: VEGA_ACCENT},
   {
-    [BOKEH]: BOKEH_CATEGORY_10,
-
-    [VEGA]: VEGA_CATEGORY_10
+    [VENDOR.BOKEH]: BOKEH_ACCENT,
+    [VENDOR.VEGA]: VEGA_ACCENT,
+    [VENDOR.D3]: D3_ACCENT
   },
   {
-    [BOKEH]: BOKEH_CATEGORY_20,
-
-    [VEGA]: VEGA_CATEGORY_20
+    [VENDOR.BOKEH]: BOKEH_CATEGORY_10,
+    [VENDOR.VEGA]: VEGA_CATEGORY_10,
+    [VENDOR.D3]: D3_CATEGORY_10
   },
   {
-    [BOKEH]: BOKEH_CATEGORY_20_B,
-
-    [VEGA]: VEGA_CATEGORY_20_B
+    [VENDOR.BOKEH]: BOKEH_CATEGORY_20,
+    [VENDOR.VEGA]: VEGA_CATEGORY_20,
+    [VENDOR.D3]: undefined
   },
   {
-    [BOKEH]: BOKEH_CATEGORY_20_C,
-
-    [VEGA]: VEGA_CATEGORY_20_C
+    [VENDOR.BOKEH]: BOKEH_CATEGORY_20_B,
+    [VENDOR.VEGA]: VEGA_CATEGORY_20_B,
+    [VENDOR.D3]: undefined
   },
-  {[BOKEH]: BOKEH_DARK_2, [VEGA]: VEGA_DARK_2},
-  {[BOKEH]: BOKEH_PAIRED, [VEGA]: VEGA_PAIRED},
-  {[BOKEH]: BOKEH_PASTEL_1, [VEGA]: VEGA_PASTEL_1},
-  {[BOKEH]: BOKEH_PASTEL_2, [VEGA]: VEGA_PASTEL_2},
-  {[BOKEH]: BOKEH_SET_1, [VEGA]: VEGA_SET_1},
-  {[BOKEH]: BOKEH_SET_2, [VEGA]: VEGA_SET_2},
-  {[BOKEH]: BOKEH_SET_3, [VEGA]: VEGA_SET_3},
-  {[BOKEH]: undefined, [VEGA]: VEGA_TABLEAU_10},
-  {[BOKEH]: undefined, [VEGA]: VEGA_TABLEAU_20},
-  {[BOKEH]: undefined, [VEGA]: VEGA_OBSERVABLE_10},
-  {[BOKEH]: BOKEH_COLORBLIND, [VEGA]: undefined}
+  {
+    [VENDOR.BOKEH]: BOKEH_CATEGORY_20_C,
+    [VENDOR.VEGA]: VEGA_CATEGORY_20_C,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_DARK_2,
+    [VENDOR.VEGA]: VEGA_DARK_2,
+    [VENDOR.D3]: D3_DARK_2
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_PAIRED,
+    [VENDOR.VEGA]: VEGA_PAIRED,
+    [VENDOR.D3]: D3_PAIRED
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_PASTEL_1,
+    [VENDOR.VEGA]: VEGA_PASTEL_1,
+    [VENDOR.D3]: D3_PASTEL_1
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_PASTEL_2,
+    [VENDOR.VEGA]: VEGA_PASTEL_2,
+    [VENDOR.D3]: D3_PASTEL_2
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_SET_1,
+    [VENDOR.VEGA]: VEGA_SET_1,
+    [VENDOR.D3]: D3_SET_1
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_SET_2,
+    [VENDOR.VEGA]: VEGA_SET_2,
+    [VENDOR.D3]: D3_SET_2
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_SET_3,
+    [VENDOR.VEGA]: VEGA_SET_3,
+    [VENDOR.D3]: D3_SET_3
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_TABLEAU_10,
+    [VENDOR.D3]: D3_TABLEAU_10
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_TABLEAU_20,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_OBSERVABLE_10,
+    [VENDOR.D3]: D3_OBSERVABLE_10
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_COLORBLIND,
+    [VENDOR.VEGA]: undefined,
+    [VENDOR.D3]: undefined
+  }
 ];
 
 export const DIVERGING_PALETTE_VENDORS = [
-  {[BOKEH]: undefined, [VEGA]: VEGA_BLUE_ORANGE},
   {
-    [BOKEH]: BOKEH_BROWN_BLUE_GREEN,
-
-    [VEGA]: VEGA_BROWN_BLUE_GREEN
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_BLUE_ORANGE,
+    [VENDOR.D3]: undefined
   },
   {
-    [BOKEH]: BOKEH_PURPLE_GREEN,
-
-    [VEGA]: VEGA_PURPLE_GREEN
+    [VENDOR.BOKEH]: BOKEH_BROWN_BLUE_GREEN,
+    [VENDOR.VEGA]: VEGA_BROWN_BLUE_GREEN,
+    [VENDOR.D3]: D3_BROWN_BLUE_GREEN
   },
   {
-    [BOKEH]: BOKEH_PINK_YELLOW_GREEN,
-
-    [VEGA]: VEGA_PINK_YELLOW_GREEN
+    [VENDOR.BOKEH]: BOKEH_PURPLE_GREEN,
+    [VENDOR.VEGA]: VEGA_PURPLE_GREEN,
+    [VENDOR.D3]: D3_PURPLE_GREEN
   },
   {
-    [BOKEH]: BOKEH_PURPLE_ORANGE,
-
-    [VEGA]: VEGA_PURPLE_ORANGE
-  },
-  {[BOKEH]: BOKEH_RED_BLUE, [VEGA]: VEGA_RED_BLUE},
-  {[BOKEH]: BOKEH_RED_GREY, [VEGA]: VEGA_RED_GREY},
-  {
-    [BOKEH]: BOKEH_RED_YELLOW_BLUE,
-
-    [VEGA]: VEGA_RED_YELLOW_BLUE
+    [VENDOR.BOKEH]: BOKEH_PINK_YELLOW_GREEN,
+    [VENDOR.VEGA]: VEGA_PINK_YELLOW_GREEN,
+    [VENDOR.D3]: D3_PINK_YELLOW_GREEN
   },
   {
-    [BOKEH]: BOKEH_RED_YELLOW_GREEN,
-
-    [VEGA]: VEGA_RED_YELLOW_GREEN
+    [VENDOR.BOKEH]: BOKEH_PURPLE_ORANGE,
+    [VENDOR.VEGA]: VEGA_PURPLE_ORANGE,
+    [VENDOR.D3]: D3_PURPLE_ORANGE
   },
-  {[BOKEH]: BOKEH_SPECTRAL, [VEGA]: VEGA_SPECTRAL}
+  {
+    [VENDOR.BOKEH]: BOKEH_RED_BLUE,
+    [VENDOR.VEGA]: VEGA_RED_BLUE,
+    [VENDOR.D3]: D3_RED_BLUE
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_RED_GREY,
+    [VENDOR.VEGA]: VEGA_RED_GREY,
+    [VENDOR.D3]: D3_RED_GREY
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_RED_YELLOW_BLUE,
+    [VENDOR.VEGA]: VEGA_RED_YELLOW_BLUE,
+    [VENDOR.D3]: D3_RED_YELLOW_BLUE
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_RED_YELLOW_GREEN,
+    [VENDOR.VEGA]: VEGA_RED_YELLOW_GREEN,
+    [VENDOR.D3]: D3_RED_YELLOW_GREEN
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_SPECTRAL,
+    [VENDOR.VEGA]: VEGA_SPECTRAL,
+    [VENDOR.D3]: D3_SPECTRAL
+  }
 ];
 
 export const SEQUENTIAL_PALETTE_VENDORS = [
   // Single hue
-  {[BOKEH]: BOKEH_BLUES, [VEGA]: VEGA_BLUES},
-  {[BOKEH]: undefined, [VEGA]: VEGA_TEAL_BLUES},
-  {[BOKEH]: undefined, [VEGA]: VEGA_TEALS},
-  {[BOKEH]: BOKEH_GREENS, [VEGA]: VEGA_GREENS},
-  {[BOKEH]: undefined, [VEGA]: VEGA_BROWNS},
-  {[BOKEH]: BOKEH_ORANGES, [VEGA]: VEGA_ORANGES},
-  {[BOKEH]: BOKEH_REDS, [VEGA]: VEGA_REDS},
-  {[BOKEH]: BOKEH_PURPLES, [VEGA]: VEGA_PURPLES},
-  {[BOKEH]: undefined, [VEGA]: VEGA_WARM_GREYS},
-  {[BOKEH]: BOKEH_GREYS, [VEGA]: VEGA_GREYS},
+  {
+    [VENDOR.BOKEH]: BOKEH_BLUES,
+    [VENDOR.VEGA]: VEGA_BLUES,
+    [VENDOR.D3]: D3_BLUES
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_TEAL_BLUES,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_TEALS,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_GREENS,
+    [VENDOR.VEGA]: VEGA_GREENS,
+    [VENDOR.D3]: D3_GREENS
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_BROWNS,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_ORANGES,
+    [VENDOR.VEGA]: VEGA_ORANGES,
+    [VENDOR.D3]: D3_ORANGES
+  },
+  {[VENDOR.BOKEH]: BOKEH_REDS, [VENDOR.VEGA]: VEGA_REDS, [VENDOR.D3]: D3_REDS},
+  {
+    [VENDOR.BOKEH]: BOKEH_PURPLES,
+    [VENDOR.VEGA]: VEGA_PURPLES,
+    [VENDOR.D3]: D3_PURPLES
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_WARM_GREYS,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_GREYS,
+    [VENDOR.VEGA]: VEGA_GREYS,
+    [VENDOR.D3]: D3_GREYS
+  },
   // Multiple hues
-  {[BOKEH]: BOKEH_VIRIDIS, [VEGA]: VEGA_VIRIDIS},
-  {[BOKEH]: BOKEH_MAGMA, [VEGA]: VEGA_MAGMA},
-  {[BOKEH]: BOKEH_INFERNO, [VEGA]: VEGA_INFERNO},
-  {[BOKEH]: BOKEH_PLASMA, [VEGA]: VEGA_PLASMA},
-  {[BOKEH]: undefined, [VEGA]: VEGA_CIVIDIS},
-  {[BOKEH]: undefined, [VEGA]: VEGA_TURBO},
-  {[BOKEH]: BOKEH_BLUE_GREEN, [VEGA]: VEGA_BLUE_GREEN},
   {
-    [BOKEH]: BOKEH_BLUE_PURPLE,
-
-    [VEGA]: VEGA_BLUE_PURPLE
-  },
-  {[BOKEH]: undefined, [VEGA]: VEGA_GOLD_GREEN},
-  {[BOKEH]: undefined, [VEGA]: VEGA_GOLD_ORANGE},
-  {[BOKEH]: undefined, [VEGA]: VEGA_GOLD_RED},
-  {[BOKEH]: BOKEH_GREEN_BLUE, [VEGA]: VEGA_GREEN_BLUE},
-  {[BOKEH]: BOKEH_ORANGE_RED, [VEGA]: VEGA_ORANGE_RED},
-  {
-    [BOKEH]: BOKEH_PURPLE_BLUE_GREEN,
-
-    [VEGA]: VEGA_PURPLE_BLUE_GREEN
+    [VENDOR.BOKEH]: BOKEH_VIRIDIS,
+    [VENDOR.VEGA]: VEGA_VIRIDIS,
+    [VENDOR.D3]: D3_VIRIDIS
   },
   {
-    [BOKEH]: BOKEH_PURPLE_BLUE,
-
-    [VEGA]: VEGA_PURPLE_BLUE
-  },
-  {[BOKEH]: BOKEH_PURPLE_RED, [VEGA]: VEGA_PURPLE_RED},
-  {[BOKEH]: BOKEH_RED_PURPLE, [VEGA]: VEGA_RED_PURPLE},
-  {
-    [BOKEH]: BOKEH_YELLOW_GREEN_BLUE,
-
-    [VEGA]: VEGA_YELLOW_GREEN_BLUE
+    [VENDOR.BOKEH]: BOKEH_MAGMA,
+    [VENDOR.VEGA]: VEGA_MAGMA,
+    [VENDOR.D3]: D3_MAGMA
   },
   {
-    [BOKEH]: BOKEH_YELLOW_GREEN,
-
-    [VEGA]: VEGA_YELLOW_GREEN
+    [VENDOR.BOKEH]: BOKEH_INFERNO,
+    [VENDOR.VEGA]: VEGA_INFERNO,
+    [VENDOR.D3]: D3_INFERNO
   },
   {
-    [BOKEH]: BOKEH_YELLOW_ORANGE_BROWN,
-
-    [VEGA]: VEGA_YELLOW_ORANGE_BROWN
+    [VENDOR.BOKEH]: BOKEH_PLASMA,
+    [VENDOR.VEGA]: VEGA_PLASMA,
+    [VENDOR.D3]: D3_PLASMA
   },
   {
-    [BOKEH]: BOKEH_YELLOW_ORANGE_RED,
-
-    [VEGA]: VEGA_YELLOW_ORANGE_RED
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_CIVIDIS,
+    [VENDOR.D3]: D3_CIVIDIS
+  },
+  {[VENDOR.BOKEH]: undefined, [VENDOR.VEGA]: VEGA_TURBO, [VENDOR.D3]: D3_TURBO},
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: undefined,
+    [VENDOR.D3]: D3_CUBEHELIX_DEFAULT
+  },
+  {[VENDOR.BOKEH]: undefined, [VENDOR.VEGA]: undefined, [VENDOR.D3]: D3_WARM},
+  {[VENDOR.BOKEH]: undefined, [VENDOR.VEGA]: undefined, [VENDOR.D3]: D3_COOL},
+  {
+    [VENDOR.BOKEH]: BOKEH_BLUE_GREEN,
+    [VENDOR.VEGA]: VEGA_BLUE_GREEN,
+    [VENDOR.D3]: D3_BLUE_GREEN
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_BLUE_PURPLE,
+    [VENDOR.VEGA]: VEGA_BLUE_PURPLE,
+    [VENDOR.D3]: D3_BLUE_PURPLE
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_GOLD_GREEN,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_GOLD_ORANGE,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_GOLD_RED,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_GREEN_BLUE,
+    [VENDOR.VEGA]: VEGA_GREEN_BLUE,
+    [VENDOR.D3]: D3_GREEN_BLUE
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_ORANGE_RED,
+    [VENDOR.VEGA]: VEGA_ORANGE_RED,
+    [VENDOR.D3]: D3_ORANGE_RED
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_PURPLE_BLUE_GREEN,
+    [VENDOR.VEGA]: VEGA_PURPLE_BLUE_GREEN,
+    [VENDOR.D3]: D3_PURPLE_BLUE_GREEN
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_PURPLE_BLUE,
+    [VENDOR.VEGA]: VEGA_PURPLE_BLUE,
+    [VENDOR.D3]: D3_PURPLE_BLUE
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_PURPLE_RED,
+    [VENDOR.VEGA]: VEGA_PURPLE_RED,
+    [VENDOR.D3]: D3_PURPLE_RED
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_RED_PURPLE,
+    [VENDOR.VEGA]: VEGA_RED_PURPLE,
+    [VENDOR.D3]: D3_RED_PURPLE
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_YELLOW_GREEN_BLUE,
+    [VENDOR.VEGA]: VEGA_YELLOW_GREEN_BLUE,
+    [VENDOR.D3]: D3_YELLOW_GREEN_BLUE
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_YELLOW_GREEN,
+    [VENDOR.VEGA]: VEGA_YELLOW_GREEN,
+    [VENDOR.D3]: D3_YELLOW_GREEN
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_YELLOW_ORANGE_BROWN,
+    [VENDOR.VEGA]: VEGA_YELLOW_ORANGE_BROWN,
+    [VENDOR.D3]: D3_YELLOW_ORANGE_BROWN
+  },
+  {
+    [VENDOR.BOKEH]: BOKEH_YELLOW_ORANGE_RED,
+    [VENDOR.VEGA]: VEGA_YELLOW_ORANGE_RED,
+    [VENDOR.D3]: D3_YELLOW_ORANGE_RED
   },
   // For dark backgrounds
-  {[BOKEH]: undefined, [VEGA]: VEGA_DARK_BLUE},
-  {[BOKEH]: undefined, [VEGA]: VEGA_DARK_GOLD},
-  {[BOKEH]: undefined, [VEGA]: VEGA_DARK_GREEN},
-  {[BOKEH]: undefined, [VEGA]: VEGA_DARK_MULTI},
-  {[BOKEH]: undefined, [VEGA]: VEGA_DARK_RED},
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_DARK_BLUE,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_DARK_GOLD,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_DARK_GREEN,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_DARK_MULTI,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_DARK_RED,
+    [VENDOR.D3]: undefined
+  },
   // For light backgrounds
-  {[BOKEH]: undefined, [VEGA]: VEGA_LIGHT_GREY_RED},
-  {[BOKEH]: undefined, [VEGA]: VEGA_LIGHT_GREY_TEAL},
-  {[BOKEH]: undefined, [VEGA]: VEGA_LIGHT_MULTI},
-  {[BOKEH]: undefined, [VEGA]: VEGA_LIGHT_ORANGE},
-  {[BOKEH]: undefined, [VEGA]: VEGA_LIGHT_TEAL_BLUE}
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_LIGHT_GREY_RED,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_LIGHT_GREY_TEAL,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_LIGHT_MULTI,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_LIGHT_ORANGE,
+    [VENDOR.D3]: undefined
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_LIGHT_TEAL_BLUE,
+    [VENDOR.D3]: undefined
+  }
 ];
 
 export const CYCLICAL_PALETTE_VENDORS = [
-  {[BOKEH]: undefined, [VEGA]: VEGA_RAINBOW},
-  {[BOKEH]: undefined, [VEGA]: VEGA_SINEBOW}
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_RAINBOW,
+    [VENDOR.D3]: D3_RAINBOW
+  },
+  {
+    [VENDOR.BOKEH]: undefined,
+    [VENDOR.VEGA]: VEGA_SINEBOW,
+    [VENDOR.D3]: D3_SINEBOW
+  }
 ];
 
 const PALETTE_TO_VENDOR_MAP: Record<string, Vendor> = {};
@@ -285,23 +546,27 @@ const PALETTE_TO_VENDOR_MAP: Record<string, Vendor> = {};
   CYCLICAL_PALETTE_VENDORS
 ].forEach((mappings): void => {
   mappings.forEach((mapping): void => {
-    ([BOKEH, VEGA] as const).forEach((vendor): void => {
-      const name = mapping[vendor];
-      if (name) {
-        PALETTE_TO_VENDOR_MAP[name] = vendor;
+    ([VENDOR.BOKEH, VENDOR.VEGA, VENDOR.D3] as const).forEach(
+      (vendor): void => {
+        const name = mapping[vendor];
+        if (name) {
+          PALETTE_TO_VENDOR_MAP[name] = vendor;
+        }
       }
-    });
+    );
   });
 });
 
 const PALETTE_DATA: Record<Vendor, Record<string, Record<number, string[]>>> = {
-  [BOKEH]: BOKEH_PALETTE_DATA,
-  [VEGA]: VEGA_PALETTE_DATA
+  [VENDOR.BOKEH]: BOKEH_PALETTE_DATA,
+  [VENDOR.VEGA]: VEGA_PALETTE_DATA,
+  [VENDOR.D3]: D3_PALETTE_DATA
 };
 
 const DOCS_PALETTE_DATA: Record<Vendor, Record<string, string[]>> = {
-  [BOKEH]: BOKEH_DOCS_PALETTE_DATA,
-  [VEGA]: VEGA_DOCS_PALETTE_DATA
+  [VENDOR.BOKEH]: BOKEH_DOCS_PALETTE_DATA,
+  [VENDOR.VEGA]: VEGA_DOCS_PALETTE_DATA,
+  [VENDOR.D3]: D3_DOCS_PALETTE_DATA
 };
 
 /**

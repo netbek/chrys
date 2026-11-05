@@ -10,9 +10,11 @@ import {
   BOKEH_PALETTE_NAMES
 } from '../data/bokeh-palettes.js';
 import {VEGA_PALETTE_DATA, VEGA_PALETTE_NAMES} from '../data/vega-palettes.js';
+import {D3_PALETTE_DATA, D3_PALETTE_NAMES} from '../data/d3-palettes.js';
+import {paletteSassName} from './utils.js';
 
 /**
- * Builds Illustrator swatch files from the Bokeh and Vega palette data.
+ * Builds Illustrator swatch files from the Bokeh, Vega, and D3 palette data.
  *
  * @param {string} destDir Directory to write the swatch files to.
  * @returns {Promise<void>}
@@ -21,7 +23,7 @@ async function buildIllustrator(destDir) {
   const illustratorPalettes = [];
 
   Object.keys(BOKEH_PALETTE_NAMES).forEach((varName) => {
-    const sassName = _.kebabCase(varName);
+    const sassName = paletteSassName(varName);
 
     Object.values(BOKEH_PALETTE_DATA[BOKEH_PALETTE_NAMES[varName]]).forEach(
       (values) => {
@@ -40,9 +42,28 @@ async function buildIllustrator(destDir) {
   });
 
   Object.keys(VEGA_PALETTE_NAMES).forEach((varName) => {
-    const sassName = _.kebabCase(varName);
+    const sassName = paletteSassName(varName);
 
     Object.values(VEGA_PALETTE_DATA[VEGA_PALETTE_NAMES[varName]]).forEach(
+      (values) => {
+        const group = sassName + '-' + values.length;
+
+        illustratorPalettes.push({
+          name: group,
+          colors: values.map((color, index) => ({
+            group: group,
+            name: group + '-' + (index + 1),
+            rgb: chroma(color).rgb()
+          }))
+        });
+      }
+    );
+  });
+
+  Object.keys(D3_PALETTE_NAMES).forEach((varName) => {
+    const sassName = paletteSassName(varName);
+
+    Object.values(D3_PALETTE_DATA[D3_PALETTE_NAMES[varName]]).forEach(
       (values) => {
         const group = sassName + '-' + values.length;
 

@@ -85,7 +85,7 @@ table tbody tr td {
 
 .nb-main {
   margin: 0 auto;
-  max-width: 80em;
+  max-width: 96em;
 }
 
 .nb-legend__gradient {
@@ -110,20 +110,22 @@ table tbody tr td {
 }
 
 .nb-table--palettes tbody tr td:nth-child(1),
+.nb-table--palettes tbody tr td:nth-child(3),
+.nb-table--palettes tbody tr td:nth-child(5) {
+  width: 8%;
+}
+
 .nb-table--palettes tbody tr td:nth-child(2),
 .nb-table--palettes tbody tr td:nth-child(4),
-.nb-table--palettes tbody tr td:nth-child(5) {
-  width: 10%;
-}
-
-.nb-table--palettes tbody tr td:nth-child(3),
 .nb-table--palettes tbody tr td:nth-child(6) {
-  width: 30%;
+  width: 25.3333%;
 }
 
-.nb-table--sequential-palettes tbody tr td:nth-child(3),
+.nb-table--sequential-palettes tbody tr td:nth-child(2),
+.nb-table--sequential-palettes tbody tr td:nth-child(4),
 .nb-table--sequential-palettes tbody tr td:nth-child(6),
-.nb-table--diverging-palettes tbody tr td:nth-child(3),
+.nb-table--diverging-palettes tbody tr td:nth-child(2),
+.nb-table--diverging-palettes tbody tr td:nth-child(4),
 .nb-table--diverging-palettes tbody tr td:nth-child(6) {
   white-space: nowrap;
 }

@@ -1,5 +1,15 @@
 import {describe, expect, test} from 'vitest';
-import {discretePalette, VEGA_ACCENT, VEGA_VIRIDIS} from '..';
+import {
+  BOKEH_ACCENT,
+  D3_ACCENT,
+  D3_BLUES,
+  D3_VIRIDIS,
+  discretePalette,
+  VEGA_ACCENT,
+  VEGA_VIRIDIS
+} from '..';
+import {BOKEH_ACCENT_PALETTE_DATA} from '../palettes/bokeh/accent.js';
+import {D3_ACCENT_DOCS_PALETTE_DATA} from '../palettes/d3/accent.js';
 
 describe('discretePalette', () => {
   test('Should generate a palette with 6 colors if size not given', () => {
@@ -11,6 +21,27 @@ describe('discretePalette', () => {
       '#386cb0',
       '#f0027f'
     ]);
+  });
+
+  test('Should generate a bokeh palette with 6 colors if size not given', () => {
+    expect(discretePalette(BOKEH_ACCENT)).toEqual(BOKEH_ACCENT_PALETTE_DATA[6]);
+  });
+
+  test('Should generate a discrete d3 palette', () => {
+    expect(discretePalette(D3_BLUES, 6)).toEqual([
+      '#eff3ff',
+      '#c6dbef',
+      '#9ecae1',
+      '#6baed6',
+      '#3182bd',
+      '#08519c'
+    ]);
+  });
+
+  test('Should generate a palette below the minimum d3 palette size', () => {
+    expect(discretePalette(D3_ACCENT, 3)).toEqual(
+      D3_ACCENT_DOCS_PALETTE_DATA.slice(0, 3)
+    );
   });
 
   test('Should generate a palette if size given', () => {
@@ -68,5 +99,6 @@ describe('discretePalette', () => {
 
   test('Should clamp to the maximum supported size', () => {
     expect(discretePalette(VEGA_VIRIDIS, 300)).toHaveLength(256);
+    expect(discretePalette(D3_VIRIDIS, 300)).toHaveLength(256);
   });
 });
