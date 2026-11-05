@@ -117,7 +117,7 @@ import {
   VEGA_TURBO
 } from './paletteModules.js';
 
-import {toDiscretePalette} from './toDiscretePalette.js';
+import {toDiscretePalette} from './toDiscretePalette.ts';
 
 export const BOKEH = 'bokeh';
 export const VEGA = 'vega';

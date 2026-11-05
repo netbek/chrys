@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import fs from 'fs-extra';
-import globby from 'globby';
+import {globby} from 'globby';
 import nunjucks from 'nunjucks';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -17,7 +17,7 @@ import {
   docsPalette,
   parsePaletteName,
   discretePalette
-} from '../src/js/index.js';
+} from '../src/js/index.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,7 +28,7 @@ env.addFilter('best_color_contrast', bestColorContrast);
 
 async function buildDemo() {
   const rootPath = path.resolve(__dirname, '..');
-  const demoDest = path.join(rootPath, 'demo');
+  const demoDest = path.join(rootPath, 'dist', 'demo');
 
   const copyFiles = [
     {
@@ -181,4 +181,5 @@ async function buildDemo() {
   await fs.outputFile(path.join(demoDest, 'index.html'), res, 'utf-8');
 }
 
+await fs.remove('dist/demo');
 await buildDemo();
