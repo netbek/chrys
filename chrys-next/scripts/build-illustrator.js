@@ -14,6 +14,12 @@ import {
   VEGA_PALETTE_NAMES
 } from '../../data/vega-palettes.js';
 
+/**
+ * Builds Illustrator swatch files from the Bokeh and Vega palette data.
+ *
+ * @param {string} destDir Directory to write the swatch files to.
+ * @returns {Promise<void>}
+ */
 async function buildIllustrator(destDir) {
   const illustratorPalettes = [];
 

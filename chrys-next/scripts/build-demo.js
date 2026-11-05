@@ -19,6 +19,14 @@ import {
   discretePalette
 } from '../src/js/index.ts';
 
+/**
+ * Copies vendor and demo assets, builds the palette context, and renders the
+ * demo page.
+ *
+ * @param {string} packageDir Package directory containing the demo sources.
+ * @param {string} destDir Directory to write the built demo to.
+ * @returns {Promise<void>}
+ */
 async function buildDemo(packageDir, destDir) {
   const env = new nunjucks.Environment(
     new nunjucks.FileSystemLoader(packageDir)
@@ -78,6 +86,14 @@ async function buildDemo(packageDir, destDir) {
     Object.keys(VEGA_PALETTE_NAMES)
   );
 
+  /**
+   * Builds the demo data for a single palette.
+   *
+   * @param {string} name Palette name.
+   * @param {number[]} [discreteSizes] Sizes of the discrete palettes to build.
+   * @returns {object|undefined} The demo item, or `undefined` if no name is
+   * given.
+   */
   function getItem(name, discreteSizes) {
     if (!name) {
       return undefined;

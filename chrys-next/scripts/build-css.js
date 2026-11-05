@@ -20,6 +20,16 @@ import {
   VEGA_PALETTE_NAMES
 } from '../../data/vega-palettes.js';
 
+/**
+ * Compiles matching SCSS files, runs autoprefixer, and writes both normal and
+ * minified CSS files to the destination directory.
+ *
+ * @param {string} packageDir Package directory used for browserslist lookup.
+ * @param {string} cssSrcDir Directory containing the SCSS source files.
+ * @param {string} pattern Glob pattern selecting the SCSS files to build.
+ * @param {string} destDir Directory to write the compiled CSS files to.
+ * @returns {Promise<void>}
+ */
 async function buildCss(packageDir, cssSrcDir, pattern, destDir) {
   const files = await globby(pattern, {cwd: cssSrcDir});
 
@@ -54,6 +64,12 @@ async function buildCss(packageDir, cssSrcDir, pattern, destDir) {
   }
 }
 
+/**
+ * Generates the `_variables.scss` file from the Bokeh and Vega palette data.
+ *
+ * @param {string} cssSrcDir Directory to write the generated variables file to.
+ * @returns {Promise<void>}
+ */
 function buildSassVars(cssSrcDir) {
   const sassVars = {
     '$chrys-palettes': {}
@@ -95,6 +111,13 @@ function buildSassVars(cssSrcDir) {
   );
 }
 
+/**
+ * Renders a Nunjucks template.
+ *
+ * @param {string} template Path to the template file.
+ * @param {object} context Data to render the template with.
+ * @returns {Promise<string>} The rendered template.
+ */
 function renderTemplate(template, context) {
   return new Promise((resolve, reject) => {
     nunjucks.render(template, context, (err, data) => {
@@ -107,6 +130,14 @@ function renderTemplate(template, context) {
   });
 }
 
+/**
+ * Generates the palette color and background-color SCSS partials from their
+ * Nunjucks templates.
+ *
+ * @param {string} cssSrcDir Directory to write the generated SCSS files to.
+ * @param {string} templatesSrcDir Directory containing the Nunjucks templates.
+ * @returns {Promise<void>}
+ */
 async function buildSassPartials(cssSrcDir, templatesSrcDir) {
   const varNames = [
     ...Object.keys(BOKEH_PALETTE_NAMES),
