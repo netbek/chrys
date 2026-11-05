@@ -19,52 +19,46 @@ import {
   discretePalette
 } from '../src/js/index.ts';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+async function buildDemo(rootDir, destDir) {
+  const env = new nunjucks.Environment(new nunjucks.FileSystemLoader(rootDir));
 
-const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
-
-env.addFilter('best_color_contrast', bestColorContrast);
-
-async function buildDemo() {
-  const rootPath = path.resolve(__dirname, '..');
-  const demoDest = path.join(rootPath, 'dist', 'demo');
+  env.addFilter('best_color_contrast', bestColorContrast);
 
   const copyFiles = [
     {
-      patterns: [path.join(rootPath, 'node_modules/jquery/dist/*.js')],
+      patterns: [path.join(rootDir, 'node_modules/jquery/dist/*.js')],
       base: 'node_modules',
       destBase: 'vendor'
     },
     {
-      patterns: [path.join(rootPath, 'node_modules/normalize-css/*.css')],
+      patterns: [path.join(rootDir, 'node_modules/normalize-css/*.css')],
       base: 'node_modules',
       destBase: 'vendor'
     },
     {
       patterns: [
-        path.join(rootPath, 'node_modules/prismjs/**/*.js'),
-        path.join(rootPath, 'node_modules/prismjs/themes/*.css')
+        path.join(rootDir, 'node_modules/prismjs/**/*.js'),
+        path.join(rootDir, 'node_modules/prismjs/themes/*.css')
       ],
       base: 'node_modules',
       destBase: 'vendor'
     },
     {
-      patterns: [path.join(rootPath, 'node_modules/prism-themes/themes/*.css')],
+      patterns: [path.join(rootDir, 'node_modules/prism-themes/themes/*.css')],
       base: 'node_modules',
       destBase: 'vendor'
     },
     {
-      patterns: [path.join(rootPath, 'css/**/*.css')],
+      patterns: [path.join(rootDir, 'css/**/*.css')],
       base: 'css'
     },
     {
-      patterns: [path.join(rootPath, 'src/demo/**/*.css')],
+      patterns: [path.join(rootDir, 'src/demo/**/*.css')],
       base: 'src/demo',
       destBase: ''
     },
     {
-      patterns: [path.join(rootPath, 'src/demo/**/*.js')],
+      patterns: [path.join(rootDir, 'src/demo/**/*.js')],
       base: 'src/demo',
       destBase: ''
     }
@@ -154,8 +148,8 @@ async function buildDemo() {
     const files = await globby(d.patterns);
 
     for (const file of files) {
-      const x = file.substring(path.join(rootPath, d.base).length);
-      const y = path.join(demoDest, _.get(d, 'destBase', d.base), x);
+      const x = file.substring(path.join(rootDir, d.base).length);
+      const y = path.join(destDir, _.get(d, 'destBase', d.base), x);
       const z = path.dirname(y);
 
       await fs.mkdirp(z);
@@ -164,7 +158,7 @@ async function buildDemo() {
   }
 
   const data = await fs.readFile(
-    path.join(rootPath, 'src/demo/index.njk'),
+    path.join(rootDir, 'src/demo/index.njk'),
     'utf-8'
   );
 
@@ -178,8 +172,13 @@ async function buildDemo() {
     });
   });
 
-  await fs.outputFile(path.join(demoDest, 'index.html'), res, 'utf-8');
+  await fs.outputFile(path.join(destDir, 'index.html'), res, 'utf-8');
 }
 
-await fs.remove('dist/demo');
-await buildDemo();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const rootDir = path.resolve(__dirname, '..');
+const destDir = path.join(rootDir, 'dist/demo');
+
+await fs.remove(destDir);
+await buildDemo(rootDir, destDir);

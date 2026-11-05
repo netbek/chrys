@@ -3,6 +3,7 @@ import {illustratorSwatches} from 'chrys-cli';
 import chroma from 'chroma-js';
 import fs from 'fs-extra';
 import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {config} from '../../config/index.js';
 import {
   BOKEH_PALETTE_DATA,
@@ -13,7 +14,7 @@ import {
   VEGA_PALETTE_NAMES
 } from '../../data/vega-palettes.js';
 
-async function buildIllustrator() {
+async function buildIllustrator(destDir) {
   const illustratorPalettes = [];
 
   Object.keys(BOKEH_PALETTE_NAMES).forEach((varName) => {
@@ -59,11 +60,16 @@ async function buildIllustrator() {
     illustratorConfig.document.mode = 'rgb';
     illustratorConfig.colors = palette.colors;
 
-    const dist = path.resolve('dist/illustrator/' + palette.name + '.js');
+    const dist = path.join(destDir, `${palette.name}.js`);
 
     await illustratorSwatches(illustratorConfig, dist);
   }
 }
 
-await fs.remove('dist/illustrator');
-await buildIllustrator();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const rootDir = path.resolve(__dirname, '..');
+const destDir = path.join(rootDir, 'dist/illustrator');
+
+await fs.remove(destDir);
+await buildIllustrator(destDir);

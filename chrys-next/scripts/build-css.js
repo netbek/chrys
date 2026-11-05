@@ -20,19 +20,17 @@ import {
   VEGA_PALETTE_NAMES
 } from '../../data/vega-palettes.js';
 
-const packageDir = fileURLToPath(new URL('..', import.meta.url));
-
-async function buildCss(srcDir, pattern, destDir) {
-  const files = await globby(pattern, {cwd: srcDir});
+async function buildCss(rootDir, cssSrcDir, pattern, destDir) {
+  const files = await globby(pattern, {cwd: cssSrcDir});
 
   for (const file of files) {
-    let css = (await sass.compileAsync(path.join(srcDir, file), config.sass))
+    let css = (await sass.compileAsync(path.join(cssSrcDir, file), config.sass))
       .css;
 
     css = (
       await postcss([
         autoprefixer({
-          overrideBrowserslist: browserslist(undefined, {path: packageDir})
+          overrideBrowserslist: browserslist(undefined, {path: rootDir})
         })
       ]).process(css, {
         from: undefined,
@@ -56,7 +54,7 @@ async function buildCss(srcDir, pattern, destDir) {
   }
 }
 
-function buildSassVars() {
+function buildSassVars(cssSrcDir) {
   const sassVars = {
     '$chrys-palettes': {}
   };
@@ -90,7 +88,11 @@ function buildSassVars() {
     (value, name) => name + ': ' + convertJs(value) + ';'
   ).join('\n\n');
 
-  return fs.outputFile('src/css/_variables.scss', sassData, 'utf-8');
+  return fs.outputFile(
+    path.join(cssSrcDir, '_variables.scss'),
+    sassData,
+    'utf-8'
+  );
 }
 
 function renderTemplate(template, context) {
@@ -105,7 +107,7 @@ function renderTemplate(template, context) {
   });
 }
 
-async function buildSassPartials() {
+async function buildSassPartials(cssSrcDir, templatesSrcDir) {
   const varNames = [
     ...Object.keys(BOKEH_PALETTE_NAMES),
     ...Object.keys(VEGA_PALETTE_NAMES)
@@ -114,13 +116,13 @@ async function buildSassPartials() {
 
   for (const task of ['background-color', 'color']) {
     const data = await renderTemplate(
-      'src/templates/css/' + task + '.scss.njk',
+      path.join(templatesSrcDir, 'css', `${task}.scss.njk`),
       {
         names: sassNames
       }
     );
 
-    await fs.outputFile('src/css/' + task + '.scss', data, 'utf-8');
+    await fs.outputFile(path.join(cssSrcDir, `${task}.scss`), data, 'utf-8');
   }
 
   const tasks = [];
@@ -131,21 +133,28 @@ async function buildSassPartials() {
 
   for (const task of tasks) {
     const data = await renderTemplate(
-      'src/templates/css/' + task[0] + '/index.scss.njk',
+      path.join(templatesSrcDir, 'css', task[0], 'index.scss.njk'),
       {
         name: task[1]
       }
     );
 
     await fs.outputFile(
-      'src/css/' + task[0] + '/' + task[1] + '.scss',
+      path.join(cssSrcDir, task[0], `${task[1]}.scss`),
       data,
       'utf-8'
     );
   }
 }
 
-await buildSassVars();
-await buildSassPartials();
-await fs.remove('dist/css');
-await buildCss('src/css', '**/!(_)*.scss', 'dist/css');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const rootDir = path.resolve(__dirname, '..');
+const cssSrcDir = path.join(rootDir, 'src/css');
+const templatesSrcDir = path.join(rootDir, 'src/templates');
+const destDir = path.join(rootDir, 'dist/css');
+
+await buildSassVars(cssSrcDir);
+await buildSassPartials(cssSrcDir, templatesSrcDir);
+await fs.remove(destDir);
+await buildCss(rootDir, cssSrcDir, '**/!(_)*.scss', destDir);
