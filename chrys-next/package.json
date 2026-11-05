@@ -107,7 +107,8 @@
     "lint:fix": "oxlint --fix",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test": "npm run generate:palettes && vitest run"
+    "test": "npm run generate:palettes && vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit"
   },
   "devDependencies": {
     "@types/chroma-js": "3.1.3",
