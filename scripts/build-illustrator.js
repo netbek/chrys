@@ -14,7 +14,7 @@ import {D3_PALETTE_DATA, D3_PALETTE_NAMES} from '../data/d3-palettes.js';
 import {paletteSassName} from './utils.js';
 
 /**
- * Builds Illustrator swatch files from the Bokeh, Vega, and d3 palette data.
+ * Builds Illustrator swatch files from the Bokeh, Vega, and D3 palette data.
  *
  * @param {string} destDir Directory to write the swatch files to.
  * @returns {Promise<void>}

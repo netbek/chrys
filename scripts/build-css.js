@@ -64,7 +64,7 @@ async function buildCss(packageDir, cssSrcDir, pattern, destDir) {
 }
 
 /**
- * Generates the `_variables.scss` file from the Bokeh, Vega, and d3 palette data.
+ * Generates the `_variables.scss` file from the Bokeh, Vega, and D3 palette data.
  *
  * @param {string} cssSrcDir Directory to write the generated variables file to.
  * @returns {Promise<void>}
