@@ -4,7 +4,6 @@ import globby from 'globby';
 import nunjucks from 'nunjucks';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import Promise from 'bluebird';
 import {
   BOKEH,
   VEGA,
@@ -27,7 +26,7 @@ const env = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
 
 env.addFilter('best_color_contrast', bestColorContrast);
 
-function buildDemo() {
+async function buildDemo() {
   const rootPath = path.resolve(__dirname, '..');
   const demoDest = path.join(rootPath, 'demo');
 
@@ -151,34 +150,35 @@ function buildDemo() {
     cyclicalPalettes
   };
 
-  return Promise.each(copyFiles, (d) =>
-    globby(d.patterns).then((files) =>
-      Promise.each(files, (file) => {
-        const x = file.substring(path.join(rootPath, d.base).length);
-        const y = path.join(demoDest, _.get(d, 'destBase', d.base), x);
-        const z = path.dirname(y);
+  for (const d of copyFiles) {
+    const files = await globby(d.patterns);
 
-        return fs.mkdirp(z).then(() => fs.copy(file, y));
-      })
-    )
-  )
-    .then(() => fs.readFile(path.join(rootPath, 'src/demo/index.njk'), 'utf-8'))
-    .then(
-      (data) =>
-        new Promise((resolve, reject) => {
-          env.renderString(data, context, (err, res) => {
-            if (err) {
-              reject(err);
-            } else {
-              fs.outputFile(
-                path.join(demoDest, 'index.html'),
-                res,
-                'utf-8'
-              ).then(resolve);
-            }
-          });
-        })
-    );
+    for (const file of files) {
+      const x = file.substring(path.join(rootPath, d.base).length);
+      const y = path.join(demoDest, _.get(d, 'destBase', d.base), x);
+      const z = path.dirname(y);
+
+      await fs.mkdirp(z);
+      await fs.copy(file, y);
+    }
+  }
+
+  const data = await fs.readFile(
+    path.join(rootPath, 'src/demo/index.njk'),
+    'utf-8'
+  );
+
+  const res = await new Promise((resolve, reject) => {
+    env.renderString(data, context, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+
+  await fs.outputFile(path.join(demoDest, 'index.html'), res, 'utf-8');
 }
 
-buildDemo();
+await buildDemo();
