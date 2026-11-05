@@ -36,7 +36,7 @@ export function toDiscretePalette(
   }
 
   if (n > maxSize) {
-    return palette[maxSize];
+    return palette[maxSize].slice(0, n);
   }
 
   if (palette[n]) {
