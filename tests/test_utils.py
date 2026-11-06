@@ -1,74 +1,39 @@
-from chrys.utils import best_color_contrast, score_contrast
+from chrys.utils import best_color_contrast
 
-import matplotlib as mpl
 import pytest
 import unittest
 
 
-class TestScoreContrast(unittest.TestCase):
-    def test_aa_bonus(self):
-        bg = mpl.colors.to_rgb("#ffffff")
-        fg = mpl.colors.to_rgb("#000000")
-
-        self.assertAlmostEqual(score_contrast(bg, fg, False, False), 121.0)
-
-    def test_aaa_bonus(self):
-        bg = mpl.colors.to_rgb("#ffffff")
-        fg = mpl.colors.to_rgb("#000000")
-
-        self.assertAlmostEqual(score_contrast(bg, fg, False, True), 121.0)
-
-    def test_large_text_bonus(self):
-        bg = mpl.colors.to_rgb("#777777")
-        fg = mpl.colors.to_rgb("#ffffff")
-
-        self.assertAlmostEqual(
-            score_contrast(bg, fg, False, False),
-            4.478089453577214,
-            places=6,
-        )
-        self.assertAlmostEqual(
-            score_contrast(bg, fg, True, False),
-            104.47808945357721,
-            places=6,
-        )
-
-    def test_failed_aaa_has_no_bonus(self):
-        bg = mpl.colors.to_rgb("#ffffff")
-        fg = mpl.colors.to_rgb("#777777")
-
-        self.assertAlmostEqual(
-            score_contrast(bg, fg, False, True),
-            4.478089453577214,
-            places=6,
-        )
-
-
 class TestBestColorContrast(unittest.TestCase):
-    def test_black_on_red(self):
-        self.assertEqual(best_color_contrast("#ff0000", ["#000000", "#ffffff"]), "#000000")
+    def test_default_is_apca(self):
+        self.assertEqual(best_color_contrast("#f00", ["#000", "#fff"]), "#fff")
 
-    def test_large_text(self):
-        self.assertEqual(
-            best_color_contrast("#ff0000", ["#000000", "#ffffff"], large=True),
-            "#000000",
-        )
+    def test_explicit_apca(self):
+        self.assertEqual(best_color_contrast("#f00", ["#000", "#fff"], "apca"), "#fff")
 
-    def test_aaa(self):
-        self.assertEqual(
-            best_color_contrast("#ff0000", ["#000000", "#ffffff"], AAA=True),
-            "#000000",
-        )
+    def test_wcag(self):
+        self.assertEqual(best_color_contrast("#f00", ["#000", "#fff"], "wcag"), "#000")
+
+    def test_unknown_algorithm_falls_back_to_wcag(self):
+        self.assertEqual(best_color_contrast("#f00", ["#000", "#fff"], "unknown"), "#000")
 
     def test_tie_returns_first_candidate(self):
-        self.assertEqual(
-            best_color_contrast("#ffffff", ["#000000", "#000000"]),
-            "#000000",
-        )
+        self.assertEqual(best_color_contrast("#fff", ["#000", "#000"]), "#000")
 
-    def test_invalid_color(self):
+    def test_single_candidate_is_returned(self):
+        self.assertEqual(best_color_contrast("#000", ["#010101"]), "#010101")
+
+    def test_absolute_apca_scores_can_differ_from_wcag(self):
+        self.assertEqual(best_color_contrast("#777", ["#fff", "#000"]), "#fff")
+        self.assertEqual(best_color_contrast("#777", ["#fff", "#000"], "wcag"), "#000")
+
+    def test_invalid_background_color(self):
         with pytest.raises(ValueError):
-            best_color_contrast("not-a-color", ["#000000"])
+            best_color_contrast("not-a-color", ["#000"])
+
+    def test_invalid_foreground_color(self):
+        with pytest.raises(ValueError):
+            best_color_contrast("#f00", ["not-a-color"])
 
     def test_empty_foreground_colors(self):
         with pytest.raises(ValueError, match="At least one foreground color is required."):

@@ -6,7 +6,6 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "matplotlib>=3.3.2",
-    "wcag-contrast-ratio>=0.9",
 ]
 
 [dependency-groups]
@@ -14,6 +13,7 @@ dev = [
     "pytest>=8.4.2",
     "pytest-cov>=7.1.0",
     "twine>=6.2.0",
+    "ty>=0.0.95",
 ]
 
 [build-system]
@@ -51,7 +51,17 @@ line-length = 100
 target-version = "py313"
 
 [tool.ruff.lint]
-ignore = ["D100", "D101", "D102", "D103", "D104", "D107", "D205"]
+ignore = [
+    "D100", "D101", "D102", "D103", "D104", "D107", "D205",
+    # Rule is ignored for ruff >= 0.16. TODO Configure isort and ruff to work together.
+    "I001"
+]
+
+[tool.ty.rules]
+invalid-method-override = "ignore" # https://github.com/astral-sh/ty/issues/2154
+
+[tool.ty.src]
+include = ["src", "tests"]
 
 [tool.uv]
 required-version = ">=0.13.4"

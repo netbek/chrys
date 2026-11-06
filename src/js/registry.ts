@@ -44,7 +44,10 @@ import {
   BOKEH_INFERNO,
   BOKEH_MAGMA,
   BOKEH_PLASMA,
-  BOKEH_VIRIDIS,
+  BOKEH_VIRIDIS
+} from './palettes/bokeh/index.js';
+
+import {
   VEGA_PALETTE_DATA,
   VEGA_DOCS_PALETTE_DATA,
   VEGA_CATEGORY_10,
@@ -114,7 +117,10 @@ import {
   VEGA_DARK_RED,
   VEGA_OBSERVABLE_10,
   VEGA_CIVIDIS,
-  VEGA_TURBO,
+  VEGA_TURBO
+} from './palettes/vega/index.js';
+
+import {
   D3_PALETTE_DATA,
   D3_DOCS_PALETTE_DATA,
   D3_ACCENT,
@@ -166,9 +172,7 @@ import {
   D3_MAGMA,
   D3_INFERNO,
   D3_PLASMA
-} from './paletteModules.js';
-
-import {toDiscretePalette} from './toDiscretePalette.ts';
+} from './palettes/d3/index.js';
 
 export const VENDOR = {
   BOKEH: 'bokeh',
@@ -176,7 +180,7 @@ export const VENDOR = {
   D3: 'd3'
 } as const;
 
-type Vendor = (typeof VENDOR)[keyof typeof VENDOR];
+export type Vendor = (typeof VENDOR)[keyof typeof VENDOR];
 
 export const CATEGORICAL_PALETTE_VENDORS = [
   {
@@ -538,7 +542,12 @@ export const CYCLICAL_PALETTE_VENDORS = [
   }
 ];
 
-const PALETTE_TO_VENDOR_MAP: Record<string, Vendor> = {};
+/**
+ * Maps palette names to their vendor.
+ *
+ * @internal
+ */
+export const PALETTE_TO_VENDOR_MAP: Record<string, Vendor> = {};
 [
   DIVERGING_PALETTE_VENDORS,
   CATEGORICAL_PALETTE_VENDORS,
@@ -557,94 +566,27 @@ const PALETTE_TO_VENDOR_MAP: Record<string, Vendor> = {};
   });
 });
 
-const PALETTE_DATA: Record<Vendor, Record<string, Record<number, string[]>>> = {
+/**
+ * Maps vendors to their discrete palette data.
+ *
+ * @internal
+ */
+export const PALETTE_DATA: Record<
+  Vendor,
+  Record<string, Record<number, string[]>>
+> = {
   [VENDOR.BOKEH]: BOKEH_PALETTE_DATA,
   [VENDOR.VEGA]: VEGA_PALETTE_DATA,
   [VENDOR.D3]: D3_PALETTE_DATA
 };
 
-const DOCS_PALETTE_DATA: Record<Vendor, Record<string, string[]>> = {
+/**
+ * Maps vendors to their documentation palette data.
+ *
+ * @internal
+ */
+export const DOCS_PALETTE_DATA: Record<Vendor, Record<string, string[]>> = {
   [VENDOR.BOKEH]: BOKEH_DOCS_PALETTE_DATA,
   [VENDOR.VEGA]: VEGA_DOCS_PALETTE_DATA,
   [VENDOR.D3]: D3_DOCS_PALETTE_DATA
 };
-
-/**
- * Parses a palette name into its vendor and palette components.
- *
- * @param name Palette name, for example `vega_accent`.
- * @returns The vendor and the vendor-specific palette name.
- * @throws If the palette name is not recognized.
- */
-export function parsePaletteName(name: string): {
-  vendor: Vendor;
-  palette: string;
-} {
-  if (!Object.hasOwn(PALETTE_TO_VENDOR_MAP, name)) {
-    throw new Error(`Palette name "${name}" not recognized.`);
-  }
-
-  const vendor = PALETTE_TO_VENDOR_MAP[name];
-  const palette = name.substring(vendor.length + 1);
-
-  return {vendor, palette};
-}
-
-/**
- * Gets the discrete palette data for a palette name.
- *
- * @param name Palette name.
- * @returns Palette sizes mapped to color arrays.
- * @throws If the palette name is not recognized or its data is missing.
- */
-function getPalette(name: string): Record<number, string[]> {
-  const {vendor} = parsePaletteName(name);
-  const palette = PALETTE_DATA[vendor][name];
-
-  if (!palette) {
-    throw new Error(`Palette data for "${name}" not found.`);
-  }
-
-  return palette;
-}
-
-/**
- * Gets the documentation palette for a palette name.
- *
- * @param name Palette name.
- * @returns The documentation palette colors.
- * @throws If the palette name is not recognized or its data is missing.
- */
-function getDocsPalette(name: string): string[] {
-  const {vendor} = parsePaletteName(name);
-  const palette = DOCS_PALETTE_DATA[vendor][name];
-
-  if (!palette) {
-    throw new Error(`Documentation palette data for "${name}" not found.`);
-  }
-
-  return palette;
-}
-
-/**
- * Gets a discrete palette by name.
- *
- * @param name Palette name.
- * @param n Number of colors to return; must be a non-negative integer.
- * @returns The discrete palette colors.
- * @throws If the palette name is not recognized or the size is unsupported.
- */
-export function discretePalette(name: string, n = 6): string[] {
-  return toDiscretePalette(getPalette(name), n);
-}
-
-/**
- * Gets the documentation palette by name.
- *
- * @param name Palette name.
- * @returns A copy of the documentation palette colors.
- * @throws If the palette name is not recognized or its data is missing.
- */
-export function docsPalette(name: string): string[] {
-  return [...getDocsPalette(name)];
-}

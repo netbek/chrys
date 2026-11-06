@@ -1,0 +1,3 @@
+[submodule "vendor/chroma.js"]
+	path = vendor/chroma.js
+	url = https://github.com/gka/chroma.js.git

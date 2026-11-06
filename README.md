@@ -85,6 +85,10 @@ Palettes from:
 - [D3](https://github.com/d3/d3-scale-chromatic) — D3: Copyright (c) 2010-2026 Mike Bostock; ColorBrewer: Copyright 2002 Cynthia Brewer, Mark Harrower, and The Pennsylvania State University ([ISC; ColorBrewer palettes Apache 2.0](https://github.com/d3/d3-scale-chromatic/blob/v3.1.1/LICENSE))
 - [Vega](https://github.com/vega/vega) — Copyright (c) 2015-2023 University of Washington Interactive Data Lab ([BSD 3-Clause](https://github.com/vega/vega/blob/v5.33.1/LICENSE))
 
+WCAG and APCA contrast algorithms from:
+
+- [Chroma.js](https://github.com/gka/chroma.js) — Copyright (c) 2011-2025 Gregor Aisch ([BSD 3-Clause](https://github.com/gka/chroma.js/blob/v3.2.0/LICENSE))
+
 ## License
 
 Copyright (c) 2017 Hein Bekker. Licensed under the BSD 3-Clause License.

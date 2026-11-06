@@ -6,7 +6,7 @@
  * @returns The discrete palette colors.
  * @throws If `n` is invalid or the requested size is unsupported.
  */
-export function toDiscretePalette(
+export default function toDiscretePalette(
   palette: Record<number, string[]>,
   n = 6
 ): string[] {

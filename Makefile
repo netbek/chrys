@@ -12,6 +12,14 @@ endif
 # DEPENDENCY MANAGEMENT
 # ==============================================================================
 
+install:
+	@echo "$(YELLOW)Installing...$(RESET)"
+# 	@./scripts/install-node.sh
+# 	@./scripts/install-python.sh
+# 	@./scripts/install-precommit.sh
+# 	@./scripts/install-skills.sh
+	@./scripts/install-vendor.sh
+
 deps-scan:
 	@echo "$(YELLOW)Scanning root lockfiles for vulnerabilities...$(RESET)"
 	trivy fs pnpm-lock.yaml --table-mode detailed

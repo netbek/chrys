@@ -1,4 +1,4 @@
-import chroma from 'chroma-js';
+import {contrast, contrastAPCA} from 'chroma-js';
 
 const ALGORITHM = {
   APCA: 'apca',
@@ -14,17 +14,21 @@ const ALGORITHM = {
  * @param algorithm Contrast algorithm to use (`apca` or `wcag`).
  * @returns The foreground color with the highest contrast.
  */
-export function bestColorContrast(
+export default function bestColorContrast(
   bgColor: string,
   fgColors: string[],
   algorithm = ALGORITHM.APCA
 ): string {
+  if (fgColors.length === 0) {
+    throw new Error('At least one foreground color is required.');
+  }
+
   let fn;
 
   if (algorithm === ALGORITHM.APCA) {
-    fn = chroma.contrastAPCA;
+    fn = contrastAPCA;
   } else {
-    fn = chroma.contrast;
+    fn = contrast;
   }
 
   const scores = fgColors.map((fgColor): number =>

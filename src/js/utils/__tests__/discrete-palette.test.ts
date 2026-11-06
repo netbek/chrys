@@ -1,15 +1,17 @@
 import {describe, expect, test} from 'vitest';
 import {
   BOKEH_ACCENT,
+  BOKEH_ACCENT_PALETTE_DATA
+} from '../../palettes/bokeh/accent.js';
+import {
   D3_ACCENT,
-  D3_BLUES,
-  D3_VIRIDIS,
-  discretePalette,
-  VEGA_ACCENT,
-  VEGA_VIRIDIS
-} from '..';
-import {BOKEH_ACCENT_PALETTE_DATA} from '../palettes/bokeh/accent.js';
-import {D3_ACCENT_DOCS_PALETTE_DATA} from '../palettes/d3/accent.js';
+  D3_ACCENT_DOCS_PALETTE_DATA
+} from '../../palettes/d3/accent.js';
+import {D3_BLUES} from '../../palettes/d3/blues.js';
+import {D3_VIRIDIS} from '../../palettes/d3/viridis.js';
+import {VEGA_ACCENT} from '../../palettes/vega/accent.js';
+import {VEGA_VIRIDIS} from '../../palettes/vega/viridis.js';
+import discretePalette from '../discrete-palette.js';
 
 describe('discretePalette', () => {
   test('Should generate a palette with 6 colors if size not given', () => {

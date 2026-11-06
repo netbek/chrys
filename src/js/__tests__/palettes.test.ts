@@ -2,16 +2,20 @@ import {describe, expect, test} from 'vitest';
 import {
   BOKEH_DOCS_PALETTE_DATA,
   BOKEH_PALETTE_DATA,
-  BOKEH_PALETTE_NAMES,
+  BOKEH_PALETTE_NAMES
+} from '../palettes/bokeh/index.js';
+import {
   D3_DOCS_PALETTE_DATA,
   D3_PALETTE_DATA,
-  D3_PALETTE_NAMES,
-  parsePaletteName,
+  D3_PALETTE_NAMES
+} from '../palettes/d3/index.js';
+import {
   VEGA_DOCS_PALETTE_DATA,
   VEGA_PALETTE_DATA,
-  VEGA_PALETTE_NAMES,
-  VENDOR
-} from '..';
+  VEGA_PALETTE_NAMES
+} from '../palettes/vega/index.js';
+import {VENDOR} from '../registry.js';
+import parsePaletteName from '../utils/parse-palette-name.js';
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/;
 
@@ -41,13 +45,29 @@ const VENDORS: Array<{
   }
 ];
 
-describe('palette data', () => {
+describe('palettes', () => {
   test('Should have a constant for every discrete and documentation palette', () => {
     for (const {name, data, docs, names} of VENDORS) {
       const constants = Object.values(names).sort();
 
       expect(constants, name).toEqual(Object.keys(data).sort());
       expect(constants, name).toEqual(Object.keys(docs).sort());
+    }
+  });
+
+  test('Should have data, documentation, and a parsable name for every constant', () => {
+    for (const {name: vendor, data, docs, names} of VENDORS) {
+      expect(Object.keys(names).length, vendor).toBeGreaterThan(0);
+
+      for (const [constant, paletteName] of Object.entries(names)) {
+        expect(paletteName.startsWith(`${vendor}_`), constant).toBe(true);
+        expect(data[paletteName], constant).toBeDefined();
+        expect(docs[paletteName], constant).toBeDefined();
+        expect(parsePaletteName(paletteName), constant).toEqual({
+          vendor,
+          palette: paletteName.substring(vendor.length + 1)
+        });
+      }
     }
   });
 

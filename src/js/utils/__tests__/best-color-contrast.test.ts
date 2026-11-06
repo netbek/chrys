@@ -1,5 +1,5 @@
 import {describe, expect, test} from 'vitest';
-import {bestColorContrast} from '../bestColorContrast.ts';
+import bestColorContrast from '../best-color-contrast.ts';
 
 describe('bestColorContrast', () => {
   test('Should choose white on red with the default APCA algorithm', () => {
@@ -31,6 +31,12 @@ describe('bestColorContrast', () => {
   test('Should compare absolute APCA scores, which can differ from WCAG', () => {
     expect(bestColorContrast('#777', ['#fff', '#000'])).toEqual('#fff');
     expect(bestColorContrast('#777', ['#fff', '#000'], 'wcag')).toEqual('#000');
+  });
+
+  test('Should throw an error when no foreground colors are provided', () => {
+    expect(() => bestColorContrast('#f00', [])).toThrow(
+      'At least one foreground color is required.'
+    );
   });
 
   test('Should throw an error for an invalid background color', () => {

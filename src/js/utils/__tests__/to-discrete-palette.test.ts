@@ -1,5 +1,51 @@
+import {readFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
 import {describe, expect, test} from 'vitest';
-import {toDiscretePalette} from '..';
+import {
+  BOKEH_PALETTE_DATA,
+  BOKEH_PALETTE_NAMES
+} from '../../palettes/bokeh/index.js';
+import {
+  BOKEH_VIRIDIS,
+  BOKEH_VIRIDIS_PALETTE_DATA
+} from '../../palettes/bokeh/viridis.js';
+import {D3_PALETTE_DATA, D3_PALETTE_NAMES} from '../../palettes/d3/index.js';
+import {
+  D3_VIRIDIS,
+  D3_VIRIDIS_PALETTE_DATA
+} from '../../palettes/d3/viridis.js';
+import {
+  VEGA_PALETTE_DATA,
+  VEGA_PALETTE_NAMES
+} from '../../palettes/vega/index.js';
+import {
+  VEGA_VIRIDIS,
+  VEGA_VIRIDIS_PALETTE_DATA
+} from '../../palettes/vega/viridis.js';
+import discretePalette from '../discrete-palette.js';
+import toDiscretePalette from '../to-discrete-palette.js';
+
+const VENDORS: Array<{
+  name: string;
+  data: Record<string, Record<number, string[]>>;
+  names: Record<string, string>;
+}> = [
+  {
+    name: 'bokeh',
+    data: BOKEH_PALETTE_DATA,
+    names: BOKEH_PALETTE_NAMES
+  },
+  {
+    name: 'vega',
+    data: VEGA_PALETTE_DATA,
+    names: VEGA_PALETTE_NAMES
+  },
+  {
+    name: 'd3',
+    data: D3_PALETTE_DATA,
+    names: D3_PALETTE_NAMES
+  }
+];
 
 describe('toDiscretePalette', () => {
   test('Should throw an error when the palette is empty', () => {
@@ -12,6 +58,15 @@ describe('toDiscretePalette', () => {
     };
 
     expect(toDiscretePalette(palette)).toEqual(palette[6]);
+  });
+
+  test('Should return the maximum available size when no size is given', () => {
+    expect(
+      toDiscretePalette({
+        1: ['#000000'],
+        2: ['#000000', '#ffffff']
+      })
+    ).toEqual(['#000000', '#ffffff']);
   });
 
   test('Should return the first colors when the requested size is below the minimum', () => {
@@ -125,5 +180,50 @@ describe('toDiscretePalette', () => {
 
   test('Should return an empty palette when size is zero', () => {
     expect(toDiscretePalette({1: ['#000000']}, 0)).toEqual([]);
+  });
+});
+
+describe('toDiscretePalette with per-palette data', () => {
+  test('Should match the registry data for every palette', () => {
+    for (const {name, data, names} of VENDORS) {
+      for (const [constant, paletteName] of Object.entries(names)) {
+        expect(
+          toDiscretePalette(data[paletteName], 6),
+          `${name}: ${constant}`
+        ).toEqual(discretePalette(paletteName, 6));
+      }
+    }
+  });
+
+  test('Should match the registry data for viridis per-palette modules', () => {
+    expect(toDiscretePalette(BOKEH_VIRIDIS_PALETTE_DATA, 6)).toEqual(
+      discretePalette(BOKEH_VIRIDIS, 6)
+    );
+    expect(toDiscretePalette(VEGA_VIRIDIS_PALETTE_DATA, 6)).toEqual(
+      discretePalette(VEGA_VIRIDIS, 6)
+    );
+    expect(toDiscretePalette(D3_VIRIDIS_PALETTE_DATA, 6)).toEqual(
+      discretePalette(D3_VIRIDIS, 6)
+    );
+  });
+});
+
+describe('per-palette modules', () => {
+  test('Should be self-contained', () => {
+    const files = [
+      '../../palettes/bokeh/viridis.js',
+      '../../palettes/vega/viridis.js',
+      '../../palettes/d3/viridis.js'
+    ];
+
+    for (const file of files) {
+      const source = readFileSync(
+        fileURLToPath(new URL(file, import.meta.url)),
+        'utf8'
+      );
+
+      expect(source, file).not.toContain("from '");
+      expect(source.length, file).toBeLessThan(10_000);
+    }
   });
 });
