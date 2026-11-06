@@ -54,6 +54,47 @@ describe('toDiscretePalette', () => {
     expect(palette[2][0]).toEqual('#000000');
   });
 
+  test('Should return a copy for an exact supported size between the minimum and maximum', () => {
+    const palette = {
+      3: ['#000000', '#111111', '#222222'],
+      6: ['#000000', '#111111', '#222222', '#333333', '#444444', '#555555'],
+      9: [
+        '#000000',
+        '#111111',
+        '#222222',
+        '#333333',
+        '#444444',
+        '#555555',
+        '#666666',
+        '#777777',
+        '#888888'
+      ]
+    };
+    const colors = toDiscretePalette(palette, 6);
+
+    expect(colors).not.toBe(palette[6]);
+
+    colors[0] = '#ffffff';
+
+    expect(colors).toHaveLength(6);
+    expect(palette[6][0]).toEqual('#000000');
+  });
+
+  test('Should return the maximum palette when the requested size equals the maximum', () => {
+    const palette = {
+      2: ['#000000', '#111111'],
+      4: ['#000000', '#111111', '#222222', '#333333']
+    };
+
+    expect(toDiscretePalette(palette, 4)).toEqual(palette[4]);
+  });
+
+  test('Should list the supported sizes in ascending order in the error', () => {
+    expect(() =>
+      toDiscretePalette({6: ['#000000'], 1: ['#000000']}, 3)
+    ).toThrow('Unsupported palette size 3. Supported sizes: 1, 6.');
+  });
+
   test('Should throw an error for a size between non-contiguous palette sizes', () => {
     const palette = {
       1: ['#000000'],
