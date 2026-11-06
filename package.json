@@ -129,6 +129,7 @@
   },
   "devDependencies": {
     "@bokeh/bokehjs": "2.4.3",
+    "@netbek/skills-manager": "0.2.1",
     "@types/chroma-js": "3.1.3",
     "@types/node": "26.6.6",
     "@vitest/coverage-v8": "5.0.5",

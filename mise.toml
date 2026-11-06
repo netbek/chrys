@@ -15,6 +15,9 @@ python.uv_venv_auto = "create|source"
 
 [env]
 _.path = ["{{config_root}}/node_modules/.bin"]
+DO_NOT_TRACK = "1"
+# https://github.com/vercel-labs/skills/blob/v1.5.16/README.md#environment-variables
+DISABLE_TELEMETRY = "1"
 
 [hooks.enter]
 run = """
