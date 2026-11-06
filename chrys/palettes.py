@@ -597,6 +597,24 @@ D3_CONTINUOUS_PALETTE_NAMES = [
     if [x for x in list(palette.keys()) if x == 256]
 ]
 
+PALETTE_DATA = {
+    Vendor.BOKEH: BOKEH_PALETTE_DATA,
+    Vendor.VEGA: VEGA_PALETTE_DATA,
+    Vendor.D3: D3_PALETTE_DATA,
+}
+
+DOCS_PALETTE_DATA = {
+    Vendor.BOKEH: BOKEH_DOCS_PALETTE_DATA,
+    Vendor.VEGA: VEGA_DOCS_PALETTE_DATA,
+    Vendor.D3: D3_DOCS_PALETTE_DATA,
+}
+
+CONTINUOUS_PALETTE_NAMES = {
+    Vendor.BOKEH: BOKEH_CONTINUOUS_PALETTE_NAMES,
+    Vendor.VEGA: VEGA_CONTINUOUS_PALETTE_NAMES,
+    Vendor.D3: D3_CONTINUOUS_PALETTE_NAMES,
+}
+
 
 PaletteName = namedtuple("PaletteName", ["vendor", "palette"])
 
@@ -614,40 +632,24 @@ def parse_palette_name(name):
 def _get_palette(name):
     vendor, _ = parse_palette_name(name)
 
-    if vendor == Vendor.BOKEH:
-        return BOKEH_PALETTE_DATA[name]
-    elif vendor == Vendor.VEGA:
-        return VEGA_PALETTE_DATA[name]
-    elif vendor == Vendor.D3:
-        return D3_PALETTE_DATA[name]
-    else:
-        raise ValueError(f'Vendor "{vendor}" not recognized')
+    return PALETTE_DATA[vendor][name]
 
 
 def _get_docs_palette(name):
     vendor, _ = parse_palette_name(name)
 
-    if vendor == Vendor.BOKEH:
-        return BOKEH_DOCS_PALETTE_DATA[name]
-    elif vendor == Vendor.VEGA:
-        return VEGA_DOCS_PALETTE_DATA[name]
-    elif vendor == Vendor.D3:
-        return D3_DOCS_PALETTE_DATA[name]
-    else:
-        raise ValueError(f'Vendor "{vendor}" not recognized')
+    return DOCS_PALETTE_DATA[vendor][name]
 
 
 def _is_continuous(name):
     vendor, _ = parse_palette_name(name)
 
-    if vendor == Vendor.BOKEH:
-        return name in BOKEH_CONTINUOUS_PALETTE_NAMES
-    elif vendor == Vendor.VEGA:
-        return name in VEGA_CONTINUOUS_PALETTE_NAMES
-    elif vendor == Vendor.D3:
-        return name in D3_CONTINUOUS_PALETTE_NAMES
-    else:
-        raise ValueError(f'Vendor "{vendor}" not recognized')
+    return name in CONTINUOUS_PALETTE_NAMES[vendor]
+
+
+def _validate_palette_size(n):
+    if not isinstance(n, int) or isinstance(n, bool) or n < 0:
+        raise ValueError(f"Palette size must be a non-negative integer, got {n}.")
 
 
 def to_discrete_palette(palette, n=6, as_rgb=False):
@@ -668,9 +670,28 @@ def to_discrete_palette(palette, n=6, as_rgb=False):
     list[str]
         A list of RGB hex color strings or RGB tuples.
     """
-    sizes = list(palette.keys())
-    n_clamped = min(max(sizes), max(min(sizes), n))
-    result = palette[n_clamped][:n]
+    _validate_palette_size(n)
+
+    if n == 0:
+        return []
+
+    sizes = sorted(palette)
+
+    if not sizes:
+        raise ValueError("Palette is empty.")
+
+    min_size = sizes[0]
+    max_size = sizes[-1]
+
+    if n <= min_size:
+        result = palette[min_size][:n]
+    elif n > max_size:
+        result = palette[max_size][:n]
+    elif n in palette:
+        result = palette[n][:n]
+    else:
+        supported = ", ".join(str(size) for size in sizes)
+        raise ValueError(f"Unsupported palette size {n}. Supported sizes: {supported}.")
 
     if as_rgb:
         result = [mpl.colors.to_rgb(color) for color in result]
@@ -698,10 +719,12 @@ def to_continuous_palette(palette, n=6, as_rgb=False):
 
     Adapted from Bokeh 1.3.4 https://bokeh.org (BSD-3-Clause)
     """
+    _validate_palette_size(n)
+
     if n > len(palette):
         raise ValueError(
             "Requested %(r)s colors, function can only return colors up to the base palette's"
-            "length (%(l)s)" % dict(r=n, l=len(palette))
+            " length (%(l)s)" % dict(r=n, l=len(palette))
         )
 
     if n == 1:
@@ -732,6 +755,6 @@ def docs_palette(name, as_rgb=False):
     result = _get_docs_palette(name)
 
     if as_rgb:
-        result = [mpl.colors.to_rgb(color) for color in result]
+        return [mpl.colors.to_rgb(color) for color in result]
 
-    return result
+    return list(result)

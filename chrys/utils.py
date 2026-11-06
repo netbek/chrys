@@ -31,6 +31,9 @@ def best_color_contrast(bg_color, fg_colors, large=False, AAA=False):
     -------
     Text color in hexadecimal format.
     """
+    if not fg_colors:
+        raise ValueError("At least one foreground color is required.")
+
     bg_rgb = mpl.colors.to_rgb(bg_color)
     scores = [score_contrast(bg_rgb, mpl.colors.to_rgb(x), large, AAA) for x in fg_colors]
 

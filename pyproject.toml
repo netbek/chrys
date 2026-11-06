@@ -41,8 +41,7 @@ omit = ["chrys/data/*"]
 [tool.coverage.report]
 show_missing = true
 skip_covered = true
-# TODO: Raise to 100 once the missing Python tests are added.
-fail_under = 69
+fail_under = 100
 
 [tool.coverage.html]
 directory = "coverage/python"
