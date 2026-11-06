@@ -33,6 +33,20 @@ python_files = ["test_*.py"]
 python_functions = ["test_*"]
 testpaths = ["tests"]
 
+[tool.coverage.run]
+branch = true
+source = ["chrys"]
+omit = ["chrys/data/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+# TODO: Raise to 100 once the missing Python tests are added.
+fail_under = 69
+
+[tool.coverage.html]
+directory = "coverage/python"
+
 [tool.ruff]
 line-length = 100
 target-version = "py313"

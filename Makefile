@@ -116,7 +116,12 @@ lint:
 	pre-commit run ruff-check --hook-stage manual --all-files
 
 test:
-	vitest run
+	pnpm run test
+	uv run pytest
+
+test-coverage:
+	pnpm run test:coverage
+	uv run pytest --cov=chrys --cov-report=term-missing --cov-report=html
 
 # ==============================================================================
 # PUBLISH
