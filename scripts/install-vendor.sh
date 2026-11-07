@@ -32,6 +32,8 @@ install_vendor() {
     git submodule update --init --recursive
 
     checkout_tag vendor/chroma.js v3.2.0
+    checkout_tag vendor/color.js v0.7.1
+    checkout_tag vendor/coloraide 8.13.1
 
     echo "${GREEN}Vendor submodules ready (checkout only, nothing staged).${RESET}"
 }

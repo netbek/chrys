@@ -33,6 +33,12 @@ describe('bestColorContrast', () => {
     expect(bestColorContrast('#777', ['#fff', '#000'], 'wcag')).toEqual('#000');
   });
 
+  test('Should pass the foreground as the APCA text color', () => {
+    expect(bestColorContrast('#2aabee', ['#000', '#fff'])).toEqual('#fff');
+    expect(bestColorContrast('#cf9275', ['#000', '#fff'])).toEqual('#fff');
+    expect(bestColorContrast('#31b57b', ['#000', '#fff'])).toEqual('#fff');
+  });
+
   test('Should throw an error when no foreground colors are provided', () => {
     expect(() => bestColorContrast('#f00', [])).toThrow(
       'At least one foreground color is required.'

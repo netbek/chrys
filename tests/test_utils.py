@@ -76,6 +76,11 @@ class TestBestColorContrast(unittest.TestCase):
         self.assertEqual(best_color_contrast("#777", ["#fff", "#000"]), "#fff")
         self.assertEqual(best_color_contrast("#777", ["#fff", "#000"], "wcag"), "#000")
 
+    def test_apca_uses_foreground_as_text(self):
+        self.assertEqual(best_color_contrast("#2aabee", ["#000", "#fff"]), "#fff")
+        self.assertEqual(best_color_contrast("#cf9275", ["#000", "#fff"]), "#fff")
+        self.assertEqual(best_color_contrast("#31b57b", ["#000", "#fff"]), "#fff")
+
     def test_invalid_background_color(self):
         with pytest.raises(ValueError, match='Invalid color "not-a-color".'):
             best_color_contrast("not-a-color", ["#000"])

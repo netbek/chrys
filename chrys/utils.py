@@ -45,6 +45,7 @@ class ParsedPaletteName(NamedTuple):
     palette: str
 
 
+# Contrast algorithms: APCA 0.0.98G-4g and WCAG 2.0, ported from chroma.js 3.2.0.
 class Algorithm(StrEnum):
     """Contrast algorithm."""
 
@@ -72,7 +73,8 @@ def best_color_contrast(
         raise ValueError("At least one foreground color is required.")
 
     score = contrast_apca if algorithm == Algorithm.APCA else contrast
-    scores = [abs(score(bg_color, fg_color)) for fg_color in fg_colors]
+    # APCA is polarity-sensitive: the foreground is the text color.
+    scores = [abs(score(fg_color, bg_color)) for fg_color in fg_colors]
     max_score = max(scores)
     max_score_index = scores.index(max_score)
 
