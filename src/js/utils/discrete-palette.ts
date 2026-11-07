@@ -1,5 +1,6 @@
 import {getPalette} from './get-palette.ts';
 import toDiscretePalette from './to-discrete-palette.ts';
+import type {HexColors} from '../types.ts';
 
 /**
  * Gets a discrete palette by name.
@@ -9,6 +10,6 @@ import toDiscretePalette from './to-discrete-palette.ts';
  * @returns The discrete palette colors.
  * @throws If the palette name is not recognized or the size is unsupported.
  */
-export default function discretePalette(name: string, n = 6): string[] {
+export default function discretePalette(name: string, n = 6): HexColors {
   return toDiscretePalette(getPalette(name), n);
 }

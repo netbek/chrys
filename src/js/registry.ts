@@ -170,6 +170,7 @@ import {
   D3_INFERNO,
   D3_PLASMA
 } from './palettes/d3/index.js';
+import type {Palette} from './types.ts';
 
 export const VENDOR = {
   BOKEH: 'bokeh',
@@ -568,10 +569,7 @@ export const PALETTE_TO_VENDOR_MAP: Record<string, Vendor> = {};
  *
  * @internal
  */
-export const PALETTE_DATA: Record<
-  Vendor,
-  Record<string, Record<number, string[]>>
-> = {
+export const PALETTE_DATA: Record<Vendor, Record<string, Palette>> = {
   [VENDOR.BOKEH]: BOKEH_PALETTE_DATA,
   [VENDOR.VEGA]: VEGA_PALETTE_DATA,
   [VENDOR.D3]: D3_PALETTE_DATA

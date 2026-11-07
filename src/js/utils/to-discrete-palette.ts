@@ -1,3 +1,5 @@
+import type {HexColors, Palette} from '../types.ts';
+
 /**
  * Converts a palette to a discrete palette with at most `n` colors.
  *
@@ -6,10 +8,7 @@
  * @returns The discrete palette colors.
  * @throws If `n` is invalid or the requested size is unsupported.
  */
-export default function toDiscretePalette(
-  palette: Record<number, string[]>,
-  n = 6
-): string[] {
+export default function toDiscretePalette(palette: Palette, n = 6): HexColors {
   if (!Number.isInteger(n) || n < 0) {
     throw new RangeError(
       `Palette size must be a non-negative integer, got ${n}.`
