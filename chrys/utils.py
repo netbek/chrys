@@ -88,7 +88,7 @@ def parse_palette_name(name: QualifiedPaletteName) -> ParsedPaletteName:
         ValueError: If the qualified palette name is not recognized.
     """
     if name not in PALETTE_TO_VENDOR_MAP:
-        raise ValueError(f'Palette name "{name}" not recognized')
+        raise ValueError(f'Palette name "{name}" not recognized.')
 
     vendor = PALETTE_TO_VENDOR_MAP[name]
     palette = name[len(vendor) + 1 :]
@@ -106,11 +106,14 @@ def _get_palette(name: QualifiedPaletteName) -> Palette:
         Palette sizes mapped to color arrays.
 
     Raises:
-        KeyError: If the palette data is missing.
+        ValueError: If the qualified palette name is not recognized or the palette data is missing.
     """
     vendor, _ = parse_palette_name(name)
 
-    return PALETTE_DATA[vendor][name]
+    try:
+        return PALETTE_DATA[vendor][name]
+    except KeyError:
+        raise ValueError(f'Palette data for "{name}" not found.') from None
 
 
 def _is_continuous(name: QualifiedPaletteName) -> bool:
