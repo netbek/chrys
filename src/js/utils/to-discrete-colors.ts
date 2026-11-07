@@ -31,15 +31,17 @@ export default function toDiscreteColors(palette: Palette, n = 6): HexColors {
   const maxSize = sizes[sizes.length - 1];
 
   if (n <= minSize) {
-    return palette[minSize].slice(0, n);
+    return palette[minSize]!.slice(0, n);
   }
 
   if (n > maxSize) {
-    return palette[maxSize].slice(0, n);
+    return palette[maxSize]!.slice(0, n);
   }
 
-  if (palette[n]) {
-    return palette[n].slice(0, n);
+  const colors = palette[n];
+
+  if (colors) {
+    return colors.slice(0, n);
   }
 
   throw new RangeError(

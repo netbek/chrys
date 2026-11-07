@@ -5,7 +5,7 @@ export type HexColor = string;
 export type HexColors = HexColor[];
 
 /** Palette sizes mapped to color arrays. */
-export type Palette = Record<number, HexColors>;
+export type Palette = Partial<Record<number, HexColors>>;
 
 /** An RGB color as red, green, and blue channels. */
 export type RGBColor = readonly [number, number, number];
