@@ -153,7 +153,7 @@ npm install chrys
             <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
 
             <pre><code class="language-javascript">
-import {VEGA_ACCENT, getPaletteColors} from 'chrys/umd';
+import {VEGA_ACCENT, getPaletteColors} from 'chrys';
 
 const colors = getPaletteColors(VEGA_ACCENT, 5);
             </code></pre>
@@ -222,7 +222,7 @@ const colors = toDiscreteColors(BOKEH_VIRIDIS_PALETTE_DATA, 6);
             <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
 
             <pre><code class="language-javascript">
-import {VEGA_PALETTE_NAMES} from 'chrys/umd';
+import {VEGA_PALETTE_NAMES} from 'chrys';
 
 const variables = Object.keys(VEGA_PALETTE_NAMES);
 const names = Object.values(VEGA_PALETTE_NAMES);
@@ -259,7 +259,7 @@ names = VEGA_PALETTE_NAMES.values()
             <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
 
             <pre><code class="language-javascript">
-import {VEGA_ACCENT, parsePaletteName} from 'chrys/umd';
+import {VEGA_ACCENT, parsePaletteName} from 'chrys';
 
 parsePaletteName(VEGA_ACCENT);
             </code></pre>
@@ -273,7 +273,8 @@ parsePaletteName(VEGA_ACCENT);
             <h1><svg width="16" height="16"><use href="#logo-python" /></svg> Python</h1>
 
             <pre><code class="language-python">
-from chrys.palettes import VEGA_CATEGORY_10, parse_palette_name
+from chrys.palettes import VEGA_CATEGORY_10
+from chrys.utils import parse_palette_name
 
 vendor, name = parse_palette_name(VEGA_CATEGORY_10)
             </code></pre>
