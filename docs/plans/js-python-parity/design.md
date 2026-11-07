@@ -159,7 +159,7 @@ src/js/index      chrys/__init__.py
 
 ### D6: Use one validation and error contract
 
-**Decision.** Both packages validate palette sizes as finite numbers with zero fractional part; booleans, negative values, `NaN`, and infinities are rejected. Both reject an empty foreground list, an unknown contrast algorithm, an empty palette, an unknown palette name, missing palette data, and missing documentation data with the canonical messages in the error reference. Unknown options fields and invalid option values are also rejected. JavaScript uses `RangeError` for size and count violations and `Error` for catalog, options, and color errors; Python uses `ValueError`.
+**Decision.** Both packages validate palette sizes as finite numbers with zero fractional part; booleans, negative values, `NaN`, and infinities are rejected. Both reject an empty foreground list, an unknown contrast algorithm, an empty palette, an unknown vendor, an unknown palette name, empty palette data, and missing documentation data with the canonical messages in the error reference. Unknown options fields and invalid option values are also rejected. JavaScript uses `RangeError` for size and count violations and `Error` subclasses for catalog, options, and color errors; Python uses `ValueError` subclasses.
 
 **Rationale.** Canonical messages make parity failures readable and prevent one implementation from silently falling back to another algorithm or leaking a raw lookup error.
 
@@ -175,7 +175,7 @@ src/js/index      chrys/__init__.py
 
 ## Error reference
 
-The spec defers message wording to this table. Strings use angle-bracket tokens such as `<n>` for runtime values. The spec's size-validation, empty-palette, unsupported-continuous, too-many-colors, unknown-palette, missing-palette-data, and missing-documentation references map to the rows below in that order.
+The spec defers message wording to this table. Strings use angle-bracket tokens such as `<n>` for runtime values. The spec's size-validation, empty-palette, unsupported-continuous, too-many-colors, vendor-not-found, unknown-palette, empty-palette-data, and missing-documentation references map to the rows below in that order.
 
 | Condition | Canonical message | JavaScript error | Python error |
 |-----------|-------------------|------------------|--------------|
@@ -184,8 +184,9 @@ The spec defers message wording to this table. Strings use angle-bracket tokens 
 | Palette has no sizes | `Palette is empty.` | `Error` | `ValueError` |
 | Continuous count exceeds source length | `Requested <n> colors, function can only return colors up to the base palette's length (<length>).` | `RangeError` | `ValueError` |
 | Palette has no continuous source | `Generating continuous palettes of "<name>" is not supported.` | `Error` | `ValueError` |
-| Palette name is not in the catalog | `Palette name "<name>" not recognized.` | `Error` | `ValueError` |
-| Discrete palette data is missing | `Palette data for "<name>" not found.` | `Error` | `ValueError` |
+| Vendor is not in the catalog | `Vendor "<vendor>" not found.` | `VendorNotFoundError` | `VendorNotFoundError` |
+| Palette name is not in the catalog | `Palette "<name>" not found.` | `PaletteNotFoundError` | `PaletteNotFoundError` |
+| Discrete palette data is empty | `Palette data for "<name>" is empty.` | `PaletteDataEmptyError` | `PaletteDataEmptyError` |
 | Documentation palette data is missing | `Documentation palette data for "<name>" not found.` | `Error` | `ValueError` |
 | Foreground candidate list is empty | `At least one foreground color is required.` | `Error` | `ValueError` |
 | Contrast algorithm is not APCA or WCAG | `Contrast algorithm "<algorithm>" not recognized.` | `Error` | `ValueError` |

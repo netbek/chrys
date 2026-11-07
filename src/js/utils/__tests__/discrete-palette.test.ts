@@ -1,4 +1,5 @@
 import {describe, expect, test} from 'vitest';
+import {PaletteNotFoundError} from '../../errors.js';
 import {
   BOKEH_ACCENT,
   BOKEH_ACCENT_PALETTE_DATA
@@ -74,7 +75,10 @@ describe('discretePalette', () => {
 
   test('Should throw an error for an invalid palette name', () => {
     expect(() => discretePalette('lorem ipsum')).toThrow(
-      'Palette name "lorem ipsum" not recognized'
+      PaletteNotFoundError
+    );
+    expect(() => discretePalette('lorem ipsum')).toThrow(
+      'Palette "lorem ipsum" not found.'
     );
   });
 

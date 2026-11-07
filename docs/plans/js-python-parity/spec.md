@@ -330,7 +330,13 @@ Both packages SHALL reject invalid colors and invalid contrast options with an e
 
 ### Requirement: Palette name and data errors
 
-Both packages SHALL reject unrecognized palette names and missing palette data with the same message wording.
+Both packages SHALL reject unrecognized vendors, unrecognized palette names, and empty palette data with the same message wording.
+
+#### Scenario: Unrecognized vendor
+
+- **WHEN** a palette operation receives a name whose vendor prefix is not in the catalog
+- **THEN** both packages raise an error
+- **AND** the error uses the vendor-not-found wording in the design error reference
 
 #### Scenario: Unrecognized palette name
 
@@ -338,11 +344,11 @@ Both packages SHALL reject unrecognized palette names and missing palette data w
 - **THEN** both packages raise an error
 - **AND** the error uses the unknown-palette wording in the design error reference
 
-#### Scenario: Missing discrete palette data
+#### Scenario: Empty discrete palette data
 
-- **WHEN** a recognized palette name has no discrete data in the catalog
+- **WHEN** a recognized palette name has empty discrete data in the catalog
 - **THEN** both packages raise an error
-- **AND** the error uses the missing-palette-data wording in the design error reference
+- **AND** the error uses the empty-palette-data wording in the design error reference
 
 #### Scenario: Missing documentation palette data
 

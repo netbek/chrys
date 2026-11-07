@@ -1,4 +1,8 @@
 import {describe, expect, test} from 'vitest';
+import {
+  PaletteNotFoundError,
+  VendorNotFoundError
+} from '../../errors.js';
 import {BOKEH_ACCENT} from '../../palettes/bokeh/accent.js';
 import {BOKEH_PALETTE_NAMES} from '../../palettes/bokeh/index.js';
 import {D3_ACCENT} from '../../palettes/d3/accent.js';
@@ -38,24 +42,41 @@ describe('parsePaletteName', () => {
     });
   });
 
-  test('Should throw an error for an invalid palette name', () => {
+  test('Should throw an error for a name without a vendor separator', () => {
     expect(() => parsePaletteName('lorem ipsum')).toThrow(
-      'Palette name "lorem ipsum" not recognized.'
+      PaletteNotFoundError
+    );
+    expect(() => parsePaletteName('lorem ipsum')).toThrow(
+      'Palette "lorem ipsum" not found.'
     );
   });
 
   test('Should throw an error for an unknown vendor', () => {
     expect(() => parsePaletteName('unknown_accent')).toThrow(
-      'Palette name "unknown_accent" not recognized.'
+      VendorNotFoundError
+    );
+    expect(() => parsePaletteName('unknown_accent')).toThrow(
+      'Vendor "unknown" not found.'
     );
   });
 
   test('Should throw an error for a vendor without a palette', () => {
+    expect(() => parsePaletteName('vega')).toThrow(PaletteNotFoundError);
     expect(() => parsePaletteName('vega')).toThrow(
-      'Palette name "vega" not recognized.'
+      'Palette "vega" not found.'
     );
+    expect(() => parsePaletteName('vega_')).toThrow(PaletteNotFoundError);
     expect(() => parsePaletteName('vega_')).toThrow(
-      'Palette name "vega_" not recognized.'
+      'Palette "vega_" not found.'
+    );
+  });
+
+  test('Should throw an error for a known vendor with an unknown palette', () => {
+    expect(() => parsePaletteName('vega_unknown')).toThrow(
+      PaletteNotFoundError
+    );
+    expect(() => parsePaletteName('vega_unknown')).toThrow(
+      'Palette "vega_unknown" not found.'
     );
   });
 });

@@ -1,4 +1,9 @@
 from chrys.chroma_js import contrast, contrast_apca
+from chrys.exceptions import (
+    PaletteDataEmptyError,
+    PaletteNotFoundError,
+    VendorNotFoundError,
+)
 from chrys.palettes import (
     CONTINUOUS_PALETTE_NAMES,
     PALETTE_DATA,
@@ -85,10 +90,21 @@ def parse_palette_name(name: QualifiedPaletteName) -> ParsedPaletteName:
         The parsed palette name: the vendor and its vendor-specific palette name.
 
     Raises:
-        ValueError: If the qualified palette name is not recognized.
+        VendorNotFoundError: If the qualified palette name has an unknown vendor.
+        PaletteNotFoundError: If the qualified palette name is not recognized.
     """
     if name not in PALETTE_TO_VENDOR_MAP:
-        raise ValueError(f'Palette name "{name}" not recognized.')
+        vendor_name, separator, _ = name.partition("_")
+
+        if not separator:
+            raise PaletteNotFoundError(name)
+
+        try:
+            Vendor(vendor_name)
+        except ValueError:
+            raise VendorNotFoundError(vendor_name) from None
+
+        raise PaletteNotFoundError(name)
 
     vendor = PALETTE_TO_VENDOR_MAP[name]
     palette = name[len(vendor) + 1 :]
@@ -106,14 +122,26 @@ def _get_palette(name: QualifiedPaletteName) -> Palette:
         Palette sizes mapped to color arrays.
 
     Raises:
-        ValueError: If the qualified palette name is not recognized or the palette data is missing.
+        VendorNotFoundError: If the vendor is not found.
+        PaletteNotFoundError: If the palette is not found.
+        PaletteDataEmptyError: If the palette data is empty.
     """
     vendor, _ = parse_palette_name(name)
 
     try:
-        return PALETTE_DATA[vendor][name]
+        vendor_palettes = PALETTE_DATA[vendor]
     except KeyError:
-        raise ValueError(f'Palette data for "{name}" not found.') from None
+        raise VendorNotFoundError(vendor) from None
+
+    try:
+        palette = vendor_palettes[name]
+    except KeyError:
+        raise PaletteNotFoundError(name) from None
+
+    if not palette:
+        raise PaletteDataEmptyError(name)
+
+    return palette
 
 
 def _is_continuous(name: QualifiedPaletteName) -> bool:
@@ -126,7 +154,8 @@ def _is_continuous(name: QualifiedPaletteName) -> bool:
         Whether the palette is continuous.
 
     Raises:
-        ValueError: If the qualified palette name is not recognized.
+        VendorNotFoundError: If the qualified palette name has an unknown vendor.
+        PaletteNotFoundError: If the qualified palette name is not recognized.
     """
     vendor, _ = parse_palette_name(name)
 
@@ -244,8 +273,10 @@ def discrete_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fals
         ``as_rgb`` is true.
 
     Raises:
-        ValueError: If the qualified palette name is not recognized, ``n`` is invalid, or the
-            requested size is unsupported.
+        VendorNotFoundError: If the qualified palette name has an unknown vendor.
+        PaletteNotFoundError: If the qualified palette name is not recognized.
+        PaletteDataEmptyError: If the palette data is empty.
+        ValueError: If ``n`` is invalid or the requested size is unsupported.
     """
     return to_discrete_palette(_get_palette(name), n=n, as_rgb=as_rgb)
 
@@ -263,8 +294,11 @@ def continuous_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fa
         ``as_rgb`` is true.
 
     Raises:
-        ValueError: If the qualified palette name is not recognized, the palette does not support
-            continuous generation, or ``n`` exceeds the base palette's length.
+        VendorNotFoundError: If the qualified palette name has an unknown vendor.
+        PaletteNotFoundError: If the qualified palette name is not recognized.
+        PaletteDataEmptyError: If the palette data is empty.
+        ValueError: If the palette does not support continuous generation or ``n`` exceeds the
+            base palette's length.
     """
     if not _is_continuous(name):
         raise ValueError(f'Generating continuous palettes of "{name}" is not supported')

@@ -1,6 +1,11 @@
 from chrys.data.bokeh_palettes import BOKEH_PALETTE_NAMES
 from chrys.data.d3_palettes import D3_PALETTE_NAMES
 from chrys.data.vega_palettes import VEGA_PALETTE_NAMES
+from chrys.exceptions import (
+    PaletteDataEmptyError,
+    PaletteNotFoundError,
+    VendorNotFoundError,
+)
 from chrys.palettes import (
     BOKEH_ACCENT,
     BOKEH_PALETTE_DATA,
@@ -101,19 +106,23 @@ class TestParsePaletteName(unittest.TestCase):
         )
 
     def test_invalid_name(self):
-        with pytest.raises(ValueError, match='Palette name "lorem ipsum" not recognized.'):
+        with pytest.raises(PaletteNotFoundError, match='Palette "lorem ipsum" not found.'):
             parse_palette_name("lorem ipsum")
 
     def test_unknown_vendor(self):
-        with pytest.raises(ValueError, match='Palette name "unknown_accent" not recognized.'):
+        with pytest.raises(VendorNotFoundError, match='Vendor "unknown" not found.'):
             parse_palette_name("unknown_accent")
 
     def test_vendor_without_palette(self):
-        with pytest.raises(ValueError, match='Palette name "vega" not recognized.'):
+        with pytest.raises(PaletteNotFoundError, match='Palette "vega" not found.'):
             parse_palette_name("vega")
 
-        with pytest.raises(ValueError, match='Palette name "vega_" not recognized.'):
+        with pytest.raises(PaletteNotFoundError, match='Palette "vega_" not found.'):
             parse_palette_name("vega_")
+
+    def test_known_vendor_with_unknown_palette(self):
+        with pytest.raises(PaletteNotFoundError, match='Palette "vega_unknown" not found.'):
+            parse_palette_name("vega_unknown")
 
 
 class TestPaletteNameMaps(unittest.TestCase):
@@ -143,13 +152,38 @@ class TestGetPalette(unittest.TestCase):
         self.assertEqual(_get_palette(VEGA_ACCENT), VEGA_PALETTE_DATA[VEGA_ACCENT])
 
     def test_invalid_name(self):
-        with pytest.raises(ValueError, match='Palette name "lorem ipsum" not recognized.'):
+        with pytest.raises(PaletteNotFoundError, match='Palette "lorem ipsum" not found.'):
             _get_palette("lorem ipsum")
 
-    def test_missing_data(self):
+    def test_unknown_vendor(self):
+        with pytest.raises(VendorNotFoundError, match='Vendor "unknown" not found.'):
+            _get_palette("unknown_accent")
+
+    def test_unknown_palette(self):
+        with pytest.raises(PaletteNotFoundError, match='Palette "vega_unknown" not found.'):
+            _get_palette("vega_unknown")
+
+    def test_missing_vendor_data(self):
+        with (
+            patch("chrys.utils.PALETTE_DATA", {}),
+            pytest.raises(VendorNotFoundError, match='Vendor "vega" not found.'),
+        ):
+            _get_palette(VEGA_ACCENT)
+
+    def test_missing_palette_data(self):
         with (
             patch("chrys.utils.PALETTE_DATA", {Vendor.VEGA: {}}),
-            pytest.raises(ValueError, match='Palette data for "vega_accent" not found.'),
+            pytest.raises(PaletteNotFoundError, match='Palette "vega_accent" not found.'),
+        ):
+            _get_palette(VEGA_ACCENT)
+
+    def test_empty_palette_data(self):
+        with (
+            patch("chrys.utils.PALETTE_DATA", {Vendor.VEGA: {VEGA_ACCENT: {}}}),
+            pytest.raises(
+                PaletteDataEmptyError,
+                match='Palette data for "vega_accent" is empty.',
+            ),
         ):
             _get_palette(VEGA_ACCENT)
 
@@ -376,7 +410,7 @@ class TestDiscretePalette(unittest.TestCase):
         self.assertEqual(len(discrete_palette(D3_VIRIDIS, 300)), 256)
 
     def test_invalid_name(self):
-        with pytest.raises(ValueError, match='Palette name "lorem ipsum" not recognized.'):
+        with pytest.raises(PaletteNotFoundError, match='Palette "lorem ipsum" not found.'):
             discrete_palette("lorem ipsum")
 
     def test_as_rgb(self):

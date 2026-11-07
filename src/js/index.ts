@@ -9,6 +9,11 @@ export type {
   RGBColors,
   Vendor
 } from './types.ts';
+export {
+  PaletteDataEmptyError,
+  PaletteNotFoundError,
+  VendorNotFoundError
+} from './errors.ts';
 export {default as bestColorContrast} from './utils/best-color-contrast.ts';
 export {default as toDiscretePalette} from './utils/to-discrete-palette.ts';
 export {default as parsePaletteName} from './utils/parse-palette-name.ts';

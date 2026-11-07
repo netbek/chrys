@@ -6,7 +6,7 @@ import type {HexColors, Palette} from '../types.ts';
  * @param palette Palette sizes mapped to color arrays.
  * @param n Number of colors to return; must be a non-negative integer.
  * @returns The discrete palette colors.
- * @throws If `n` is invalid or the requested size is unsupported.
+ * @throws If `n` is invalid, the palette is empty, or the requested size is unsupported.
  */
 export default function toDiscretePalette(palette: Palette, n = 6): HexColors {
   if (!Number.isInteger(n) || n < 0) {
