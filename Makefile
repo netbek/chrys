@@ -12,6 +12,14 @@ endif
 # DEPENDENCY MANAGEMENT
 # ==============================================================================
 
+install:
+	@echo "$(YELLOW)Installing...$(RESET)"
+	@./scripts/install-node.sh
+	@./scripts/install-python.sh
+	@./scripts/install-precommit.sh
+	@./scripts/install-skills.sh
+	@./scripts/install-vendor.sh
+
 deps-scan:
 	@echo "$(YELLOW)Scanning root lockfiles for vulnerabilities...$(RESET)"
 	trivy fs pnpm-lock.yaml --table-mode detailed
@@ -97,13 +105,6 @@ uv-sync:
 	uv sync --all-extras --all-groups
 
 # ==============================================================================
-# DEVELOPMENT
-# ==============================================================================
-
-livereload:
-	node scripts/livereload.js
-
-# ==============================================================================
 # FORMAT
 # ==============================================================================
 
@@ -123,7 +124,12 @@ lint:
 	pre-commit run ruff-check --hook-stage manual --all-files
 
 test:
-	vitest run
+	pnpm run test
+	uv run pytest
+
+test-coverage:
+	pnpm run test:coverage
+	uv run pytest --cov=chrys --cov-report=term-missing --cov-report=html
 
 # ==============================================================================
 # PUBLISH
@@ -151,33 +157,15 @@ bump-version:
 	git commit -m $$VERSION;
 
 build-data:
-	node scripts/bokeh-palettes.js
-	node scripts/vega-palettes.js
+	node scripts/build-bokeh-palettes.js
+	node scripts/build-vega-palettes.js
+	node scripts/build-d3-palettes.js
 
 build-dist:
-	rm -fr src/css/background-color/*
-	rm -fr src/css/color/*
-	rm -f src/css/background-color.scss
-	rm -f src/css/color.scss
-	rm -fr cjs/*
-	rm -fr css/*
-	rm -fr demo/*
-	rm -fr illustrator/*
-	rm -fr umd/*
-	node scripts/build-js.js
-	node scripts/build-css.js
-	node scripts/build-illustrator.js
-	node scripts/build-demo.js
-	rm -fr build/*
-	rm -fr dist/*
-	uv build
-	twine check dist/*
-
-build-dist-and-commit:
-	@VERSION=$$(uv version --short); \
-	$(MAKE) --no-print-directory build-dist; \
-	git add cjs css demo illustrator umd; \
-	git commit -m "Build $$VERSION";
+	pnpm build
+	rm -rf dist-python
+	uv build --out-dir dist-python
+	twine check dist-python/*
 
 create-release:
 	@VERSION=$$(uv version --short); \
@@ -190,7 +178,7 @@ publish:
 		echo "$(RED)Error: PyPI token not found in keyring. Run: keyring set pypi-chrys __token__$(RESET)"; \
 		exit 1; \
 	fi; \
-	TWINE_USERNAME=__token__ TWINE_PASSWORD="$$PASSWORD" twine upload --verbose dist/*; \
+	TWINE_USERNAME=__token__ TWINE_PASSWORD="$$PASSWORD" twine upload --verbose dist-python/*; \
 	pnpm publish
 
 deploy:

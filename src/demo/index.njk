@@ -32,15 +32,16 @@
 {% macro table_head() %}
   <thead>
     <tr>
-      <th scope="col" colspan="3">Vega</th>
-      <th scope="col" colspan="3">Bokeh</th>
+      <th scope="col" colspan="2">Vega</th>
+      <th scope="col" colspan="2">Bokeh</th>
+      <th scope="col" colspan="2">D3</th>
     </tr>
     <tr>
       <th scope="col">Variable name</th>
-      <th scope="col">Vendor name</th>
       <th scope="col">Palette</th>
       <th scope="col">Variable name</th>
-      <th scope="col">Vendor name</th>
+      <th scope="col">Palette</th>
+      <th scope="col">Variable name</th>
       <th scope="col">Palette</th>
     </tr>
   </thead>
@@ -49,7 +50,6 @@
 {% macro table_continuous_row(type, palette) %}
   <tr>
     <td>{% if palette.vega %}{{ variables(palette.vega.jsVar, palette.vega.sassVar) }}{% endif %}</td>
-    <td>{% if palette.vega %}{{ palette.vega.vendorName }}{% endif %}</td>
     <td>
       {% if palette.vega %}
         {{ legend_gradient(palette.vega.name, palette.vega.palette) }}
@@ -59,12 +59,20 @@
       {% endif %}
     </td>
     <td>{% if palette.bokeh %}{{ variables(palette.bokeh.jsVar, palette.bokeh.sassVar) }}{% endif %}</td>
-    <td>{% if palette.bokeh %}{{ palette.bokeh.vendorName }}{% endif %}</td>
     <td>
       {% if palette.bokeh %}
         {{ legend_gradient(palette.bokeh.name, palette.bokeh.palette) }}
         <div class="nb-discrete-palettes-all nb-discrete-palettes-all--{{ type }}">
           {{ discrete_palettes_html(palette.bokeh.name, palette.bokeh.discretePalettes) }}
+        </div>
+      {% endif %}
+    </td>
+    <td>{% if palette.d3 %}{{ variables(palette.d3.jsVar, palette.d3.sassVar) }}{% endif %}</td>
+    <td>
+      {% if palette.d3 %}
+        {{ legend_gradient(palette.d3.name, palette.d3.palette) }}
+        <div class="nb-discrete-palettes-all nb-discrete-palettes-all--{{ type }}">
+          {{ discrete_palettes_html(palette.d3.name, palette.d3.discretePalettes) }}
         </div>
       {% endif %}
     </td>
@@ -138,16 +146,16 @@ npm install chrys
         <h1>Usage</h1>
 
         <section>
-          <h1>Get a list of discrete colours</h1>
-          <p>The maximum number of colours varies by palette, but most can return up to 9 colours.</p>
+          <h1>Get a list of colours</h1>
+          <p>Categorical and other discrete palettes return up to 9 colours; continuous palettes can return up to 256.</p>
 
           <section>
             <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
 
             <pre><code class="language-javascript">
-import {VEGA_ACCENT, discretePalette} from 'chrys/umd';
+import {VEGA_ACCENT, getPaletteColors} from 'chrys';
 
-const palette = discretePalette(VEGA_ACCENT, 5);
+const colors = getPaletteColors(VEGA_ACCENT, 5);
             </code></pre>
 
             <pre><code class="language-javascript">
@@ -159,15 +167,14 @@ const palette = discretePalette(VEGA_ACCENT, 5);
             <h1><svg width="16" height="16"><use href="#logo-python" /></svg> Python</h1>
 
             <pre><code class="language-python">
-from chrys.palettes import VEGA_ACCENT, discrete_palette
+from chrys.palettes import VEGA_ACCENT
+from chrys.utils import get_palette_colors
 
-hex_palette = discrete_palette(VEGA_ACCENT, 5)
-rgb_palette = discrete_palette(VEGA_ACCENT, 5, as_rgb=True)
+hex_colors = get_palette_colors(VEGA_ACCENT, 5)
             </code></pre>
 
             <pre><code class="language-python">
 ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0"]
-[(0.4980392156862745, 0.788235294117647, 0.4980392156862745), ...]
             </code></pre>
           </section>
 
@@ -186,14 +193,36 @@ $palette: map-get(map-get($chrys-palettes, 'vega-accent'), 5);
           </section>
         </section>
 
-        <section>
-          <h1>Get a list of palette names</h1>
+        <section id="lightweight-imports">
+          <h1>Import a single palette</h1>
+          <p>Import only the utility and palette data you need to keep JavaScript bundles small.</p>
 
           <section>
             <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
 
             <pre><code class="language-javascript">
-import {VEGA_PALETTE_NAMES} from 'chrys/umd';
+import toDiscreteColors from 'chrys/utils/to-discrete-colors';
+import {BOKEH_VIRIDIS_PALETTE_DATA} from 'chrys/palettes/bokeh/viridis';
+
+const colors = toDiscreteColors(BOKEH_VIRIDIS_PALETTE_DATA, 6);
+            </code></pre>
+
+            <pre><code class="language-javascript">
+["#440154", "#404387", "#29788e", "#22a784", "#79d151", "#fde724"]
+            </code></pre>
+          </section>
+
+          <p><code>getPaletteColors(name, n)</code> resolves names through the full palette registry and includes all palette data. Use <code>toDiscreteColors</code> or <code>toContinuousColors</code> with an explicit <code>*_PALETTE_DATA</code> constant when bundle size matters.</p>
+        </section>
+
+        <section>
+          <h1>Get a list of qualified palette names</h1>
+
+          <section>
+            <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
+
+            <pre><code class="language-javascript">
+import {VEGA_PALETTE_NAMES} from 'chrys';
 
 const variables = Object.keys(VEGA_PALETTE_NAMES);
 const names = Object.values(VEGA_PALETTE_NAMES);
@@ -223,14 +252,14 @@ names = VEGA_PALETTE_NAMES.values()
         </section>
 
         <section>
-          <h1>Parse a palette name</h1>
-          <p>Get the name of the vendor and the palette name used internally by the vendor. For example, in Altair and Vega, this is the scheme name.</p>
+          <h1>Parse a qualified palette name</h1>
+          <p>Get the vendor and the vendor-specific palette name used internally by the vendor. For example, in Altair and Vega, this is the scheme name.</p>
 
           <section>
             <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
 
             <pre><code class="language-javascript">
-import {VEGA_ACCENT, parsePaletteName} from 'chrys/umd';
+import {VEGA_ACCENT, parsePaletteName} from 'chrys';
 
 parsePaletteName(VEGA_ACCENT);
             </code></pre>
@@ -244,7 +273,8 @@ parsePaletteName(VEGA_ACCENT);
             <h1><svg width="16" height="16"><use href="#logo-python" /></svg> Python</h1>
 
             <pre><code class="language-python">
-from chrys.palettes import VEGA_CATEGORY_10, parse_palette_name
+from chrys.palettes import VEGA_CATEGORY_10
+from chrys.utils import parse_palette_name
 
 vendor, name = parse_palette_name(VEGA_CATEGORY_10)
             </code></pre>
@@ -269,11 +299,11 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
               {% for palette in categoricalPalettes %}
                 <tr>
                   <td>{% if palette.vega %}{{ variables(palette.vega.jsVar, palette.vega.sassVar) }}{% endif %}</td>
-                  <td>{% if palette.vega %}{{ palette.vega.vendorName }}{% endif %}</td>
                   <td>{% if palette.vega %}{{ discrete_palette_html(palette.vega.name, palette.vega.palette) }}{% endif %}</td>
                   <td>{% if palette.bokeh %}{{ variables(palette.bokeh.jsVar, palette.bokeh.sassVar) }}{% endif %}</td>
-                  <td>{% if palette.bokeh %}{{ palette.bokeh.vendorName }}{% endif %}</td>
                   <td>{% if palette.bokeh %}{{ discrete_palette_html(palette.bokeh.name, palette.bokeh.palette) }}{% endif %}</td>
+                  <td>{% if palette.d3 %}{{ variables(palette.d3.jsVar, palette.d3.sassVar) }}{% endif %}</td>
+                  <td>{% if palette.d3 %}{{ discrete_palette_html(palette.d3.name, palette.d3.palette) }}{% endif %}</td>
                 </tr>
               {% endfor %}
             </tbody>
@@ -334,11 +364,11 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
               {% for palette in cyclicalPalettes %}
                 <tr>
                   <td>{% if palette.vega %}{{ variables(palette.vega.jsVar, palette.vega.sassVar) }}{% endif %}</td>
-                  <td>{% if palette.vega %}{{ palette.vega.vendorName }}{% endif %}</td>
                   <td>{% if palette.vega %}{{ legend_gradient(palette.vega.name, palette.vega.palette) }}{% endif %}</td>
                   <td>{% if palette.bokeh %}{{ variables(palette.bokeh.jsVar, palette.bokeh.sassVar) }}{% endif %}</td>
-                  <td>{% if palette.bokeh %}{{ palette.bokeh.vendorName }}{% endif %}</td>
                   <td>{% if palette.bokeh %}{{ legend_gradient(palette.bokeh.name, palette.bokeh.palette) }}{% endif %}</td>
+                  <td>{% if palette.d3 %}{{ variables(palette.d3.jsVar, palette.d3.sassVar) }}{% endif %}</td>
+                  <td>{% if palette.d3 %}{{ legend_gradient(palette.d3.name, palette.d3.palette) }}{% endif %}</td>
                 </tr>
               {% endfor %}
             </tbody>

@@ -1,5 +1,5 @@
 allowBuilds:
-  "@parcel/watcher@2.5.6": true
+  "@parcel/watcher@2.6.0": true
   "es5-ext@0.10.64": true
   "esbuild@0.28.2": true
 
@@ -16,8 +16,8 @@ nodeLinker: hoisted
 
 trustPolicy: no-downgrade
 
-trustPolicyExclude:
-  - chokidar@4.0.3
-  - eslint-config-prettier@9.1.2
-  - semver@5.7.2
-  - semver@6.3.1
+# trustPolicyExclude:
+#   - chokidar@4.0.3
+#   - eslint-config-prettier@9.1.2
+#   - semver@5.7.2
+#   - semver@6.3.1

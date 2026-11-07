@@ -1,15 +1,17 @@
 __pycache__
+.coverage
 .pytest_cache
 .ruff_cache
 .venv
+venv
 *.bak
 *.egg-info
 *.pyc
-bower_components
-build
+coverage
+dist
+dist-python
 node_modules
 npm-debug.log
-venv
 
 # IDE files
 nbproject
@@ -18,3 +20,15 @@ nbproject
 
 # GH pages
 .publish
+
+# Generated state
+skills-lock.json
+
+# Third-party agent skills are ignored
+.agents/skills/*
+
+# First-party agent skills are un-ignored and committed. Uncomment one line per skill:
+# !.agents/skills/my-skill/
+
+# Generated links are ignored
+.claude/skills/*

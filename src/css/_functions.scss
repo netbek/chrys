@@ -1,13 +1,32 @@
+// Contrast algorithms:
+// - APCA 0.0.98G-4g via sass-apca 1.2.0.
+// - WCAG 2.1 contrast ratio using the CSS Color 4 relative-luminance
+//   definition in _wcag.scss (matches Color.js and ColorAide).
+
 @use 'sass:list';
 @use 'sass:math';
 @use 'node_modules/sass-apca/apca';
+@use 'wcag';
 
-@function best-color-contrast($bg-color, $fg-colors: (#fff, #000)) {
+@function _contrast($fg-color, $bg-color, $algorithm) {
+  @if $algorithm == 'apca' {
+    // APCA is polarity-sensitive: the foreground is the text color.
+    @return math.abs(apca.contrast($fg-color, $bg-color));
+  }
+
+  @return math.abs(wcag.contrast($fg-color, $bg-color));
+}
+
+@function best-color-contrast(
+  $bg-color,
+  $fg-colors: (#fff, #000),
+  $algorithm: 'apca'
+) {
   $best-color: list.nth($fg-colors, 1);
-  $highest-contrast: math.abs(apca.contrast($bg-color, $best-color));
+  $highest-contrast: _contrast($best-color, $bg-color, $algorithm);
 
   @each $color in $fg-colors {
-    $contrast: math.abs(apca.contrast($bg-color, $color));
+    $contrast: _contrast($color, $bg-color, $algorithm);
 
     @if $contrast > $highest-contrast {
       $highest-contrast: $contrast;

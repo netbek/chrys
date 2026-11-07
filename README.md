@@ -72,8 +72,7 @@ Build and publish the JavaScript and Python distribution packages:
 ```shell
 make bump-version [major|minor|patch]
 git push
-make build-dist-and-commit
-git push
+make build-dist
 make create-release
 make publish
 ```
@@ -82,8 +81,19 @@ make publish
 
 Palettes from:
 
-* [Bokeh](https://github.com/bokeh/bokeh) (BSD 3-Clause)
-* [Vega](https://github.com/vega/vega) (BSD 3-Clause)
+- [Bokeh](https://github.com/bokeh/bokeh) — Copyright (c) 2012-2022 Anaconda, Inc., and Bokeh Contributors ([BSD 3-Clause](https://github.com/bokeh/bokeh/blob/2.4.3/LICENSE.txt))
+- [D3](https://github.com/d3/d3-scale-chromatic) — D3: Copyright (c) 2010-2026 Mike Bostock; ColorBrewer: Copyright 2002 Cynthia Brewer, Mark Harrower, and The Pennsylvania State University ([ISC; ColorBrewer palettes Apache 2.0](https://github.com/d3/d3-scale-chromatic/blob/v3.1.1/LICENSE))
+- [Vega](https://github.com/vega/vega) — Copyright (c) 2015-2023 University of Washington Interactive Data Lab ([BSD 3-Clause](https://github.com/vega/vega/blob/v5.33.1/LICENSE))
+
+Continuous color sampling adapted from:
+
+- [Bokeh](https://github.com/bokeh/bokeh) — Copyright (c) 2012-2018 Anaconda, Inc., and Bokeh Contributors ([BSD 3-Clause](https://github.com/bokeh/bokeh/blob/1.3.4/LICENSE.txt))
+
+WCAG and APCA contrast algorithms from:
+
+- [Chroma.js](https://github.com/gka/chroma.js) — Copyright (c) 2011-2025 Gregor Aisch ([BSD 3-Clause](https://github.com/gka/chroma.js/blob/v3.2.0/LICENSE))
+- [Color.js](https://github.com/color-js/color.js) — Copyright (c) 2021 Lea Verou, Chris Lilley ([MIT](https://github.com/color-js/color.js/blob/v0.7.1/LICENSE))
+- [ColorAide](https://github.com/facelessuser/coloraide) — Copyright (c) 2020-2026 Isaac Muse ([MIT](https://github.com/facelessuser/coloraide/blob/8.13.1/LICENSE.md))
 
 ## License
 

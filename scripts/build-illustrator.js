@@ -1,20 +1,29 @@
 import _ from 'lodash';
 import {illustratorSwatches} from 'chrys-cli';
 import chroma from 'chroma-js';
-import path from 'path';
-import Promise from 'bluebird';
+import fs from 'fs-extra';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 import {config} from '../config/index.js';
 import {
   BOKEH_PALETTE_DATA,
   BOKEH_PALETTE_NAMES
 } from '../data/bokeh-palettes.js';
 import {VEGA_PALETTE_DATA, VEGA_PALETTE_NAMES} from '../data/vega-palettes.js';
+import {D3_PALETTE_DATA, D3_PALETTE_NAMES} from '../data/d3-palettes.js';
+import {paletteSassName} from './utils.js';
 
-function buildIllustrator() {
+/**
+ * Builds Illustrator swatch files from the Bokeh, Vega, and D3 palette data.
+ *
+ * @param {string} destDir Directory to write the swatch files to.
+ * @returns {Promise<void>}
+ */
+async function buildIllustrator(destDir) {
   const illustratorPalettes = [];
 
   Object.keys(BOKEH_PALETTE_NAMES).forEach((varName) => {
-    const sassName = _.kebabCase(varName);
+    const sassName = paletteSassName(varName);
 
     Object.values(BOKEH_PALETTE_DATA[BOKEH_PALETTE_NAMES[varName]]).forEach(
       (values) => {
@@ -33,7 +42,7 @@ function buildIllustrator() {
   });
 
   Object.keys(VEGA_PALETTE_NAMES).forEach((varName) => {
-    const sassName = _.kebabCase(varName);
+    const sassName = paletteSassName(varName);
 
     Object.values(VEGA_PALETTE_DATA[VEGA_PALETTE_NAMES[varName]]).forEach(
       (values) => {
@@ -51,15 +60,38 @@ function buildIllustrator() {
     );
   });
 
-  return Promise.each(illustratorPalettes, (palette) => {
+  Object.keys(D3_PALETTE_NAMES).forEach((varName) => {
+    const sassName = paletteSassName(varName);
+
+    Object.values(D3_PALETTE_DATA[D3_PALETTE_NAMES[varName]]).forEach(
+      (values) => {
+        const group = sassName + '-' + values.length;
+
+        illustratorPalettes.push({
+          name: group,
+          colors: values.map((color, index) => ({
+            group: group,
+            name: group + '-' + (index + 1),
+            rgb: chroma(color).rgb()
+          }))
+        });
+      }
+    );
+  });
+
+  for (const palette of illustratorPalettes) {
     const illustratorConfig = _.cloneDeep(config.illustratorTasks.swatches);
     illustratorConfig.document.mode = 'rgb';
     illustratorConfig.colors = palette.colors;
 
-    const dist = path.resolve('illustrator/' + palette.name + '.js');
+    const dist = path.join(destDir, `${palette.name}.js`);
 
-    return illustratorSwatches(illustratorConfig, dist);
-  });
+    await illustratorSwatches(illustratorConfig, dist);
+  }
 }
 
-Promise.each([buildIllustrator], (task) => task());
+const packageDir = fileURLToPath(new URL('..', import.meta.url));
+const destDir = path.join(packageDir, 'dist/illustrator');
+
+await fs.remove(destDir);
+await buildIllustrator(destDir);

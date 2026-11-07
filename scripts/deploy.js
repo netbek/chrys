@@ -1,4 +1,8 @@
 import ghpages from 'gh-pages';
-import path from 'path';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
 
-ghpages.publish(path.join(__dirname, '../demo'));
+const packageDir = fileURLToPath(new URL('..', import.meta.url));
+const destDir = path.join(packageDir, 'dist/demo');
+
+ghpages.publish(destDir);
