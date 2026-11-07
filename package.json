@@ -49,61 +49,6 @@
       },
       "default": "./dist/es/index.js"
     },
-    "./best-color-contrast": {
-      "import": {
-        "types": "./dist/es/utils/best-color-contrast.d.ts",
-        "default": "./dist/es/utils/best-color-contrast.js"
-      },
-      "require": {
-        "types": "./dist/cjs/utils/best-color-contrast.d.ts",
-        "default": "./dist/cjs/utils/best-color-contrast.js"
-      },
-      "default": "./dist/es/utils/best-color-contrast.js"
-    },
-    "./to-discrete-colors": {
-      "import": {
-        "types": "./dist/es/utils/to-discrete-colors.d.ts",
-        "default": "./dist/es/utils/to-discrete-colors.js"
-      },
-      "require": {
-        "types": "./dist/cjs/utils/to-discrete-colors.d.ts",
-        "default": "./dist/cjs/utils/to-discrete-colors.js"
-      },
-      "default": "./dist/es/utils/to-discrete-colors.js"
-    },
-    "./to-continuous-colors": {
-      "import": {
-        "types": "./dist/es/utils/to-continuous-colors.d.ts",
-        "default": "./dist/es/utils/to-continuous-colors.js"
-      },
-      "require": {
-        "types": "./dist/cjs/utils/to-continuous-colors.d.ts",
-        "default": "./dist/cjs/utils/to-continuous-colors.js"
-      },
-      "default": "./dist/es/utils/to-continuous-colors.js"
-    },
-    "./parse-palette-name": {
-      "import": {
-        "types": "./dist/es/utils/parse-palette-name.d.ts",
-        "default": "./dist/es/utils/parse-palette-name.js"
-      },
-      "require": {
-        "types": "./dist/cjs/utils/parse-palette-name.d.ts",
-        "default": "./dist/cjs/utils/parse-palette-name.js"
-      },
-      "default": "./dist/es/utils/parse-palette-name.js"
-    },
-    "./get-palette-colors": {
-      "import": {
-        "types": "./dist/es/utils/get-palette-colors.d.ts",
-        "default": "./dist/es/utils/get-palette-colors.js"
-      },
-      "require": {
-        "types": "./dist/cjs/utils/get-palette-colors.d.ts",
-        "default": "./dist/cjs/utils/get-palette-colors.js"
-      },
-      "default": "./dist/es/utils/get-palette-colors.js"
-    },
     "./utils/best-color-contrast": {
       "import": {
         "types": "./dist/es/utils/best-color-contrast.d.ts",
