@@ -5,7 +5,6 @@ from chrys.exceptions import (
     VendorNotFoundError,
 )
 from chrys.palettes import (
-    CONTINUOUS_PALETTE_NAMES,
     PALETTE_DATA,
     PALETTE_TO_VENDOR_MAP,
     Vendor,
@@ -112,7 +111,7 @@ def parse_palette_name(name: QualifiedPaletteName) -> ParsedPaletteName:
     return ParsedPaletteName(vendor, palette)
 
 
-def _get_palette(name: QualifiedPaletteName) -> Palette:
+def get_palette(name: QualifiedPaletteName) -> Palette:
     """Get the palette data for a qualified palette name.
 
     Args:
@@ -144,38 +143,20 @@ def _get_palette(name: QualifiedPaletteName) -> Palette:
     return palette
 
 
-def _is_continuous(name: QualifiedPaletteName) -> bool:
-    """Return whether a palette is continuous.
+def _validate_color_count(n: int) -> None:
+    """Validate that a color count is a non-negative integer.
 
     Args:
-        name: Qualified palette name.
-
-    Returns:
-        Whether the palette is continuous.
-
-    Raises:
-        VendorNotFoundError: If the qualified palette name has an unknown vendor.
-        PaletteNotFoundError: If the qualified palette name is not recognized.
-    """
-    vendor, _ = parse_palette_name(name)
-
-    return name in CONTINUOUS_PALETTE_NAMES[vendor]
-
-
-def _validate_palette_size(n: int) -> None:
-    """Validate that a palette size is a non-negative integer.
-
-    Args:
-        n: Palette size.
+        n: Color count.
 
     Raises:
         ValueError: If ``n`` is not an integer or is negative.
     """
     if not isinstance(n, int) or isinstance(n, bool) or n < 0:
-        raise ValueError(f"Palette size must be a non-negative integer, got {n}.")
+        raise ValueError(f"Color count must be a non-negative integer, got {n}.")
 
 
-def to_discrete_palette(palette: Palette, n: int = 6, as_rgb: bool = False) -> Colors:
+def to_discrete_colors(palette: Palette, n: int = 6, as_rgb: bool = False) -> Colors:
     """Generate a list of discrete colors.
 
     Args:
@@ -184,14 +165,14 @@ def to_discrete_palette(palette: Palette, n: int = 6, as_rgb: bool = False) -> C
         as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
     Returns:
-        The discrete palette colors as hexadecimal strings, or as RGB tuples when
-        ``as_rgb`` is true.
+        The discrete colors as hexadecimal strings, or as RGB tuples when ``as_rgb`` is
+        true.
 
     Raises:
         ValueError: If ``n`` is invalid, the palette is empty, or the requested size is
             unsupported.
     """
-    _validate_palette_size(n)
+    _validate_color_count(n)
 
     if n == 0:
         return []
@@ -221,7 +202,7 @@ def to_discrete_palette(palette: Palette, n: int = 6, as_rgb: bool = False) -> C
     return result
 
 
-def to_continuous_palette(colors: HexColors, n: int = 6, as_rgb: bool = False) -> Colors:
+def to_continuous_colors(colors: HexColors, n: int = 6, as_rgb: bool = False) -> Colors:
     """Generate a list of continuous colors.
 
     Args:
@@ -230,16 +211,17 @@ def to_continuous_palette(colors: HexColors, n: int = 6, as_rgb: bool = False) -
         as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
     Returns:
-        The continuous palette colors as hexadecimal strings, or as RGB tuples when
-        ``as_rgb`` is true.
+        The continuous colors as hexadecimal strings, or as RGB tuples when ``as_rgb`` is
+        true.
 
     Raises:
         ValueError: If ``n`` is invalid or exceeds the base color list's length.
 
-    Note:
-        Adapted from Bokeh 1.3.4 https://bokeh.org (BSD-3-Clause).
+    References:
+        Bokeh v1.3.4, ``linear_palette`` (BSD-3-Clause):
+        https://github.com/bokeh/bokeh/blob/1.3.4/bokeh/palettes.py#L1144-L1166
     """
-    _validate_palette_size(n)
+    _validate_color_count(n)
 
     if n > len(colors):
         raise ValueError(
@@ -260,8 +242,11 @@ def to_continuous_palette(colors: HexColors, n: int = 6, as_rgb: bool = False) -
     return result
 
 
-def discrete_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False) -> Colors:
-    """Generate a discrete palette by name.
+def get_palette_colors(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False) -> Colors:
+    """Get a list of colors from a palette by name.
+
+    Continuous palettes generate colors from their 256-color ramp; other palettes return
+    discrete colors.
 
     Args:
         name: Qualified palette name.
@@ -269,38 +254,18 @@ def discrete_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fals
         as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
     Returns:
-        The discrete palette colors as hexadecimal strings, or as RGB tuples when
-        ``as_rgb`` is true.
+        The palette colors as hexadecimal strings, or as RGB tuples when ``as_rgb`` is
+        true.
 
     Raises:
         VendorNotFoundError: If the qualified palette name has an unknown vendor.
         PaletteNotFoundError: If the qualified palette name is not recognized.
         PaletteDataEmptyError: If the palette data is empty.
-        ValueError: If ``n`` is invalid or the requested size is unsupported.
+        ValueError: If ``n`` is invalid or unsupported by the palette.
     """
-    return to_discrete_palette(_get_palette(name), n=n, as_rgb=as_rgb)
+    palette = get_palette(name)
 
+    if 256 in palette:
+        return to_continuous_colors(palette[256], n=n, as_rgb=as_rgb)
 
-def continuous_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False) -> Colors:
-    """Generate a continuous palette by name.
-
-    Args:
-        name: Qualified palette name.
-        n: Number of colors to return; must be a non-negative integer.
-        as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
-
-    Returns:
-        The continuous palette colors as hexadecimal strings, or as RGB tuples when
-        ``as_rgb`` is true.
-
-    Raises:
-        VendorNotFoundError: If the qualified palette name has an unknown vendor.
-        PaletteNotFoundError: If the qualified palette name is not recognized.
-        PaletteDataEmptyError: If the palette data is empty.
-        ValueError: If the palette does not support continuous generation or ``n`` exceeds the
-            base palette's length.
-    """
-    if not _is_continuous(name):
-        raise ValueError(f'Generating continuous palettes of "{name}" is not supported')
-
-    return to_continuous_palette(_get_palette(name)[256], n=n, as_rgb=as_rgb)
+    return to_discrete_colors(palette, n=n, as_rgb=as_rgb)

@@ -1,6 +1,5 @@
-# Ported from Chroma.js — Copyright (c) 2011-2025 Gregor Aisch (BSD 3-Clause)
-# Source: https://github.com/gka/chroma.js/blob/v3.2.0/src/utils/contrast.js
-# Source: https://github.com/gka/chroma.js/blob/v3.2.0/src/utils/contrastAPCA.js
+"""Port of Chroma.js contrast utilities."""
+
 import math
 import re
 
@@ -49,7 +48,12 @@ def _relative_luminance(red, green, blue):
 
 
 def contrast(a, b):
-    """Return the WCAG contrast ratio for two hexadecimal colors."""
+    """Return the WCAG contrast ratio for two hexadecimal colors.
+
+    References:
+        Chroma.js v3.2.0, ``contrast.js``:
+        https://github.com/gka/chroma.js/blob/v3.2.0/src/utils/contrast.js
+    """
     l1 = _relative_luminance(*_parse_hex(a)[:3])
     l2 = _relative_luminance(*_parse_hex(b)[:3])
 
@@ -71,7 +75,12 @@ def _round_channel(channel):
 
 
 def contrast_apca(text, bg):
-    """Return the signed APCA contrast score for text on a background."""
+    """Return the signed APCA contrast score for text on a background.
+
+    References:
+        Chroma.js v3.2.0, ``contrastAPCA.js``:
+        https://github.com/gka/chroma.js/blob/v3.2.0/src/utils/contrastAPCA.js
+    """
     text_red, text_green, text_blue, alpha = _parse_hex(text)
     bg_red, bg_green, bg_blue, _ = _parse_hex(bg)
 

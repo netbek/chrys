@@ -146,16 +146,16 @@ npm install chrys
         <h1>Usage</h1>
 
         <section>
-          <h1>Get a list of discrete colours</h1>
-          <p>The maximum number of colours varies by palette, but most can return up to 9 colours.</p>
+          <h1>Get a list of colours</h1>
+          <p>Categorical and other discrete palettes return up to 9 colours; continuous palettes can return up to 256.</p>
 
           <section>
             <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
 
             <pre><code class="language-javascript">
-import {VEGA_ACCENT, discretePalette} from 'chrys/umd';
+import {VEGA_ACCENT, getPaletteColors} from 'chrys/umd';
 
-const palette = discretePalette(VEGA_ACCENT, 5);
+const colors = getPaletteColors(VEGA_ACCENT, 5);
             </code></pre>
 
             <pre><code class="language-javascript">
@@ -167,10 +167,11 @@ const palette = discretePalette(VEGA_ACCENT, 5);
             <h1><svg width="16" height="16"><use href="#logo-python" /></svg> Python</h1>
 
             <pre><code class="language-python">
-from chrys.palettes import VEGA_ACCENT, discrete_palette
+from chrys.palettes import VEGA_ACCENT
+from chrys.utils import get_palette_colors
 
-hex_palette = discrete_palette(VEGA_ACCENT, 5)
-rgb_palette = discrete_palette(VEGA_ACCENT, 5, as_rgb=True)
+hex_colors = get_palette_colors(VEGA_ACCENT, 5)
+rgb_colors = get_palette_colors(VEGA_ACCENT, 5, as_rgb=True)
             </code></pre>
 
             <pre><code class="language-python">
@@ -202,10 +203,10 @@ $palette: map-get(map-get($chrys-palettes, 'vega-accent'), 5);
             <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
 
             <pre><code class="language-javascript">
-import toDiscretePalette from 'chrys/utils/to-discrete-palette';
+import toDiscreteColors from 'chrys/utils/to-discrete-colors';
 import {BOKEH_VIRIDIS_PALETTE_DATA} from 'chrys/palettes/bokeh/viridis';
 
-const palette = toDiscretePalette(BOKEH_VIRIDIS_PALETTE_DATA, 6);
+const colors = toDiscreteColors(BOKEH_VIRIDIS_PALETTE_DATA, 6);
             </code></pre>
 
             <pre><code class="language-javascript">
@@ -213,7 +214,7 @@ const palette = toDiscretePalette(BOKEH_VIRIDIS_PALETTE_DATA, 6);
             </code></pre>
           </section>
 
-          <p><code>discretePalette(name, n)</code> resolves names through the full palette registry and includes all palette data. Use <code>toDiscretePalette</code> with an explicit <code>*_PALETTE_DATA</code> constant when bundle size matters.</p>
+          <p><code>getPaletteColors(name, n)</code> resolves names through the full palette registry and includes all palette data. Use <code>toDiscreteColors</code> or <code>toContinuousColors</code> with an explicit <code>*_PALETTE_DATA</code> constant when bundle size matters.</p>
         </section>
 
         <section>

@@ -22,8 +22,9 @@ import {
   VEGA_VIRIDIS,
   VEGA_VIRIDIS_PALETTE_DATA
 } from '../../palettes/vega/viridis.js';
-import discretePalette from '../discrete-palette.js';
-import toDiscretePalette from '../to-discrete-palette.js';
+import getPaletteColors from '../get-palette-colors.js';
+import toContinuousColors from '../to-continuous-colors.js';
+import toDiscreteColors from '../to-discrete-colors.js';
 
 const VENDORS: Array<{
   name: string;
@@ -47,9 +48,9 @@ const VENDORS: Array<{
   }
 ];
 
-describe('toDiscretePalette', () => {
+describe('toDiscreteColors', () => {
   test('Should throw an error when the palette is empty', () => {
-    expect(() => toDiscretePalette({})).toThrow('Palette is empty.');
+    expect(() => toDiscreteColors({})).toThrow('Palette is empty.');
   });
 
   test('Should default to six colors', () => {
@@ -57,12 +58,12 @@ describe('toDiscretePalette', () => {
       6: ['#000000', '#111111', '#222222', '#333333', '#444444', '#555555']
     };
 
-    expect(toDiscretePalette(palette)).toEqual(palette[6]);
+    expect(toDiscreteColors(palette)).toEqual(palette[6]);
   });
 
   test('Should return the maximum available size when no size is given', () => {
     expect(
-      toDiscretePalette({
+      toDiscreteColors({
         1: ['#000000'],
         2: ['#000000', '#ffffff']
       })
@@ -83,7 +84,7 @@ describe('toDiscretePalette', () => {
       ]
     };
 
-    expect(toDiscretePalette(palette, 3)).toEqual([
+    expect(toDiscreteColors(palette, 3)).toEqual([
       '#000000',
       '#111111',
       '#222222'
@@ -92,7 +93,7 @@ describe('toDiscretePalette', () => {
 
   test('Should return a copy when the requested size equals the minimum', () => {
     const palette = {3: ['#000000', '#111111', '#222222']};
-    const colors = toDiscretePalette(palette, 3);
+    const colors = toDiscreteColors(palette, 3);
 
     colors[0] = '#ffffff';
 
@@ -101,7 +102,7 @@ describe('toDiscretePalette', () => {
 
   test('Should return a copy when the requested size exceeds the maximum', () => {
     const palette = {2: ['#000000', '#111111']};
-    const colors = toDiscretePalette(palette, 5);
+    const colors = toDiscreteColors(palette, 5);
 
     colors[0] = '#ffffff';
 
@@ -125,7 +126,7 @@ describe('toDiscretePalette', () => {
         '#888888'
       ]
     };
-    const colors = toDiscretePalette(palette, 6);
+    const colors = toDiscreteColors(palette, 6);
 
     expect(colors).not.toBe(palette[6]);
 
@@ -141,12 +142,12 @@ describe('toDiscretePalette', () => {
       4: ['#000000', '#111111', '#222222', '#333333']
     };
 
-    expect(toDiscretePalette(palette, 4)).toEqual(palette[4]);
+    expect(toDiscreteColors(palette, 4)).toEqual(palette[4]);
   });
 
   test('Should list the supported sizes in ascending order in the error', () => {
     expect(() =>
-      toDiscretePalette({6: ['#000000'], 1: ['#000000']}, 3)
+      toDiscreteColors({6: ['#000000'], 1: ['#000000']}, 3)
     ).toThrow('Unsupported palette size 3. Supported sizes: 1, 6.');
   });
 
@@ -156,54 +157,59 @@ describe('toDiscretePalette', () => {
       3: ['#000000', '#111111', '#222222']
     };
 
-    expect(() => toDiscretePalette(palette, 2)).toThrow(
+    expect(() => toDiscreteColors(palette, 2)).toThrow(
       'Unsupported palette size 2. Supported sizes: 1, 3.'
     );
   });
 
   test('Should throw an error when size is negative', () => {
-    expect(() => toDiscretePalette({1: ['#000000']}, -1)).toThrow(RangeError);
+    expect(() => toDiscreteColors({1: ['#000000']}, -1)).toThrow(RangeError);
   });
 
   test('Should throw an error when size is not an integer', () => {
-    expect(() => toDiscretePalette({1: ['#000000']}, 1.5)).toThrow(RangeError);
+    expect(() => toDiscreteColors({1: ['#000000']}, 1.5)).toThrow(RangeError);
   });
 
   test('Should throw an error when size is not finite', () => {
-    expect(() => toDiscretePalette({1: ['#000000']}, Number.NaN)).toThrow(
+    expect(() => toDiscreteColors({1: ['#000000']}, Number.NaN)).toThrow(
       RangeError
     );
     expect(() =>
-      toDiscretePalette({1: ['#000000']}, Number.POSITIVE_INFINITY)
+      toDiscreteColors({1: ['#000000']}, Number.POSITIVE_INFINITY)
     ).toThrow(RangeError);
   });
 
   test('Should return an empty palette when size is zero', () => {
-    expect(toDiscretePalette({1: ['#000000']}, 0)).toEqual([]);
+    expect(toDiscreteColors({1: ['#000000']}, 0)).toEqual([]);
   });
 });
 
-describe('toDiscretePalette with per-palette data', () => {
+describe('getPaletteColors with per-palette data', () => {
   test('Should match the registry data for every palette', () => {
     for (const {name, data, names} of VENDORS) {
       for (const [constant, paletteName] of Object.entries(names)) {
+        const palette = data[paletteName];
+        const expected = palette[256]
+          ? toContinuousColors(palette[256], 6)
+          : toDiscreteColors(palette, 6);
+
         expect(
-          toDiscretePalette(data[paletteName], 6),
+          getPaletteColors(paletteName, 6),
           `${name}: ${constant}`
-        ).toEqual(discretePalette(paletteName, 6));
+        ).toEqual(expected);
       }
     }
   });
 
   test('Should match the registry data for viridis per-palette modules', () => {
-    expect(toDiscretePalette(BOKEH_VIRIDIS_PALETTE_DATA, 6)).toEqual(
-      discretePalette(BOKEH_VIRIDIS, 6)
+    expect(getPaletteColors(BOKEH_VIRIDIS, 6)).toEqual(
+      toContinuousColors(BOKEH_VIRIDIS_PALETTE_DATA[256], 6)
     );
-    expect(toDiscretePalette(VEGA_VIRIDIS_PALETTE_DATA, 6)).toEqual(
-      discretePalette(VEGA_VIRIDIS, 6)
+    expect(getPaletteColors(VEGA_VIRIDIS, 6)).toEqual(
+      toContinuousColors(VEGA_VIRIDIS_PALETTE_DATA[256], 6)
     );
-    expect(toDiscretePalette(D3_VIRIDIS_PALETTE_DATA, 6)).toEqual(
-      discretePalette(D3_VIRIDIS, 6)
+    expect(getPaletteColors(D3_VIRIDIS, 6)).toEqual(
+      toContinuousColors(D3_VIRIDIS_PALETTE_DATA[256], 6)
     );
   });
 });

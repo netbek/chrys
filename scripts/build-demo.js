@@ -16,7 +16,7 @@ import {VEGA_PALETTE_NAMES} from '../src/js/palettes/vega/index.js';
 import {D3_PALETTE_NAMES} from '../src/js/palettes/d3/index.js';
 import bestColorContrast from '../src/js/utils/best-color-contrast.ts';
 import parsePaletteName from '../src/js/utils/parse-palette-name.ts';
-import discretePalette from '../src/js/utils/discrete-palette.ts';
+import getPaletteColors from '../src/js/utils/get-palette-colors.ts';
 import {docsPalette, paletteSassName} from './utils.js';
 
 /**
@@ -120,7 +120,7 @@ async function buildDemo(packageDir, destDir) {
     const sassVar = paletteSassName(jsVar);
 
     if (discreteSizes) {
-      discretePalettes = discreteSizes.map((i) => discretePalette(name, i));
+      discretePalettes = discreteSizes.map((i) => getPaletteColors(name, i));
     }
 
     const palette = docsPalette(name);
