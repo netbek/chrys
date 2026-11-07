@@ -2,28 +2,30 @@ from chrys.data.bokeh_palettes import BOKEH_PALETTE_NAMES
 from chrys.data.d3_palettes import D3_PALETTE_NAMES
 from chrys.data.vega_palettes import VEGA_PALETTE_NAMES
 from chrys.palettes import (
-    _is_continuous,
     BOKEH_ACCENT,
     BOKEH_PALETTE_DATA,
     BOKEH_VIRIDIS,
     CATEGORICAL_PALETTE_VENDORS,
-    continuous_palette,
     CYCLICAL_PALETTE_VENDORS,
     D3_BLUES,
     D3_PALETTE_DATA,
     D3_VIRIDIS,
-    discrete_palette,
     DIVERGING_PALETTE_VENDORS,
     PALETTE_DATA,
     PALETTE_TO_VENDOR_MAP,
-    parse_palette_name,
     SEQUENTIAL_PALETTE_VENDORS,
-    to_continuous_palette,
-    to_discrete_palette,
     VEGA_ACCENT,
     VEGA_PALETTE_DATA,
     VEGA_VIRIDIS,
     Vendor,
+)
+from chrys.utils import (
+    _is_continuous,
+    continuous_palette,
+    discrete_palette,
+    parse_palette_name,
+    to_continuous_palette,
+    to_discrete_palette,
 )
 
 import math

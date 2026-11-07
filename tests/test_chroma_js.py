@@ -1,6 +1,6 @@
 # Ported from Chroma.js — Copyright (c) 2011-2025 Gregor Aisch (BSD 3-Clause)
 # Source: https://github.com/gka/chroma.js/blob/v3.2.0/test/contrast.test.js
-from chrys.chroma_js import contrast, contrast_apca
+from chrys.vendor.chroma_js import contrast, contrast_apca
 
 import unittest
 
