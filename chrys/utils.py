@@ -217,8 +217,9 @@ def to_continuous_colors(colors: HexColors, n: int = 6, as_rgb: bool = False) ->
     Raises:
         ValueError: If ``n`` is invalid or exceeds the base color list's length.
 
-    Note:
-        Adapted from Bokeh 1.3.4 https://bokeh.org (BSD-3-Clause).
+    References:
+        Bokeh 1.3.4, ``linear_palette`` (BSD-3-Clause):
+        https://github.com/bokeh/bokeh/blob/1.3.4/bokeh/palettes.py#L1144-L1166
     """
     _validate_color_count(n)
 

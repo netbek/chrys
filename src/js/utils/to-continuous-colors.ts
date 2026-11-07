@@ -8,6 +8,7 @@ import type {HexColors} from '../types.ts';
  * @param n Number of colors to return; must be a non-negative integer.
  * @returns The continuous colors.
  * @throws If `n` is invalid or exceeds the base color list's length.
+ * @see https://github.com/bokeh/bokeh/blob/1.3.4/bokeh/palettes.py#L1144-L1166
  */
 export default function toContinuousColors(
   colors: HexColors,
