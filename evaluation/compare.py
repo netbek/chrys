@@ -371,12 +371,17 @@ def main() -> None:
     lines.append("## Summary")
     lines.append("")
     lines.append(
-        f"- The existing APCA implementation selects a different foreground "
-        f"than the canonical implementation in {apca_chroma_current['mismatches']} "
-        f"of {apca_chroma_current['total']} best-choice cases "
-        f"({pct(apca_chroma_current['pct'])}). The cause is the swapped APCA "
+        f"- The pre-fix APCA implementation (the `current` baseline) selected a "
+        f"different foreground than the canonical implementation in "
+        f"{apca_chroma_current['mismatches']} of "
+        f"{apca_chroma_current['total']} best-choice cases "
+        f"({pct(apca_chroma_current['pct'])}). The cause was the swapped APCA "
         "argument order, not the package: with the corrected order the mismatch "
         "count is 0."
+    )
+    lines.append(
+        "- The library has been updated to the corrected order. The sanity "
+        "checks compare the fixed library against the corrected variant."
     )
     lines.append(
         "- APCA values already agree across chroma, apca-w3, color.js and "
@@ -391,9 +396,9 @@ def main() -> None:
         "to within `5e-11`."
     )
     lines.append(
-        "- Recommendation: fix the APCA argument order in all three "
-        "environments, adopt CSS Color 4 for WCAG, add the Sass WCAG function, "
-        "and keep `apca-w3` as a test oracle only."
+        "- Recommendation: keep the corrected APCA order, adopt CSS Color 4 for "
+        "WCAG, use the Sass WCAG function, and keep `apca-w3` as a test oracle "
+        "only."
     )
     lines.append("")
     lines.append("## Method")
@@ -405,8 +410,9 @@ def main() -> None:
     )
     lines.append("")
     lines.append(
-        "- **current**: the call order used by the library today "
-        "(`apca(bg, fg)`), which passes the background as the APCA text color."
+        "- **current**: the call order used by the library before the fix "
+        "(`apca(bg, fg)`), retained as a baseline. It passes the background as "
+        "the APCA text color."
     )
     lines.append(
         "- **corrected**: the APCA contract (`apca(fg, bg)`), which passes the "
@@ -695,13 +701,13 @@ def main() -> None:
     lines.append("")
 
     lines.append(
-        "1. **Fix the APCA argument order in all three environments.** The "
-        "current order is the main source of wrong selections: "
-        f"`chroma (TS, current)` mismatches {apca_chroma_current['mismatches']} "
-        f"of {apca_chroma_current['total']} best-choice cases, while the "
-        f"corrected order mismatches {apca_chroma_corrected['mismatches']}. "
-        "Apply the same correction to `chrys/utils.py` and "
-        "`src/css/_functions.scss`."
+        "1. **The APCA argument order has been fixed in all three "
+        "environments.** The pre-fix `current` baseline mismatched "
+        f"{apca_chroma_current['mismatches']} of "
+        f"{apca_chroma_current['total']} best-choice cases, while the corrected "
+        f"order mismatches {apca_chroma_corrected['mismatches']}. The same "
+        "correction is applied in `src/js/utils/best-color-contrast.ts`, "
+        "`chrys/utils.py` and `src/css/_functions.scss`."
     )
     lines.append(
         "2. **Do not switch APCA packages for numeric reasons.** chroma, "
@@ -714,17 +720,16 @@ def main() -> None:
         "3. **Adopt CSS Color 4 for WCAG.** chroma's WCAG differs from "
         "color.js/coloraide on almost every pair (by up to 7.8e-4). The "
         "standards-aligned stack (color.js in TypeScript, coloraide in Python, "
-        "a Sass port) agrees across environments. The prototype Sass function "
-        "in `evaluation/sass/_wcag.scss` is the reference for the new Sass "
-        "function."
+        "a Sass port) agrees across environments. The Sass implementation in "
+        "`src/css/_wcag.scss` follows the same CSS Color 4 definition."
     )
     lines.append(
-        f"4. **Add the Sass WCAG function.** Both color.js and chroma select "
-        f"the same best colors on this corpus ({wcag_colorjs['mismatches']} and "
-        f"{wcag_chroma['mismatches']} mismatches respectively), but chroma's "
-        "WCAG scores are not CSS Color 4 scores. The prototype Sass function "
-        "matches color.js and coloraide to within the acceptance tolerance, so "
-        "it is the reference for the new Sass implementation."
+        f"4. **The Sass WCAG function is in place.** Both color.js and chroma "
+        f"select the same best colors on this corpus "
+        f"({wcag_colorjs['mismatches']} and {wcag_chroma['mismatches']} "
+        "mismatches respectively), but chroma's WCAG scores are not CSS Color 4 "
+        "scores. The Sass implementation matches color.js and coloraide to "
+        "within the acceptance tolerance."
     )
     lines.append(
         "5. **Keep alpha out of scope, or define one policy.** The main API "

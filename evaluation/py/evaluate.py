@@ -138,7 +138,7 @@ def main() -> None:
                 algorithm,
             )
             actual = best_case["fg"][
-                best_index("chroma-port", algorithm, "current", best_case["bg"], best_case["fg"])
+                best_index("chroma-port", algorithm, "corrected", best_case["bg"], best_case["fg"])
             ]
             sanity_checked += 1
             if expected != actual:

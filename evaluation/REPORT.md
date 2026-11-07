@@ -4,16 +4,17 @@ This report compares the existing contrast implementations with the candidate pa
 
 ## Summary
 
-- The existing APCA implementation selects a different foreground than the canonical implementation in 78 of 5510 best-choice cases (1.42%). The cause is the swapped APCA argument order, not the package: with the corrected order the mismatch count is 0.
+- The pre-fix APCA implementation (the `current` baseline) selected a different foreground than the canonical implementation in 78 of 5510 best-choice cases (1.42%). The cause was the swapped APCA argument order, not the package: with the corrected order the mismatch count is 0.
+- The library has been updated to the corrected order. The sanity checks compare the fixed library against the corrected variant.
 - APCA values already agree across chroma, apca-w3, color.js and sass-apca once the orientation is correct. Switching APCA packages does not change the numbers; color.js is still a reasonable TypeScript choice because its API is `(bg, fg)` and its licence is MIT.
 - WCAG is the package decision that matters. chroma's WCAG differs from CSS Color 4 by up to 7.80e-04 on the corpus, while color.js, coloraide and the Sass prototype agree to within `5e-11`.
-- Recommendation: fix the APCA argument order in all three environments, adopt CSS Color 4 for WCAG, add the Sass WCAG function, and keep `apca-w3` as a test oracle only.
+- Recommendation: keep the corrected APCA order, adopt CSS Color 4 for WCAG, use the Sass WCAG function, and keep `apca-w3` as a test oracle only.
 
 ## Method
 
 Every harness reads the same `cases.json`. APCA is evaluated with the text color first and the background color second; WCAG is symmetric. Two APCA variants are recorded:
 
-- **current**: the call order used by the library today (`apca(bg, fg)`), which passes the background as the APCA text color.
+- **current**: the call order used by the library before the fix (`apca(bg, fg)`), retained as a baseline. It passes the background as the APCA text color.
 - **corrected**: the APCA contract (`apca(fg, bg)`), which passes the foreground candidate as the text color.
 
 ### Corpus
@@ -156,10 +157,10 @@ Alpha handling is not part of the acceptance gate. The packages disagree: chroma
 
 ## Recommendation
 
-1. **Fix the APCA argument order in all three environments.** The current order is the main source of wrong selections: `chroma (TS, current)` mismatches 78 of 5510 best-choice cases, while the corrected order mismatches 0. Apply the same correction to `chrys/utils.py` and `src/css/_functions.scss`.
+1. **The APCA argument order has been fixed in all three environments.** The pre-fix `current` baseline mismatched 78 of 5510 best-choice cases, while the corrected order mismatches 0. The same correction is applied in `src/js/utils/best-color-contrast.ts`, `chrys/utils.py` and `src/css/_functions.scss`.
 2. **Do not switch APCA packages for numeric reasons.** chroma, apca-w3, color.js and sass-apca already agree to the displayed precision. Switching to color.js in TypeScript is still reasonable because its API is `(bg, fg)` and its licence is MIT; keep the Python port and sass-apca, with the corrected order.
-3. **Adopt CSS Color 4 for WCAG.** chroma's WCAG differs from color.js/coloraide on almost every pair (by up to 7.8e-4). The standards-aligned stack (color.js in TypeScript, coloraide in Python, a Sass port) agrees across environments. The prototype Sass function in `evaluation/sass/_wcag.scss` is the reference for the new Sass function.
-4. **Add the Sass WCAG function.** Both color.js and chroma select the same best colors on this corpus (0 and 0 mismatches respectively), but chroma's WCAG scores are not CSS Color 4 scores. The prototype Sass function matches color.js and coloraide to within the acceptance tolerance, so it is the reference for the new Sass implementation.
+3. **Adopt CSS Color 4 for WCAG.** chroma's WCAG differs from color.js/coloraide on almost every pair (by up to 7.8e-4). The standards-aligned stack (color.js in TypeScript, coloraide in Python, a Sass port) agrees across environments. The Sass implementation in `src/css/_wcag.scss` follows the same CSS Color 4 definition.
+4. **The Sass WCAG function is in place.** Both color.js and chroma select the same best colors on this corpus (0 and 0 mismatches respectively), but chroma's WCAG scores are not CSS Color 4 scores. The Sass implementation matches color.js and coloraide to within the acceptance tolerance.
 5. **Keep alpha out of scope, or define one policy.** The main API should document opaque hex colors. If alpha is supported later, composite the foreground over the background in every environment; the current packages disagree.
 6. **Use apca-w3 as a test oracle only.** Its W3 licence is not appropriate for a shipped general-purpose runtime dependency.
 

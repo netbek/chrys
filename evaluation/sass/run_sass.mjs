@@ -91,7 +91,7 @@ cases.best_cases.forEach((bestCase, index) => {
   jobs.push(
     `sanity|${bestCase.id}|` +
       `#{_index-of(${fg}, library.best-color-contrast(${bestCase.bg}, ${fg}))}|` +
-      `#{best.best-index(${bestCase.bg}, ${fg}, 'apca', 'current')}`
+      `#{best.best-index(${bestCase.bg}, ${fg}, 'apca', 'corrected')}`
   );
 });
 

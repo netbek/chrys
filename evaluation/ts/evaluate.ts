@@ -211,7 +211,7 @@ for (const bestCase of sanitySample) {
         : bestColorContrast(bestCase.bg, bestCase.fg, 'wcag');
     const actual =
       bestCase.fg[
-        bestIndex('chroma', algorithm, 'current', bestCase.bg, bestCase.fg)
+        bestIndex('chroma', algorithm, 'corrected', bestCase.bg, bestCase.fg)
       ];
     sanityChecked += 1;
     if (expected !== actual) {
