@@ -9,9 +9,8 @@ import {
   SEQUENTIAL_PALETTE_VENDORS,
   VENDOR
 } from '../registry.js';
+import type {Vendor} from '../types.js';
 import parsePaletteName from '../utils/parse-palette-name.js';
-
-type Vendor = (typeof VENDOR)[keyof typeof VENDOR];
 
 const VENDORS = Object.values(VENDOR) as Vendor[];
 

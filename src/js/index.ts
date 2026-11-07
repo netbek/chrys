@@ -3,10 +3,11 @@ export type {
   HexColor,
   HexColors,
   Palette,
+  PaletteName,
   RGBColor,
-  RGBColors
+  RGBColors,
+  Vendor
 } from './types.ts';
-export type {PaletteName} from './utils/parse-palette-name.ts';
 export {default as bestColorContrast} from './utils/best-color-contrast.ts';
 export {default as toDiscretePalette} from './utils/to-discrete-palette.ts';
 export {default as parsePaletteName} from './utils/parse-palette-name.ts';

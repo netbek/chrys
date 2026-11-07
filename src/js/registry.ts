@@ -170,15 +170,13 @@ import {
   D3_INFERNO,
   D3_PLASMA
 } from './palettes/d3/index.js';
-import type {Palette} from './types.ts';
+import type {Palette, Vendor} from './types.ts';
 
 export const VENDOR = {
   BOKEH: 'bokeh',
   VEGA: 'vega',
   D3: 'd3'
-} as const;
-
-export type Vendor = (typeof VENDOR)[keyof typeof VENDOR];
+} as const satisfies Record<Uppercase<Vendor>, Vendor>;
 
 export const CATEGORICAL_PALETTE_VENDORS = [
   {

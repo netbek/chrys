@@ -1,10 +1,5 @@
-import {PALETTE_TO_VENDOR_MAP, type Vendor} from '../registry.ts';
-
-/** A vendor and its vendor-specific palette name. */
-export type PaletteName = {
-  readonly vendor: Vendor;
-  readonly palette: string;
-};
+import {PALETTE_TO_VENDOR_MAP} from '../registry.ts';
+import type {PaletteName} from '../types.ts';
 
 /**
  * Parses a palette name into its vendor and palette components.

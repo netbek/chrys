@@ -1,3 +1,12 @@
+/** A palette vendor. */
+export type Vendor = 'bokeh' | 'vega' | 'd3';
+
+/** A vendor and its vendor-specific palette name. */
+export type PaletteName = {
+  readonly vendor: Vendor;
+  readonly palette: string;
+};
+
 /** A hexadecimal color string. */
 export type HexColor = string;
 
