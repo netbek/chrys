@@ -1,0 +1,34 @@
+// Prototype best-color-contrast selection for the evaluation.
+
+@use 'sass:list';
+@use 'sass:math';
+@use 'node_modules/sass-apca/apca';
+@use 'wcag';
+
+@function _score($bg, $fg, $algorithm, $variant) {
+  @if $algorithm == 'wcag' {
+    @return math.abs(wcag.contrast($fg, $bg));
+  }
+
+  @if $variant == 'current' {
+    @return math.abs(apca.contrast($bg, $fg));
+  }
+
+  @return math.abs(apca.contrast($fg, $bg));
+}
+
+@function best-index($bg, $fg-colors, $algorithm: 'apca', $variant: 'corrected') {
+  $best-index: 1;
+  $best-score: _score($bg, list.nth($fg-colors, 1), $algorithm, $variant);
+
+  @for $index from 1 through list.length($fg-colors) {
+    $candidate-score: _score($bg, list.nth($fg-colors, $index), $algorithm, $variant);
+
+    @if $candidate-score > $best-score {
+      $best-index: $index;
+      $best-score: $candidate-score;
+    }
+  }
+
+  @return $best-index - 1;
+}
