@@ -89,6 +89,12 @@ Continuous color sampling adapted from:
 
 - [Bokeh](https://github.com/bokeh/bokeh) — Copyright (c) 2012-2018 Anaconda, Inc., and Bokeh Contributors ([BSD 3-Clause](https://github.com/bokeh/bokeh/blob/1.3.4/LICENSE.txt))
 
+RGB conversion adapted from:
+
+- [Matplotlib](https://github.com/matplotlib/matplotlib) — Copyright (c) 2012-2026 Matplotlib Development Team ([Matplotlib License](https://github.com/matplotlib/matplotlib/blob/v3.11.2/LICENSE/LICENSE))
+
+  Modified to accept only hexadecimal color strings and to drop the alpha channel.
+
 WCAG and APCA contrast algorithms from:
 
 - [Chroma.js](https://github.com/gka/chroma.js) — Copyright (c) 2011-2025 Gregor Aisch ([BSD 3-Clause](https://github.com/gka/chroma.js/blob/v3.2.0/LICENSE))

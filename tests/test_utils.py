@@ -22,6 +22,7 @@ from chrys.palettes import (
     Vendor,
 )
 from chrys.utils import (
+    _to_rgb,
     best_color_contrast,
     get_palette,
     get_palette_colors,
@@ -29,10 +30,10 @@ from chrys.utils import (
     to_continuous_colors,
     to_discrete_colors,
 )
+from typing import Any
 from unittest.mock import patch
 
 import math
-import matplotlib as mpl
 import pytest
 import unittest
 
@@ -316,7 +317,7 @@ class TestToDiscreteColors(unittest.TestCase):
 
     def test_as_rgb(self):
         palette = {2: ["#000000", "#ffffff"]}
-        expected = [mpl.colors.to_rgb(color) for color in palette[2]]
+        expected = [_to_rgb(color) for color in palette[2]]
 
         self.assertEqual(to_discrete_colors(palette, as_rgb=True), expected)
 
@@ -422,7 +423,7 @@ class TestGetPaletteColorsDiscrete(unittest.TestCase):
 
     def test_as_rgb(self):
         result = get_palette_colors(VEGA_ACCENT, 3, as_rgb=True)
-        expected = [mpl.colors.to_rgb(color) for color in VEGA_PALETTE_DATA[VEGA_ACCENT][3]]
+        expected = [_to_rgb(color) for color in VEGA_PALETTE_DATA[VEGA_ACCENT][3]]
 
         self.assertEqual(result, expected)
 
@@ -720,8 +721,7 @@ class TestGetPaletteColorsContinuous(unittest.TestCase):
     def test_as_rgb(self):
         result = get_palette_colors(VEGA_VIRIDIS, 6, as_rgb=True)
         expected = [
-            mpl.colors.to_rgb(color)
-            for color in sample_continuous(VEGA_PALETTE_DATA[VEGA_VIRIDIS][256], 6)
+            _to_rgb(color) for color in sample_continuous(VEGA_PALETTE_DATA[VEGA_VIRIDIS][256], 6)
         ]
 
         self.assertEqual(result, expected)
@@ -769,9 +769,60 @@ class TestToContinuousColors(unittest.TestCase):
             to_continuous_colors(self.colors, 1.5)
 
     def test_as_rgb(self):
-        expected = [mpl.colors.to_rgb(color) for color in self.colors]
+        expected = [_to_rgb(color) for color in self.colors]
 
         self.assertEqual(
             to_continuous_colors(self.colors, len(self.colors), as_rgb=True),
             expected,
         )
+
+
+class TestToRgb(unittest.TestCase):
+    def test_six_digit_hex(self):
+        self.assertEqual(_to_rgb("#7fc97f"), (127 / 255, 201 / 255, 127 / 255))
+
+    def test_three_digit_hex(self):
+        self.assertEqual(_to_rgb("#abc"), (10 / 15, 11 / 15, 12 / 15))
+
+    def test_eight_digit_hex_drops_alpha(self):
+        self.assertEqual(_to_rgb("#7fc97f80"), _to_rgb("#7fc97f"))
+
+    def test_four_digit_hex_drops_alpha(self):
+        self.assertEqual(_to_rgb("#abc8"), _to_rgb("#abc"))
+
+    def test_shorthand_equivalence(self):
+        self.assertEqual(_to_rgb("#123"), _to_rgb("#112233"))
+        self.assertEqual(_to_rgb("#123a"), _to_rgb("#112233"))
+        self.assertEqual(_to_rgb("#1234abcd"), _to_rgb("#1234ab"))
+
+    def test_uppercase_hex(self):
+        self.assertEqual(_to_rgb("#ABCDEF"), _to_rgb("#abcdef"))
+
+    def test_returns_rgb_tuple(self):
+        result = _to_rgb("#7fc97f")
+
+        self.assertIsInstance(result, tuple)
+        self.assertEqual(len(result), 3)
+        self.assertTrue(all(0.0 <= channel <= 1.0 for channel in result))
+
+    def test_invalid_hex_length(self):
+        for color in ("#12345", "#1234567"):
+            with (
+                self.subTest(color=color),
+                pytest.raises(ValueError, match="Invalid hex color specifier"),
+            ):
+                _to_rgb(color)
+
+    def test_invalid_hex_characters(self):
+        with pytest.raises(ValueError, match="Invalid RGBA argument"):
+            _to_rgb("#gggggg")
+
+    def test_invalid_string(self):
+        with pytest.raises(ValueError, match="Invalid RGBA argument"):
+            _to_rgb("not-a-color")
+
+    def test_non_string(self):
+        color: Any = (0, 0, 0)
+
+        with pytest.raises(ValueError, match="Invalid RGBA argument"):
+            _to_rgb(color)

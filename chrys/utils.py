@@ -14,7 +14,7 @@ from enum import StrEnum
 from typing import NamedTuple
 
 import math
-import matplotlib as mpl
+import re
 
 # A hexadecimal color string.
 type HexColor = str
@@ -156,6 +156,43 @@ def _validate_color_count(n: int) -> None:
         raise ValueError(f"Color count must be a non-negative integer, got {n}.")
 
 
+def _to_rgb(color: HexColor) -> RGBColor:
+    """Convert a hexadecimal color string to an RGB tuple.
+
+    Args:
+        color: Hexadecimal color string, for example ``"#7fc97f"``.
+
+    Returns:
+        The color as an ``(r, g, b)`` tuple, with channels between 0 and 1.
+
+    Raises:
+        ValueError: If ``color`` is not a valid hexadecimal color string.
+
+    References:
+        matplotlib v3.11.2, ``to_rgb`` and ``_to_rgba_no_colorcycle`` (matplotlib license):
+        https://github.com/matplotlib/matplotlib/blob/v3.11.2/lib/matplotlib/colors.py
+    """
+    if isinstance(color, str):
+        if re.fullmatch("#[a-fA-F0-9]+", color):
+            if len(color) == 7:  # #rrggbb
+                r, g, b = (n / 0xFF for n in bytes.fromhex(color[1:]))
+                return (r, g, b)
+            if len(color) == 4:  # #rgb
+                r, g, b = (int(n, 16) / 0xF for n in color[1:])
+                return (r, g, b)
+            if len(color) == 9:  # #rrggbbaa
+                r, g, b = [n / 0xFF for n in bytes.fromhex(color[1:])][:3]
+                return (r, g, b)
+            if len(color) == 5:  # #rgba
+                r, g, b = [int(n, 16) / 0xF for n in color[1:]][:3]
+                return (r, g, b)
+            raise ValueError(f"Invalid hex color specifier: {color!r}")
+
+        raise ValueError(f"Invalid RGBA argument: {color!r}")
+
+    raise ValueError(f"Invalid RGBA argument: {color!r}")
+
+
 def to_discrete_colors(palette: Palette, n: int = 6, as_rgb: bool = False) -> Colors:
     """Generate a list of discrete colors.
 
@@ -197,7 +234,7 @@ def to_discrete_colors(palette: Palette, n: int = 6, as_rgb: bool = False) -> Co
         raise ValueError(f"Unsupported palette size {n}. Supported sizes: {supported}.")
 
     if as_rgb:
-        result = [mpl.colors.to_rgb(color) for color in result]
+        result = [_to_rgb(color) for color in result]
 
     return result
 
@@ -237,7 +274,7 @@ def to_continuous_colors(colors: HexColors, n: int = 6, as_rgb: bool = False) ->
     result: Colors = [colors[math.floor(i)] for i in indices]
 
     if as_rgb:
-        result = [mpl.colors.to_rgb(color) for color in result]
+        result = [_to_rgb(color) for color in result]
 
     return result
 
