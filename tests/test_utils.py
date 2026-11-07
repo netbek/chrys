@@ -147,9 +147,11 @@ class TestGetPalette(unittest.TestCase):
             _get_palette("lorem ipsum")
 
     def test_missing_data(self):
-        with patch("chrys.utils.PALETTE_DATA", {Vendor.VEGA: {}}):
-            with pytest.raises(ValueError, match='Palette data for "vega_accent" not found.'):
-                _get_palette(VEGA_ACCENT)
+        with (
+            patch("chrys.utils.PALETTE_DATA", {Vendor.VEGA: {}}),
+            pytest.raises(ValueError, match='Palette data for "vega_accent" not found.'),
+        ):
+            _get_palette(VEGA_ACCENT)
 
 
 class TestToDiscretePalette(unittest.TestCase):
@@ -363,9 +365,11 @@ class TestDiscretePalette(unittest.TestCase):
 
     def test_unsupported_size_between_palette_sizes(self):
         for size in (20, 100):
-            with self.subTest(size=size):
-                with pytest.raises(ValueError, match=f"Unsupported palette size {size}"):
-                    discrete_palette(VEGA_VIRIDIS, size)
+            with (
+                self.subTest(size=size),
+                pytest.raises(ValueError, match=f"Unsupported palette size {size}"),
+            ):
+                discrete_palette(VEGA_VIRIDIS, size)
 
     def test_clamp_to_maximum_supported_size(self):
         self.assertEqual(len(discrete_palette(VEGA_VIRIDIS, 300)), 256)
@@ -690,7 +694,9 @@ class TestContinuousPalette(unittest.TestCase):
 
 
 class TestToContinuousPalette(unittest.TestCase):
-    colors = ["#000000", "#111111", "#222222", "#333333"]
+    def setUp(self):
+        self.colors = ["#000000", "#111111", "#222222", "#333333"]
+        return super().setUp()
 
     def test_zero_colors(self):
         self.assertEqual(to_continuous_palette(self.colors, 0), [])
