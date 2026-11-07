@@ -24,11 +24,11 @@ from chrys.palettes import (
 from chrys.utils import (
     _get_palette,
     best_color_contrast,
-    continuous_palette,
-    discrete_palette,
+    continuous_colors,
+    discrete_colors,
     parse_palette_name,
-    to_continuous_palette,
-    to_discrete_palette,
+    to_continuous_colors,
+    to_discrete_colors,
 )
 from unittest.mock import patch
 
@@ -188,18 +188,18 @@ class TestGetPalette(unittest.TestCase):
             _get_palette(VEGA_ACCENT)
 
 
-class TestToDiscretePalette(unittest.TestCase):
+class TestToDiscreteColors(unittest.TestCase):
     def test_empty_palette(self):
         with pytest.raises(ValueError, match="Palette is empty."):
-            to_discrete_palette({})
+            to_discrete_colors({})
 
     def test_zero_colors(self):
-        self.assertEqual(to_discrete_palette({1: ["#000000"]}, 0), [])
+        self.assertEqual(to_discrete_colors({1: ["#000000"]}, 0), [])
 
     def test_default_size(self):
         palette = {6: [f"#{i}{i}{i}{i}{i}{i}" for i in range(6)]}
 
-        self.assertEqual(to_discrete_palette(palette), palette[6])
+        self.assertEqual(to_discrete_colors(palette), palette[6])
 
     def test_default_size_returns_maximum_available(self):
         palette = {
@@ -207,21 +207,21 @@ class TestToDiscretePalette(unittest.TestCase):
             2: ["#000000", "#ffffff"],
         }
 
-        self.assertEqual(to_discrete_palette(palette), ["#000000", "#ffffff"])
+        self.assertEqual(to_discrete_colors(palette), ["#000000", "#ffffff"])
 
     def test_below_minimum(self):
         palette = {3: ["#000000", "#111111", "#222222"]}
 
-        self.assertEqual(to_discrete_palette(palette, 2), palette[3][:2])
+        self.assertEqual(to_discrete_colors(palette, 2), palette[3][:2])
 
     def test_above_maximum(self):
         palette = {2: ["#000000", "#111111"]}
 
-        self.assertEqual(to_discrete_palette(palette, 5), palette[2])
+        self.assertEqual(to_discrete_colors(palette, 5), palette[2])
 
     def test_copy_when_size_equals_minimum(self):
         palette = {3: ["#000000", "#111111", "#222222"]}
-        colors = to_discrete_palette(palette, 3)
+        colors = to_discrete_colors(palette, 3)
 
         self.assertIsNot(colors, palette[3])
 
@@ -231,7 +231,7 @@ class TestToDiscretePalette(unittest.TestCase):
 
     def test_copy_when_size_exceeds_maximum(self):
         palette = {2: ["#000000", "#111111"]}
-        colors = to_discrete_palette(palette, 5)
+        colors = to_discrete_colors(palette, 5)
 
         self.assertEqual(len(colors), 2)
 
@@ -255,7 +255,7 @@ class TestToDiscretePalette(unittest.TestCase):
                 "#888888",
             ],
         }
-        colors = to_discrete_palette(palette, 6)
+        colors = to_discrete_colors(palette, 6)
 
         self.assertIsNot(colors, palette[6])
 
@@ -274,7 +274,7 @@ class TestToDiscretePalette(unittest.TestCase):
             3: ["#000000", "#111111", "#222222"],
         }
 
-        self.assertEqual(to_discrete_palette(palette, 3), palette[3])
+        self.assertEqual(to_discrete_colors(palette, 3), palette[3])
 
     def test_unsupported_size(self):
         palette = {
@@ -286,79 +286,79 @@ class TestToDiscretePalette(unittest.TestCase):
             ValueError,
             match="Unsupported palette size 2. Supported sizes: 1, 3.",
         ):
-            to_discrete_palette(palette, 2)
+            to_discrete_colors(palette, 2)
 
     def test_supported_sizes_listed_ascending(self):
         with pytest.raises(
             ValueError,
             match="Unsupported palette size 3. Supported sizes: 1, 6.",
         ):
-            to_discrete_palette({6: ["#000000"], 1: ["#000000"]}, 3)
+            to_discrete_colors({6: ["#000000"], 1: ["#000000"]}, 3)
 
     def test_negative_size(self):
         with pytest.raises(ValueError, match="non-negative integer"):
-            to_discrete_palette({1: ["#000000"]}, -1)
+            to_discrete_colors({1: ["#000000"]}, -1)
 
     def test_float_size(self):
         with pytest.raises(ValueError, match="non-negative integer"):
-            to_discrete_palette({1: ["#000000"]}, 1.5)
+            to_discrete_colors({1: ["#000000"]}, 1.5)
 
     def test_bool_size(self):
         with pytest.raises(ValueError, match="non-negative integer"):
-            to_discrete_palette({1: ["#000000"]}, True)
+            to_discrete_colors({1: ["#000000"]}, True)
 
     def test_nan_size(self):
         with pytest.raises(ValueError, match="non-negative integer"):
-            to_discrete_palette({1: ["#000000"]}, float("nan"))
+            to_discrete_colors({1: ["#000000"]}, float("nan"))
 
     def test_infinite_size(self):
         with pytest.raises(ValueError, match="non-negative integer"):
-            to_discrete_palette({1: ["#000000"]}, float("inf"))
+            to_discrete_colors({1: ["#000000"]}, float("inf"))
 
     def test_as_rgb(self):
         palette = {2: ["#000000", "#ffffff"]}
         expected = [mpl.colors.to_rgb(color) for color in palette[2]]
 
-        self.assertEqual(to_discrete_palette(palette, as_rgb=True), expected)
+        self.assertEqual(to_discrete_colors(palette, as_rgb=True), expected)
 
     def test_matches_registry_data(self):
         for vendor, names in PALETTE_NAME_MAPS:
             for constant, palette_name in names.items():
                 with self.subTest(vendor=vendor, constant=constant):
                     self.assertEqual(
-                        to_discrete_palette(PALETTE_DATA[vendor][palette_name], 6),
-                        discrete_palette(palette_name, 6),
+                        to_discrete_colors(PALETTE_DATA[vendor][palette_name], 6),
+                        discrete_colors(palette_name, 6),
                     )
 
 
-class TestDiscretePalette(unittest.TestCase):
+class TestDiscreteColors(unittest.TestCase):
     def test_no_size(self):
         self.assertEqual(
-            discrete_palette(VEGA_ACCENT),
+            discrete_colors(VEGA_ACCENT),
             ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f"],
         )
 
     def test_bokeh_palette(self):
         self.assertEqual(
-            discrete_palette(BOKEH_ACCENT),
+            discrete_colors(BOKEH_ACCENT),
             BOKEH_PALETTE_DATA[BOKEH_ACCENT][6],
         )
 
     def test_d3_blues_palette(self):
         self.assertEqual(
-            discrete_palette(D3_BLUES, 6),
+            discrete_colors(D3_BLUES, 6),
             ["#eff3ff", "#c6dbef", "#9ecae1", "#6baed6", "#3182bd", "#08519c"],
         )
 
     def test_d3_accent_below_minimum(self):
         self.assertEqual(
-            discrete_palette(D3_ACCENT, 3),
+            discrete_colors(D3_ACCENT, 3),
             D3_PALETTE_DATA[D3_ACCENT][8][:3],
         )
 
     def test_valid_size(self):
         self.assertEqual(
-            discrete_palette(VEGA_ACCENT, 8),
+            discrete_colors(VEGA_ACCENT, 8),
             [
                 "#7fc97f",
                 "#beaed4",
@@ -373,7 +373,7 @@ class TestDiscretePalette(unittest.TestCase):
 
     def test_size_above_maximum(self):
         self.assertEqual(
-            discrete_palette(VEGA_ACCENT, 20),
+            discrete_colors(VEGA_ACCENT, 20),
             [
                 "#7fc97f",
                 "#beaed4",
@@ -387,15 +387,15 @@ class TestDiscretePalette(unittest.TestCase):
         )
 
     def test_zero_colors(self):
-        self.assertEqual(discrete_palette(VEGA_ACCENT, 0), [])
+        self.assertEqual(discrete_colors(VEGA_ACCENT, 0), [])
 
     def test_negative_size(self):
         with pytest.raises(ValueError, match="non-negative integer"):
-            discrete_palette(VEGA_ACCENT, -1)
+            discrete_colors(VEGA_ACCENT, -1)
 
     def test_float_size(self):
         with pytest.raises(ValueError, match="non-negative integer"):
-            discrete_palette(VEGA_ACCENT, 4.5)
+            discrete_colors(VEGA_ACCENT, 4.5)
 
     def test_unsupported_size_between_palette_sizes(self):
         for size in (20, 100):
@@ -403,18 +403,18 @@ class TestDiscretePalette(unittest.TestCase):
                 self.subTest(size=size),
                 pytest.raises(ValueError, match=f"Unsupported palette size {size}"),
             ):
-                discrete_palette(VEGA_VIRIDIS, size)
+                discrete_colors(VEGA_VIRIDIS, size)
 
     def test_clamp_to_maximum_supported_size(self):
-        self.assertEqual(len(discrete_palette(VEGA_VIRIDIS, 300)), 256)
-        self.assertEqual(len(discrete_palette(D3_VIRIDIS, 300)), 256)
+        self.assertEqual(len(discrete_colors(VEGA_VIRIDIS, 300)), 256)
+        self.assertEqual(len(discrete_colors(D3_VIRIDIS, 300)), 256)
 
     def test_invalid_name(self):
         with pytest.raises(PaletteNotFoundError, match='Palette "lorem ipsum" not found.'):
-            discrete_palette("lorem ipsum")
+            discrete_colors("lorem ipsum")
 
     def test_as_rgb(self):
-        result = discrete_palette(VEGA_ACCENT, 3, as_rgb=True)
+        result = discrete_colors(VEGA_ACCENT, 3, as_rgb=True)
         expected = [mpl.colors.to_rgb(color) for color in VEGA_PALETTE_DATA[VEGA_ACCENT][3]]
 
         self.assertEqual(result, expected)
@@ -424,16 +424,16 @@ class TestDiscretePalette(unittest.TestCase):
             self.assertEqual(len(color), 3)
 
 
-class TestContinuousPalette(unittest.TestCase):
+class TestContinuousColors(unittest.TestCase):
     def test_zero_colors(self):
-        self.assertCountEqual(continuous_palette(VEGA_VIRIDIS, 0), [])
+        self.assertCountEqual(continuous_colors(VEGA_VIRIDIS, 0), [])
 
     def test_one_color(self):
-        self.assertCountEqual(continuous_palette(VEGA_VIRIDIS, 1), ["#440356"])
+        self.assertCountEqual(continuous_colors(VEGA_VIRIDIS, 1), ["#440356"])
 
     def test_all_colors(self):
         self.assertCountEqual(
-            continuous_palette(VEGA_VIRIDIS, 256),
+            continuous_colors(VEGA_VIRIDIS, 256),
             [
                 "#440356",
                 "#450457",
@@ -696,22 +696,22 @@ class TestContinuousPalette(unittest.TestCase):
 
     def test_invalid_size(self):
         with pytest.raises(ValueError):
-            continuous_palette(VEGA_VIRIDIS, 257)
+            continuous_colors(VEGA_VIRIDIS, 257)
 
     def test_bokeh_palette(self):
         self.assertEqual(
-            continuous_palette(BOKEH_VIRIDIS, 6),
+            continuous_colors(BOKEH_VIRIDIS, 6),
             sample_continuous(BOKEH_PALETTE_DATA[BOKEH_VIRIDIS][256], 6),
         )
 
     def test_d3_palette(self):
         self.assertEqual(
-            continuous_palette(D3_VIRIDIS, 6),
+            continuous_colors(D3_VIRIDIS, 6),
             sample_continuous(D3_PALETTE_DATA[D3_VIRIDIS][256], 6),
         )
 
     def test_as_rgb(self):
-        result = continuous_palette(VEGA_VIRIDIS, 6, as_rgb=True)
+        result = continuous_colors(VEGA_VIRIDIS, 6, as_rgb=True)
         expected = [
             mpl.colors.to_rgb(color)
             for color in sample_continuous(VEGA_PALETTE_DATA[VEGA_VIRIDIS][256], 6)
@@ -724,48 +724,48 @@ class TestContinuousPalette(unittest.TestCase):
             ValueError,
             match='Generating continuous palettes of "vega_accent" is not supported',
         ):
-            continuous_palette(VEGA_ACCENT, 6)
+            continuous_colors(VEGA_ACCENT, 6)
 
 
-class TestToContinuousPalette(unittest.TestCase):
+class TestToContinuousColors(unittest.TestCase):
     def setUp(self):
         self.colors = ["#000000", "#111111", "#222222", "#333333"]
         return super().setUp()
 
     def test_zero_colors(self):
-        self.assertEqual(to_continuous_palette(self.colors, 0), [])
+        self.assertEqual(to_continuous_colors(self.colors, 0), [])
 
     def test_one_color(self):
-        self.assertEqual(to_continuous_palette(self.colors, 1), [self.colors[0]])
+        self.assertEqual(to_continuous_colors(self.colors, 1), [self.colors[0]])
 
     def test_two_colors(self):
         self.assertEqual(
-            to_continuous_palette(self.colors, 2),
+            to_continuous_colors(self.colors, 2),
             [self.colors[0], self.colors[-1]],
         )
 
     def test_all_colors(self):
         self.assertEqual(
-            to_continuous_palette(self.colors, len(self.colors)),
+            to_continuous_colors(self.colors, len(self.colors)),
             self.colors,
         )
 
     def test_too_many_colors(self):
         with pytest.raises(ValueError, match="Requested 5 colors"):
-            to_continuous_palette(self.colors, 5)
+            to_continuous_colors(self.colors, 5)
 
     def test_negative_size(self):
         with pytest.raises(ValueError, match="non-negative integer"):
-            to_continuous_palette(self.colors, -1)
+            to_continuous_colors(self.colors, -1)
 
     def test_float_size(self):
         with pytest.raises(ValueError, match="non-negative integer"):
-            to_continuous_palette(self.colors, 1.5)
+            to_continuous_colors(self.colors, 1.5)
 
     def test_as_rgb(self):
         expected = [mpl.colors.to_rgb(color) for color in self.colors]
 
         self.assertEqual(
-            to_continuous_palette(self.colors, len(self.colors), as_rgb=True),
+            to_continuous_colors(self.colors, len(self.colors), as_rgb=True),
             expected,
         )

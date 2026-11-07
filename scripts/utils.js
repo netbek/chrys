@@ -235,9 +235,9 @@ export function paletteSassName(varName) {
  *
  * @param {string[]} colors Palette colors.
  * @param {number} count Number of colors to return.
- * @returns {string[]} Quantized palette colors.
+ * @returns {string[]} Quantized colors.
  */
-export function continuousPalette(colors, count) {
+export function continuousColors(colors, count) {
   const scale = scaleQuantile(
     _.times(count, (i) => i),
     colors
@@ -523,7 +523,7 @@ export function buildBokehDocsPalettes() {
   });
 
   _.forEach(BOKEH_CONTINUOUS, (palettes, vendorName) => {
-    docs['bokeh_' + vendorName] = continuousPalette(
+    docs['bokeh_' + vendorName] = continuousColors(
       bokehHex(largestPalette(palettes)),
       DOCS_PALETTE_SIZE
     );
@@ -545,7 +545,7 @@ export function buildVegaDocsPalettes() {
   });
 
   Object.keys(VEGA_CONTINUOUS).forEach((vendorName) => {
-    docs['vega_' + vendorName.toLowerCase()] = continuousPalette(
+    docs['vega_' + vendorName.toLowerCase()] = continuousColors(
       getColors(VEGA_CONTINUOUS[vendorName]),
       DOCS_PALETTE_SIZE
     );
@@ -578,7 +578,7 @@ export function buildD3DocsPalettes() {
   Object.keys(D3_CONTINUOUS).forEach((schemeName) => {
     const vendorName = toVegaName(schemeName);
 
-    docs['d3_' + vendorName.toLowerCase()] = continuousPalette(
+    docs['d3_' + vendorName.toLowerCase()] = continuousColors(
       quantizeInterpolator(D3_CONTINUOUS[schemeName], 256),
       DOCS_PALETTE_SIZE
     );

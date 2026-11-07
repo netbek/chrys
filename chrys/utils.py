@@ -175,7 +175,7 @@ def _validate_palette_size(n: int) -> None:
         raise ValueError(f"Palette size must be a non-negative integer, got {n}.")
 
 
-def to_discrete_palette(palette: Palette, n: int = 6, as_rgb: bool = False) -> Colors:
+def to_discrete_colors(palette: Palette, n: int = 6, as_rgb: bool = False) -> Colors:
     """Generate a list of discrete colors.
 
     Args:
@@ -184,8 +184,8 @@ def to_discrete_palette(palette: Palette, n: int = 6, as_rgb: bool = False) -> C
         as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
     Returns:
-        The discrete palette colors as hexadecimal strings, or as RGB tuples when
-        ``as_rgb`` is true.
+        The discrete colors as hexadecimal strings, or as RGB tuples when ``as_rgb`` is
+        true.
 
     Raises:
         ValueError: If ``n`` is invalid, the palette is empty, or the requested size is
@@ -221,7 +221,7 @@ def to_discrete_palette(palette: Palette, n: int = 6, as_rgb: bool = False) -> C
     return result
 
 
-def to_continuous_palette(colors: HexColors, n: int = 6, as_rgb: bool = False) -> Colors:
+def to_continuous_colors(colors: HexColors, n: int = 6, as_rgb: bool = False) -> Colors:
     """Generate a list of continuous colors.
 
     Args:
@@ -230,8 +230,8 @@ def to_continuous_palette(colors: HexColors, n: int = 6, as_rgb: bool = False) -
         as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
     Returns:
-        The continuous palette colors as hexadecimal strings, or as RGB tuples when
-        ``as_rgb`` is true.
+        The continuous colors as hexadecimal strings, or as RGB tuples when ``as_rgb`` is
+        true.
 
     Raises:
         ValueError: If ``n`` is invalid or exceeds the base color list's length.
@@ -260,8 +260,8 @@ def to_continuous_palette(colors: HexColors, n: int = 6, as_rgb: bool = False) -
     return result
 
 
-def discrete_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False) -> Colors:
-    """Generate a discrete palette by name.
+def discrete_colors(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False) -> Colors:
+    """Generate a list of discrete colors by palette name.
 
     Args:
         name: Qualified palette name.
@@ -269,8 +269,8 @@ def discrete_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fals
         as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
     Returns:
-        The discrete palette colors as hexadecimal strings, or as RGB tuples when
-        ``as_rgb`` is true.
+        The discrete colors as hexadecimal strings, or as RGB tuples when ``as_rgb`` is
+        true.
 
     Raises:
         VendorNotFoundError: If the qualified palette name has an unknown vendor.
@@ -278,11 +278,11 @@ def discrete_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fals
         PaletteDataEmptyError: If the palette data is empty.
         ValueError: If ``n`` is invalid or the requested size is unsupported.
     """
-    return to_discrete_palette(_get_palette(name), n=n, as_rgb=as_rgb)
+    return to_discrete_colors(_get_palette(name), n=n, as_rgb=as_rgb)
 
 
-def continuous_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False) -> Colors:
-    """Generate a continuous palette by name.
+def continuous_colors(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False) -> Colors:
+    """Generate a list of continuous colors by palette name.
 
     Args:
         name: Qualified palette name.
@@ -290,8 +290,8 @@ def continuous_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fa
         as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
     Returns:
-        The continuous palette colors as hexadecimal strings, or as RGB tuples when
-        ``as_rgb`` is true.
+        The continuous colors as hexadecimal strings, or as RGB tuples when ``as_rgb`` is
+        true.
 
     Raises:
         VendorNotFoundError: If the qualified palette name has an unknown vendor.
@@ -303,4 +303,4 @@ def continuous_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fa
     if not _is_continuous(name):
         raise ValueError(f'Generating continuous palettes of "{name}" is not supported')
 
-    return to_continuous_palette(_get_palette(name)[256], n=n, as_rgb=as_rgb)
+    return to_continuous_colors(_get_palette(name)[256], n=n, as_rgb=as_rgb)

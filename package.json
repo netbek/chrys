@@ -60,16 +60,16 @@
       },
       "default": "./dist/es/utils/best-color-contrast.js"
     },
-    "./to-discrete-palette": {
+    "./to-discrete-colors": {
       "import": {
-        "types": "./dist/es/utils/to-discrete-palette.d.ts",
-        "default": "./dist/es/utils/to-discrete-palette.js"
+        "types": "./dist/es/utils/to-discrete-colors.d.ts",
+        "default": "./dist/es/utils/to-discrete-colors.js"
       },
       "require": {
-        "types": "./dist/cjs/utils/to-discrete-palette.d.ts",
-        "default": "./dist/cjs/utils/to-discrete-palette.js"
+        "types": "./dist/cjs/utils/to-discrete-colors.d.ts",
+        "default": "./dist/cjs/utils/to-discrete-colors.js"
       },
-      "default": "./dist/es/utils/to-discrete-palette.js"
+      "default": "./dist/es/utils/to-discrete-colors.js"
     },
     "./parse-palette-name": {
       "import": {
@@ -82,16 +82,16 @@
       },
       "default": "./dist/es/utils/parse-palette-name.js"
     },
-    "./discrete-palette": {
+    "./discrete-colors": {
       "import": {
-        "types": "./dist/es/utils/discrete-palette.d.ts",
-        "default": "./dist/es/utils/discrete-palette.js"
+        "types": "./dist/es/utils/discrete-colors.d.ts",
+        "default": "./dist/es/utils/discrete-colors.js"
       },
       "require": {
-        "types": "./dist/cjs/utils/discrete-palette.d.ts",
-        "default": "./dist/cjs/utils/discrete-palette.js"
+        "types": "./dist/cjs/utils/discrete-colors.d.ts",
+        "default": "./dist/cjs/utils/discrete-colors.js"
       },
-      "default": "./dist/es/utils/discrete-palette.js"
+      "default": "./dist/es/utils/discrete-colors.js"
     },
     "./utils/best-color-contrast": {
       "import": {
@@ -104,16 +104,16 @@
       },
       "default": "./dist/es/utils/best-color-contrast.js"
     },
-    "./utils/to-discrete-palette": {
+    "./utils/to-discrete-colors": {
       "import": {
-        "types": "./dist/es/utils/to-discrete-palette.d.ts",
-        "default": "./dist/es/utils/to-discrete-palette.js"
+        "types": "./dist/es/utils/to-discrete-colors.d.ts",
+        "default": "./dist/es/utils/to-discrete-colors.js"
       },
       "require": {
-        "types": "./dist/cjs/utils/to-discrete-palette.d.ts",
-        "default": "./dist/cjs/utils/to-discrete-palette.js"
+        "types": "./dist/cjs/utils/to-discrete-colors.d.ts",
+        "default": "./dist/cjs/utils/to-discrete-colors.js"
       },
-      "default": "./dist/es/utils/to-discrete-palette.js"
+      "default": "./dist/es/utils/to-discrete-colors.js"
     },
     "./utils/parse-palette-name": {
       "import": {
@@ -126,16 +126,16 @@
       },
       "default": "./dist/es/utils/parse-palette-name.js"
     },
-    "./utils/discrete-palette": {
+    "./utils/discrete-colors": {
       "import": {
-        "types": "./dist/es/utils/discrete-palette.d.ts",
-        "default": "./dist/es/utils/discrete-palette.js"
+        "types": "./dist/es/utils/discrete-colors.d.ts",
+        "default": "./dist/es/utils/discrete-colors.js"
       },
       "require": {
-        "types": "./dist/cjs/utils/discrete-palette.d.ts",
-        "default": "./dist/cjs/utils/discrete-palette.js"
+        "types": "./dist/cjs/utils/discrete-colors.d.ts",
+        "default": "./dist/cjs/utils/discrete-colors.js"
       },
-      "default": "./dist/es/utils/discrete-palette.js"
+      "default": "./dist/es/utils/discrete-colors.js"
     },
     "./palettes/*": {
       "import": {
