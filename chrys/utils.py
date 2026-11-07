@@ -1,9 +1,9 @@
+from chrys.chroma_js import contrast, contrast_apca
 from chrys.palettes import (
     CONTINUOUS_PALETTE_NAMES,
     PALETTE_DATA,
     PALETTE_TO_VENDOR_MAP,
 )
-from chrys.vendor.chroma_js import contrast, contrast_apca
 from collections import namedtuple
 from enum import StrEnum
 
