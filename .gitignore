@@ -11,6 +11,10 @@ dist
 dist-python
 node_modules
 npm-debug.log
+vendor/apca-w3/
+vendor/color.js/
+vendor/coloraide/
+vendor/sass-apca/
 
 # IDE files
 nbproject

@@ -226,7 +226,9 @@
     "vitest": "5.0.5"
   },
   "dependencies": {
+    "apca-w3": "^0.1.9",
     "chroma-js": "3.2.0",
+    "colorjs.io": "^0.7.1",
     "sass-apca": "1.2.0"
   }
 }
