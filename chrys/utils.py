@@ -5,11 +5,19 @@ from chrys.palettes import (
     PALETTE_TO_VENDOR_MAP,
     Vendor,
 )
+from collections.abc import Mapping
 from enum import StrEnum
 from typing import NamedTuple
 
 import math
 import matplotlib as mpl
+
+type HexColor = str
+type HexColors = list[HexColor]
+type Palette = Mapping[int, HexColors]
+type RGBColor = tuple[float, float, float]
+type RGBColors = list[RGBColor]
+type Colors = HexColors | RGBColors
 
 
 class Algorithm(StrEnum):
@@ -20,8 +28,8 @@ class Algorithm(StrEnum):
 
 
 def best_color_contrast(
-    bg_color: str, fg_colors: list[str], algorithm: str = Algorithm.APCA
-) -> str:
+    bg_color: HexColor, fg_colors: HexColors, algorithm: str = Algorithm.APCA
+) -> HexColor:
     """Select the foreground color with the highest contrast against a background color.
 
     Args:
@@ -53,10 +61,6 @@ class PaletteName(NamedTuple):
     palette: str
 
 
-type RGB = tuple[float, float, float]
-type PaletteResult = list[str] | list[RGB]
-
-
 def parse_palette_name(name: str) -> PaletteName:
     """Parse a palette name into its vendor and palette components.
 
@@ -78,7 +82,7 @@ def parse_palette_name(name: str) -> PaletteName:
     return PaletteName(vendor, palette)
 
 
-def _get_palette(name: str) -> dict[int, list[str]]:
+def _get_palette(name: str) -> Palette:
     """Get the palette data for a palette name.
 
     Args:
@@ -125,9 +129,7 @@ def _validate_palette_size(n: int) -> None:
         raise ValueError(f"Palette size must be a non-negative integer, got {n}.")
 
 
-def to_discrete_palette(
-    palette: dict[int, list[str]], n: int = 6, as_rgb: bool = False
-) -> PaletteResult:
+def to_discrete_palette(palette: Palette, n: int = 6, as_rgb: bool = False) -> Colors:
     """Generate a list of discrete colors.
 
     Args:
@@ -155,7 +157,7 @@ def to_discrete_palette(
 
     min_size = sizes[0]
     max_size = sizes[-1]
-    result: PaletteResult
+    result: Colors
 
     if n <= min_size:
         result = palette[min_size][:n]
@@ -173,11 +175,11 @@ def to_discrete_palette(
     return result
 
 
-def to_continuous_palette(palette: list[str], n: int = 6, as_rgb: bool = False) -> PaletteResult:
+def to_continuous_palette(colors: HexColors, n: int = 6, as_rgb: bool = False) -> Colors:
     """Generate a list of continuous colors.
 
     Args:
-        palette: Base palette colors in hexadecimal format.
+        colors: Base colors in hexadecimal format.
         n: Number of colors to return; must be a non-negative integer.
         as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
@@ -186,25 +188,25 @@ def to_continuous_palette(palette: list[str], n: int = 6, as_rgb: bool = False) 
         ``as_rgb`` is true.
 
     Raises:
-        ValueError: If ``n`` is invalid or exceeds the base palette's length.
+        ValueError: If ``n`` is invalid or exceeds the base color list's length.
 
     Note:
         Adapted from Bokeh 1.3.4 https://bokeh.org (BSD-3-Clause).
     """
     _validate_palette_size(n)
 
-    if n > len(palette):
+    if n > len(colors):
         raise ValueError(
-            "Requested %(r)s colors, function can only return colors up to the base palette's"
-            " length (%(l)s)" % dict(r=n, l=len(palette))
+            "Requested %(r)s colors, function can only return colors up to the base color list's"
+            " length (%(l)s)" % dict(r=n, l=len(colors))
         )
 
     if n == 1:
         indices = [0.0]
     else:
-        step = (len(palette) - 1) / (n - 1)
+        step = (len(colors) - 1) / (n - 1)
         indices = [i * step for i in range(n)]
-    result: PaletteResult = [palette[int(math.floor(i))] for i in indices]
+    result: Colors = [colors[int(math.floor(i))] for i in indices]
 
     if as_rgb:
         result = [mpl.colors.to_rgb(color) for color in result]
@@ -212,7 +214,7 @@ def to_continuous_palette(palette: list[str], n: int = 6, as_rgb: bool = False) 
     return result
 
 
-def discrete_palette(name: str, n: int = 6, as_rgb: bool = False) -> PaletteResult:
+def discrete_palette(name: str, n: int = 6, as_rgb: bool = False) -> Colors:
     """Generate a discrete palette by name.
 
     Args:
@@ -231,7 +233,7 @@ def discrete_palette(name: str, n: int = 6, as_rgb: bool = False) -> PaletteResu
     return to_discrete_palette(_get_palette(name), n=n, as_rgb=as_rgb)
 
 
-def continuous_palette(name: str, n: int = 6, as_rgb: bool = False) -> PaletteResult:
+def continuous_palette(name: str, n: int = 6, as_rgb: bool = False) -> Colors:
     """Generate a continuous palette by name.
 
     Args:
