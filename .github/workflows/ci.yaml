@@ -44,7 +44,7 @@ jobs:
         run: pnpm run typecheck
 
       - name: Run Node tests
-        run: pnpm run test
+        run: pnpm run test:coverage
 
       - name: Run Python tests
-        run: uv run --frozen pytest
+        run: uv run --frozen pytest --cov=chrys --cov-report=term-missing

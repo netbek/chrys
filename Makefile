@@ -12,6 +12,14 @@ endif
 # DEPENDENCY MANAGEMENT
 # ==============================================================================
 
+install:
+	@echo "$(YELLOW)Installing...$(RESET)"
+# 	@./scripts/install-node.sh
+# 	@./scripts/install-python.sh
+# 	@./scripts/install-precommit.sh
+# 	@./scripts/install-skills.sh
+	@./scripts/install-vendor.sh
+
 deps-scan:
 	@echo "$(YELLOW)Scanning root lockfiles for vulnerabilities...$(RESET)"
 	trivy fs pnpm-lock.yaml --table-mode detailed
@@ -116,7 +124,12 @@ lint:
 	pre-commit run ruff-check --hook-stage manual --all-files
 
 test:
-	vitest run
+	pnpm run test
+	uv run pytest
+
+test-coverage:
+	pnpm run test:coverage
+	uv run pytest --cov=chrys --cov-report=term-missing --cov-report=html
 
 # ==============================================================================
 # PUBLISH
@@ -144,9 +157,9 @@ bump-version:
 	git commit -m $$VERSION;
 
 build-data:
-	node scripts/bokeh-palettes.js
-	node scripts/vega-palettes.js
-	node scripts/d3-palettes.js
+	node scripts/build-bokeh-palettes.js
+	node scripts/build-vega-palettes.js
+	node scripts/build-d3-palettes.js
 
 build-dist:
 	pnpm build

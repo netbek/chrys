@@ -6,19 +6,18 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {
   VENDOR,
-  BOKEH_PALETTE_NAMES,
-  VEGA_PALETTE_NAMES,
-  D3_PALETTE_NAMES,
   CATEGORICAL_PALETTE_VENDORS,
   DIVERGING_PALETTE_VENDORS,
   SEQUENTIAL_PALETTE_VENDORS,
-  CYCLICAL_PALETTE_VENDORS,
-  bestColorContrast,
-  docsPalette,
-  parsePaletteName,
-  discretePalette
-} from '../src/js/index.ts';
-import {paletteSassName} from './utils.js';
+  CYCLICAL_PALETTE_VENDORS
+} from '../src/js/registry.ts';
+import {BOKEH_PALETTE_NAMES} from '../src/js/palettes/bokeh/index.js';
+import {VEGA_PALETTE_NAMES} from '../src/js/palettes/vega/index.js';
+import {D3_PALETTE_NAMES} from '../src/js/palettes/d3/index.js';
+import bestColorContrast from '../src/js/utils/best-color-contrast.ts';
+import parsePaletteName from '../src/js/utils/parse-palette-name.ts';
+import discretePalette from '../src/js/utils/discrete-palette.ts';
+import {docsPalette, paletteSassName} from './utils.js';
 
 /**
  * Copies vendor and demo assets, builds the palette context, and renders the
@@ -95,7 +94,7 @@ async function buildDemo(packageDir, destDir) {
   /**
    * Builds the demo data for a single palette.
    *
-   * @param {string} name Palette name.
+   * @param {string} name Qualified palette name.
    * @param {number[]} [discreteSizes] Sizes of the discrete palettes to build.
    * @returns {object|undefined} The demo item, or `undefined` if no name is
    * given.
