@@ -14,10 +14,10 @@ endif
 
 install:
 	@echo "$(YELLOW)Installing...$(RESET)"
-# 	@./scripts/install-node.sh
-# 	@./scripts/install-python.sh
-# 	@./scripts/install-precommit.sh
-# 	@./scripts/install-skills.sh
+	@./scripts/install-node.sh
+	@./scripts/install-python.sh
+	@./scripts/install-precommit.sh
+	@./scripts/install-skills.sh
 	@./scripts/install-vendor.sh
 
 deps-scan:
