@@ -214,8 +214,8 @@ def to_continuous_palette(colors: HexColors, n: int = 6, as_rgb: bool = False) -
 
     if n > len(colors):
         raise ValueError(
-            "Requested %(r)s colors, function can only return colors up to the base color list's"
-            " length (%(l)s)" % dict(r=n, l=len(colors))
+            f"Requested {n} colors, function can only return colors up to the base color list's"
+            f" length ({len(colors)})"
         )
 
     if n == 1:
@@ -223,7 +223,7 @@ def to_continuous_palette(colors: HexColors, n: int = 6, as_rgb: bool = False) -
     else:
         step = (len(colors) - 1) / (n - 1)
         indices = [i * step for i in range(n)]
-    result: Colors = [colors[int(math.floor(i))] for i in indices]
+    result: Colors = [colors[math.floor(i)] for i in indices]
 
     if as_rgb:
         result = [mpl.colors.to_rgb(color) for color in result]
