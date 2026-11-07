@@ -6,7 +6,7 @@ from chrys.palettes import (
     Vendor,
 )
 from enum import StrEnum
-from typing import NamedTuple, TypeAlias
+from typing import NamedTuple
 
 import math
 import matplotlib as mpl
@@ -54,8 +54,8 @@ class PaletteName(NamedTuple):
     palette: str
 
 
-RGB: TypeAlias = tuple[float, float, float]
-PaletteResult: TypeAlias = list[str] | list[RGB]
+type RGB = tuple[float, float, float]
+type PaletteResult = list[str] | list[RGB]
 
 
 def parse_palette_name(name: str) -> PaletteName:
