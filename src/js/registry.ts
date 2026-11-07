@@ -170,7 +170,7 @@ import {
   D3_INFERNO,
   D3_PLASMA
 } from './palettes/d3/index.js';
-import type {Palette, Vendor} from './types.ts';
+import type {Palette, QualifiedPaletteName, Vendor} from './types.ts';
 
 export const VENDOR = {
   BOKEH: 'bokeh',
@@ -543,7 +543,7 @@ export const CYCLICAL_PALETTE_VENDORS = [
  *
  * @internal
  */
-export const PALETTE_TO_VENDOR_MAP: Record<string, Vendor> = {};
+export const PALETTE_TO_VENDOR_MAP: Record<QualifiedPaletteName, Vendor> = {};
 [
   DIVERGING_PALETTE_VENDORS,
   CATEGORICAL_PALETTE_VENDORS,
@@ -567,7 +567,10 @@ export const PALETTE_TO_VENDOR_MAP: Record<string, Vendor> = {};
  *
  * @internal
  */
-export const PALETTE_DATA: Record<Vendor, Record<string, Palette>> = {
+export const PALETTE_DATA: Record<
+  Vendor,
+  Record<QualifiedPaletteName, Palette>
+> = {
   [VENDOR.BOKEH]: BOKEH_PALETTE_DATA,
   [VENDOR.VEGA]: VEGA_PALETTE_DATA,
   [VENDOR.D3]: D3_PALETTE_DATA

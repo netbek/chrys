@@ -30,6 +30,16 @@ type RGBColors = list[RGBColor]
 # Colors represented as hexadecimal strings or RGB tuples.
 type Colors = HexColors | RGBColors
 
+# A palette name that includes its vendor prefix, for example "vega_accent".
+type QualifiedPaletteName = str
+
+
+class ParsedPaletteName(NamedTuple):
+    """A vendor and its vendor-specific palette name."""
+
+    vendor: Vendor
+    palette: str
+
 
 class Algorithm(StrEnum):
     """Contrast algorithm."""
@@ -65,14 +75,7 @@ def best_color_contrast(
     return fg_colors[max_score_index]
 
 
-class PaletteName(NamedTuple):
-    """A vendor and its vendor-specific palette name."""
-
-    vendor: Vendor
-    palette: str
-
-
-def parse_palette_name(name: str) -> PaletteName:
+def parse_palette_name(name: QualifiedPaletteName) -> ParsedPaletteName:
     """Parse a palette name into its vendor and palette components.
 
     Args:
@@ -90,10 +93,10 @@ def parse_palette_name(name: str) -> PaletteName:
     vendor = PALETTE_TO_VENDOR_MAP[name]
     palette = name[len(vendor) + 1 :]
 
-    return PaletteName(vendor, palette)
+    return ParsedPaletteName(vendor, palette)
 
 
-def _get_palette(name: str) -> Palette:
+def _get_palette(name: QualifiedPaletteName) -> Palette:
     """Get the palette data for a palette name.
 
     Args:
@@ -110,7 +113,7 @@ def _get_palette(name: str) -> Palette:
     return PALETTE_DATA[vendor][name]
 
 
-def _is_continuous(name: str) -> bool:
+def _is_continuous(name: QualifiedPaletteName) -> bool:
     """Return whether a palette is continuous.
 
     Args:
@@ -225,7 +228,7 @@ def to_continuous_palette(colors: HexColors, n: int = 6, as_rgb: bool = False) -
     return result
 
 
-def discrete_palette(name: str, n: int = 6, as_rgb: bool = False) -> Colors:
+def discrete_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False) -> Colors:
     """Generate a discrete palette by name.
 
     Args:
@@ -244,7 +247,7 @@ def discrete_palette(name: str, n: int = 6, as_rgb: bool = False) -> Colors:
     return to_discrete_palette(_get_palette(name), n=n, as_rgb=as_rgb)
 
 
-def continuous_palette(name: str, n: int = 6, as_rgb: bool = False) -> Colors:
+def continuous_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False) -> Colors:
     """Generate a continuous palette by name.
 
     Args:

@@ -3,7 +3,8 @@ export type {
   HexColor,
   HexColors,
   Palette,
-  PaletteName,
+  ParsedPaletteName,
+  QualifiedPaletteName,
   RGBColor,
   RGBColors,
   Vendor

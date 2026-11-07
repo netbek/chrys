@@ -1,5 +1,5 @@
 import {PALETTE_TO_VENDOR_MAP} from '../registry.ts';
-import type {PaletteName} from '../types.ts';
+import type {ParsedPaletteName, QualifiedPaletteName} from '../types.ts';
 
 /**
  * Parses a palette name into its vendor and palette components.
@@ -8,7 +8,9 @@ import type {PaletteName} from '../types.ts';
  * @returns The vendor and the vendor-specific palette name.
  * @throws If the palette name is not recognized.
  */
-export default function parsePaletteName(name: string): PaletteName {
+export default function parsePaletteName(
+  name: QualifiedPaletteName
+): ParsedPaletteName {
   if (!Object.hasOwn(PALETTE_TO_VENDOR_MAP, name)) {
     throw new Error(`Palette name "${name}" not recognized.`);
   }
