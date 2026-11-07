@@ -570,32 +570,8 @@ for mapping in mappings:
             if name:
                 PALETTE_TO_VENDOR_MAP[name] = vendor
 
-BOKEH_CONTINUOUS_PALETTE_NAMES = [
-    name
-    for name, palette in BOKEH_PALETTE_DATA.items()
-    if [x for x in list(palette.keys()) if x == 256]
-]
-
-VEGA_CONTINUOUS_PALETTE_NAMES = [
-    name
-    for name, palette in VEGA_PALETTE_DATA.items()
-    if [x for x in list(palette.keys()) if x == 256]
-]
-
-D3_CONTINUOUS_PALETTE_NAMES = [
-    name
-    for name, palette in D3_PALETTE_DATA.items()
-    if [x for x in list(palette.keys()) if x == 256]
-]
-
 PALETTE_DATA = {
     Vendor.BOKEH: BOKEH_PALETTE_DATA,
     Vendor.VEGA: VEGA_PALETTE_DATA,
     Vendor.D3: D3_PALETTE_DATA,
-}
-
-CONTINUOUS_PALETTE_NAMES = {
-    Vendor.BOKEH: BOKEH_CONTINUOUS_PALETTE_NAMES,
-    Vendor.VEGA: VEGA_CONTINUOUS_PALETTE_NAMES,
-    Vendor.D3: D3_CONTINUOUS_PALETTE_NAMES,
 }

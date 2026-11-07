@@ -5,7 +5,6 @@ from chrys.exceptions import (
     VendorNotFoundError,
 )
 from chrys.palettes import (
-    CONTINUOUS_PALETTE_NAMES,
     PALETTE_DATA,
     PALETTE_TO_VENDOR_MAP,
     Vendor,
@@ -144,24 +143,6 @@ def get_palette(name: QualifiedPaletteName) -> Palette:
     return palette
 
 
-def _is_continuous(name: QualifiedPaletteName) -> bool:
-    """Return whether a palette is continuous.
-
-    Args:
-        name: Qualified palette name.
-
-    Returns:
-        Whether the palette is continuous.
-
-    Raises:
-        VendorNotFoundError: If the qualified palette name has an unknown vendor.
-        PaletteNotFoundError: If the qualified palette name is not recognized.
-    """
-    vendor, _ = parse_palette_name(name)
-
-    return name in CONTINUOUS_PALETTE_NAMES[vendor]
-
-
 def _validate_palette_size(n: int) -> None:
     """Validate that a palette size is a non-negative integer.
 
@@ -283,7 +264,7 @@ def get_palette_colors(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fa
     """
     palette = get_palette(name)
 
-    if _is_continuous(name):
+    if 256 in palette:
         return to_continuous_colors(palette[256], n=n, as_rgb=as_rgb)
 
     return to_discrete_colors(palette, n=n, as_rgb=as_rgb)

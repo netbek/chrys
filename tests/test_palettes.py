@@ -10,7 +10,7 @@ from chrys.palettes import (
     SEQUENTIAL_PALETTE_VENDORS,
     Vendor,
 )
-from chrys.utils import _is_continuous, parse_palette_name
+from chrys.utils import parse_palette_name
 
 import re
 import unittest
@@ -105,11 +105,9 @@ class TestRegistry(unittest.TestCase):
         for vendor, data in PALETTE_DATA.items():
             for name, palette in data.items():
                 with self.subTest(vendor=vendor, palette=name):
-                    continuous = 256 in palette
+                    is_continuous = 256 in palette
 
-                    self.assertEqual(_is_continuous(name), continuous)
-
-                    if continuous:
+                    if is_continuous:
                         self.assertEqual(len(palette[256]), 256)
 
     def test_all_names_parse(self):
