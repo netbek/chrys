@@ -47,7 +47,7 @@ class TestRegistry(unittest.TestCase):
             seen = set()
 
             for mapping in mappings:
-                for vendor, name in mapping.items():
+                for name in mapping.values():
                     if name is None:
                         continue
 
