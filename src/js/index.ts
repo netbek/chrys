@@ -1,12 +1,9 @@
 export type {
-  Colors,
   HexColor,
   HexColors,
   Palette,
   ParsedPaletteName,
   QualifiedPaletteName,
-  RGBColor,
-  RGBColors,
   Vendor
 } from './types.ts';
 export {
