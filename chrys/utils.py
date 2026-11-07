@@ -12,11 +12,22 @@ from typing import NamedTuple
 import math
 import matplotlib as mpl
 
+# A hexadecimal color string.
 type HexColor = str
+
+# A list of hexadecimal color strings.
 type HexColors = list[HexColor]
+
+# Palette sizes mapped to color arrays.
 type Palette = Mapping[int, HexColors]
+
+# An RGB color as red, green, and blue channels.
 type RGBColor = tuple[float, float, float]
+
+# A list of RGB colors.
 type RGBColors = list[RGBColor]
+
+# Colors represented as hexadecimal strings or RGB tuples.
 type Colors = HexColors | RGBColors
 
 
