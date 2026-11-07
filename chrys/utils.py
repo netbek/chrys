@@ -13,6 +13,8 @@ import matplotlib as mpl
 
 
 class Algorithm(StrEnum):
+    """Contrast algorithm."""
+
     APCA = "apca"
     WCAG = "wcag"
 
@@ -20,23 +22,18 @@ class Algorithm(StrEnum):
 def best_color_contrast(
     bg_color: str, fg_colors: list[str], algorithm: str = Algorithm.APCA
 ) -> str:
-    """
-    Select the foreground color with the highest contrast against a background
-    color.
+    """Select the foreground color with the highest contrast against a background color.
 
-    Parameters
-    ----------
-    bg_color: str
-        Background color in hexadecimal format.
-    fg_colors: list[str]
-        Candidate foreground colors in hexadecimal format.
-    algorithm: str
-        Contrast algorithm to use (``"apca"`` or ``"wcag"``).
+    Args:
+        bg_color: Background color.
+        fg_colors: Candidate foreground colors.
+        algorithm: Contrast algorithm to use (``"apca"`` or ``"wcag"``).
 
-    Returns
-    -------
-    str
+    Returns:
         The foreground color with the highest contrast.
+
+    Raises:
+        ValueError: If ``fg_colors`` is empty or a color is invalid.
     """
     if not fg_colors:
         raise ValueError("At least one foreground color is required.")
@@ -50,6 +47,8 @@ def best_color_contrast(
 
 
 class PaletteName(NamedTuple):
+    """A vendor and its vendor-specific palette name."""
+
     vendor: Vendor
     palette: str
 
@@ -59,6 +58,17 @@ type PaletteResult = list[str] | list[RGB]
 
 
 def parse_palette_name(name: str) -> PaletteName:
+    """Parse a palette name into its vendor and palette components.
+
+    Args:
+        name: Palette name, for example ``"vega_accent"``.
+
+    Returns:
+        The vendor and the vendor-specific palette name.
+
+    Raises:
+        ValueError: If the palette name is not recognized.
+    """
     if name not in PALETTE_TO_VENDOR_MAP:
         raise ValueError(f'Palette name "{name}" not recognized')
 
@@ -69,18 +79,48 @@ def parse_palette_name(name: str) -> PaletteName:
 
 
 def _get_palette(name: str) -> dict[int, list[str]]:
+    """Get the palette data for a palette name.
+
+    Args:
+        name: Palette name.
+
+    Returns:
+        Palette sizes mapped to color arrays.
+
+    Raises:
+        KeyError: If the palette data is missing.
+    """
     vendor, _ = parse_palette_name(name)
 
     return PALETTE_DATA[vendor][name]
 
 
 def _is_continuous(name: str) -> bool:
+    """Return whether a palette is continuous.
+
+    Args:
+        name: Palette name.
+
+    Returns:
+        Whether the palette is continuous.
+
+    Raises:
+        ValueError: If the palette name is not recognized.
+    """
     vendor, _ = parse_palette_name(name)
 
     return name in CONTINUOUS_PALETTE_NAMES[vendor]
 
 
 def _validate_palette_size(n: int) -> None:
+    """Validate that a palette size is a non-negative integer.
+
+    Args:
+        n: Palette size.
+
+    Raises:
+        ValueError: If ``n`` is not an integer or is negative.
+    """
     if not isinstance(n, int) or isinstance(n, bool) or n < 0:
         raise ValueError(f"Palette size must be a non-negative integer, got {n}.")
 
@@ -88,22 +128,20 @@ def _validate_palette_size(n: int) -> None:
 def to_discrete_palette(
     palette: dict[int, list[str]], n: int = 6, as_rgb: bool = False
 ) -> PaletteResult:
-    """
-    Generate a list of discrete colors.
+    """Generate a list of discrete colors.
 
-    Parameters
-    ----------
-    palette: list[str]
-        A list of RGB hex color strings.
-    n: int
-        The size of the output palette to generate.
-    as_rgb: bool
-        Whether to return an RGB tuple `(r, g, b)`.
+    Args:
+        palette: Palette sizes mapped to color arrays.
+        n: Number of colors to return; must be a non-negative integer.
+        as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
-    Returns
-    -------
-    list[str]
-        A list of RGB hex color strings or RGB tuples.
+    Returns:
+        The discrete palette colors as hexadecimal strings, or as RGB tuples when
+        ``as_rgb`` is true.
+
+    Raises:
+        ValueError: If ``n`` is invalid, the palette is empty, or the requested size is
+            unsupported.
     """
     _validate_palette_size(n)
 
@@ -136,24 +174,22 @@ def to_discrete_palette(
 
 
 def to_continuous_palette(palette: list[str], n: int = 6, as_rgb: bool = False) -> PaletteResult:
-    """
-    Generate a list of continuous colors.
+    """Generate a list of continuous colors.
 
-    Parameters
-    ----------
-    palette: list[str]
-        A list of RGB hex color strings.
-    n: int
-        The size of the output palette to generate.
-    as_rgb: bool
-        Whether to return an RGB tuple `(r, g, b)`.
+    Args:
+        palette: Base palette colors in hexadecimal format.
+        n: Number of colors to return; must be a non-negative integer.
+        as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
-    Returns
-    -------
-    list[str]
-        A list of RGB hex color strings or RGB tuples.
+    Returns:
+        The continuous palette colors as hexadecimal strings, or as RGB tuples when
+        ``as_rgb`` is true.
 
-    Adapted from Bokeh 1.3.4 https://bokeh.org (BSD-3-Clause)
+    Raises:
+        ValueError: If ``n`` is invalid or exceeds the base palette's length.
+
+    Note:
+        Adapted from Bokeh 1.3.4 https://bokeh.org (BSD-3-Clause).
     """
     _validate_palette_size(n)
 
@@ -177,10 +213,40 @@ def to_continuous_palette(palette: list[str], n: int = 6, as_rgb: bool = False) 
 
 
 def discrete_palette(name: str, n: int = 6, as_rgb: bool = False) -> PaletteResult:
+    """Generate a discrete palette by name.
+
+    Args:
+        name: Palette name.
+        n: Number of colors to return; must be a non-negative integer.
+        as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
+
+    Returns:
+        The discrete palette colors as hexadecimal strings, or as RGB tuples when
+        ``as_rgb`` is true.
+
+    Raises:
+        ValueError: If the palette name is not recognized, ``n`` is invalid, or the
+            requested size is unsupported.
+    """
     return to_discrete_palette(_get_palette(name), n=n, as_rgb=as_rgb)
 
 
 def continuous_palette(name: str, n: int = 6, as_rgb: bool = False) -> PaletteResult:
+    """Generate a continuous palette by name.
+
+    Args:
+        name: Palette name.
+        n: Number of colors to return; must be a non-negative integer.
+        as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
+
+    Returns:
+        The continuous palette colors as hexadecimal strings, or as RGB tuples when
+        ``as_rgb`` is true.
+
+    Raises:
+        ValueError: If the palette name is not recognized, the palette does not support
+            continuous generation, or ``n`` exceeds the base palette's length.
+    """
     if not _is_continuous(name):
         raise ValueError(f'Generating continuous palettes of "{name}" is not supported')
 
