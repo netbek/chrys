@@ -112,7 +112,7 @@ def parse_palette_name(name: QualifiedPaletteName) -> ParsedPaletteName:
     return ParsedPaletteName(vendor, palette)
 
 
-def _get_palette(name: QualifiedPaletteName) -> Palette:
+def get_palette(name: QualifiedPaletteName) -> Palette:
     """Get the palette data for a qualified palette name.
 
     Args:
@@ -260,8 +260,11 @@ def to_continuous_colors(colors: HexColors, n: int = 6, as_rgb: bool = False) ->
     return result
 
 
-def discrete_colors(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False) -> Colors:
-    """Generate a list of discrete colors by palette name.
+def get_palette_colors(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False) -> Colors:
+    """Get a list of colors from a palette by name.
+
+    Continuous palettes generate colors from their 256-color ramp; other palettes return
+    discrete colors.
 
     Args:
         name: Qualified palette name.
@@ -269,38 +272,18 @@ def discrete_colors(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False
         as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
     Returns:
-        The discrete colors as hexadecimal strings, or as RGB tuples when ``as_rgb`` is
+        The palette colors as hexadecimal strings, or as RGB tuples when ``as_rgb`` is
         true.
 
     Raises:
         VendorNotFoundError: If the qualified palette name has an unknown vendor.
         PaletteNotFoundError: If the qualified palette name is not recognized.
         PaletteDataEmptyError: If the palette data is empty.
-        ValueError: If ``n`` is invalid or the requested size is unsupported.
+        ValueError: If ``n`` is invalid or unsupported by the palette.
     """
-    return to_discrete_colors(_get_palette(name), n=n, as_rgb=as_rgb)
+    palette = get_palette(name)
 
+    if _is_continuous(name):
+        return to_continuous_colors(palette[256], n=n, as_rgb=as_rgb)
 
-def continuous_colors(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False) -> Colors:
-    """Generate a list of continuous colors by palette name.
-
-    Args:
-        name: Qualified palette name.
-        n: Number of colors to return; must be a non-negative integer.
-        as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
-
-    Returns:
-        The continuous colors as hexadecimal strings, or as RGB tuples when ``as_rgb`` is
-        true.
-
-    Raises:
-        VendorNotFoundError: If the qualified palette name has an unknown vendor.
-        PaletteNotFoundError: If the qualified palette name is not recognized.
-        PaletteDataEmptyError: If the palette data is empty.
-        ValueError: If the palette does not support continuous generation or ``n`` exceeds the
-            base palette's length.
-    """
-    if not _is_continuous(name):
-        raise ValueError(f'Generating continuous palettes of "{name}" is not supported')
-
-    return to_continuous_colors(_get_palette(name)[256], n=n, as_rgb=as_rgb)
+    return to_discrete_colors(palette, n=n, as_rgb=as_rgb)

@@ -22,10 +22,9 @@ from chrys.palettes import (
     Vendor,
 )
 from chrys.utils import (
-    _get_palette,
     best_color_contrast,
-    continuous_colors,
-    discrete_colors,
+    get_palette,
+    get_palette_colors,
     parse_palette_name,
     to_continuous_colors,
     to_discrete_colors,
@@ -149,33 +148,33 @@ class TestPaletteNameMaps(unittest.TestCase):
 
 class TestGetPalette(unittest.TestCase):
     def test_returns_palette_data(self):
-        self.assertEqual(_get_palette(VEGA_ACCENT), VEGA_PALETTE_DATA[VEGA_ACCENT])
+        self.assertEqual(get_palette(VEGA_ACCENT), VEGA_PALETTE_DATA[VEGA_ACCENT])
 
     def test_invalid_name(self):
         with pytest.raises(PaletteNotFoundError, match='Palette "lorem ipsum" not found.'):
-            _get_palette("lorem ipsum")
+            get_palette("lorem ipsum")
 
     def test_unknown_vendor(self):
         with pytest.raises(VendorNotFoundError, match='Vendor "unknown" not found.'):
-            _get_palette("unknown_accent")
+            get_palette("unknown_accent")
 
     def test_unknown_palette(self):
         with pytest.raises(PaletteNotFoundError, match='Palette "vega_unknown" not found.'):
-            _get_palette("vega_unknown")
+            get_palette("vega_unknown")
 
     def test_missing_vendor_data(self):
         with (
             patch("chrys.utils.PALETTE_DATA", {}),
             pytest.raises(VendorNotFoundError, match='Vendor "vega" not found.'),
         ):
-            _get_palette(VEGA_ACCENT)
+            get_palette(VEGA_ACCENT)
 
     def test_missing_palette_data(self):
         with (
             patch("chrys.utils.PALETTE_DATA", {Vendor.VEGA: {}}),
             pytest.raises(PaletteNotFoundError, match='Palette "vega_accent" not found.'),
         ):
-            _get_palette(VEGA_ACCENT)
+            get_palette(VEGA_ACCENT)
 
     def test_empty_palette_data(self):
         with (
@@ -185,7 +184,7 @@ class TestGetPalette(unittest.TestCase):
                 match='Palette data for "vega_accent" is empty.',
             ),
         ):
-            _get_palette(VEGA_ACCENT)
+            get_palette(VEGA_ACCENT)
 
 
 class TestToDiscreteColors(unittest.TestCase):
@@ -325,40 +324,44 @@ class TestToDiscreteColors(unittest.TestCase):
         for vendor, names in PALETTE_NAME_MAPS:
             for constant, palette_name in names.items():
                 with self.subTest(vendor=vendor, constant=constant):
-                    self.assertEqual(
-                        to_discrete_colors(PALETTE_DATA[vendor][palette_name], 6),
-                        discrete_colors(palette_name, 6),
+                    palette = PALETTE_DATA[vendor][palette_name]
+                    expected = (
+                        to_continuous_colors(palette[256], 6)
+                        if 256 in palette
+                        else to_discrete_colors(palette, 6)
                     )
 
+                    self.assertEqual(get_palette_colors(palette_name, 6), expected)
 
-class TestDiscreteColors(unittest.TestCase):
+
+class TestGetPaletteColorsDiscrete(unittest.TestCase):
     def test_no_size(self):
         self.assertEqual(
-            discrete_colors(VEGA_ACCENT),
+            get_palette_colors(VEGA_ACCENT),
             ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f"],
         )
 
     def test_bokeh_palette(self):
         self.assertEqual(
-            discrete_colors(BOKEH_ACCENT),
+            get_palette_colors(BOKEH_ACCENT),
             BOKEH_PALETTE_DATA[BOKEH_ACCENT][6],
         )
 
     def test_d3_blues_palette(self):
         self.assertEqual(
-            discrete_colors(D3_BLUES, 6),
+            get_palette_colors(D3_BLUES, 6),
             ["#eff3ff", "#c6dbef", "#9ecae1", "#6baed6", "#3182bd", "#08519c"],
         )
 
     def test_d3_accent_below_minimum(self):
         self.assertEqual(
-            discrete_colors(D3_ACCENT, 3),
+            get_palette_colors(D3_ACCENT, 3),
             D3_PALETTE_DATA[D3_ACCENT][8][:3],
         )
 
     def test_valid_size(self):
         self.assertEqual(
-            discrete_colors(VEGA_ACCENT, 8),
+            get_palette_colors(VEGA_ACCENT, 8),
             [
                 "#7fc97f",
                 "#beaed4",
@@ -373,7 +376,7 @@ class TestDiscreteColors(unittest.TestCase):
 
     def test_size_above_maximum(self):
         self.assertEqual(
-            discrete_colors(VEGA_ACCENT, 20),
+            get_palette_colors(VEGA_ACCENT, 20),
             [
                 "#7fc97f",
                 "#beaed4",
@@ -387,34 +390,38 @@ class TestDiscreteColors(unittest.TestCase):
         )
 
     def test_zero_colors(self):
-        self.assertEqual(discrete_colors(VEGA_ACCENT, 0), [])
+        self.assertEqual(get_palette_colors(VEGA_ACCENT, 0), [])
 
     def test_negative_size(self):
         with pytest.raises(ValueError, match="non-negative integer"):
-            discrete_colors(VEGA_ACCENT, -1)
+            get_palette_colors(VEGA_ACCENT, -1)
 
     def test_float_size(self):
         with pytest.raises(ValueError, match="non-negative integer"):
-            discrete_colors(VEGA_ACCENT, 4.5)
+            get_palette_colors(VEGA_ACCENT, 4.5)
 
     def test_unsupported_size_between_palette_sizes(self):
-        for size in (20, 100):
-            with (
-                self.subTest(size=size),
-                pytest.raises(ValueError, match=f"Unsupported palette size {size}"),
-            ):
-                discrete_colors(VEGA_VIRIDIS, size)
+        palette = {
+            1: ["#000000"],
+            3: ["#000000", "#111111", "#222222"],
+        }
+
+        with (
+            patch("chrys.utils.get_palette", return_value=palette),
+            pytest.raises(ValueError, match="Unsupported palette size 2"),
+        ):
+            get_palette_colors(VEGA_ACCENT, 2)
 
     def test_clamp_to_maximum_supported_size(self):
-        self.assertEqual(len(discrete_colors(VEGA_VIRIDIS, 300)), 256)
-        self.assertEqual(len(discrete_colors(D3_VIRIDIS, 300)), 256)
+        self.assertEqual(len(get_palette_colors(VEGA_ACCENT, 300)), 8)
+        self.assertEqual(len(get_palette_colors(D3_ACCENT, 300)), 8)
 
     def test_invalid_name(self):
         with pytest.raises(PaletteNotFoundError, match='Palette "lorem ipsum" not found.'):
-            discrete_colors("lorem ipsum")
+            get_palette_colors("lorem ipsum")
 
     def test_as_rgb(self):
-        result = discrete_colors(VEGA_ACCENT, 3, as_rgb=True)
+        result = get_palette_colors(VEGA_ACCENT, 3, as_rgb=True)
         expected = [mpl.colors.to_rgb(color) for color in VEGA_PALETTE_DATA[VEGA_ACCENT][3]]
 
         self.assertEqual(result, expected)
@@ -424,16 +431,16 @@ class TestDiscreteColors(unittest.TestCase):
             self.assertEqual(len(color), 3)
 
 
-class TestContinuousColors(unittest.TestCase):
+class TestGetPaletteColorsContinuous(unittest.TestCase):
     def test_zero_colors(self):
-        self.assertCountEqual(continuous_colors(VEGA_VIRIDIS, 0), [])
+        self.assertCountEqual(get_palette_colors(VEGA_VIRIDIS, 0), [])
 
     def test_one_color(self):
-        self.assertCountEqual(continuous_colors(VEGA_VIRIDIS, 1), ["#440356"])
+        self.assertCountEqual(get_palette_colors(VEGA_VIRIDIS, 1), ["#440356"])
 
     def test_all_colors(self):
         self.assertCountEqual(
-            continuous_colors(VEGA_VIRIDIS, 256),
+            get_palette_colors(VEGA_VIRIDIS, 256),
             [
                 "#440356",
                 "#450457",
@@ -696,22 +703,22 @@ class TestContinuousColors(unittest.TestCase):
 
     def test_invalid_size(self):
         with pytest.raises(ValueError):
-            continuous_colors(VEGA_VIRIDIS, 257)
+            get_palette_colors(VEGA_VIRIDIS, 257)
 
     def test_bokeh_palette(self):
         self.assertEqual(
-            continuous_colors(BOKEH_VIRIDIS, 6),
+            get_palette_colors(BOKEH_VIRIDIS, 6),
             sample_continuous(BOKEH_PALETTE_DATA[BOKEH_VIRIDIS][256], 6),
         )
 
     def test_d3_palette(self):
         self.assertEqual(
-            continuous_colors(D3_VIRIDIS, 6),
+            get_palette_colors(D3_VIRIDIS, 6),
             sample_continuous(D3_PALETTE_DATA[D3_VIRIDIS][256], 6),
         )
 
     def test_as_rgb(self):
-        result = continuous_colors(VEGA_VIRIDIS, 6, as_rgb=True)
+        result = get_palette_colors(VEGA_VIRIDIS, 6, as_rgb=True)
         expected = [
             mpl.colors.to_rgb(color)
             for color in sample_continuous(VEGA_PALETTE_DATA[VEGA_VIRIDIS][256], 6)
@@ -719,12 +726,11 @@ class TestContinuousColors(unittest.TestCase):
 
         self.assertEqual(result, expected)
 
-    def test_unsupported_palette(self):
-        with pytest.raises(
-            ValueError,
-            match='Generating continuous palettes of "vega_accent" is not supported',
-        ):
-            continuous_colors(VEGA_ACCENT, 6)
+    def test_discrete_palette_falls_back_to_discrete_colors(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_ACCENT, 6),
+            VEGA_PALETTE_DATA[VEGA_ACCENT][6],
+        )
 
 
 class TestToContinuousColors(unittest.TestCase):

@@ -22,7 +22,8 @@ import {
   VEGA_VIRIDIS,
   VEGA_VIRIDIS_PALETTE_DATA
 } from '../../palettes/vega/viridis.js';
-import discreteColors from '../discrete-colors.js';
+import getPaletteColors from '../get-palette-colors.js';
+import toContinuousColors from '../to-continuous-colors.js';
 import toDiscreteColors from '../to-discrete-colors.js';
 
 const VENDORS: Array<{
@@ -183,27 +184,32 @@ describe('toDiscreteColors', () => {
   });
 });
 
-describe('toDiscreteColors with per-palette data', () => {
+describe('getPaletteColors with per-palette data', () => {
   test('Should match the registry data for every palette', () => {
     for (const {name, data, names} of VENDORS) {
       for (const [constant, paletteName] of Object.entries(names)) {
+        const palette = data[paletteName];
+        const expected = palette[256]
+          ? toContinuousColors(palette[256], 6)
+          : toDiscreteColors(palette, 6);
+
         expect(
-          toDiscreteColors(data[paletteName], 6),
+          getPaletteColors(paletteName, 6),
           `${name}: ${constant}`
-        ).toEqual(discreteColors(paletteName, 6));
+        ).toEqual(expected);
       }
     }
   });
 
   test('Should match the registry data for viridis per-palette modules', () => {
-    expect(toDiscreteColors(BOKEH_VIRIDIS_PALETTE_DATA, 6)).toEqual(
-      discreteColors(BOKEH_VIRIDIS, 6)
+    expect(getPaletteColors(BOKEH_VIRIDIS, 6)).toEqual(
+      toContinuousColors(BOKEH_VIRIDIS_PALETTE_DATA[256], 6)
     );
-    expect(toDiscreteColors(VEGA_VIRIDIS_PALETTE_DATA, 6)).toEqual(
-      discreteColors(VEGA_VIRIDIS, 6)
+    expect(getPaletteColors(VEGA_VIRIDIS, 6)).toEqual(
+      toContinuousColors(VEGA_VIRIDIS_PALETTE_DATA[256], 6)
     );
-    expect(toDiscreteColors(D3_VIRIDIS_PALETTE_DATA, 6)).toEqual(
-      discreteColors(D3_VIRIDIS, 6)
+    expect(getPaletteColors(D3_VIRIDIS, 6)).toEqual(
+      toContinuousColors(D3_VIRIDIS_PALETTE_DATA[256], 6)
     );
   });
 });
