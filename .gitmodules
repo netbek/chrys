@@ -1,3 +1,9 @@
 [submodule "vendor/chroma.js"]
 	path = vendor/chroma.js
 	url = https://github.com/gka/chroma.js.git
+[submodule "vendor/color.js"]
+	path = vendor/color.js
+	url = https://github.com/color-js/color.js
+[submodule "vendor/coloraide"]
+	path = vendor/coloraide
+	url = https://github.com/facelessuser/coloraide

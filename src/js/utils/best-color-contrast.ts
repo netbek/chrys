@@ -1,6 +1,7 @@
 import {contrast, contrastAPCA} from 'chroma-js';
 import type {HexColor, HexColors} from '../types.ts';
 
+// Contrast algorithms: APCA 0.0.98G-4g and WCAG 2.0, via chroma-js 3.2.0.
 const ALGORITHM = {
   APCA: 'apca',
   WCAG: 'wcag'
@@ -32,8 +33,9 @@ export default function bestColorContrast(
     fn = contrast;
   }
 
+  // APCA is polarity-sensitive: the foreground is the text color.
   const scores = fgColors.map((fgColor): number =>
-    Math.abs(fn(bgColor, fgColor))
+    Math.abs(fn(fgColor, bgColor))
   );
   const maxScore = Math.max(...scores);
   const maxScoreIndex = scores.indexOf(maxScore);

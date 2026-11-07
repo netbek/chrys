@@ -14,7 +14,6 @@ from enum import StrEnum
 from typing import NamedTuple
 
 import math
-import matplotlib as mpl
 
 # A hexadecimal color string.
 type HexColor = str
@@ -24,15 +23,6 @@ type HexColors = list[HexColor]
 
 # Palette sizes mapped to color arrays.
 type Palette = Mapping[int, HexColors]
-
-# An RGB color as red, green, and blue channels.
-type RGBColor = tuple[float, float, float]
-
-# A list of RGB colors.
-type RGBColors = list[RGBColor]
-
-# Colors represented as hexadecimal strings or RGB tuples.
-type Colors = HexColors | RGBColors
 
 # A qualified palette name: includes its vendor prefix, for example "vega_accent".
 type QualifiedPaletteName = str
@@ -45,6 +35,7 @@ class ParsedPaletteName(NamedTuple):
     palette: str
 
 
+# Contrast algorithms: APCA 0.0.98G-4g and WCAG 2.0, ported from chroma.js 3.2.0.
 class Algorithm(StrEnum):
     """Contrast algorithm."""
 
@@ -72,7 +63,8 @@ def best_color_contrast(
         raise ValueError("At least one foreground color is required.")
 
     score = contrast_apca if algorithm == Algorithm.APCA else contrast
-    scores = [abs(score(bg_color, fg_color)) for fg_color in fg_colors]
+    # APCA is polarity-sensitive: the foreground is the text color.
+    scores = [abs(score(fg_color, bg_color)) for fg_color in fg_colors]
     max_score = max(scores)
     max_score_index = scores.index(max_score)
 
@@ -156,17 +148,15 @@ def _validate_color_count(n: int) -> None:
         raise ValueError(f"Color count must be a non-negative integer, got {n}.")
 
 
-def to_discrete_colors(palette: Palette, n: int = 6, as_rgb: bool = False) -> Colors:
+def to_discrete_colors(palette: Palette, n: int = 6) -> HexColors:
     """Generate a list of discrete colors.
 
     Args:
         palette: Palette sizes mapped to color arrays.
         n: Number of colors to return; must be a non-negative integer.
-        as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
     Returns:
-        The discrete colors as hexadecimal strings, or as RGB tuples when ``as_rgb`` is
-        true.
+        The discrete colors as hexadecimal strings.
 
     Raises:
         ValueError: If ``n`` is invalid, the palette is empty, or the requested size is
@@ -184,7 +174,7 @@ def to_discrete_colors(palette: Palette, n: int = 6, as_rgb: bool = False) -> Co
 
     min_size = sizes[0]
     max_size = sizes[-1]
-    result: Colors
+    result: HexColors
 
     if n <= min_size:
         result = palette[min_size][:n]
@@ -196,23 +186,18 @@ def to_discrete_colors(palette: Palette, n: int = 6, as_rgb: bool = False) -> Co
         supported = ", ".join(str(size) for size in sizes)
         raise ValueError(f"Unsupported palette size {n}. Supported sizes: {supported}.")
 
-    if as_rgb:
-        result = [mpl.colors.to_rgb(color) for color in result]
-
     return result
 
 
-def to_continuous_colors(colors: HexColors, n: int = 6, as_rgb: bool = False) -> Colors:
+def to_continuous_colors(colors: HexColors, n: int = 6) -> HexColors:
     """Generate a list of continuous colors.
 
     Args:
         colors: Base colors in hexadecimal format.
         n: Number of colors to return; must be a non-negative integer.
-        as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
     Returns:
-        The continuous colors as hexadecimal strings, or as RGB tuples when ``as_rgb`` is
-        true.
+        The continuous colors as hexadecimal strings.
 
     Raises:
         ValueError: If ``n`` is invalid or exceeds the base color list's length.
@@ -234,15 +219,12 @@ def to_continuous_colors(colors: HexColors, n: int = 6, as_rgb: bool = False) ->
     else:
         step = (len(colors) - 1) / (n - 1)
         indices = [i * step for i in range(n)]
-    result: Colors = [colors[math.floor(i)] for i in indices]
-
-    if as_rgb:
-        result = [mpl.colors.to_rgb(color) for color in result]
+    result: HexColors = [colors[math.floor(i)] for i in indices]
 
     return result
 
 
-def get_palette_colors(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = False) -> Colors:
+def get_palette_colors(name: QualifiedPaletteName, n: int = 6) -> HexColors:
     """Get a list of colors from a palette by name.
 
     Continuous palettes generate colors from their 256-color ramp; other palettes return
@@ -251,11 +233,9 @@ def get_palette_colors(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fa
     Args:
         name: Qualified palette name.
         n: Number of colors to return; must be a non-negative integer.
-        as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
     Returns:
-        The palette colors as hexadecimal strings, or as RGB tuples when ``as_rgb`` is
-        true.
+        The palette colors as hexadecimal strings.
 
     Raises:
         VendorNotFoundError: If the qualified palette name has an unknown vendor.
@@ -266,6 +246,6 @@ def get_palette_colors(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fa
     palette = get_palette(name)
 
     if 256 in palette:
-        return to_continuous_colors(palette[256], n=n, as_rgb=as_rgb)
+        return to_continuous_colors(palette[256], n=n)
 
-    return to_discrete_colors(palette, n=n, as_rgb=as_rgb)
+    return to_discrete_colors(palette, n=n)

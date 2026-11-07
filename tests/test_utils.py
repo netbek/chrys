@@ -32,7 +32,6 @@ from chrys.utils import (
 from unittest.mock import patch
 
 import math
-import matplotlib as mpl
 import pytest
 import unittest
 
@@ -74,6 +73,11 @@ class TestBestColorContrast(unittest.TestCase):
     def test_absolute_apca_scores_can_differ_from_wcag(self):
         self.assertEqual(best_color_contrast("#777", ["#fff", "#000"]), "#fff")
         self.assertEqual(best_color_contrast("#777", ["#fff", "#000"], "wcag"), "#000")
+
+    def test_apca_uses_foreground_as_text(self):
+        self.assertEqual(best_color_contrast("#2aabee", ["#000", "#fff"]), "#fff")
+        self.assertEqual(best_color_contrast("#cf9275", ["#000", "#fff"]), "#fff")
+        self.assertEqual(best_color_contrast("#31b57b", ["#000", "#fff"]), "#fff")
 
     def test_invalid_background_color(self):
         with pytest.raises(ValueError, match='Invalid color "not-a-color".'):
@@ -314,12 +318,6 @@ class TestToDiscreteColors(unittest.TestCase):
         with pytest.raises(ValueError, match="non-negative integer"):
             to_discrete_colors({1: ["#000000"]}, float("inf"))
 
-    def test_as_rgb(self):
-        palette = {2: ["#000000", "#ffffff"]}
-        expected = [mpl.colors.to_rgb(color) for color in palette[2]]
-
-        self.assertEqual(to_discrete_colors(palette, as_rgb=True), expected)
-
     def test_matches_registry_data(self):
         for vendor, names in PALETTE_NAME_MAPS:
             for constant, palette_name in names.items():
@@ -419,16 +417,6 @@ class TestGetPaletteColorsDiscrete(unittest.TestCase):
     def test_invalid_name(self):
         with pytest.raises(PaletteNotFoundError, match='Palette "lorem ipsum" not found.'):
             get_palette_colors("lorem ipsum")
-
-    def test_as_rgb(self):
-        result = get_palette_colors(VEGA_ACCENT, 3, as_rgb=True)
-        expected = [mpl.colors.to_rgb(color) for color in VEGA_PALETTE_DATA[VEGA_ACCENT][3]]
-
-        self.assertEqual(result, expected)
-
-        for color in result:
-            self.assertIsInstance(color, tuple)
-            self.assertEqual(len(color), 3)
 
 
 class TestGetPaletteColorsContinuous(unittest.TestCase):
@@ -717,15 +705,6 @@ class TestGetPaletteColorsContinuous(unittest.TestCase):
             sample_continuous(D3_PALETTE_DATA[D3_VIRIDIS][256], 6),
         )
 
-    def test_as_rgb(self):
-        result = get_palette_colors(VEGA_VIRIDIS, 6, as_rgb=True)
-        expected = [
-            mpl.colors.to_rgb(color)
-            for color in sample_continuous(VEGA_PALETTE_DATA[VEGA_VIRIDIS][256], 6)
-        ]
-
-        self.assertEqual(result, expected)
-
     def test_discrete_palette_falls_back_to_discrete_colors(self):
         self.assertEqual(
             get_palette_colors(VEGA_ACCENT, 6),
@@ -767,11 +746,3 @@ class TestToContinuousColors(unittest.TestCase):
     def test_float_size(self):
         with pytest.raises(ValueError, match="non-negative integer"):
             to_continuous_colors(self.colors, 1.5)
-
-    def test_as_rgb(self):
-        expected = [mpl.colors.to_rgb(color) for color in self.colors]
-
-        self.assertEqual(
-            to_continuous_colors(self.colors, len(self.colors), as_rgb=True),
-            expected,
-        )

@@ -7,15 +7,6 @@ export type HexColors = HexColor[];
 /** Palette sizes mapped to color arrays. */
 export type Palette = Partial<Record<number, HexColors>>;
 
-/** An RGB color as red, green, and blue channels. */
-export type RGBColor = readonly [number, number, number];
-
-/** A list of RGB colors. */
-export type RGBColors = RGBColor[];
-
-/** Colors represented as hexadecimal strings or RGB tuples. */
-export type Colors = HexColors | RGBColors;
-
 /** A palette vendor. */
 export type Vendor = 'bokeh' | 'vega' | 'd3';
 

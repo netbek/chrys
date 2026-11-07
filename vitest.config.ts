@@ -2,11 +2,13 @@ import {configDefaults, defineConfig} from 'vitest/config';
 
 export default defineConfig({
   test: {
-    include: [
-      ...configDefaults.include,
-      'scripts/__tests__/**/*.tests.js'
+    include: [...configDefaults.include, 'scripts/__tests__/**/*.tests.js'],
+    exclude: [
+      ...configDefaults.exclude,
+      'vendor/chroma.js/**',
+      'vendor/color.js/**',
+      'vendor/coloraide/**'
     ],
-    exclude: [...configDefaults.exclude, 'vendor/chroma.js/**'],
     coverage: {
       provider: 'v8',
       include: ['src/js/**/*.{ts,js}'],
