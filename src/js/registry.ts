@@ -539,7 +539,7 @@ export const CYCLICAL_PALETTE_VENDORS = [
 ];
 
 /**
- * Maps palette names to their vendor.
+ * Maps qualified palette names to their vendor.
  *
  * @internal
  */

@@ -19,10 +19,10 @@ export type Colors = HexColors | RGBColors;
 /** A palette vendor. */
 export type Vendor = 'bokeh' | 'vega' | 'd3';
 
-/** A palette name that includes its vendor prefix, for example `vega_accent`. */
+/** A qualified palette name: includes its vendor prefix, for example `vega_accent`. */
 export type QualifiedPaletteName = string;
 
-/** A vendor and its vendor-specific palette name. */
+/** A qualified palette name parsed into its vendor and vendor-specific palette name. */
 export type ParsedPaletteName = {
   readonly vendor: Vendor;
   readonly palette: string;

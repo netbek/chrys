@@ -30,12 +30,12 @@ type RGBColors = list[RGBColor]
 # Colors represented as hexadecimal strings or RGB tuples.
 type Colors = HexColors | RGBColors
 
-# A palette name that includes its vendor prefix, for example "vega_accent".
+# A qualified palette name: includes its vendor prefix, for example "vega_accent".
 type QualifiedPaletteName = str
 
 
 class ParsedPaletteName(NamedTuple):
-    """A vendor and its vendor-specific palette name."""
+    """A qualified palette name parsed into its vendor and vendor-specific palette name."""
 
     vendor: Vendor
     palette: str
@@ -76,16 +76,16 @@ def best_color_contrast(
 
 
 def parse_palette_name(name: QualifiedPaletteName) -> ParsedPaletteName:
-    """Parse a palette name into its vendor and palette components.
+    """Parse a qualified palette name into its vendor and vendor-specific palette name.
 
     Args:
-        name: Palette name, for example ``"vega_accent"``.
+        name: Qualified palette name, for example ``"vega_accent"``.
 
     Returns:
-        The vendor and the vendor-specific palette name.
+        The parsed palette name: the vendor and its vendor-specific palette name.
 
     Raises:
-        ValueError: If the palette name is not recognized.
+        ValueError: If the qualified palette name is not recognized.
     """
     if name not in PALETTE_TO_VENDOR_MAP:
         raise ValueError(f'Palette name "{name}" not recognized')
@@ -97,10 +97,10 @@ def parse_palette_name(name: QualifiedPaletteName) -> ParsedPaletteName:
 
 
 def _get_palette(name: QualifiedPaletteName) -> Palette:
-    """Get the palette data for a palette name.
+    """Get the palette data for a qualified palette name.
 
     Args:
-        name: Palette name.
+        name: Qualified palette name.
 
     Returns:
         Palette sizes mapped to color arrays.
@@ -117,13 +117,13 @@ def _is_continuous(name: QualifiedPaletteName) -> bool:
     """Return whether a palette is continuous.
 
     Args:
-        name: Palette name.
+        name: Qualified palette name.
 
     Returns:
         Whether the palette is continuous.
 
     Raises:
-        ValueError: If the palette name is not recognized.
+        ValueError: If the qualified palette name is not recognized.
     """
     vendor, _ = parse_palette_name(name)
 
@@ -232,7 +232,7 @@ def discrete_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fals
     """Generate a discrete palette by name.
 
     Args:
-        name: Palette name.
+        name: Qualified palette name.
         n: Number of colors to return; must be a non-negative integer.
         as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
@@ -241,7 +241,7 @@ def discrete_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fals
         ``as_rgb`` is true.
 
     Raises:
-        ValueError: If the palette name is not recognized, ``n`` is invalid, or the
+        ValueError: If the qualified palette name is not recognized, ``n`` is invalid, or the
             requested size is unsupported.
     """
     return to_discrete_palette(_get_palette(name), n=n, as_rgb=as_rgb)
@@ -251,7 +251,7 @@ def continuous_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fa
     """Generate a continuous palette by name.
 
     Args:
-        name: Palette name.
+        name: Qualified palette name.
         n: Number of colors to return; must be a non-negative integer.
         as_rgb: Whether to return RGB tuples ``(r, g, b)`` instead of hexadecimal strings.
 
@@ -260,7 +260,7 @@ def continuous_palette(name: QualifiedPaletteName, n: int = 6, as_rgb: bool = Fa
         ``as_rgb`` is true.
 
     Raises:
-        ValueError: If the palette name is not recognized, the palette does not support
+        ValueError: If the qualified palette name is not recognized, the palette does not support
             continuous generation, or ``n`` exceeds the base palette's length.
     """
     if not _is_continuous(name):

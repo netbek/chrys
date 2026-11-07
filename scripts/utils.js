@@ -277,9 +277,9 @@ export function quantizeInterpolator(interpolator, count) {
 }
 
 /**
- * Resolves a vendor palette name to its Vega palette name.
+ * Resolves a vendor-specific palette name to its Vega palette name.
  *
- * @param {string} name Vendor palette name.
+ * @param {string} name Vendor-specific palette name.
  * @returns {string} Vega-style palette name.
  */
 export function toVegaName(name) {
@@ -611,13 +611,13 @@ const DOCS_PALETTE_NAMES = new Set(
 );
 
 /**
- * Gets the documentation palette for a palette name.
+ * Gets the documentation palette for a qualified palette name.
  *
- * @param {string} name Palette name.
+ * @param {string} name Qualified palette name.
  * @param {Record<string, Record<string, string[]>>} [data] Documentation
  * palette data to search.
  * @returns {string[]} The documentation palette colors.
- * @throws If the palette name is not recognized or its data is missing.
+ * @throws If the qualified palette name is not recognized or its data is missing.
  */
 export function getDocsPalette(name, data = DOCS_PALETTE_DATA) {
   if (!DOCS_PALETTE_NAMES.has(name)) {
@@ -637,9 +637,9 @@ export function getDocsPalette(name, data = DOCS_PALETTE_DATA) {
 /**
  * Gets a copy of the documentation palette by name.
  *
- * @param {string} name Palette name.
+ * @param {string} name Qualified palette name.
  * @returns {string[]} A copy of the documentation palette colors.
- * @throws If the palette name is not recognized or its data is missing.
+ * @throws If the qualified palette name is not recognized or its data is missing.
  */
 export function docsPalette(name) {
   return [...getDocsPalette(name)];

@@ -94,7 +94,7 @@ async function buildDemo(packageDir, destDir) {
   /**
    * Builds the demo data for a single palette.
    *
-   * @param {string} name Palette name.
+   * @param {string} name Qualified palette name.
    * @param {number[]} [discreteSizes] Sizes of the discrete palettes to build.
    * @returns {object|undefined} The demo item, or `undefined` if no name is
    * given.
