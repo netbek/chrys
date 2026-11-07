@@ -3,9 +3,10 @@ from chrys.palettes import (
     CONTINUOUS_PALETTE_NAMES,
     PALETTE_DATA,
     PALETTE_TO_VENDOR_MAP,
+    Vendor,
 )
-from collections import namedtuple
 from enum import StrEnum
+from typing import NamedTuple, TypeAlias
 
 import math
 import matplotlib as mpl
@@ -48,37 +49,45 @@ def best_color_contrast(
     return fg_colors[max_score_index]
 
 
-PaletteName = namedtuple("PaletteName", ["vendor", "palette"])
+class PaletteName(NamedTuple):
+    vendor: Vendor
+    palette: str
 
 
-def parse_palette_name(name):
+RGB: TypeAlias = tuple[float, float, float]
+PaletteResult: TypeAlias = list[str] | list[RGB]
+
+
+def parse_palette_name(name: str) -> PaletteName:
     if name not in PALETTE_TO_VENDOR_MAP:
         raise ValueError(f'Palette name "{name}" not recognized')
 
     vendor = PALETTE_TO_VENDOR_MAP[name]
     palette = name[len(vendor) + 1 :]
 
-    return PaletteName._make([vendor, palette])
+    return PaletteName(vendor, palette)
 
 
-def _get_palette(name):
+def _get_palette(name: str) -> dict[int, list[str]]:
     vendor, _ = parse_palette_name(name)
 
     return PALETTE_DATA[vendor][name]
 
 
-def _is_continuous(name):
+def _is_continuous(name: str) -> bool:
     vendor, _ = parse_palette_name(name)
 
     return name in CONTINUOUS_PALETTE_NAMES[vendor]
 
 
-def _validate_palette_size(n):
+def _validate_palette_size(n: int) -> None:
     if not isinstance(n, int) or isinstance(n, bool) or n < 0:
         raise ValueError(f"Palette size must be a non-negative integer, got {n}.")
 
 
-def to_discrete_palette(palette, n=6, as_rgb=False):
+def to_discrete_palette(
+    palette: dict[int, list[str]], n: int = 6, as_rgb: bool = False
+) -> PaletteResult:
     """
     Generate a list of discrete colors.
 
@@ -108,6 +117,7 @@ def to_discrete_palette(palette, n=6, as_rgb=False):
 
     min_size = sizes[0]
     max_size = sizes[-1]
+    result: PaletteResult
 
     if n <= min_size:
         result = palette[min_size][:n]
@@ -125,7 +135,7 @@ def to_discrete_palette(palette, n=6, as_rgb=False):
     return result
 
 
-def to_continuous_palette(palette, n=6, as_rgb=False):
+def to_continuous_palette(palette: list[str], n: int = 6, as_rgb: bool = False) -> PaletteResult:
     """
     Generate a list of continuous colors.
 
@@ -158,7 +168,7 @@ def to_continuous_palette(palette, n=6, as_rgb=False):
     else:
         step = (len(palette) - 1) / (n - 1)
         indices = [i * step for i in range(n)]
-    result = [palette[int(math.floor(i))] for i in indices]
+    result: PaletteResult = [palette[int(math.floor(i))] for i in indices]
 
     if as_rgb:
         result = [mpl.colors.to_rgb(color) for color in result]
@@ -166,11 +176,11 @@ def to_continuous_palette(palette, n=6, as_rgb=False):
     return result
 
 
-def discrete_palette(name, n=6, as_rgb=False):
+def discrete_palette(name: str, n: int = 6, as_rgb: bool = False) -> PaletteResult:
     return to_discrete_palette(_get_palette(name), n=n, as_rgb=as_rgb)
 
 
-def continuous_palette(name, n=6, as_rgb=False):
+def continuous_palette(name: str, n: int = 6, as_rgb: bool = False) -> PaletteResult:
     if not _is_continuous(name):
         raise ValueError(f'Generating continuous palettes of "{name}" is not supported')
 
