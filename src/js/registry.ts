@@ -1,6 +1,5 @@
 import {
   BOKEH_PALETTE_DATA,
-  BOKEH_DOCS_PALETTE_DATA,
   BOKEH_CATEGORY_10,
   BOKEH_CATEGORY_20,
   BOKEH_CATEGORY_20_B,
@@ -49,7 +48,6 @@ import {
 
 import {
   VEGA_PALETTE_DATA,
-  VEGA_DOCS_PALETTE_DATA,
   VEGA_CATEGORY_10,
   VEGA_CATEGORY_20,
   VEGA_CATEGORY_20_B,
@@ -122,7 +120,6 @@ import {
 
 import {
   D3_PALETTE_DATA,
-  D3_DOCS_PALETTE_DATA,
   D3_ACCENT,
   D3_CATEGORY_10,
   D3_DARK_2,
@@ -578,15 +575,4 @@ export const PALETTE_DATA: Record<
   [VENDOR.BOKEH]: BOKEH_PALETTE_DATA,
   [VENDOR.VEGA]: VEGA_PALETTE_DATA,
   [VENDOR.D3]: D3_PALETTE_DATA
-};
-
-/**
- * Maps vendors to their documentation palette data.
- *
- * @internal
- */
-export const DOCS_PALETTE_DATA: Record<Vendor, Record<string, string[]>> = {
-  [VENDOR.BOKEH]: BOKEH_DOCS_PALETTE_DATA,
-  [VENDOR.VEGA]: VEGA_DOCS_PALETTE_DATA,
-  [VENDOR.D3]: D3_DOCS_PALETTE_DATA
 };

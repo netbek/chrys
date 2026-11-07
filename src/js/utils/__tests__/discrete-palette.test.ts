@@ -5,7 +5,7 @@ import {
 } from '../../palettes/bokeh/accent.js';
 import {
   D3_ACCENT,
-  D3_ACCENT_DOCS_PALETTE_DATA
+  D3_ACCENT_PALETTE_DATA
 } from '../../palettes/d3/accent.js';
 import {D3_BLUES} from '../../palettes/d3/blues.js';
 import {D3_VIRIDIS} from '../../palettes/d3/viridis.js';
@@ -42,7 +42,7 @@ describe('discretePalette', () => {
 
   test('Should generate a palette below the minimum d3 palette size', () => {
     expect(discretePalette(D3_ACCENT, 3)).toEqual(
-      D3_ACCENT_DOCS_PALETTE_DATA.slice(0, 3)
+      D3_ACCENT_PALETTE_DATA[8].slice(0, 3)
     );
   });
 

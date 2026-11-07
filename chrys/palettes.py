@@ -10,8 +10,6 @@ from chrys.data.bokeh_palettes import (
     BOKEH_CATEGORY_20_C,
     BOKEH_COLORBLIND,
     BOKEH_DARK_2,
-    BOKEH_DOCS_PALETTE_DATA,
-    BOKEH_DOCS_PALETTES,
     BOKEH_GREEN_BLUE,
     BOKEH_GREENS,
     BOKEH_GREYS,
@@ -60,7 +58,6 @@ from chrys.data.d3_palettes import (
     D3_COOL,
     D3_CUBEHELIX_DEFAULT,
     D3_DARK_2,
-    D3_DOCS_PALETTE_DATA,
     D3_GREEN_BLUE,
     D3_GREENS,
     D3_GREYS,
@@ -121,8 +118,6 @@ from chrys.data.vega_palettes import (
     VEGA_DARK_GREEN,
     VEGA_DARK_MULTI,
     VEGA_DARK_RED,
-    VEGA_DOCS_PALETTE_DATA,
-    VEGA_DOCS_PALETTES,
     VEGA_GOLD_GREEN,
     VEGA_GOLD_ORANGE,
     VEGA_GOLD_RED,
@@ -603,12 +598,6 @@ PALETTE_DATA = {
     Vendor.D3: D3_PALETTE_DATA,
 }
 
-DOCS_PALETTE_DATA = {
-    Vendor.BOKEH: BOKEH_DOCS_PALETTE_DATA,
-    Vendor.VEGA: VEGA_DOCS_PALETTE_DATA,
-    Vendor.D3: D3_DOCS_PALETTE_DATA,
-}
-
 CONTINUOUS_PALETTE_NAMES = {
     Vendor.BOKEH: BOKEH_CONTINUOUS_PALETTE_NAMES,
     Vendor.VEGA: VEGA_CONTINUOUS_PALETTE_NAMES,
@@ -633,12 +622,6 @@ def _get_palette(name):
     vendor, _ = parse_palette_name(name)
 
     return PALETTE_DATA[vendor][name]
-
-
-def _get_docs_palette(name):
-    vendor, _ = parse_palette_name(name)
-
-    return DOCS_PALETTE_DATA[vendor][name]
 
 
 def _is_continuous(name):
@@ -749,12 +732,3 @@ def continuous_palette(name, n=6, as_rgb=False):
         raise ValueError(f'Generating continuous palettes of "{name}" is not supported')
 
     return to_continuous_palette(_get_palette(name)[256], n=n, as_rgb=as_rgb)
-
-
-def docs_palette(name, as_rgb=False):
-    result = _get_docs_palette(name)
-
-    if as_rgb:
-        return [mpl.colors.to_rgb(color) for color in result]
-
-    return list(result)

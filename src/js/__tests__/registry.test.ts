@@ -1,16 +1,7 @@
 import {describe, expect, test} from 'vitest';
-import {
-  BOKEH_DOCS_PALETTE_DATA,
-  BOKEH_PALETTE_DATA
-} from '../palettes/bokeh/index.js';
-import {
-  D3_DOCS_PALETTE_DATA,
-  D3_PALETTE_DATA
-} from '../palettes/d3/index.js';
-import {
-  VEGA_DOCS_PALETTE_DATA,
-  VEGA_PALETTE_DATA
-} from '../palettes/vega/index.js';
+import {BOKEH_PALETTE_DATA} from '../palettes/bokeh/index.js';
+import {D3_PALETTE_DATA} from '../palettes/d3/index.js';
+import {VEGA_PALETTE_DATA} from '../palettes/vega/index.js';
 import {
   CATEGORICAL_PALETTE_VENDORS,
   CYCLICAL_PALETTE_VENDORS,
@@ -28,12 +19,6 @@ const PALETTE_DATA: Record<Vendor, Record<string, Record<number, string[]>>> = {
   [VENDOR.BOKEH]: BOKEH_PALETTE_DATA,
   [VENDOR.VEGA]: VEGA_PALETTE_DATA,
   [VENDOR.D3]: D3_PALETTE_DATA
-};
-
-const DOCS_PALETTE_DATA: Record<Vendor, Record<string, string[]>> = {
-  [VENDOR.BOKEH]: BOKEH_DOCS_PALETTE_DATA,
-  [VENDOR.VEGA]: VEGA_DOCS_PALETTE_DATA,
-  [VENDOR.D3]: D3_DOCS_PALETTE_DATA
 };
 
 const PALETTE_GROUPS: Array<{
@@ -78,7 +63,7 @@ describe('registry', () => {
     }
   });
 
-  test('Should have discrete and documentation data for every grouped palette', () => {
+  test('Should have discrete data for every grouped palette', () => {
     for (const {name, mappings} of PALETTE_GROUPS) {
       for (const mapping of mappings) {
         for (const vendor of VENDORS) {
@@ -90,10 +75,6 @@ describe('registry', () => {
 
           expect(
             PALETTE_DATA[vendor][paletteName],
-            `${name}: ${paletteName}`
-          ).toBeDefined();
-          expect(
-            DOCS_PALETTE_DATA[vendor][paletteName],
             `${name}: ${paletteName}`
           ).toBeDefined();
         }

@@ -11,18 +11,16 @@ function getVars(vendor, data) {
   const VENDOR = vendor.toUpperCase();
   const constantNames = data[`${VENDOR}_PALETTE_NAMES`];
   const palettes = {};
-  const docsPalettes = {};
   const vendorNames = {};
 
   _.forEach(constantNames, (uniqueName, constantName) => {
     const vendorName = uniqueName.substring(vendor.length + 1);
 
     palettes[uniqueName] = data[`${VENDOR}_PALETTES`][vendorName];
-    docsPalettes[uniqueName] = data[`${VENDOR}_DOCS_PALETTES`][vendorName];
     vendorNames[vendorName] = constantName;
   });
 
-  return {constantNames, vendorNames, palettes, docsPalettes};
+  return {constantNames, vendorNames, palettes};
 }
 
 function getMaxSize(values) {
@@ -39,12 +37,7 @@ function build(palettesDir, vendor, data) {
 
   fs.emptyDirSync(vendorDir);
   _.forEach(
-    jsSerializePalettes(
-      vendor,
-      vars,
-      getMaxSize(vars.palettes),
-      getMaxSize(vars.docsPalettes)
-    ),
+    jsSerializePalettes(vendor, vars, getMaxSize(vars.palettes)),
     ({fileName, content}) => {
       fs.outputFileSync(path.join(palettesDir, fileName), content);
     }

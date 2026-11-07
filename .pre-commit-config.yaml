@@ -22,12 +22,14 @@ repos:
     hooks:
       - id: pyupgrade
         args: [--py313-plus]
+        exclude: ^chrys/data/
 
   - repo: https://github.com/pycqa/isort
     rev: 8.0.1
     hooks:
       - id: isort
         args: [--settings-path, pyproject.toml]
+        exclude: ^chrys/data/
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.12
@@ -35,6 +37,8 @@ repos:
       - id: ruff-check
         args: [--config, pyproject.toml]
         stages: [manual]
+        exclude: ^chrys/data/
 
       - id: ruff-format
         args: [--config, pyproject.toml]
+        exclude: ^chrys/data/

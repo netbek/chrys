@@ -1,16 +1,10 @@
 import {describe, expect, test} from 'vitest';
 import {
-  BOKEH_DOCS_PALETTE_DATA,
   BOKEH_PALETTE_DATA,
   BOKEH_PALETTE_NAMES
 } from '../palettes/bokeh/index.js';
+import {D3_PALETTE_DATA, D3_PALETTE_NAMES} from '../palettes/d3/index.js';
 import {
-  D3_DOCS_PALETTE_DATA,
-  D3_PALETTE_DATA,
-  D3_PALETTE_NAMES
-} from '../palettes/d3/index.js';
-import {
-  VEGA_DOCS_PALETTE_DATA,
   VEGA_PALETTE_DATA,
   VEGA_PALETTE_NAMES
 } from '../palettes/vega/index.js';
@@ -22,47 +16,41 @@ const HEX_COLOR = /^#[0-9a-f]{6}$/;
 const VENDORS: Array<{
   name: string;
   data: Record<string, Record<number, string[]>>;
-  docs: Record<string, string[]>;
   names: Record<string, string>;
 }> = [
   {
     name: VENDOR.BOKEH,
     data: BOKEH_PALETTE_DATA,
-    docs: BOKEH_DOCS_PALETTE_DATA,
     names: BOKEH_PALETTE_NAMES
   },
   {
     name: VENDOR.VEGA,
     data: VEGA_PALETTE_DATA,
-    docs: VEGA_DOCS_PALETTE_DATA,
     names: VEGA_PALETTE_NAMES
   },
   {
     name: VENDOR.D3,
     data: D3_PALETTE_DATA,
-    docs: D3_DOCS_PALETTE_DATA,
     names: D3_PALETTE_NAMES
   }
 ];
 
 describe('palettes', () => {
-  test('Should have a constant for every discrete and documentation palette', () => {
-    for (const {name, data, docs, names} of VENDORS) {
+  test('Should have a constant for every discrete palette', () => {
+    for (const {name, data, names} of VENDORS) {
       const constants = Object.values(names).sort();
 
       expect(constants, name).toEqual(Object.keys(data).sort());
-      expect(constants, name).toEqual(Object.keys(docs).sort());
     }
   });
 
-  test('Should have data, documentation, and a parsable name for every constant', () => {
-    for (const {name: vendor, data, docs, names} of VENDORS) {
+  test('Should have data and a parsable name for every constant', () => {
+    for (const {name: vendor, data, names} of VENDORS) {
       expect(Object.keys(names).length, vendor).toBeGreaterThan(0);
 
       for (const [constant, paletteName] of Object.entries(names)) {
         expect(paletteName.startsWith(`${vendor}_`), constant).toBe(true);
         expect(data[paletteName], constant).toBeDefined();
-        expect(docs[paletteName], constant).toBeDefined();
         expect(parsePaletteName(paletteName), constant).toEqual({
           vendor,
           palette: paletteName.substring(vendor.length + 1)
@@ -71,8 +59,8 @@ describe('palettes', () => {
     }
   });
 
-  test('Should not have empty discrete or documentation palettes', () => {
-    for (const {name, data, docs} of VENDORS) {
+  test('Should not have empty discrete palettes', () => {
+    for (const {name, data} of VENDORS) {
       for (const [paletteName, palette] of Object.entries(data)) {
         expect(
           Object.keys(palette).length,
@@ -82,10 +70,6 @@ describe('palettes', () => {
         for (const colors of Object.values(palette)) {
           expect(colors.length, `${name}: ${paletteName}`).toBeGreaterThan(0);
         }
-      }
-
-      for (const [paletteName, colors] of Object.entries(docs)) {
-        expect(colors.length, `${name}: ${paletteName}`).toBeGreaterThan(0);
       }
     }
   });
@@ -152,19 +136,9 @@ describe('palettes', () => {
     }
   });
 
-  test('Should use valid hexadecimal colors in every documentation palette', () => {
-    for (const {name, docs} of VENDORS) {
-      for (const [paletteName, colors] of Object.entries(docs)) {
-        for (const color of colors) {
-          expect(color, `${name}: ${paletteName}`).toMatch(HEX_COLOR);
-        }
-      }
-    }
-  });
-
-  test('Should parse every discrete and documentation palette name', () => {
-    for (const {name: vendor, data, docs} of VENDORS) {
-      for (const paletteName of [...Object.keys(data), ...Object.keys(docs)]) {
+  test('Should parse every discrete palette name', () => {
+    for (const {name: vendor, data} of VENDORS) {
+      for (const paletteName of Object.keys(data)) {
         expect(parsePaletteName(paletteName), paletteName).toEqual({
           vendor,
           palette: paletteName.substring(vendor.length + 1)

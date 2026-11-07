@@ -4,20 +4,16 @@ from chrys.data.vega_palettes import VEGA_PALETTE_NAMES
 from chrys.palettes import (
     _is_continuous,
     BOKEH_ACCENT,
-    BOKEH_DOCS_PALETTE_DATA,
     BOKEH_PALETTE_DATA,
     BOKEH_VIRIDIS,
     CATEGORICAL_PALETTE_VENDORS,
     continuous_palette,
     CYCLICAL_PALETTE_VENDORS,
     D3_BLUES,
-    D3_DOCS_PALETTE_DATA,
     D3_PALETTE_DATA,
     D3_VIRIDIS,
     discrete_palette,
     DIVERGING_PALETTE_VENDORS,
-    docs_palette,
-    DOCS_PALETTE_DATA,
     PALETTE_DATA,
     PALETTE_TO_VENDOR_MAP,
     parse_palette_name,
@@ -25,7 +21,6 @@ from chrys.palettes import (
     to_continuous_palette,
     to_discrete_palette,
     VEGA_ACCENT,
-    VEGA_DOCS_PALETTE_DATA,
     VEGA_PALETTE_DATA,
     VEGA_VIRIDIS,
     Vendor,
@@ -438,35 +433,6 @@ class TestDiscretePalette(unittest.TestCase):
             self.assertEqual(len(color), 3)
 
 
-class TestDocsPalette(unittest.TestCase):
-    def test_bokeh_docs(self):
-        self.assertEqual(docs_palette(BOKEH_ACCENT), BOKEH_DOCS_PALETTE_DATA[BOKEH_ACCENT])
-
-    def test_vega_docs(self):
-        self.assertEqual(docs_palette(VEGA_ACCENT), VEGA_DOCS_PALETTE_DATA[VEGA_ACCENT])
-
-    def test_d3_docs(self):
-        self.assertEqual(docs_palette(D3_BLUES), D3_DOCS_PALETTE_DATA[D3_BLUES])
-
-    def test_as_rgb(self):
-        result = docs_palette(VEGA_ACCENT, as_rgb=True)
-        expected = [mpl.colors.to_rgb(color) for color in VEGA_DOCS_PALETTE_DATA[VEGA_ACCENT]]
-
-        self.assertEqual(result, expected)
-
-    def test_invalid_name(self):
-        with pytest.raises(ValueError, match="not recognized"):
-            docs_palette("lorem ipsum")
-
-    def test_returns_copy(self):
-        palette = docs_palette(VEGA_ACCENT)
-        original = palette[0]
-
-        palette[0] = "#000000"
-
-        self.assertEqual(docs_palette(VEGA_ACCENT)[0], original)
-
-
 class TestToDiscretePalette(unittest.TestCase):
     def test_empty_palette(self):
         with pytest.raises(ValueError, match="Palette is empty."):
@@ -572,7 +538,7 @@ class TestToContinuousPalette(unittest.TestCase):
 
 
 class TestRegistry(unittest.TestCase):
-    def test_groups_have_data_and_docs(self):
+    def test_groups_have_data(self):
         for group, mappings in PALETTE_GROUPS:
             for mapping in mappings:
                 for vendor, name in mapping.items():
@@ -581,7 +547,6 @@ class TestRegistry(unittest.TestCase):
 
                     with self.subTest(group=group, vendor=vendor, palette=name):
                         self.assertIn(name, PALETTE_DATA[vendor])
-                        self.assertIn(name, DOCS_PALETTE_DATA[vendor])
 
     def test_no_duplicate_names_within_group(self):
         for group, mappings in PALETTE_GROUPS:
@@ -596,7 +561,7 @@ class TestRegistry(unittest.TestCase):
                         self.assertNotIn(name, seen)
                         seen.add(name)
 
-    def test_palette_maps_cover_data_and_docs(self):
+    def test_palette_maps_cover_data(self):
         for vendor in PALETTE_DATA:
             with self.subTest(vendor=vendor):
                 names = set(PALETTE_NAMES[vendor].values())
@@ -607,7 +572,6 @@ class TestRegistry(unittest.TestCase):
                 }
 
                 self.assertEqual(names, set(PALETTE_DATA[vendor]))
-                self.assertEqual(names, set(DOCS_PALETTE_DATA[vendor]))
                 self.assertEqual(names, mapped)
 
     def test_discrete_palette_sizes(self):
@@ -643,14 +607,6 @@ class TestRegistry(unittest.TestCase):
                         ):
                             self.assertRegex(color, HEX_COLOR)
 
-        for vendor, docs in DOCS_PALETTE_DATA.items():
-            for name, colors in docs.items():
-                self.assertTrue(colors)
-
-                for color in colors:
-                    with self.subTest(vendor=vendor, palette=name, color=color):
-                        self.assertRegex(color, HEX_COLOR)
-
     def test_continuous_palettes(self):
         for vendor, data in PALETTE_DATA.items():
             for name, palette in data.items():
@@ -664,7 +620,7 @@ class TestRegistry(unittest.TestCase):
 
     def test_all_names_parse(self):
         for vendor, data in PALETTE_DATA.items():
-            names = set(data) | set(DOCS_PALETTE_DATA[vendor])
+            names = set(data)
 
             for name in names:
                 with self.subTest(vendor=vendor, palette=name):

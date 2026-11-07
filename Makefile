@@ -157,9 +157,9 @@ bump-version:
 	git commit -m $$VERSION;
 
 build-data:
-	node scripts/bokeh-palettes.js
-	node scripts/vega-palettes.js
-	node scripts/d3-palettes.js
+	node scripts/build-bokeh-palettes.js
+	node scripts/build-vega-palettes.js
+	node scripts/build-d3-palettes.js
 
 build-dist:
 	pnpm build

@@ -15,10 +15,9 @@ import {BOKEH_PALETTE_NAMES} from '../src/js/palettes/bokeh/index.js';
 import {VEGA_PALETTE_NAMES} from '../src/js/palettes/vega/index.js';
 import {D3_PALETTE_NAMES} from '../src/js/palettes/d3/index.js';
 import bestColorContrast from '../src/js/utils/best-color-contrast.ts';
-import docsPalette from '../src/js/utils/docs-palette.ts';
 import parsePaletteName from '../src/js/utils/parse-palette-name.ts';
 import discretePalette from '../src/js/utils/discrete-palette.ts';
-import {paletteSassName} from './utils.js';
+import {docsPalette, paletteSassName} from './utils.js';
 
 /**
  * Copies vendor and demo assets, builds the palette context, and renders the
