@@ -1,3 +1,4 @@
+import {validateColorCount} from './validate-color-count.ts';
 import type {HexColors, Palette} from '../types.ts';
 
 /**
@@ -9,11 +10,7 @@ import type {HexColors, Palette} from '../types.ts';
  * @throws If `n` is invalid, the palette is empty, or the requested size is unsupported.
  */
 export default function toDiscreteColors(palette: Palette, n = 6): HexColors {
-  if (!Number.isInteger(n) || n < 0) {
-    throw new RangeError(
-      `Palette size must be a non-negative integer, got ${n}.`
-    );
-  }
+  validateColorCount(n);
 
   if (n === 0) {
     return [];

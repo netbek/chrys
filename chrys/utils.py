@@ -143,17 +143,17 @@ def get_palette(name: QualifiedPaletteName) -> Palette:
     return palette
 
 
-def _validate_palette_size(n: int) -> None:
-    """Validate that a palette size is a non-negative integer.
+def _validate_color_count(n: int) -> None:
+    """Validate that a color count is a non-negative integer.
 
     Args:
-        n: Palette size.
+        n: Color count.
 
     Raises:
         ValueError: If ``n`` is not an integer or is negative.
     """
     if not isinstance(n, int) or isinstance(n, bool) or n < 0:
-        raise ValueError(f"Palette size must be a non-negative integer, got {n}.")
+        raise ValueError(f"Color count must be a non-negative integer, got {n}.")
 
 
 def to_discrete_colors(palette: Palette, n: int = 6, as_rgb: bool = False) -> Colors:
@@ -172,7 +172,7 @@ def to_discrete_colors(palette: Palette, n: int = 6, as_rgb: bool = False) -> Co
         ValueError: If ``n`` is invalid, the palette is empty, or the requested size is
             unsupported.
     """
-    _validate_palette_size(n)
+    _validate_color_count(n)
 
     if n == 0:
         return []
@@ -220,7 +220,7 @@ def to_continuous_colors(colors: HexColors, n: int = 6, as_rgb: bool = False) ->
     Note:
         Adapted from Bokeh 1.3.4 https://bokeh.org (BSD-3-Clause).
     """
-    _validate_palette_size(n)
+    _validate_color_count(n)
 
     if n > len(colors):
         raise ValueError(

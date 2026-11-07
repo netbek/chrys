@@ -1,3 +1,4 @@
+import {validateColorCount} from './validate-color-count.ts';
 import type {HexColors} from '../types.ts';
 
 /**
@@ -12,11 +13,7 @@ export default function toContinuousColors(
   colors: HexColors,
   n = 6
 ): HexColors {
-  if (!Number.isInteger(n) || n < 0) {
-    throw new RangeError(
-      `Palette size must be a non-negative integer, got ${n}.`
-    );
-  }
+  validateColorCount(n);
 
   if (n === 0) {
     return [];
