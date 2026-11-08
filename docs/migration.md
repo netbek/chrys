@@ -44,7 +44,7 @@ The v4 `chrys/umd` path is no longer available. For a browser `<script>` tag, us
 | — | `toContinuousColors(colors, n)` | New; samples a base colour list. |
 | `docsPalette(name)` | Removed | The demo-only palette data is no longer published. |
 | `parsePaletteName(name)` | `parsePaletteName(name)` | Same purpose; throws typed errors. |
-| `bestColorContrast(bg, fg, algorithm)` | `bestColorContrast(bg, fg, algorithm)` | APCA argument order corrected. |
+| `bestColorContrast(bg, fg, algorithm)` | `bestColorContrast(bg, fg)` | APCA argument order corrected; the algorithm argument was removed. |
 
 ### Removed exports
 
@@ -104,13 +104,12 @@ const colors = toContinuousColors(VEGA_VIRIDIS_PALETTE_DATA[256], 7);
 
 ### Contrast selection
 
-`bestColorContrast` still defaults to APCA. v5 fixes the argument order so the foreground colour is treated as the text colour, which is required by APCA. The selected colour can therefore differ from v4.
+`bestColorContrast` uses the APCA algorithm. v5 fixes the argument order so the foreground colour is treated as the text colour, which is required by APCA. The selected colour can therefore differ from v4.
 
 ```js
 import {bestColorContrast} from 'chrys';
 
 const color = bestColorContrast('#ff0000', ['#000000', '#ffffff']);
-const wcagColor = bestColorContrast('#ff0000', ['#000000', '#ffffff'], 'wcag');
 ```
 
 An empty foreground list now throws an error instead of returning `undefined`.
