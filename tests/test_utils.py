@@ -803,12 +803,6 @@ class TestGetPaletteColorsMode(unittest.TestCase):
             VEGA_PALETTE_DATA[VEGA_VIRIDIS][256],
         )
 
-    def test_continuous_accepts_string_and_size(self):
-        self.assertEqual(
-            get_palette_colors(VEGA_VIRIDIS, 7, mode="continuous"),
-            sample_continuous(VEGA_PALETTE_DATA[VEGA_VIRIDIS][256], 7),
-        )
-
     def test_continuous_requires_ramp(self):
         with pytest.raises(
             ValueError,
@@ -864,6 +858,12 @@ class TestGetPaletteColorsMode(unittest.TestCase):
         self.assertEqual(
             get_palette_colors(VEGA_VIRIDIS, 256, mode=PaletteMode.CONTINUOUS),
             VEGA_PALETTE_DATA[VEGA_VIRIDIS][256],
+        )
+
+    def test_continuous_accepts_string_and_size(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, 7, mode="continuous"),
+            sample_continuous(VEGA_PALETTE_DATA[VEGA_VIRIDIS][256], 7),
         )
 
     def test_continuous_too_many_colors(self):
@@ -1127,14 +1127,6 @@ class TestToContinuousColors(unittest.TestCase):
         with pytest.raises(ValueError, match="non-negative integer"):
             to_continuous_colors(self.colors, True)
 
-    def test_nan_size(self):
-        with pytest.raises(ValueError, match="non-negative integer"):
-            to_continuous_colors(self.colors, float("nan"))
-
-    def test_infinite_size(self):
-        with pytest.raises(ValueError, match="non-negative integer"):
-            to_continuous_colors(self.colors, float("inf"))
-
     def test_copy_when_default(self):
         colors = to_continuous_colors(self.colors)
 
@@ -1166,3 +1158,11 @@ class TestToContinuousColors(unittest.TestCase):
     def test_float_size(self):
         with pytest.raises(ValueError, match="non-negative integer"):
             to_continuous_colors(self.colors, 1.5)
+
+    def test_nan_size(self):
+        with pytest.raises(ValueError, match="non-negative integer"):
+            to_continuous_colors(self.colors, float("nan"))
+
+    def test_infinite_size(self):
+        with pytest.raises(ValueError, match="non-negative integer"):
+            to_continuous_colors(self.colors, float("inf"))

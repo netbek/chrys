@@ -53,6 +53,10 @@ describe('toDiscreteColors', () => {
     expect(() => toDiscreteColors({})).toThrow('Palette is empty.');
   });
 
+  test('Should return an empty palette when size is zero', () => {
+    expect(toDiscreteColors({1: ['#000000']}, 0)).toEqual([]);
+  });
+
   test('Should return the only palette size when no size is given', () => {
     const palette = {
       6: ['#000000', '#111111', '#222222', '#333333', '#444444', '#555555']
@@ -128,12 +132,6 @@ describe('toDiscreteColors', () => {
     expect(toDiscreteColors(palette, 3)).toEqual([]);
   });
 
-  test('Should throw an error when size is a boolean', () => {
-    expect(() => toDiscreteColors({1: ['#000000']}, true as never)).toThrow(
-      RangeError
-    );
-  });
-
   test('Should return the maximum available size when no size is given', () => {
     expect(
       toDiscreteColors({
@@ -162,6 +160,12 @@ describe('toDiscreteColors', () => {
       '#111111',
       '#222222'
     ]);
+  });
+
+  test('Should return the maximum palette when the requested size exceeds the maximum', () => {
+    const palette = {2: ['#000000', '#111111']};
+
+    expect(toDiscreteColors(palette, 5)).toEqual(palette[2]);
   });
 
   test('Should return a copy when the requested size equals the minimum', () => {
@@ -218,12 +222,6 @@ describe('toDiscreteColors', () => {
     expect(toDiscreteColors(palette, 4)).toEqual(palette[4]);
   });
 
-  test('Should list the supported sizes in ascending order in the error', () => {
-    expect(() => toDiscreteColors({6: ['#000000'], 1: ['#000000']}, 3)).toThrow(
-      'Unsupported palette size 3. Supported sizes: 1, 6.'
-    );
-  });
-
   test('Should throw an error for a size between non-contiguous palette sizes', () => {
     const palette = {
       1: ['#000000'],
@@ -235,12 +233,24 @@ describe('toDiscreteColors', () => {
     );
   });
 
+  test('Should list the supported sizes in ascending order in the error', () => {
+    expect(() => toDiscreteColors({6: ['#000000'], 1: ['#000000']}, 3)).toThrow(
+      'Unsupported palette size 3. Supported sizes: 1, 6.'
+    );
+  });
+
   test('Should throw an error when size is negative', () => {
     expect(() => toDiscreteColors({1: ['#000000']}, -1)).toThrow(RangeError);
   });
 
   test('Should throw an error when size is not an integer', () => {
     expect(() => toDiscreteColors({1: ['#000000']}, 1.5)).toThrow(RangeError);
+  });
+
+  test('Should throw an error when size is a boolean', () => {
+    expect(() => toDiscreteColors({1: ['#000000']}, true as never)).toThrow(
+      RangeError
+    );
   });
 
   test('Should throw an error when size is not finite', () => {
@@ -250,10 +260,6 @@ describe('toDiscreteColors', () => {
     expect(() =>
       toDiscreteColors({1: ['#000000']}, Number.POSITIVE_INFINITY)
     ).toThrow(RangeError);
-  });
-
-  test('Should return an empty palette when size is zero', () => {
-    expect(toDiscreteColors({1: ['#000000']}, 0)).toEqual([]);
   });
 });
 

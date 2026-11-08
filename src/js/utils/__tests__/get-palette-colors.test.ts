@@ -40,12 +40,17 @@ async function withMockedPalette(
   }));
   vi.resetModules();
 
-  const {default: getColors} = await import('../get-palette-colors.js');
+  try {
+    const {default: getColors} = await import('../get-palette-colors.js');
 
-  assertions(getColors);
+    assertions(getColors);
+  } finally {
+    vi.doUnmock('../get-palette.ts');
+    vi.resetModules();
+  }
 }
 
-describe('getPaletteColors', () => {
+describe('getPaletteColors discrete', () => {
   test('Should generate the largest discrete palette if size not given', () => {
     expect(getPaletteColors(VEGA_ACCENT)).toEqual(VEGA_ACCENT_PALETTE_DATA[8]);
   });
@@ -86,7 +91,7 @@ describe('getPaletteColors', () => {
     ]);
   });
 
-  test('Should clamp a discrete palette to its maximum size', () => {
+  test('Should return the maximum palette when size exceeds the maximum', () => {
     expect(getPaletteColors(VEGA_ACCENT, 20)).toEqual([
       '#7fc97f',
       '#beaed4',
@@ -99,18 +104,61 @@ describe('getPaletteColors', () => {
     ]);
   });
 
+  test('Should return an empty palette when size is zero', () => {
+    expect(getPaletteColors(VEGA_ACCENT, 0)).toEqual([]);
+  });
+
+  test('Should throw an error when size is negative', () => {
+    expect(() => getPaletteColors(VEGA_ACCENT, -1)).toThrow(RangeError);
+  });
+
+  test('Should throw an error when size is not an integer', () => {
+    expect(() => getPaletteColors(VEGA_ACCENT, 4.5)).toThrow(RangeError);
+  });
+
+  test('Should throw an error for a size between non-contiguous palette sizes', async () => {
+    const palette: Palette = {
+      1: ['#000000'],
+      3: ['#000000', '#111111', '#222222']
+    };
+
+    await withMockedPalette(palette, (getColors) => {
+      expect(() => getColors(VEGA_ACCENT, 2)).toThrow(
+        'Unsupported palette size 2. Supported sizes: 1, 3.'
+      );
+    });
+  });
+
+  test('Should clamp a discrete palette to its maximum size', () => {
+    expect(getPaletteColors(VEGA_ACCENT, 300)).toEqual([
+      '#7fc97f',
+      '#beaed4',
+      '#fdc086',
+      '#ffff99',
+      '#386cb0',
+      '#f0027f',
+      '#bf5b17',
+      '#666666'
+    ]);
+    expect(getPaletteColors(D3_ACCENT, 300)).toEqual(D3_ACCENT_PALETTE_DATA[8]);
+  });
+
+  test('Should throw an error for an invalid palette name', () => {
+    expect(() => getPaletteColors('lorem ipsum')).toThrow(PaletteNotFoundError);
+    expect(() => getPaletteColors('lorem ipsum')).toThrow(
+      'Palette "lorem ipsum" not found.'
+    );
+  });
+});
+
+describe('getPaletteColors continuous', () => {
+  test('Should return an empty palette when size is zero', () => {
+    expect(getPaletteColors(VEGA_VIRIDIS, 0)).toEqual([]);
+  });
+
   test('Should generate the full continuous ramp if size not given', () => {
     expect(getPaletteColors(VEGA_VIRIDIS)).toEqual(
       VEGA_VIRIDIS_PALETTE_DATA[256]
-    );
-  });
-
-  test('Should generate continuous bokeh and d3 palettes', () => {
-    expect(getPaletteColors(BOKEH_VIRIDIS, 6)).toEqual(
-      toContinuousColors(BOKEH_VIRIDIS_PALETTE_DATA[256], 6)
-    );
-    expect(getPaletteColors(D3_VIRIDIS, 6)).toEqual(
-      toContinuousColors(D3_VIRIDIS_PALETTE_DATA[256], 6)
     );
   });
 
@@ -132,24 +180,22 @@ describe('getPaletteColors', () => {
     );
   });
 
-  test('Should throw an error for an invalid palette name', () => {
-    expect(() => getPaletteColors('lorem ipsum')).toThrow(PaletteNotFoundError);
-    expect(() => getPaletteColors('lorem ipsum')).toThrow(
-      'Palette "lorem ipsum" not found.'
+  test('Should generate a continuous bokeh palette', () => {
+    expect(getPaletteColors(BOKEH_VIRIDIS, 6)).toEqual(
+      toContinuousColors(BOKEH_VIRIDIS_PALETTE_DATA[256], 6)
     );
   });
 
-  test('Should return an empty palette when size is zero', () => {
-    expect(getPaletteColors(VEGA_ACCENT, 0)).toEqual([]);
-    expect(getPaletteColors(VEGA_VIRIDIS, 0)).toEqual([]);
+  test('Should generate a continuous d3 palette', () => {
+    expect(getPaletteColors(D3_VIRIDIS, 6)).toEqual(
+      toContinuousColors(D3_VIRIDIS_PALETTE_DATA[256], 6)
+    );
   });
 
-  test('Should throw an error when size is negative', () => {
-    expect(() => getPaletteColors(VEGA_ACCENT, -1)).toThrow(RangeError);
-  });
-
-  test('Should throw an error when size is not an integer', () => {
-    expect(() => getPaletteColors(VEGA_ACCENT, 4.5)).toThrow(RangeError);
+  test('Should fall back to discrete colors for a discrete palette', () => {
+    expect(getPaletteColors(VEGA_ACCENT, 6)).toEqual(
+      VEGA_ACCENT_PALETTE_DATA[6]
+    );
   });
 });
 
@@ -414,6 +460,27 @@ describe('getPaletteColors mode', () => {
     ).toEqual(getPaletteColors(VEGA_VIRIDIS, undefined, 'discrete'));
   });
 
+  test('Should throw for an unknown mode before an invalid name', () => {
+    expect(() =>
+      getPaletteColors('lorem ipsum', undefined, 'lorem ipsum' as never)
+    ).toThrow('Unknown palette mode "lorem ipsum".');
+  });
+
+  test('Should throw for an unknown mode before empty palette data', async () => {
+    vi.doMock('../get-palette.ts', () => ({
+      getPalette: () => {
+        throw new PaletteDataEmptyError(VEGA_ACCENT);
+      }
+    }));
+    vi.resetModules();
+
+    const {default: getColors} = await import('../get-palette-colors.js');
+
+    expect(() =>
+      getColors(VEGA_ACCENT, undefined, 'lorem ipsum' as never)
+    ).toThrow('Unknown palette mode "lorem ipsum".');
+  });
+
   test('Should throw a vendor error', () => {
     expect(() => getPaletteColors('unknown_accent')).toThrow(
       VendorNotFoundError
@@ -434,20 +501,5 @@ describe('getPaletteColors mode', () => {
     const {default: getColors} = await import('../get-palette-colors.js');
 
     expect(() => getColors(VEGA_ACCENT)).toThrow(PaletteDataEmptyError);
-  });
-
-  test('Should throw for an unknown mode before empty palette data', async () => {
-    vi.doMock('../get-palette.ts', () => ({
-      getPalette: () => {
-        throw new PaletteDataEmptyError(VEGA_ACCENT);
-      }
-    }));
-    vi.resetModules();
-
-    const {default: getColors} = await import('../get-palette-colors.js');
-
-    expect(() =>
-      getColors(VEGA_ACCENT, undefined, 'lorem ipsum' as never)
-    ).toThrow('Unknown palette mode "lorem ipsum".');
   });
 });
