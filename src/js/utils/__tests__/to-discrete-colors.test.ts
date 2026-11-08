@@ -73,6 +73,67 @@ describe('toDiscreteColors', () => {
     ]);
   });
 
+  test('Should return the first color when size is one', () => {
+    const palette = {
+      1: ['#000000'],
+      3: ['#000000', '#111111', '#222222']
+    };
+
+    expect(toDiscreteColors(palette, 1)).toEqual(['#000000']);
+  });
+
+  test('Should return a copy when size is not given', () => {
+    const palette = {
+      1: ['#000000'],
+      2: ['#000000', '#ffffff']
+    };
+    const colors = toDiscreteColors(palette);
+
+    colors.pop();
+
+    expect(palette[2]).toEqual(['#000000', '#ffffff']);
+  });
+
+  test('Should return a copy when the requested size is below the minimum', () => {
+    const palette = {3: ['#000000', '#111111', '#222222']};
+    const colors = toDiscreteColors(palette, 2);
+
+    colors.pop();
+
+    expect(palette[3]).toEqual(['#000000', '#111111', '#222222']);
+  });
+
+  test('Should handle an array shorter than its key', () => {
+    const palette = {3: ['#000000']};
+
+    expect(toDiscreteColors(palette)).toEqual(['#000000']);
+    expect(toDiscreteColors(palette, 3)).toEqual(['#000000']);
+  });
+
+  test('Should handle an array longer than its key', () => {
+    const palette = {2: ['#000000', '#111111', '#222222']};
+
+    expect(toDiscreteColors(palette)).toEqual([
+      '#000000',
+      '#111111',
+      '#222222'
+    ]);
+    expect(toDiscreteColors(palette, 2)).toEqual(['#000000', '#111111']);
+  });
+
+  test('Should handle an empty array value', () => {
+    const palette = {3: []};
+
+    expect(toDiscreteColors(palette)).toEqual([]);
+    expect(toDiscreteColors(palette, 3)).toEqual([]);
+  });
+
+  test('Should throw an error when size is a boolean', () => {
+    expect(() => toDiscreteColors({1: ['#000000']}, true as never)).toThrow(
+      RangeError
+    );
+  });
+
   test('Should return the maximum available size when no size is given', () => {
     expect(
       toDiscreteColors({

@@ -213,6 +213,54 @@ class TestToDiscreteColors(unittest.TestCase):
 
         self.assertEqual(to_discrete_colors(palette, None), ["#000000", "#ffffff"])
 
+    def test_one_color(self):
+        palette = {
+            1: ["#000000"],
+            3: ["#000000", "#111111", "#222222"],
+        }
+
+        self.assertEqual(to_discrete_colors(palette, 1), ["#000000"])
+
+    def test_copy_when_n_is_none(self):
+        palette = {
+            1: ["#000000"],
+            2: ["#000000", "#ffffff"],
+        }
+        colors = to_discrete_colors(palette, None)
+
+        colors.pop(0)
+
+        self.assertEqual(palette[2], ["#000000", "#ffffff"])
+
+    def test_copy_when_below_minimum(self):
+        palette = {3: ["#000000", "#111111", "#222222"]}
+        colors = to_discrete_colors(palette, 2)
+
+        colors.pop(0)
+
+        self.assertEqual(palette[3], ["#000000", "#111111", "#222222"])
+
+    def test_shorter_array_than_key(self):
+        palette = {3: ["#000000"]}
+
+        self.assertEqual(to_discrete_colors(palette), ["#000000"])
+        self.assertEqual(to_discrete_colors(palette, 3), ["#000000"])
+
+    def test_longer_array_than_key(self):
+        palette = {2: ["#000000", "#111111", "#222222"]}
+
+        self.assertEqual(
+            to_discrete_colors(palette),
+            ["#000000", "#111111", "#222222"],
+        )
+        self.assertEqual(to_discrete_colors(palette, 2), ["#000000", "#111111"])
+
+    def test_empty_array_value(self):
+        palette = {3: []}
+
+        self.assertEqual(to_discrete_colors(palette), [])
+        self.assertEqual(to_discrete_colors(palette, 3), [])
+
     def test_default_size_returns_maximum_available(self):
         palette = {
             1: ["#000000"],
@@ -800,6 +848,216 @@ class TestGetPaletteColorsMode(unittest.TestCase):
         with pytest.raises(ValueError, match='Unknown palette mode "lorem ipsum"'):
             get_palette_colors(VEGA_ACCENT, mode="lorem ipsum")
 
+    def test_continuous_zero_colors(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, 0, mode=PaletteMode.CONTINUOUS),
+            [],
+        )
+
+    def test_continuous_one_color(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, 1, mode=PaletteMode.CONTINUOUS),
+            [VEGA_PALETTE_DATA[VEGA_VIRIDIS][256][0]],
+        )
+
+    def test_continuous_all_colors(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, 256, mode=PaletteMode.CONTINUOUS),
+            VEGA_PALETTE_DATA[VEGA_VIRIDIS][256],
+        )
+
+    def test_continuous_too_many_colors(self):
+        with pytest.raises(ValueError, match="Requested 257 colors"):
+            get_palette_colors(VEGA_VIRIDIS, 257, mode=PaletteMode.CONTINUOUS)
+
+    def test_continuous_negative_size(self):
+        with pytest.raises(ValueError, match="non-negative integer"):
+            get_palette_colors(VEGA_VIRIDIS, -1, mode=PaletteMode.CONTINUOUS)
+
+    def test_continuous_float_size(self):
+        with pytest.raises(ValueError, match="non-negative integer"):
+            get_palette_colors(VEGA_VIRIDIS, 1.5, mode=PaletteMode.CONTINUOUS)
+
+    def test_continuous_requires_ramp_with_size(self):
+        with pytest.raises(
+            ValueError,
+            match='Palette "vega_accent" has no continuous data.',
+        ):
+            get_palette_colors(VEGA_ACCENT, 5, mode=PaletteMode.CONTINUOUS)
+
+    def test_continuous_only_ramp(self):
+        palette = {256: ["#000000", "#ffffff"]}
+
+        with patch("chrys.utils.get_palette", return_value=palette):
+            self.assertEqual(
+                get_palette_colors(VEGA_ACCENT, mode=PaletteMode.CONTINUOUS),
+                palette[256],
+            )
+            self.assertEqual(
+                get_palette_colors(VEGA_ACCENT, 1, mode=PaletteMode.CONTINUOUS),
+                ["#000000"],
+            )
+
+    def test_discrete_zero_colors(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, 0, mode=PaletteMode.DISCRETE),
+            [],
+        )
+
+    def test_discrete_one_color(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, 1, mode=PaletteMode.DISCRETE),
+            VEGA_PALETTE_DATA[VEGA_VIRIDIS][1],
+        )
+
+    def test_discrete_max_size(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, 9, mode=PaletteMode.DISCRETE),
+            VEGA_PALETTE_DATA[VEGA_VIRIDIS][9],
+        )
+
+    def test_discrete_above_max_size(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, 300, mode=PaletteMode.DISCRETE),
+            VEGA_PALETTE_DATA[VEGA_VIRIDIS][9],
+        )
+
+    def test_discrete_unsupported_size(self):
+        palette = {
+            256: ["#000000"],
+            1: ["#000000"],
+            3: ["#000000", "#111111", "#222222"],
+        }
+
+        with (
+            patch("chrys.utils.get_palette", return_value=palette),
+            pytest.raises(
+                ValueError,
+                match="Unsupported palette size 2. Supported sizes: 1, 3.",
+            ),
+        ):
+            get_palette_colors(VEGA_ACCENT, 2, mode=PaletteMode.DISCRETE)
+
+    def test_discrete_negative_size(self):
+        with pytest.raises(ValueError, match="non-negative integer"):
+            get_palette_colors(VEGA_VIRIDIS, -1, mode=PaletteMode.DISCRETE)
+
+    def test_discrete_float_size(self):
+        with pytest.raises(ValueError, match="non-negative integer"):
+            get_palette_colors(VEGA_VIRIDIS, 1.5, mode=PaletteMode.DISCRETE)
+
+    def test_discrete_on_discrete_only_palette(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_ACCENT, mode=PaletteMode.DISCRETE),
+            get_palette_colors(VEGA_ACCENT),
+        )
+        self.assertEqual(
+            get_palette_colors(VEGA_ACCENT, 6, mode=PaletteMode.DISCRETE),
+            VEGA_PALETTE_DATA[VEGA_ACCENT][6],
+        )
+
+    def test_discrete_excludes_ramp_with_single_size(self):
+        palette = {
+            256: ["#000000", "#111111"],
+            5: ["#000000", "#111111", "#222222", "#333333", "#444444"],
+        }
+
+        with patch("chrys.utils.get_palette", return_value=palette):
+            self.assertEqual(
+                get_palette_colors(VEGA_ACCENT, mode=PaletteMode.DISCRETE),
+                palette[5],
+            )
+            self.assertEqual(
+                get_palette_colors(VEGA_ACCENT, 3, mode=PaletteMode.DISCRETE),
+                palette[5][:3],
+            )
+
+    def test_discrete_empty_array(self):
+        palette = {256: ["#000000"], 3: []}
+
+        with patch("chrys.utils.get_palette", return_value=palette):
+            self.assertEqual(
+                get_palette_colors(VEGA_ACCENT, mode=PaletteMode.DISCRETE),
+                [],
+            )
+            self.assertEqual(
+                get_palette_colors(VEGA_ACCENT, 3, mode=PaletteMode.DISCRETE),
+                [],
+            )
+
+    def test_auto_only_ramp(self):
+        palette = {256: ["#000000", "#ffffff"]}
+
+        with patch("chrys.utils.get_palette", return_value=palette):
+            self.assertEqual(get_palette_colors(VEGA_ACCENT), palette[256])
+            self.assertEqual(
+                get_palette_colors(VEGA_ACCENT, mode=PaletteMode.AUTO),
+                palette[256],
+            )
+
+    def test_auto_discrete_only_palette(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_ACCENT, mode=PaletteMode.AUTO),
+            get_palette_colors(VEGA_ACCENT),
+        )
+
+    def test_invalid_mode_with_size(self):
+        with pytest.raises(ValueError, match='Unknown palette mode "lorem ipsum"'):
+            get_palette_colors(VEGA_ACCENT, 5, mode="lorem ipsum")
+
+    def test_invalid_mode_on_continuous_palette(self):
+        with pytest.raises(ValueError, match='Unknown palette mode "lorem ipsum"'):
+            get_palette_colors(VEGA_VIRIDIS, mode="lorem ipsum")
+
+    def test_invalid_mode_before_invalid_size(self):
+        with pytest.raises(ValueError, match='Unknown palette mode "lorem ipsum"'):
+            get_palette_colors(VEGA_ACCENT, -1, mode="lorem ipsum")
+
+    def test_invalid_mode_none(self):
+        with pytest.raises(ValueError, match="Unknown palette mode"):
+            get_palette_colors(VEGA_ACCENT, mode=None)
+
+    def test_invalid_mode_integer(self):
+        with pytest.raises(ValueError, match="Unknown palette mode"):
+            get_palette_colors(VEGA_ACCENT, mode=42)
+
+    def test_invalid_mode_case(self):
+        with pytest.raises(ValueError, match='Unknown palette mode "AUTO"'):
+            get_palette_colors(VEGA_ACCENT, mode="AUTO")
+
+    def test_explicit_none_with_each_mode(self):
+        for mode in (PaletteMode.AUTO, PaletteMode.CONTINUOUS, PaletteMode.DISCRETE):
+            with self.subTest(mode=mode):
+                self.assertEqual(
+                    get_palette_colors(VEGA_VIRIDIS, None, mode=mode),
+                    get_palette_colors(VEGA_VIRIDIS, mode=mode),
+                )
+
+    def test_invalid_mode_before_palette_lookup(self):
+        with pytest.raises(ValueError, match='Unknown palette mode "lorem ipsum"'):
+            get_palette_colors("lorem ipsum", mode="lorem ipsum")
+
+    def test_invalid_mode_before_empty_palette_data(self):
+        with (
+            patch("chrys.utils.PALETTE_DATA", {Vendor.VEGA: {VEGA_ACCENT: {}}}),
+            pytest.raises(ValueError, match='Unknown palette mode "lorem ipsum"'),
+        ):
+            get_palette_colors(VEGA_ACCENT, mode="lorem ipsum")
+
+    def test_unknown_vendor(self):
+        with pytest.raises(VendorNotFoundError, match='Vendor "unknown" not found.'):
+            get_palette_colors("unknown_accent")
+
+    def test_empty_palette_data(self):
+        with (
+            patch("chrys.utils.PALETTE_DATA", {Vendor.VEGA: {VEGA_ACCENT: {}}}),
+            pytest.raises(
+                PaletteDataEmptyError,
+                match='Palette data for "vega_accent" is empty.',
+            ),
+        ):
+            get_palette_colors(VEGA_ACCENT)
+
 
 class TestToContinuousColors(unittest.TestCase):
     def setUp(self):
@@ -829,6 +1087,73 @@ class TestToContinuousColors(unittest.TestCase):
 
     def test_none_returns_all_colors(self):
         self.assertEqual(to_continuous_colors(self.colors, None), self.colors)
+
+    def test_empty_colors(self):
+        self.assertEqual(to_continuous_colors([]), [])
+        self.assertEqual(to_continuous_colors([], 0), [])
+
+    def test_empty_colors_one(self):
+        with pytest.raises(ValueError, match="Requested 1 colors"):
+            to_continuous_colors([], 1)
+
+    def test_single_color(self):
+        colors = ["#000000"]
+
+        self.assertEqual(to_continuous_colors(colors), colors)
+        self.assertEqual(to_continuous_colors(colors, 1), colors)
+
+    def test_single_color_two(self):
+        with pytest.raises(ValueError, match="Requested 2 colors"):
+            to_continuous_colors(["#000000"], 2)
+
+    def test_two_colors_one(self):
+        self.assertEqual(
+            to_continuous_colors(["#000000", "#ffffff"], 1),
+            ["#000000"],
+        )
+
+    def test_two_colors_two(self):
+        colors = ["#000000", "#ffffff"]
+
+        self.assertEqual(to_continuous_colors(colors, 2), colors)
+
+    def test_three_colors(self):
+        self.assertEqual(
+            to_continuous_colors(self.colors, 3),
+            [self.colors[0], self.colors[1], self.colors[3]],
+        )
+
+    def test_bool_size(self):
+        with pytest.raises(ValueError, match="non-negative integer"):
+            to_continuous_colors(self.colors, True)
+
+    def test_nan_size(self):
+        with pytest.raises(ValueError, match="non-negative integer"):
+            to_continuous_colors(self.colors, float("nan"))
+
+    def test_infinite_size(self):
+        with pytest.raises(ValueError, match="non-negative integer"):
+            to_continuous_colors(self.colors, float("inf"))
+
+    def test_copy_when_default(self):
+        colors = to_continuous_colors(self.colors)
+
+        colors.pop(0)
+
+        self.assertEqual(
+            self.colors,
+            ["#000000", "#111111", "#222222", "#333333"],
+        )
+
+    def test_copy_when_one_color(self):
+        colors = to_continuous_colors(self.colors, 1)
+
+        colors.pop(0)
+
+        self.assertEqual(
+            self.colors,
+            ["#000000", "#111111", "#222222", "#333333"],
+        )
 
     def test_too_many_colors(self):
         with pytest.raises(ValueError, match="Requested 5 colors"):
