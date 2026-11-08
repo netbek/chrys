@@ -16,6 +16,7 @@ repos:
         pass_filenames: true
         require_serial: true
         files: ^(src)/.*\.(js|jsx|cjs|mjs)$
+        exclude: ^src/js/palettes/
 
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.22.0
