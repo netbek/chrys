@@ -32,56 +32,36 @@ describe('best-color-contrast', () => {
     }
   });
 
-  test('Should use WCAG when requested', () => {
+  test('Should select the best APCA color', () => {
     const css = compile(`
-      @use 'src/css/functions';
-      .probe {
-        color: functions.best-color-contrast(#f00, (#000, #fff), 'wcag');
-      }
-    `);
-
-    expect(css).toContain('color: #000');
-  });
-
-  test('Should select the algorithm-specific best color', () => {
-    const apca = compile(`
       @use 'src/css/functions';
       .probe {
         color: functions.best-color-contrast(#777, (#fff, #000));
       }
     `);
-    const wcag = compile(`
-      @use 'src/css/functions';
-      .probe {
-        color: functions.best-color-contrast(#777, (#fff, #000), 'wcag');
-      }
-    `);
 
-    expect(apca).toContain('color: #fff');
-    expect(wcag).toContain('color: #000');
+    expect(css).toContain('color: #fff');
   });
 
-  test('Should fall back to WCAG for an unknown algorithm', () => {
+  test('Should use the default foreground colors', () => {
     const css = compile(`
       @use 'src/css/functions';
       .probe {
-        color: functions.best-color-contrast(#f00, (#000, #fff), 'unknown');
+        color: functions.best-color-contrast(#f00);
       }
     `);
 
-    expect(css).toContain('color: #000');
+    expect(css).toContain('color: #fff');
   });
-});
 
-describe('wcag.contrast', () => {
-  test('Should calculate the WCAG contrast ratio', () => {
-    const css = compile(`
-      @use 'src/css/wcag';
-      .probe {
-        value: wcag.contrast(#000, #fff);
-      }
-    `);
-
-    expect(css).toContain('value: 21');
+  test('Should reject an algorithm argument', () => {
+    expect(() =>
+      compile(`
+        @use 'src/css/functions';
+        .probe {
+          color: functions.best-color-contrast(#f00, (#000, #fff), 'wcag');
+        }
+      `)
+    ).toThrow(/Only 2 arguments allowed/);
   });
 });

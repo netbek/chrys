@@ -12,12 +12,13 @@ This guide covers the breaking changes between chrys 4.x and 5.x for consumers o
 | — | `toContinuousColors(colors, n)` |
 | `docsPalette(name)` | Removed; use `getPaletteColors` or palette data |
 | `bestColorContrast(bg, fg)` | Same name; APCA polarity fixed |
+| `best-color-contrast($bg-color, $fg-colors)` | Same name; APCA polarity fixed |
 | `parsePaletteName(name)` | Same name; typed errors |
 | `from chrys.palettes import discrete_palette` | `from chrys.utils import get_palette_colors` |
 | `from chrys.palettes import continuous_palette` | `from chrys.utils import get_palette_colors` |
 | `from chrys.palettes import parse_palette_name` | `from chrys.utils import parse_palette_name` |
 | `discrete_palette(name, n, as_rgb=True)` | `get_palette_colors(name, n)`; convert hex to RGB yourself |
-| `best_color_contrast(bg, fg, large, AAA)` | `best_color_contrast(bg, fg, algorithm)` |
+| `best_color_contrast(bg, fg, large, AAA)` | `best_color_contrast(bg, fg)`; APCA polarity fixed |
 
 ## JavaScript and TypeScript
 
@@ -190,7 +191,8 @@ def hex_to_rgb(color: str) -> tuple[float, float, float]:
 
 - `chrys.palettes.Vendor` (`StrEnum`) and `chrys.palettes.PALETTE_DATA`.
 - `chrys.utils.get_palette`, `get_palette_colors`, `to_discrete_colors`, `to_continuous_colors`, `parse_palette_name`, and `best_color_contrast`.
-- `chrys.utils.Algorithm` (`StrEnum`), `ParsedPaletteName`, and the type aliases `HexColor`, `HexColors`, `Palette`, and `QualifiedPaletteName`.
+- `chrys.utils.ParsedPaletteName`, `PaletteMode` (`StrEnum`), and the type aliases `HexColor`, `HexColors`, `Palette`, and `QualifiedPaletteName`.
+- `chrys.apca_w3`, a Python port of the APCA-W3 contrast algorithm.
 - `chrys.exceptions.PaletteNotFoundError`, `VendorNotFoundError`, and `PaletteDataEmptyError`.
 - `chrys.data.d3_palettes` and the `D3_*` constants.
 
@@ -210,37 +212,27 @@ vendor, palette = parse_palette_name(VEGA_ACCENT)
 
 ### Contrast selection
 
-The default algorithm has changed from WCAG to APCA. The `large` and `AAA` flags have been removed; use the `algorithm` argument to select an algorithm.
+`best_color_contrast` uses the APCA algorithm. v5 fixes the argument order so the foreground colour is treated as the text colour, which is required by APCA. Alpha digits in hexadecimal colours are ignored. The selected colour can therefore differ from v4.
 
 ```python
 from chrys.utils import best_color_contrast
 
 color = best_color_contrast("#ff0000", ["#000000", "#ffffff"])
-wcag_color = best_color_contrast("#ff0000", ["#000000", "#ffffff"], algorithm="wcag")
 ```
 
-An empty foreground list now raises `ValueError`.
+An empty foreground list now raises `ValueError`, and an invalid colour raises `ValueError` with the message `Color "...": unknown format.`.
 
 ## Sass and CSS
 
 ### `best-color-contrast`
 
-The function now accepts an optional algorithm argument:
-
-```scss
-best-color-contrast($bg-color, $fg-colors, $algorithm: 'apca')
-```
-
-Supported values are `'apca'` and `'wcag'`. The APCA call order has been corrected to treat the foreground colour as the text colour, so results can differ from v4.
+The function uses the APCA algorithm. The APCA call order has been corrected to treat the foreground colour as the text colour, so results can differ from v4.
 
 ```scss
 @use 'node_modules/chrys/src/css/functions' as chrys;
 
 $color: chrys.best-color-contrast(#ff0000, (#000, #fff));
-$wcag-color: chrys.best-color-contrast(#ff0000, (#000, #fff), 'wcag');
 ```
-
-A new `src/css/_wcag.scss` partial provides `wcag.contrast($color1, $color2)`.
 
 ### Palette variables
 
@@ -288,7 +280,7 @@ from chrys.exceptions import PaletteNotFoundError, VendorNotFoundError
 - Remove uses of `docsPalette`, `docs_palette`, and the `*_DOCS_*` data.
 - Move Python utility imports from `chrys.palettes` to `chrys.utils`.
 - Remove `as_rgb` arguments and convert hexadecimal colours to RGB yourself.
-- Review contrast selections: APCA polarity is fixed, and Python now defaults to APCA.
+- Review contrast selections: APCA polarity is fixed, and JavaScript, Python, and Sass now use APCA only.
 - Review continuous palette output, which now samples the 256-colour ramp.
 - Update compiled CSS imports from `chrys/css/` to `chrys/dist/css/`.
 - Replace `BOKEH` / `VEGA` constants with `Vendor` in Python or string literals in JavaScript.

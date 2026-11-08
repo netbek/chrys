@@ -89,11 +89,9 @@ Continuous color sampling adapted from:
 
 - [Bokeh](https://github.com/bokeh/bokeh) — Copyright (c) 2012-2018 Anaconda, Inc., and Bokeh Contributors ([BSD 3-Clause](https://github.com/bokeh/bokeh/blob/1.3.4/LICENSE.txt))
 
-WCAG and APCA contrast algorithms from:
+APCA contrast algorithm from:
 
-- [Chroma.js](https://github.com/gka/chroma.js) — Copyright (c) 2011-2025 Gregor Aisch ([BSD 3-Clause](https://github.com/gka/chroma.js/blob/v3.2.0/LICENSE))
-- [Color.js](https://github.com/color-js/color.js) — Copyright (c) 2021 Lea Verou, Chris Lilley ([MIT](https://github.com/color-js/color.js/blob/v0.7.1/LICENSE))
-- [ColorAide](https://github.com/facelessuser/coloraide) — Copyright (c) 2020-2026 Isaac Muse ([MIT](https://github.com/facelessuser/coloraide/blob/8.13.1/LICENSE.md))
+- [APCA-W3](https://github.com/Myndex/apca-w3) — Copyright © 2019-2022 Andrew Somers ([W3 License](https://github.com/Myndex/apca-w3/blob/0216410d119f4c99a61f144d9cd42e3962bb84bc/LICENSE.md))
 
 ## License
 
