@@ -1,135 +1,102 @@
-import {D3_ACCENT, D3_ACCENT_PALETTE_DATA} from './accent.js';
-import {D3_CATEGORY_10, D3_CATEGORY_10_PALETTE_DATA} from './category-10.js';
-import {D3_DARK_2, D3_DARK_2_PALETTE_DATA} from './dark-2.js';
-import {
-  D3_OBSERVABLE_10,
-  D3_OBSERVABLE_10_PALETTE_DATA
-} from './observable-10.js';
-import {D3_PAIRED, D3_PAIRED_PALETTE_DATA} from './paired.js';
-import {D3_PASTEL_1, D3_PASTEL_1_PALETTE_DATA} from './pastel-1.js';
-import {D3_PASTEL_2, D3_PASTEL_2_PALETTE_DATA} from './pastel-2.js';
-import {D3_SET_1, D3_SET_1_PALETTE_DATA} from './set-1.js';
-import {D3_SET_2, D3_SET_2_PALETTE_DATA} from './set-2.js';
-import {D3_SET_3, D3_SET_3_PALETTE_DATA} from './set-3.js';
-import {D3_TABLEAU_10, D3_TABLEAU_10_PALETTE_DATA} from './tableau-10.js';
-import {
-  D3_BROWN_BLUE_GREEN,
-  D3_BROWN_BLUE_GREEN_PALETTE_DATA
-} from './brown-blue-green.js';
-import {D3_PURPLE_GREEN, D3_PURPLE_GREEN_PALETTE_DATA} from './purple-green.js';
-import {
-  D3_PINK_YELLOW_GREEN,
-  D3_PINK_YELLOW_GREEN_PALETTE_DATA
-} from './pink-yellow-green.js';
-import {
-  D3_PURPLE_ORANGE,
-  D3_PURPLE_ORANGE_PALETTE_DATA
-} from './purple-orange.js';
-import {D3_RED_BLUE, D3_RED_BLUE_PALETTE_DATA} from './red-blue.js';
-import {D3_RED_GREY, D3_RED_GREY_PALETTE_DATA} from './red-grey.js';
-import {
-  D3_RED_YELLOW_BLUE,
-  D3_RED_YELLOW_BLUE_PALETTE_DATA
-} from './red-yellow-blue.js';
-import {
-  D3_RED_YELLOW_GREEN,
-  D3_RED_YELLOW_GREEN_PALETTE_DATA
-} from './red-yellow-green.js';
-import {D3_SPECTRAL, D3_SPECTRAL_PALETTE_DATA} from './spectral.js';
-import {D3_BLUE_GREEN, D3_BLUE_GREEN_PALETTE_DATA} from './blue-green.js';
-import {D3_BLUE_PURPLE, D3_BLUE_PURPLE_PALETTE_DATA} from './blue-purple.js';
-import {D3_GREEN_BLUE, D3_GREEN_BLUE_PALETTE_DATA} from './green-blue.js';
-import {D3_ORANGE_RED, D3_ORANGE_RED_PALETTE_DATA} from './orange-red.js';
-import {
-  D3_PURPLE_BLUE_GREEN,
-  D3_PURPLE_BLUE_GREEN_PALETTE_DATA
-} from './purple-blue-green.js';
-import {D3_PURPLE_BLUE, D3_PURPLE_BLUE_PALETTE_DATA} from './purple-blue.js';
-import {D3_PURPLE_RED, D3_PURPLE_RED_PALETTE_DATA} from './purple-red.js';
-import {D3_RED_PURPLE, D3_RED_PURPLE_PALETTE_DATA} from './red-purple.js';
-import {
-  D3_YELLOW_GREEN_BLUE,
-  D3_YELLOW_GREEN_BLUE_PALETTE_DATA
-} from './yellow-green-blue.js';
-import {D3_YELLOW_GREEN, D3_YELLOW_GREEN_PALETTE_DATA} from './yellow-green.js';
-import {
-  D3_YELLOW_ORANGE_BROWN,
-  D3_YELLOW_ORANGE_BROWN_PALETTE_DATA
-} from './yellow-orange-brown.js';
-import {
-  D3_YELLOW_ORANGE_RED,
-  D3_YELLOW_ORANGE_RED_PALETTE_DATA
-} from './yellow-orange-red.js';
-import {D3_BLUES, D3_BLUES_PALETTE_DATA} from './blues.js';
-import {D3_GREENS, D3_GREENS_PALETTE_DATA} from './greens.js';
-import {D3_GREYS, D3_GREYS_PALETTE_DATA} from './greys.js';
-import {D3_ORANGES, D3_ORANGES_PALETTE_DATA} from './oranges.js';
-import {D3_PURPLES, D3_PURPLES_PALETTE_DATA} from './purples.js';
-import {D3_REDS, D3_REDS_PALETTE_DATA} from './reds.js';
-import {D3_CIVIDIS, D3_CIVIDIS_PALETTE_DATA} from './cividis.js';
-import {
-  D3_CUBEHELIX_DEFAULT,
-  D3_CUBEHELIX_DEFAULT_PALETTE_DATA
-} from './cubehelix-default.js';
-import {D3_RAINBOW, D3_RAINBOW_PALETTE_DATA} from './rainbow.js';
-import {D3_WARM, D3_WARM_PALETTE_DATA} from './warm.js';
-import {D3_COOL, D3_COOL_PALETTE_DATA} from './cool.js';
-import {D3_SINEBOW, D3_SINEBOW_PALETTE_DATA} from './sinebow.js';
-import {D3_TURBO, D3_TURBO_PALETTE_DATA} from './turbo.js';
-import {D3_VIRIDIS, D3_VIRIDIS_PALETTE_DATA} from './viridis.js';
-import {D3_MAGMA, D3_MAGMA_PALETTE_DATA} from './magma.js';
-import {D3_INFERNO, D3_INFERNO_PALETTE_DATA} from './inferno.js';
-import {D3_PLASMA, D3_PLASMA_PALETTE_DATA} from './plasma.js';
+import {D3_ACCENT, D3_ACCENT_PALETTE_DATA} from './accent.js'
+import {D3_CATEGORY_10, D3_CATEGORY_10_PALETTE_DATA} from './category-10.js'
+import {D3_DARK_2, D3_DARK_2_PALETTE_DATA} from './dark-2.js'
+import {D3_OBSERVABLE_10, D3_OBSERVABLE_10_PALETTE_DATA} from './observable-10.js'
+import {D3_PAIRED, D3_PAIRED_PALETTE_DATA} from './paired.js'
+import {D3_PASTEL_1, D3_PASTEL_1_PALETTE_DATA} from './pastel-1.js'
+import {D3_PASTEL_2, D3_PASTEL_2_PALETTE_DATA} from './pastel-2.js'
+import {D3_SET_1, D3_SET_1_PALETTE_DATA} from './set-1.js'
+import {D3_SET_2, D3_SET_2_PALETTE_DATA} from './set-2.js'
+import {D3_SET_3, D3_SET_3_PALETTE_DATA} from './set-3.js'
+import {D3_TABLEAU_10, D3_TABLEAU_10_PALETTE_DATA} from './tableau-10.js'
+import {D3_BROWN_BLUE_GREEN, D3_BROWN_BLUE_GREEN_PALETTE_DATA} from './brown-blue-green.js'
+import {D3_PURPLE_GREEN, D3_PURPLE_GREEN_PALETTE_DATA} from './purple-green.js'
+import {D3_PINK_YELLOW_GREEN, D3_PINK_YELLOW_GREEN_PALETTE_DATA} from './pink-yellow-green.js'
+import {D3_PURPLE_ORANGE, D3_PURPLE_ORANGE_PALETTE_DATA} from './purple-orange.js'
+import {D3_RED_BLUE, D3_RED_BLUE_PALETTE_DATA} from './red-blue.js'
+import {D3_RED_GREY, D3_RED_GREY_PALETTE_DATA} from './red-grey.js'
+import {D3_RED_YELLOW_BLUE, D3_RED_YELLOW_BLUE_PALETTE_DATA} from './red-yellow-blue.js'
+import {D3_RED_YELLOW_GREEN, D3_RED_YELLOW_GREEN_PALETTE_DATA} from './red-yellow-green.js'
+import {D3_SPECTRAL, D3_SPECTRAL_PALETTE_DATA} from './spectral.js'
+import {D3_BLUE_GREEN, D3_BLUE_GREEN_PALETTE_DATA} from './blue-green.js'
+import {D3_BLUE_PURPLE, D3_BLUE_PURPLE_PALETTE_DATA} from './blue-purple.js'
+import {D3_GREEN_BLUE, D3_GREEN_BLUE_PALETTE_DATA} from './green-blue.js'
+import {D3_ORANGE_RED, D3_ORANGE_RED_PALETTE_DATA} from './orange-red.js'
+import {D3_PURPLE_BLUE_GREEN, D3_PURPLE_BLUE_GREEN_PALETTE_DATA} from './purple-blue-green.js'
+import {D3_PURPLE_BLUE, D3_PURPLE_BLUE_PALETTE_DATA} from './purple-blue.js'
+import {D3_PURPLE_RED, D3_PURPLE_RED_PALETTE_DATA} from './purple-red.js'
+import {D3_RED_PURPLE, D3_RED_PURPLE_PALETTE_DATA} from './red-purple.js'
+import {D3_YELLOW_GREEN_BLUE, D3_YELLOW_GREEN_BLUE_PALETTE_DATA} from './yellow-green-blue.js'
+import {D3_YELLOW_GREEN, D3_YELLOW_GREEN_PALETTE_DATA} from './yellow-green.js'
+import {D3_YELLOW_ORANGE_BROWN, D3_YELLOW_ORANGE_BROWN_PALETTE_DATA} from './yellow-orange-brown.js'
+import {D3_YELLOW_ORANGE_RED, D3_YELLOW_ORANGE_RED_PALETTE_DATA} from './yellow-orange-red.js'
+import {D3_BLUES, D3_BLUES_PALETTE_DATA} from './blues.js'
+import {D3_GREENS, D3_GREENS_PALETTE_DATA} from './greens.js'
+import {D3_GREYS, D3_GREYS_PALETTE_DATA} from './greys.js'
+import {D3_ORANGES, D3_ORANGES_PALETTE_DATA} from './oranges.js'
+import {D3_PURPLES, D3_PURPLES_PALETTE_DATA} from './purples.js'
+import {D3_REDS, D3_REDS_PALETTE_DATA} from './reds.js'
+import {D3_CIVIDIS, D3_CIVIDIS_PALETTE_DATA} from './cividis.js'
+import {D3_CUBEHELIX_DEFAULT, D3_CUBEHELIX_DEFAULT_PALETTE_DATA} from './cubehelix-default.js'
+import {D3_RAINBOW, D3_RAINBOW_PALETTE_DATA} from './rainbow.js'
+import {D3_WARM, D3_WARM_PALETTE_DATA} from './warm.js'
+import {D3_COOL, D3_COOL_PALETTE_DATA} from './cool.js'
+import {D3_SINEBOW, D3_SINEBOW_PALETTE_DATA} from './sinebow.js'
+import {D3_TURBO, D3_TURBO_PALETTE_DATA} from './turbo.js'
+import {D3_VIRIDIS, D3_VIRIDIS_PALETTE_DATA} from './viridis.js'
+import {D3_MAGMA, D3_MAGMA_PALETTE_DATA} from './magma.js'
+import {D3_INFERNO, D3_INFERNO_PALETTE_DATA} from './inferno.js'
+import {D3_PLASMA, D3_PLASMA_PALETTE_DATA} from './plasma.js'
 
-export {D3_ACCENT};
-export {D3_CATEGORY_10};
-export {D3_DARK_2};
-export {D3_OBSERVABLE_10};
-export {D3_PAIRED};
-export {D3_PASTEL_1};
-export {D3_PASTEL_2};
-export {D3_SET_1};
-export {D3_SET_2};
-export {D3_SET_3};
-export {D3_TABLEAU_10};
-export {D3_BROWN_BLUE_GREEN};
-export {D3_PURPLE_GREEN};
-export {D3_PINK_YELLOW_GREEN};
-export {D3_PURPLE_ORANGE};
-export {D3_RED_BLUE};
-export {D3_RED_GREY};
-export {D3_RED_YELLOW_BLUE};
-export {D3_RED_YELLOW_GREEN};
-export {D3_SPECTRAL};
-export {D3_BLUE_GREEN};
-export {D3_BLUE_PURPLE};
-export {D3_GREEN_BLUE};
-export {D3_ORANGE_RED};
-export {D3_PURPLE_BLUE_GREEN};
-export {D3_PURPLE_BLUE};
-export {D3_PURPLE_RED};
-export {D3_RED_PURPLE};
-export {D3_YELLOW_GREEN_BLUE};
-export {D3_YELLOW_GREEN};
-export {D3_YELLOW_ORANGE_BROWN};
-export {D3_YELLOW_ORANGE_RED};
-export {D3_BLUES};
-export {D3_GREENS};
-export {D3_GREYS};
-export {D3_ORANGES};
-export {D3_PURPLES};
-export {D3_REDS};
-export {D3_CIVIDIS};
-export {D3_CUBEHELIX_DEFAULT};
-export {D3_RAINBOW};
-export {D3_WARM};
-export {D3_COOL};
-export {D3_SINEBOW};
-export {D3_TURBO};
-export {D3_VIRIDIS};
-export {D3_MAGMA};
-export {D3_INFERNO};
-export {D3_PLASMA};
+export {D3_ACCENT}
+export {D3_CATEGORY_10}
+export {D3_DARK_2}
+export {D3_OBSERVABLE_10}
+export {D3_PAIRED}
+export {D3_PASTEL_1}
+export {D3_PASTEL_2}
+export {D3_SET_1}
+export {D3_SET_2}
+export {D3_SET_3}
+export {D3_TABLEAU_10}
+export {D3_BROWN_BLUE_GREEN}
+export {D3_PURPLE_GREEN}
+export {D3_PINK_YELLOW_GREEN}
+export {D3_PURPLE_ORANGE}
+export {D3_RED_BLUE}
+export {D3_RED_GREY}
+export {D3_RED_YELLOW_BLUE}
+export {D3_RED_YELLOW_GREEN}
+export {D3_SPECTRAL}
+export {D3_BLUE_GREEN}
+export {D3_BLUE_PURPLE}
+export {D3_GREEN_BLUE}
+export {D3_ORANGE_RED}
+export {D3_PURPLE_BLUE_GREEN}
+export {D3_PURPLE_BLUE}
+export {D3_PURPLE_RED}
+export {D3_RED_PURPLE}
+export {D3_YELLOW_GREEN_BLUE}
+export {D3_YELLOW_GREEN}
+export {D3_YELLOW_ORANGE_BROWN}
+export {D3_YELLOW_ORANGE_RED}
+export {D3_BLUES}
+export {D3_GREENS}
+export {D3_GREYS}
+export {D3_ORANGES}
+export {D3_PURPLES}
+export {D3_REDS}
+export {D3_CIVIDIS}
+export {D3_CUBEHELIX_DEFAULT}
+export {D3_RAINBOW}
+export {D3_WARM}
+export {D3_COOL}
+export {D3_SINEBOW}
+export {D3_TURBO}
+export {D3_VIRIDIS}
+export {D3_MAGMA}
+export {D3_INFERNO}
+export {D3_PLASMA}
 
 export const D3_PALETTE_DATA = {
   [D3_ACCENT]: D3_ACCENT_PALETTE_DATA,
@@ -180,109 +147,109 @@ export const D3_PALETTE_DATA = {
   [D3_VIRIDIS]: D3_VIRIDIS_PALETTE_DATA,
   [D3_MAGMA]: D3_MAGMA_PALETTE_DATA,
   [D3_INFERNO]: D3_INFERNO_PALETTE_DATA,
-  [D3_PLASMA]: D3_PLASMA_PALETTE_DATA
-};
+  [D3_PLASMA]: D3_PLASMA_PALETTE_DATA,
+}
 
 export const D3_PALETTE_NAMES = {
-  D3_ACCENT: 'd3_accent',
-  D3_CATEGORY_10: 'd3_category10',
-  D3_DARK_2: 'd3_dark2',
-  D3_OBSERVABLE_10: 'd3_observable10',
-  D3_PAIRED: 'd3_paired',
-  D3_PASTEL_1: 'd3_pastel1',
-  D3_PASTEL_2: 'd3_pastel2',
-  D3_SET_1: 'd3_set1',
-  D3_SET_2: 'd3_set2',
-  D3_SET_3: 'd3_set3',
-  D3_TABLEAU_10: 'd3_tableau10',
-  D3_BROWN_BLUE_GREEN: 'd3_brownbluegreen',
-  D3_PURPLE_GREEN: 'd3_purplegreen',
-  D3_PINK_YELLOW_GREEN: 'd3_pinkyellowgreen',
-  D3_PURPLE_ORANGE: 'd3_purpleorange',
-  D3_RED_BLUE: 'd3_redblue',
-  D3_RED_GREY: 'd3_redgrey',
-  D3_RED_YELLOW_BLUE: 'd3_redyellowblue',
-  D3_RED_YELLOW_GREEN: 'd3_redyellowgreen',
-  D3_SPECTRAL: 'd3_spectral',
-  D3_BLUE_GREEN: 'd3_bluegreen',
-  D3_BLUE_PURPLE: 'd3_bluepurple',
-  D3_GREEN_BLUE: 'd3_greenblue',
-  D3_ORANGE_RED: 'd3_orangered',
-  D3_PURPLE_BLUE_GREEN: 'd3_purplebluegreen',
-  D3_PURPLE_BLUE: 'd3_purpleblue',
-  D3_PURPLE_RED: 'd3_purplered',
-  D3_RED_PURPLE: 'd3_redpurple',
-  D3_YELLOW_GREEN_BLUE: 'd3_yellowgreenblue',
-  D3_YELLOW_GREEN: 'd3_yellowgreen',
-  D3_YELLOW_ORANGE_BROWN: 'd3_yelloworangebrown',
-  D3_YELLOW_ORANGE_RED: 'd3_yelloworangered',
-  D3_BLUES: 'd3_blues',
-  D3_GREENS: 'd3_greens',
-  D3_GREYS: 'd3_greys',
-  D3_ORANGES: 'd3_oranges',
-  D3_PURPLES: 'd3_purples',
-  D3_REDS: 'd3_reds',
-  D3_CIVIDIS: 'd3_cividis',
-  D3_CUBEHELIX_DEFAULT: 'd3_cubehelixdefault',
-  D3_RAINBOW: 'd3_rainbow',
-  D3_WARM: 'd3_warm',
-  D3_COOL: 'd3_cool',
-  D3_SINEBOW: 'd3_sinebow',
-  D3_TURBO: 'd3_turbo',
-  D3_VIRIDIS: 'd3_viridis',
-  D3_MAGMA: 'd3_magma',
-  D3_INFERNO: 'd3_inferno',
-  D3_PLASMA: 'd3_plasma'
-};
+  D3_ACCENT: "d3_accent",
+  D3_CATEGORY_10: "d3_category10",
+  D3_DARK_2: "d3_dark2",
+  D3_OBSERVABLE_10: "d3_observable10",
+  D3_PAIRED: "d3_paired",
+  D3_PASTEL_1: "d3_pastel1",
+  D3_PASTEL_2: "d3_pastel2",
+  D3_SET_1: "d3_set1",
+  D3_SET_2: "d3_set2",
+  D3_SET_3: "d3_set3",
+  D3_TABLEAU_10: "d3_tableau10",
+  D3_BROWN_BLUE_GREEN: "d3_brownbluegreen",
+  D3_PURPLE_GREEN: "d3_purplegreen",
+  D3_PINK_YELLOW_GREEN: "d3_pinkyellowgreen",
+  D3_PURPLE_ORANGE: "d3_purpleorange",
+  D3_RED_BLUE: "d3_redblue",
+  D3_RED_GREY: "d3_redgrey",
+  D3_RED_YELLOW_BLUE: "d3_redyellowblue",
+  D3_RED_YELLOW_GREEN: "d3_redyellowgreen",
+  D3_SPECTRAL: "d3_spectral",
+  D3_BLUE_GREEN: "d3_bluegreen",
+  D3_BLUE_PURPLE: "d3_bluepurple",
+  D3_GREEN_BLUE: "d3_greenblue",
+  D3_ORANGE_RED: "d3_orangered",
+  D3_PURPLE_BLUE_GREEN: "d3_purplebluegreen",
+  D3_PURPLE_BLUE: "d3_purpleblue",
+  D3_PURPLE_RED: "d3_purplered",
+  D3_RED_PURPLE: "d3_redpurple",
+  D3_YELLOW_GREEN_BLUE: "d3_yellowgreenblue",
+  D3_YELLOW_GREEN: "d3_yellowgreen",
+  D3_YELLOW_ORANGE_BROWN: "d3_yelloworangebrown",
+  D3_YELLOW_ORANGE_RED: "d3_yelloworangered",
+  D3_BLUES: "d3_blues",
+  D3_GREENS: "d3_greens",
+  D3_GREYS: "d3_greys",
+  D3_ORANGES: "d3_oranges",
+  D3_PURPLES: "d3_purples",
+  D3_REDS: "d3_reds",
+  D3_CIVIDIS: "d3_cividis",
+  D3_CUBEHELIX_DEFAULT: "d3_cubehelixdefault",
+  D3_RAINBOW: "d3_rainbow",
+  D3_WARM: "d3_warm",
+  D3_COOL: "d3_cool",
+  D3_SINEBOW: "d3_sinebow",
+  D3_TURBO: "d3_turbo",
+  D3_VIRIDIS: "d3_viridis",
+  D3_MAGMA: "d3_magma",
+  D3_INFERNO: "d3_inferno",
+  D3_PLASMA: "d3_plasma",
+}
 
 export const D3_PALETTES = {
-  ['accent']: D3_ACCENT_PALETTE_DATA,
-  ['category10']: D3_CATEGORY_10_PALETTE_DATA,
-  ['dark2']: D3_DARK_2_PALETTE_DATA,
-  ['observable10']: D3_OBSERVABLE_10_PALETTE_DATA,
-  ['paired']: D3_PAIRED_PALETTE_DATA,
-  ['pastel1']: D3_PASTEL_1_PALETTE_DATA,
-  ['pastel2']: D3_PASTEL_2_PALETTE_DATA,
-  ['set1']: D3_SET_1_PALETTE_DATA,
-  ['set2']: D3_SET_2_PALETTE_DATA,
-  ['set3']: D3_SET_3_PALETTE_DATA,
-  ['tableau10']: D3_TABLEAU_10_PALETTE_DATA,
-  ['brownbluegreen']: D3_BROWN_BLUE_GREEN_PALETTE_DATA,
-  ['purplegreen']: D3_PURPLE_GREEN_PALETTE_DATA,
-  ['pinkyellowgreen']: D3_PINK_YELLOW_GREEN_PALETTE_DATA,
-  ['purpleorange']: D3_PURPLE_ORANGE_PALETTE_DATA,
-  ['redblue']: D3_RED_BLUE_PALETTE_DATA,
-  ['redgrey']: D3_RED_GREY_PALETTE_DATA,
-  ['redyellowblue']: D3_RED_YELLOW_BLUE_PALETTE_DATA,
-  ['redyellowgreen']: D3_RED_YELLOW_GREEN_PALETTE_DATA,
-  ['spectral']: D3_SPECTRAL_PALETTE_DATA,
-  ['bluegreen']: D3_BLUE_GREEN_PALETTE_DATA,
-  ['bluepurple']: D3_BLUE_PURPLE_PALETTE_DATA,
-  ['greenblue']: D3_GREEN_BLUE_PALETTE_DATA,
-  ['orangered']: D3_ORANGE_RED_PALETTE_DATA,
-  ['purplebluegreen']: D3_PURPLE_BLUE_GREEN_PALETTE_DATA,
-  ['purpleblue']: D3_PURPLE_BLUE_PALETTE_DATA,
-  ['purplered']: D3_PURPLE_RED_PALETTE_DATA,
-  ['redpurple']: D3_RED_PURPLE_PALETTE_DATA,
-  ['yellowgreenblue']: D3_YELLOW_GREEN_BLUE_PALETTE_DATA,
-  ['yellowgreen']: D3_YELLOW_GREEN_PALETTE_DATA,
-  ['yelloworangebrown']: D3_YELLOW_ORANGE_BROWN_PALETTE_DATA,
-  ['yelloworangered']: D3_YELLOW_ORANGE_RED_PALETTE_DATA,
-  ['blues']: D3_BLUES_PALETTE_DATA,
-  ['greens']: D3_GREENS_PALETTE_DATA,
-  ['greys']: D3_GREYS_PALETTE_DATA,
-  ['oranges']: D3_ORANGES_PALETTE_DATA,
-  ['purples']: D3_PURPLES_PALETTE_DATA,
-  ['reds']: D3_REDS_PALETTE_DATA,
-  ['cividis']: D3_CIVIDIS_PALETTE_DATA,
-  ['cubehelixdefault']: D3_CUBEHELIX_DEFAULT_PALETTE_DATA,
-  ['rainbow']: D3_RAINBOW_PALETTE_DATA,
-  ['warm']: D3_WARM_PALETTE_DATA,
-  ['cool']: D3_COOL_PALETTE_DATA,
-  ['sinebow']: D3_SINEBOW_PALETTE_DATA,
-  ['turbo']: D3_TURBO_PALETTE_DATA,
-  ['viridis']: D3_VIRIDIS_PALETTE_DATA,
-  ['magma']: D3_MAGMA_PALETTE_DATA,
-  ['inferno']: D3_INFERNO_PALETTE_DATA,
-  ['plasma']: D3_PLASMA_PALETTE_DATA
-};
+  ["accent"]: D3_ACCENT_PALETTE_DATA,
+  ["category10"]: D3_CATEGORY_10_PALETTE_DATA,
+  ["dark2"]: D3_DARK_2_PALETTE_DATA,
+  ["observable10"]: D3_OBSERVABLE_10_PALETTE_DATA,
+  ["paired"]: D3_PAIRED_PALETTE_DATA,
+  ["pastel1"]: D3_PASTEL_1_PALETTE_DATA,
+  ["pastel2"]: D3_PASTEL_2_PALETTE_DATA,
+  ["set1"]: D3_SET_1_PALETTE_DATA,
+  ["set2"]: D3_SET_2_PALETTE_DATA,
+  ["set3"]: D3_SET_3_PALETTE_DATA,
+  ["tableau10"]: D3_TABLEAU_10_PALETTE_DATA,
+  ["brownbluegreen"]: D3_BROWN_BLUE_GREEN_PALETTE_DATA,
+  ["purplegreen"]: D3_PURPLE_GREEN_PALETTE_DATA,
+  ["pinkyellowgreen"]: D3_PINK_YELLOW_GREEN_PALETTE_DATA,
+  ["purpleorange"]: D3_PURPLE_ORANGE_PALETTE_DATA,
+  ["redblue"]: D3_RED_BLUE_PALETTE_DATA,
+  ["redgrey"]: D3_RED_GREY_PALETTE_DATA,
+  ["redyellowblue"]: D3_RED_YELLOW_BLUE_PALETTE_DATA,
+  ["redyellowgreen"]: D3_RED_YELLOW_GREEN_PALETTE_DATA,
+  ["spectral"]: D3_SPECTRAL_PALETTE_DATA,
+  ["bluegreen"]: D3_BLUE_GREEN_PALETTE_DATA,
+  ["bluepurple"]: D3_BLUE_PURPLE_PALETTE_DATA,
+  ["greenblue"]: D3_GREEN_BLUE_PALETTE_DATA,
+  ["orangered"]: D3_ORANGE_RED_PALETTE_DATA,
+  ["purplebluegreen"]: D3_PURPLE_BLUE_GREEN_PALETTE_DATA,
+  ["purpleblue"]: D3_PURPLE_BLUE_PALETTE_DATA,
+  ["purplered"]: D3_PURPLE_RED_PALETTE_DATA,
+  ["redpurple"]: D3_RED_PURPLE_PALETTE_DATA,
+  ["yellowgreenblue"]: D3_YELLOW_GREEN_BLUE_PALETTE_DATA,
+  ["yellowgreen"]: D3_YELLOW_GREEN_PALETTE_DATA,
+  ["yelloworangebrown"]: D3_YELLOW_ORANGE_BROWN_PALETTE_DATA,
+  ["yelloworangered"]: D3_YELLOW_ORANGE_RED_PALETTE_DATA,
+  ["blues"]: D3_BLUES_PALETTE_DATA,
+  ["greens"]: D3_GREENS_PALETTE_DATA,
+  ["greys"]: D3_GREYS_PALETTE_DATA,
+  ["oranges"]: D3_ORANGES_PALETTE_DATA,
+  ["purples"]: D3_PURPLES_PALETTE_DATA,
+  ["reds"]: D3_REDS_PALETTE_DATA,
+  ["cividis"]: D3_CIVIDIS_PALETTE_DATA,
+  ["cubehelixdefault"]: D3_CUBEHELIX_DEFAULT_PALETTE_DATA,
+  ["rainbow"]: D3_RAINBOW_PALETTE_DATA,
+  ["warm"]: D3_WARM_PALETTE_DATA,
+  ["cool"]: D3_COOL_PALETTE_DATA,
+  ["sinebow"]: D3_SINEBOW_PALETTE_DATA,
+  ["turbo"]: D3_TURBO_PALETTE_DATA,
+  ["viridis"]: D3_VIRIDIS_PALETTE_DATA,
+  ["magma"]: D3_MAGMA_PALETTE_DATA,
+  ["inferno"]: D3_INFERNO_PALETTE_DATA,
+  ["plasma"]: D3_PLASMA_PALETTE_DATA,
+}
