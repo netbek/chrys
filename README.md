@@ -91,7 +91,7 @@ Continuous color sampling adapted from:
 
 APCA contrast algorithm from:
 
-- [APCA-W3](https://github.com/Myndex/apca-w3) — Copyright © 2019-2022 Andrew Somers ([W3 License](https://github.com/Myndex/apca-w3/blob/0216410d119f4c99a61f144d9cd42e3962bb84bc/LICENSE.md))
+- [APCA-W3](https://github.com/Myndex/apca-w3) — Copyright (c) 2019-2022 Andrew Somers ([W3 License](https://github.com/Myndex/apca-w3/blob/0216410d119f4c99a61f144d9cd42e3962bb84bc/LICENSE.md))
 
 ## License
 
