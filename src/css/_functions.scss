@@ -1,32 +1,33 @@
-// Contrast algorithms:
-// - APCA 0.0.98G-4g via sass-apca 1.2.0.
-// - WCAG 2.1 contrast ratio using the CSS Color 4 relative-luminance
-//   definition in _wcag.scss (matches Color.js and ColorAide).
-
 @use 'sass:list';
 @use 'sass:math';
+@use 'sass:meta';
 @use 'node_modules/sass-apca/apca';
-@use 'wcag';
 
-@function _contrast($fg-color, $bg-color, $algorithm) {
-  @if $algorithm == 'apca' {
-    // APCA is polarity-sensitive: the foreground is the text color.
-    @return math.abs(apca.contrast($fg-color, $bg-color));
+@function _assert-color($color) {
+  @if meta.type-of($color) != 'color' {
+    @error 'Color "#{$color}": unknown format.';
   }
 
-  @return math.abs(wcag.contrast($fg-color, $bg-color));
+  @return $color;
 }
 
-@function best-color-contrast(
-  $bg-color,
-  $fg-colors: (#fff, #000),
-  $algorithm: 'apca'
-) {
-  $best-color: list.nth($fg-colors, 1);
-  $highest-contrast: _contrast($best-color, $bg-color, $algorithm);
+@function _contrast($fg-color, $bg-color) {
+  // APCA is polarity-sensitive: the foreground is the text color.
+  @return math.abs(apca.contrast($fg-color, $bg-color));
+}
+
+@function best-color-contrast($bg-color, $fg-colors: (#fff, #000)) {
+  @if list.length($fg-colors) == 0 {
+    @error 'At least one foreground color is required.';
+  }
+
+  $bg-color: _assert-color($bg-color);
+  $best-color: _assert-color(list.nth($fg-colors, 1));
+  $highest-contrast: _contrast($best-color, $bg-color);
 
   @each $color in $fg-colors {
-    $contrast: _contrast($color, $bg-color, $algorithm);
+    $color: _assert-color($color);
+    $contrast: _contrast($color, $bg-color);
 
     @if $contrast > $highest-contrast {
       $highest-contrast: $contrast;

@@ -1,4 +1,4 @@
-from chrys.chroma_js import contrast, contrast_apca
+from chrys.apca_w3 import apca_contrast, srgb_to_y
 from chrys.exceptions import (
     PaletteDataEmptyError,
     PaletteNotFoundError,
@@ -14,6 +14,7 @@ from enum import StrEnum
 from typing import NamedTuple
 
 import math
+import re
 
 # A hexadecimal color string.
 type HexColor = str
@@ -35,14 +36,6 @@ class ParsedPaletteName(NamedTuple):
     palette: str
 
 
-# Contrast algorithms: APCA 0.0.98G-4g and WCAG 2.0, ported from chroma.js 3.2.0.
-class Algorithm(StrEnum):
-    """Contrast algorithm."""
-
-    APCA = "apca"
-    WCAG = "wcag"
-
-
 class PaletteMode(StrEnum):
     """How to resolve palette colors."""
 
@@ -51,15 +44,43 @@ class PaletteMode(StrEnum):
     DISCRETE = "discrete"
 
 
-def best_color_contrast(
-    bg_color: HexColor, fg_colors: HexColors, algorithm: str = Algorithm.APCA
-) -> HexColor:
-    """Select the foreground color with the highest contrast against a background color.
+# Matches #rgb, #rgba, #rrggbb, and #rrggbbaa.
+_HEX_COLOR = re.compile(r"^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$", re.IGNORECASE)
+
+
+def _parse_hex_color(color: HexColor) -> tuple[int, int, int]:
+    """Parse a hexadecimal color into its 8-bit sRGB channels.
+
+    Raises:
+        ValueError: If ``color`` is not a valid hexadecimal color.
+    """
+    if not isinstance(color, str) or _HEX_COLOR.fullmatch(color) is None:
+        raise ValueError(f'Color "{color}": unknown format.')
+
+    hex_digits = color[1:]
+
+    if len(hex_digits) <= 4:
+        hex_digits = "".join(digit * 2 for digit in hex_digits)
+
+    return (
+        int(hex_digits[0:2], 16),
+        int(hex_digits[2:4], 16),
+        int(hex_digits[4:6], 16),
+    )
+
+
+def best_color_contrast(bg_color: HexColor, fg_colors: HexColors) -> HexColor:
+    """Select the foreground color with the highest APCA contrast against a background color.
+
+    APCA is polarity-sensitive: each foreground is scored as the text color and the
+    background as the background color. Absolute scores are compared so a foreground is
+    never penalised for being lighter or darker; only the magnitude of the contrast matters.
+
+    Alpha digits in hexadecimal colors are ignored.
 
     Args:
         bg_color: Background color.
         fg_colors: Candidate foreground colors.
-        algorithm: Contrast algorithm to use (``"apca"`` or ``"wcag"``).
 
     Returns:
         The foreground color with the highest contrast.
@@ -70,13 +91,20 @@ def best_color_contrast(
     if not fg_colors:
         raise ValueError("At least one foreground color is required.")
 
-    score = contrast_apca if algorithm == Algorithm.APCA else contrast
-    # APCA is polarity-sensitive: the foreground is the text color.
-    scores = [abs(score(fg_color, bg_color)) for fg_color in fg_colors]
-    max_score = max(scores)
-    max_score_index = scores.index(max_score)
+    bg_y = srgb_to_y(_parse_hex_color(bg_color))
 
-    return fg_colors[max_score_index]
+    best_index = 0
+    best_score = -1.0
+
+    for index, fg_color in enumerate(fg_colors):
+        fg_y = srgb_to_y(_parse_hex_color(fg_color))
+        score = abs(apca_contrast(fg_y, bg_y))
+
+        if score > best_score:
+            best_score = score
+            best_index = index
+
+    return fg_colors[best_index]
 
 
 def parse_palette_name(name: QualifiedPaletteName) -> ParsedPaletteName:

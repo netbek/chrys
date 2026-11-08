@@ -53,17 +53,14 @@ def sample_continuous(colors, n):
 
 
 class TestBestColorContrast(unittest.TestCase):
-    def test_default_is_apca(self):
+    def test_choose_white_on_red(self):
         self.assertEqual(best_color_contrast("#f00", ["#000", "#fff"]), "#fff")
 
-    def test_explicit_apca(self):
-        self.assertEqual(best_color_contrast("#f00", ["#000", "#fff"], "apca"), "#fff")
-
-    def test_wcag(self):
-        self.assertEqual(best_color_contrast("#f00", ["#000", "#fff"], "wcag"), "#000")
-
-    def test_unknown_algorithm_falls_back_to_wcag(self):
-        self.assertEqual(best_color_contrast("#f00", ["#000", "#fff"], "unknown"), "#000")
+    def test_six_digit_colors(self):
+        self.assertEqual(
+            best_color_contrast("#ff0000", ["#000000", "#ffffff"]),
+            "#ffffff",
+        )
 
     def test_tie_returns_first_candidate(self):
         self.assertEqual(best_color_contrast("#fff", ["#000", "#000"]), "#000")
@@ -71,22 +68,48 @@ class TestBestColorContrast(unittest.TestCase):
     def test_single_candidate_is_returned(self):
         self.assertEqual(best_color_contrast("#000", ["#010101"]), "#010101")
 
-    def test_absolute_apca_scores_can_differ_from_wcag(self):
+    def test_absolute_apca_scores(self):
         self.assertEqual(best_color_contrast("#777", ["#fff", "#000"]), "#fff")
-        self.assertEqual(best_color_contrast("#777", ["#fff", "#000"], "wcag"), "#000")
 
     def test_apca_uses_foreground_as_text(self):
         self.assertEqual(best_color_contrast("#2aabee", ["#000", "#fff"]), "#fff")
         self.assertEqual(best_color_contrast("#cf9275", ["#000", "#fff"]), "#fff")
         self.assertEqual(best_color_contrast("#31b57b", ["#000", "#fff"]), "#fff")
 
+    def test_ignore_alpha_digits(self):
+        self.assertEqual(
+            best_color_contrast("#ff0000ff", ["#000000ff", "#ffffffff"]),
+            "#ffffffff",
+        )
+        self.assertEqual(best_color_contrast("#f00f", ["#000f", "#ffff"]), "#ffff")
+
     def test_invalid_background_color(self):
-        with pytest.raises(ValueError, match='Invalid color "not-a-color".'):
+        with pytest.raises(ValueError, match='Color "not-a-color": unknown format.'):
             best_color_contrast("not-a-color", ["#000"])
 
     def test_invalid_foreground_color(self):
-        with pytest.raises(ValueError, match='Invalid color "not-a-color".'):
+        with pytest.raises(ValueError, match='Color "not-a-color": unknown format.'):
             best_color_contrast("#f00", ["not-a-color"])
+
+    def test_missing_hash(self):
+        with pytest.raises(ValueError, match="unknown format"):
+            best_color_contrast("ff0000", ["#000"])
+
+    def test_invalid_hex_length(self):
+        for color in ("#ff", "#fffff", "#fffffff", "#fffffffff"):
+            with (
+                self.subTest(color=color),
+                pytest.raises(ValueError, match="unknown format"),
+            ):
+                best_color_contrast("#f00", [color])
+
+    def test_invalid_hex_digits(self):
+        with pytest.raises(ValueError, match="unknown format"):
+            best_color_contrast("#ggg", ["#000"])
+
+    def test_non_string_color(self):
+        with pytest.raises(ValueError, match="unknown format"):
+            best_color_contrast(123, ["#000"])
 
     def test_empty_foreground_colors(self):
         with pytest.raises(ValueError, match="At least one foreground color is required."):

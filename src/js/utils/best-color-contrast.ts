@@ -1,44 +1,71 @@
-import {contrast, contrastAPCA} from 'chroma-js';
+import {APCAcontrast, sRGBtoY} from 'apca-w3';
 import type {HexColor, HexColors} from '../types.ts';
 
-// Contrast algorithms: APCA 0.0.98G-4g and WCAG 2.0, via chroma-js 3.2.0.
-const ALGORITHM = {
-  APCA: 'apca',
-  WCAG: 'wcag'
-};
+/** Matches #rgb, #rgba, #rrggbb, and #rrggbbaa. */
+const HEX_COLOR = /^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
 
 /**
- * Selects the foreground color with the highest contrast against a
+ * Parses a hexadecimal color into its 8-bit sRGB channels.
+ *
+ * @throws {Error} When the color is not a valid hexadecimal color.
+ */
+function parseHexColor(color: HexColor): [number, number, number] {
+  if (!HEX_COLOR.test(color)) {
+    throw new Error(`Color "${color}": unknown format.`);
+  }
+
+  let hex = color.slice(1);
+
+  if (hex.length <= 4) {
+    hex = hex
+      .split('')
+      .map((digit) => digit + digit)
+      .join('');
+  }
+
+  return [
+    Number.parseInt(hex.slice(0, 2), 16),
+    Number.parseInt(hex.slice(2, 4), 16),
+    Number.parseInt(hex.slice(4, 6), 16)
+  ];
+}
+
+/**
+ * Selects the foreground color with the highest APCA contrast against a
  * background color.
+ *
+ * APCA is polarity-sensitive: each foreground is scored as the text color and
+ * the background as the background color. Absolute scores are compared so a
+ * foreground is never penalised for being lighter or darker; only the
+ * magnitude of the contrast matters.
  *
  * @param bgColor Background color.
  * @param fgColors Candidate foreground colors.
- * @param algorithm Contrast algorithm to use (`apca` or `wcag`).
  * @returns The foreground color with the highest contrast.
+ * @throws {Error} When a color is invalid.
  */
 export default function bestColorContrast(
   bgColor: HexColor,
-  fgColors: HexColors,
-  algorithm = ALGORITHM.APCA
+  fgColors: HexColors
 ): HexColor {
   if (fgColors.length === 0) {
     throw new Error('At least one foreground color is required.');
   }
 
-  let fn;
+  const bgY = sRGBtoY(parseHexColor(bgColor));
 
-  if (algorithm === ALGORITHM.APCA) {
-    fn = contrastAPCA;
-  } else {
-    fn = contrast;
+  let bestIndex = 0;
+  let bestScore = -1;
+
+  for (let index = 0; index < fgColors.length; index += 1) {
+    const fgY = sRGBtoY(parseHexColor(fgColors[index]));
+    const score = Math.abs(Number(APCAcontrast(fgY, bgY)));
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestIndex = index;
+    }
   }
 
-  // APCA is polarity-sensitive: the foreground is the text color.
-  const scores = fgColors.map((fgColor): number =>
-    Math.abs(fn(fgColor, bgColor))
-  );
-  const maxScore = Math.max(...scores);
-  const maxScoreIndex = scores.indexOf(maxScore);
-
-  return fgColors[maxScoreIndex];
+  return fgColors[bestIndex];
 }
