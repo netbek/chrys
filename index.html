@@ -52,7 +52,7 @@ npm install chrys
 
         <section>
           <h1>Get a list of colours</h1>
-          <p>Categorical and other discrete palettes return up to 9 colours; continuous palettes can return up to 256.</p>
+          <p>Omit <code>n</code> to return every available colour: discrete palettes return their largest available size; continuous palettes return the full 256-colour ramp. Pass <code>n</code> to limit the result, or <code>mode</code> to override automatic continuous/discrete selection.</p>
 
           <section>
             <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
@@ -60,11 +60,21 @@ npm install chrys
             <pre><code class="language-javascript">
 import {VEGA_ACCENT, getPaletteColors} from 'chrys';
 
-const colors = getPaletteColors(VEGA_ACCENT, 5);
+const colors = getPaletteColors(VEGA_ACCENT);
             </code></pre>
 
             <pre><code class="language-javascript">
-["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0"]
+["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f", "#bf5b17", "#666666"]
+            </code></pre>
+
+            <pre><code class="language-javascript">
+import {VEGA_VIRIDIS, getPaletteColors} from 'chrys';
+
+const colors = getPaletteColors(VEGA_VIRIDIS, 5, 'discrete');
+            </code></pre>
+
+            <pre><code class="language-javascript">
+["#443a83", "#31688e", "#21918d", "#35b779", "#8fd744"]
             </code></pre>
           </section>
 
@@ -75,11 +85,22 @@ const colors = getPaletteColors(VEGA_ACCENT, 5);
 from chrys.palettes import VEGA_ACCENT
 from chrys.utils import get_palette_colors
 
-hex_colors = get_palette_colors(VEGA_ACCENT, 5)
+hex_colors = get_palette_colors(VEGA_ACCENT)
             </code></pre>
 
             <pre><code class="language-python">
-["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0"]
+["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f", "#bf5b17", "#666666"]
+            </code></pre>
+
+            <pre><code class="language-python">
+from chrys.palettes import VEGA_VIRIDIS
+from chrys.utils import PaletteMode, get_palette_colors
+
+hex_colors = get_palette_colors(VEGA_VIRIDIS, 5, mode=PaletteMode.DISCRETE)
+            </code></pre>
+
+            <pre><code class="language-python">
+["#443a83", "#31688e", "#21918d", "#35b779", "#8fd744"]
             </code></pre>
           </section>
 
@@ -117,7 +138,7 @@ const colors = toDiscreteColors(BOKEH_VIRIDIS_PALETTE_DATA, 6);
             </code></pre>
           </section>
 
-          <p><code>getPaletteColors(name, n)</code> resolves names through the full palette registry and includes all palette data. Use <code>toDiscreteColors</code> or <code>toContinuousColors</code> with an explicit <code>*_PALETTE_DATA</code> constant when bundle size matters.</p>
+          <p><code>getPaletteColors(name, n, mode)</code> resolves names through the full palette registry and includes all palette data. <code>mode</code> accepts <code>auto</code> (default), <code>continuous</code>, or <code>discrete</code>. Use <code>toDiscreteColors</code> or <code>toContinuousColors</code> with an explicit <code>*_PALETTE_DATA</code> constant when bundle size matters.</p>
         </section>
 
         <section>
@@ -2002,7 +2023,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_blues">
-        
           <stop offset="0%" stop-color="#cfe1f2"></stop>
         
           <stop offset="10%" stop-color="#bed8ec"></stop>
@@ -2182,7 +2202,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_Blues">
-        
           <stop offset="0%" stop-color="#08306b"></stop>
         
           <stop offset="10%" stop-color="#08306b"></stop>
@@ -2362,24 +2381,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_blues">
-        
           <stop offset="0%" stop-color="#f7fbff"></stop>
         
-          <stop offset="10%" stop-color="#deebf7"></stop>
+          <stop offset="12.5%" stop-color="#deebf7"></stop>
         
-          <stop offset="20%" stop-color="#c6dbef"></stop>
+          <stop offset="25%" stop-color="#c6dbef"></stop>
         
-          <stop offset="30%" stop-color="#9ecae1"></stop>
+          <stop offset="37.5%" stop-color="#9ecae1"></stop>
         
-          <stop offset="40%" stop-color="#6baed6"></stop>
+          <stop offset="50%" stop-color="#6baed6"></stop>
         
-          <stop offset="50%" stop-color="#4292c6"></stop>
+          <stop offset="62.5%" stop-color="#4292c6"></stop>
         
-          <stop offset="60%" stop-color="#2171b5"></stop>
+          <stop offset="75%" stop-color="#2171b5"></stop>
         
-          <stop offset="70%" stop-color="#08519c"></stop>
+          <stop offset="87.5%" stop-color="#08519c"></stop>
         
-          <stop offset="80%" stop-color="#08306b"></stop>
+          <stop offset="100%" stop-color="#08306b"></stop>
         
       </linearGradient>
     </defs>
@@ -2543,7 +2561,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_tealblues">
-        
           <stop offset="0%" stop-color="#bce4d8"></stop>
         
           <stop offset="10%" stop-color="#bce4d8"></stop>
@@ -2736,7 +2753,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_teals">
-        
           <stop offset="0%" stop-color="#bbdfdf"></stop>
         
           <stop offset="10%" stop-color="#a2d4d5"></stop>
@@ -2929,7 +2945,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_greens">
-        
           <stop offset="0%" stop-color="#d3eecd"></stop>
         
           <stop offset="10%" stop-color="#c0e6ba"></stop>
@@ -3109,7 +3124,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_Greens">
-        
           <stop offset="0%" stop-color="#00441b"></stop>
         
           <stop offset="10%" stop-color="#00441b"></stop>
@@ -3289,24 +3303,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_greens">
-        
           <stop offset="0%" stop-color="#f7fcf5"></stop>
         
-          <stop offset="10%" stop-color="#e5f5e0"></stop>
+          <stop offset="12.5%" stop-color="#e5f5e0"></stop>
         
-          <stop offset="20%" stop-color="#c7e9c0"></stop>
+          <stop offset="25%" stop-color="#c7e9c0"></stop>
         
-          <stop offset="30%" stop-color="#a1d99b"></stop>
+          <stop offset="37.5%" stop-color="#a1d99b"></stop>
         
-          <stop offset="40%" stop-color="#74c476"></stop>
+          <stop offset="50%" stop-color="#74c476"></stop>
         
-          <stop offset="50%" stop-color="#41ab5d"></stop>
+          <stop offset="62.5%" stop-color="#41ab5d"></stop>
         
-          <stop offset="60%" stop-color="#238b45"></stop>
+          <stop offset="75%" stop-color="#238b45"></stop>
         
-          <stop offset="70%" stop-color="#006d2c"></stop>
+          <stop offset="87.5%" stop-color="#006d2c"></stop>
         
-          <stop offset="80%" stop-color="#00441b"></stop>
+          <stop offset="100%" stop-color="#00441b"></stop>
         
       </linearGradient>
     </defs>
@@ -3470,7 +3483,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_browns">
-        
           <stop offset="0%" stop-color="#eedbbd"></stop>
         
           <stop offset="10%" stop-color="#ecca96"></stop>
@@ -3663,7 +3675,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_oranges">
-        
           <stop offset="0%" stop-color="#fdd8b3"></stop>
         
           <stop offset="10%" stop-color="#fdc998"></stop>
@@ -3843,7 +3854,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_Oranges">
-        
           <stop offset="0%" stop-color="#7f2704"></stop>
         
           <stop offset="10%" stop-color="#7f2704"></stop>
@@ -4023,24 +4033,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_oranges">
-        
           <stop offset="0%" stop-color="#fff5eb"></stop>
         
-          <stop offset="10%" stop-color="#fee6ce"></stop>
+          <stop offset="12.5%" stop-color="#fee6ce"></stop>
         
-          <stop offset="20%" stop-color="#fdd0a2"></stop>
+          <stop offset="25%" stop-color="#fdd0a2"></stop>
         
-          <stop offset="30%" stop-color="#fdae6b"></stop>
+          <stop offset="37.5%" stop-color="#fdae6b"></stop>
         
-          <stop offset="40%" stop-color="#fd8d3c"></stop>
+          <stop offset="50%" stop-color="#fd8d3c"></stop>
         
-          <stop offset="50%" stop-color="#f16913"></stop>
+          <stop offset="62.5%" stop-color="#f16913"></stop>
         
-          <stop offset="60%" stop-color="#d94801"></stop>
+          <stop offset="75%" stop-color="#d94801"></stop>
         
-          <stop offset="70%" stop-color="#a63603"></stop>
+          <stop offset="87.5%" stop-color="#a63603"></stop>
         
-          <stop offset="80%" stop-color="#7f2704"></stop>
+          <stop offset="100%" stop-color="#7f2704"></stop>
         
       </linearGradient>
     </defs>
@@ -4204,7 +4213,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_reds">
-        
           <stop offset="0%" stop-color="#fdc9b4"></stop>
         
           <stop offset="10%" stop-color="#fcb49a"></stop>
@@ -4384,7 +4392,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_Reds">
-        
           <stop offset="0%" stop-color="#67000d"></stop>
         
           <stop offset="10%" stop-color="#67000d"></stop>
@@ -4564,24 +4571,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_reds">
-        
           <stop offset="0%" stop-color="#fff5f0"></stop>
         
-          <stop offset="10%" stop-color="#fee0d2"></stop>
+          <stop offset="12.5%" stop-color="#fee0d2"></stop>
         
-          <stop offset="20%" stop-color="#fcbba1"></stop>
+          <stop offset="25%" stop-color="#fcbba1"></stop>
         
-          <stop offset="30%" stop-color="#fc9272"></stop>
+          <stop offset="37.5%" stop-color="#fc9272"></stop>
         
-          <stop offset="40%" stop-color="#fb6a4a"></stop>
+          <stop offset="50%" stop-color="#fb6a4a"></stop>
         
-          <stop offset="50%" stop-color="#ef3b2c"></stop>
+          <stop offset="62.5%" stop-color="#ef3b2c"></stop>
         
-          <stop offset="60%" stop-color="#cb181d"></stop>
+          <stop offset="75%" stop-color="#cb181d"></stop>
         
-          <stop offset="70%" stop-color="#a50f15"></stop>
+          <stop offset="87.5%" stop-color="#a50f15"></stop>
         
-          <stop offset="80%" stop-color="#67000d"></stop>
+          <stop offset="100%" stop-color="#67000d"></stop>
         
       </linearGradient>
     </defs>
@@ -4745,7 +4751,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_purples">
-        
           <stop offset="0%" stop-color="#e2e1ef"></stop>
         
           <stop offset="10%" stop-color="#d4d4e8"></stop>
@@ -4925,7 +4930,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_Purples">
-        
           <stop offset="0%" stop-color="#3f007d"></stop>
         
           <stop offset="10%" stop-color="#3f007d"></stop>
@@ -5105,24 +5109,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_purples">
-        
           <stop offset="0%" stop-color="#fcfbfd"></stop>
         
-          <stop offset="10%" stop-color="#efedf5"></stop>
+          <stop offset="12.5%" stop-color="#efedf5"></stop>
         
-          <stop offset="20%" stop-color="#dadaeb"></stop>
+          <stop offset="25%" stop-color="#dadaeb"></stop>
         
-          <stop offset="30%" stop-color="#bcbddc"></stop>
+          <stop offset="37.5%" stop-color="#bcbddc"></stop>
         
-          <stop offset="40%" stop-color="#9e9ac8"></stop>
+          <stop offset="50%" stop-color="#9e9ac8"></stop>
         
-          <stop offset="50%" stop-color="#807dba"></stop>
+          <stop offset="62.5%" stop-color="#807dba"></stop>
         
-          <stop offset="60%" stop-color="#6a51a3"></stop>
+          <stop offset="75%" stop-color="#6a51a3"></stop>
         
-          <stop offset="70%" stop-color="#54278f"></stop>
+          <stop offset="87.5%" stop-color="#54278f"></stop>
         
-          <stop offset="80%" stop-color="#3f007d"></stop>
+          <stop offset="100%" stop-color="#3f007d"></stop>
         
       </linearGradient>
     </defs>
@@ -5286,7 +5289,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_warmgreys">
-        
           <stop offset="0%" stop-color="#dcd4d0"></stop>
         
           <stop offset="10%" stop-color="#cec5c1"></stop>
@@ -5479,7 +5481,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_greys">
-        
           <stop offset="0%" stop-color="#e2e2e2"></stop>
         
           <stop offset="10%" stop-color="#d4d4d4"></stop>
@@ -5659,7 +5660,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_Greys">
-        
           <stop offset="0%" stop-color="#000000"></stop>
         
           <stop offset="10%" stop-color="#191919"></stop>
@@ -5839,24 +5839,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_greys">
-        
           <stop offset="0%" stop-color="#ffffff"></stop>
         
-          <stop offset="10%" stop-color="#f0f0f0"></stop>
+          <stop offset="12.5%" stop-color="#f0f0f0"></stop>
         
-          <stop offset="20%" stop-color="#d9d9d9"></stop>
+          <stop offset="25%" stop-color="#d9d9d9"></stop>
         
-          <stop offset="30%" stop-color="#bdbdbd"></stop>
+          <stop offset="37.5%" stop-color="#bdbdbd"></stop>
         
-          <stop offset="40%" stop-color="#969696"></stop>
+          <stop offset="50%" stop-color="#969696"></stop>
         
-          <stop offset="50%" stop-color="#737373"></stop>
+          <stop offset="62.5%" stop-color="#737373"></stop>
         
-          <stop offset="60%" stop-color="#525252"></stop>
+          <stop offset="75%" stop-color="#525252"></stop>
         
-          <stop offset="70%" stop-color="#252525"></stop>
+          <stop offset="87.5%" stop-color="#252525"></stop>
         
-          <stop offset="80%" stop-color="#000000"></stop>
+          <stop offset="100%" stop-color="#000000"></stop>
         
       </linearGradient>
     </defs>
@@ -6020,7 +6019,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_viridis">
-        
           <stop offset="0%" stop-color="#440154"></stop>
         
           <stop offset="10%" stop-color="#482575"></stop>
@@ -6200,7 +6198,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_Viridis">
-        
           <stop offset="0%" stop-color="#440154"></stop>
         
           <stop offset="10%" stop-color="#482374"></stop>
@@ -6380,7 +6377,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_viridis">
-        
           <stop offset="0%" stop-color="#440154"></stop>
         
           <stop offset="10%" stop-color="#482475"></stop>
@@ -6565,7 +6561,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_magma">
-        
           <stop offset="0%" stop-color="#000004"></stop>
         
           <stop offset="10%" stop-color="#150e37"></stop>
@@ -6745,7 +6740,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_Magma">
-        
           <stop offset="0%" stop-color="#000003"></stop>
         
           <stop offset="10%" stop-color="#140d35"></stop>
@@ -6925,7 +6919,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_magma">
-        
           <stop offset="0%" stop-color="#000004"></stop>
         
           <stop offset="10%" stop-color="#140e36"></stop>
@@ -7110,7 +7103,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_inferno">
-        
           <stop offset="0%" stop-color="#000004"></stop>
         
           <stop offset="10%" stop-color="#170c3b"></stop>
@@ -7290,7 +7282,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_Inferno">
-        
           <stop offset="0%" stop-color="#000003"></stop>
         
           <stop offset="10%" stop-color="#160b39"></stop>
@@ -7470,7 +7461,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_inferno">
-        
           <stop offset="0%" stop-color="#000004"></stop>
         
           <stop offset="10%" stop-color="#160b39"></stop>
@@ -7655,7 +7645,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_plasma">
-        
           <stop offset="0%" stop-color="#0d0887"></stop>
         
           <stop offset="10%" stop-color="#42039d"></stop>
@@ -7835,7 +7824,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_Plasma">
-        
           <stop offset="0%" stop-color="#0c0786"></stop>
         
           <stop offset="10%" stop-color="#40039c"></stop>
@@ -8015,7 +8003,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_plasma">
-        
           <stop offset="0%" stop-color="#0d0887"></stop>
         
           <stop offset="10%" stop-color="#41049d"></stop>
@@ -8200,7 +8187,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_cividis">
-        
           <stop offset="0%" stop-color="#002051"></stop>
         
           <stop offset="10%" stop-color="#083169"></stop>
@@ -8384,7 +8370,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_cividis">
-        
           <stop offset="0%" stop-color="#002153"></stop>
         
           <stop offset="10%" stop-color="#0a326a"></stop>
@@ -8569,7 +8554,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_turbo">
-        
           <stop offset="0%" stop-color="#23171b"></stop>
         
           <stop offset="10%" stop-color="#4a53d7"></stop>
@@ -8753,7 +8737,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_turbo">
-        
           <stop offset="0%" stop-color="#271927"></stop>
         
           <stop offset="10%" stop-color="#4959de"></stop>
@@ -8946,7 +8929,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_cubehelixdefault">
-        
           <stop offset="0%" stop-color="#020102"></stop>
         
           <stop offset="10%" stop-color="#1a1531"></stop>
@@ -9139,7 +9121,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_warm">
-        
           <stop offset="0%" stop-color="#6f40aa"></stop>
         
           <stop offset="10%" stop-color="#973db3"></stop>
@@ -9332,7 +9313,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_cool">
-        
           <stop offset="0%" stop-color="#6d41ab"></stop>
         
           <stop offset="10%" stop-color="#6055c8"></stop>
@@ -9517,7 +9497,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_bluegreen">
-        
           <stop offset="0%" stop-color="#d5efed"></stop>
         
           <stop offset="10%" stop-color="#c1e8e0"></stop>
@@ -9697,7 +9676,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_BuGn">
-        
           <stop offset="0%" stop-color="#00441b"></stop>
         
           <stop offset="10%" stop-color="#00441b"></stop>
@@ -9877,24 +9855,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_bluegreen">
-        
           <stop offset="0%" stop-color="#f7fcfd"></stop>
         
-          <stop offset="10%" stop-color="#e5f5f9"></stop>
+          <stop offset="12.5%" stop-color="#e5f5f9"></stop>
         
-          <stop offset="20%" stop-color="#ccece6"></stop>
+          <stop offset="25%" stop-color="#ccece6"></stop>
         
-          <stop offset="30%" stop-color="#99d8c9"></stop>
+          <stop offset="37.5%" stop-color="#99d8c9"></stop>
         
-          <stop offset="40%" stop-color="#66c2a4"></stop>
+          <stop offset="50%" stop-color="#66c2a4"></stop>
         
-          <stop offset="50%" stop-color="#41ae76"></stop>
+          <stop offset="62.5%" stop-color="#41ae76"></stop>
         
-          <stop offset="60%" stop-color="#238b45"></stop>
+          <stop offset="75%" stop-color="#238b45"></stop>
         
-          <stop offset="70%" stop-color="#006d2c"></stop>
+          <stop offset="87.5%" stop-color="#006d2c"></stop>
         
-          <stop offset="80%" stop-color="#00441b"></stop>
+          <stop offset="100%" stop-color="#00441b"></stop>
         
       </linearGradient>
     </defs>
@@ -10058,7 +10035,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_bluepurple">
-        
           <stop offset="0%" stop-color="#ccddec"></stop>
         
           <stop offset="10%" stop-color="#bad0e4"></stop>
@@ -10238,7 +10214,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_BuPu">
-        
           <stop offset="0%" stop-color="#4d004b"></stop>
         
           <stop offset="10%" stop-color="#4d004b"></stop>
@@ -10418,24 +10393,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_bluepurple">
-        
           <stop offset="0%" stop-color="#f7fcfd"></stop>
         
-          <stop offset="10%" stop-color="#e0ecf4"></stop>
+          <stop offset="12.5%" stop-color="#e0ecf4"></stop>
         
-          <stop offset="20%" stop-color="#bfd3e6"></stop>
+          <stop offset="25%" stop-color="#bfd3e6"></stop>
         
-          <stop offset="30%" stop-color="#9ebcda"></stop>
+          <stop offset="37.5%" stop-color="#9ebcda"></stop>
         
-          <stop offset="40%" stop-color="#8c96c6"></stop>
+          <stop offset="50%" stop-color="#8c96c6"></stop>
         
-          <stop offset="50%" stop-color="#8c6bb1"></stop>
+          <stop offset="62.5%" stop-color="#8c6bb1"></stop>
         
-          <stop offset="60%" stop-color="#88419d"></stop>
+          <stop offset="75%" stop-color="#88419d"></stop>
         
-          <stop offset="70%" stop-color="#810f7c"></stop>
+          <stop offset="87.5%" stop-color="#810f7c"></stop>
         
-          <stop offset="80%" stop-color="#4d004b"></stop>
+          <stop offset="100%" stop-color="#4d004b"></stop>
         
       </linearGradient>
     </defs>
@@ -10599,7 +10573,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_goldgreen">
-        
           <stop offset="0%" stop-color="#f4d166"></stop>
         
           <stop offset="10%" stop-color="#d5ca60"></stop>
@@ -10792,7 +10765,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_goldorange">
-        
           <stop offset="0%" stop-color="#f4d166"></stop>
         
           <stop offset="10%" stop-color="#f8be5c"></stop>
@@ -10985,7 +10957,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_goldred">
-        
           <stop offset="0%" stop-color="#f4d166"></stop>
         
           <stop offset="10%" stop-color="#f6be59"></stop>
@@ -11178,7 +11149,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_greenblue">
-        
           <stop offset="0%" stop-color="#d3eece"></stop>
         
           <stop offset="10%" stop-color="#c5e8c3"></stop>
@@ -11358,7 +11328,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_GnBu">
-        
           <stop offset="0%" stop-color="#084081"></stop>
         
           <stop offset="10%" stop-color="#084081"></stop>
@@ -11538,24 +11507,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_greenblue">
-        
           <stop offset="0%" stop-color="#f7fcf0"></stop>
         
-          <stop offset="10%" stop-color="#e0f3db"></stop>
+          <stop offset="12.5%" stop-color="#e0f3db"></stop>
         
-          <stop offset="20%" stop-color="#ccebc5"></stop>
+          <stop offset="25%" stop-color="#ccebc5"></stop>
         
-          <stop offset="30%" stop-color="#a8ddb5"></stop>
+          <stop offset="37.5%" stop-color="#a8ddb5"></stop>
         
-          <stop offset="40%" stop-color="#7bccc4"></stop>
+          <stop offset="50%" stop-color="#7bccc4"></stop>
         
-          <stop offset="50%" stop-color="#4eb3d3"></stop>
+          <stop offset="62.5%" stop-color="#4eb3d3"></stop>
         
-          <stop offset="60%" stop-color="#2b8cbe"></stop>
+          <stop offset="75%" stop-color="#2b8cbe"></stop>
         
-          <stop offset="70%" stop-color="#0868ac"></stop>
+          <stop offset="87.5%" stop-color="#0868ac"></stop>
         
-          <stop offset="80%" stop-color="#084081"></stop>
+          <stop offset="100%" stop-color="#084081"></stop>
         
       </linearGradient>
     </defs>
@@ -11719,7 +11687,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_orangered">
-        
           <stop offset="0%" stop-color="#fddcaf"></stop>
         
           <stop offset="10%" stop-color="#fdcf9b"></stop>
@@ -11899,7 +11866,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_OrRd">
-        
           <stop offset="0%" stop-color="#7f0000"></stop>
         
           <stop offset="10%" stop-color="#7f0000"></stop>
@@ -12079,24 +12045,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_orangered">
-        
           <stop offset="0%" stop-color="#fff7ec"></stop>
         
-          <stop offset="10%" stop-color="#fee8c8"></stop>
+          <stop offset="12.5%" stop-color="#fee8c8"></stop>
         
-          <stop offset="20%" stop-color="#fdd49e"></stop>
+          <stop offset="25%" stop-color="#fdd49e"></stop>
         
-          <stop offset="30%" stop-color="#fdbb84"></stop>
+          <stop offset="37.5%" stop-color="#fdbb84"></stop>
         
-          <stop offset="40%" stop-color="#fc8d59"></stop>
+          <stop offset="50%" stop-color="#fc8d59"></stop>
         
-          <stop offset="50%" stop-color="#ef6548"></stop>
+          <stop offset="62.5%" stop-color="#ef6548"></stop>
         
-          <stop offset="60%" stop-color="#d7301f"></stop>
+          <stop offset="75%" stop-color="#d7301f"></stop>
         
-          <stop offset="70%" stop-color="#b30000"></stop>
+          <stop offset="87.5%" stop-color="#b30000"></stop>
         
-          <stop offset="80%" stop-color="#7f0000"></stop>
+          <stop offset="100%" stop-color="#7f0000"></stop>
         
       </linearGradient>
     </defs>
@@ -12260,7 +12225,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_purplebluegreen">
-        
           <stop offset="0%" stop-color="#dbd8ea"></stop>
         
           <stop offset="10%" stop-color="#c8cee4"></stop>
@@ -12440,7 +12404,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_PuBuGn">
-        
           <stop offset="0%" stop-color="#014636"></stop>
         
           <stop offset="10%" stop-color="#014636"></stop>
@@ -12620,24 +12583,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_purplebluegreen">
-        
           <stop offset="0%" stop-color="#fff7fb"></stop>
         
-          <stop offset="10%" stop-color="#ece2f0"></stop>
+          <stop offset="12.5%" stop-color="#ece2f0"></stop>
         
-          <stop offset="20%" stop-color="#d0d1e6"></stop>
+          <stop offset="25%" stop-color="#d0d1e6"></stop>
         
-          <stop offset="30%" stop-color="#a6bddb"></stop>
+          <stop offset="37.5%" stop-color="#a6bddb"></stop>
         
-          <stop offset="40%" stop-color="#67a9cf"></stop>
+          <stop offset="50%" stop-color="#67a9cf"></stop>
         
-          <stop offset="50%" stop-color="#3690c0"></stop>
+          <stop offset="62.5%" stop-color="#3690c0"></stop>
         
-          <stop offset="60%" stop-color="#02818a"></stop>
+          <stop offset="75%" stop-color="#02818a"></stop>
         
-          <stop offset="70%" stop-color="#016c59"></stop>
+          <stop offset="87.5%" stop-color="#016c59"></stop>
         
-          <stop offset="80%" stop-color="#014636"></stop>
+          <stop offset="100%" stop-color="#014636"></stop>
         
       </linearGradient>
     </defs>
@@ -12801,7 +12763,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_purpleblue">
-        
           <stop offset="0%" stop-color="#dbdaeb"></stop>
         
           <stop offset="10%" stop-color="#c8cee4"></stop>
@@ -12981,7 +12942,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_PuBu">
-        
           <stop offset="0%" stop-color="#023858"></stop>
         
           <stop offset="10%" stop-color="#023858"></stop>
@@ -13161,24 +13121,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_purpleblue">
-        
           <stop offset="0%" stop-color="#fff7fb"></stop>
         
-          <stop offset="10%" stop-color="#ece7f2"></stop>
+          <stop offset="12.5%" stop-color="#ece7f2"></stop>
         
-          <stop offset="20%" stop-color="#d0d1e6"></stop>
+          <stop offset="25%" stop-color="#d0d1e6"></stop>
         
-          <stop offset="30%" stop-color="#a6bddb"></stop>
+          <stop offset="37.5%" stop-color="#a6bddb"></stop>
         
-          <stop offset="40%" stop-color="#74a9cf"></stop>
+          <stop offset="50%" stop-color="#74a9cf"></stop>
         
-          <stop offset="50%" stop-color="#3690c0"></stop>
+          <stop offset="62.5%" stop-color="#3690c0"></stop>
         
-          <stop offset="60%" stop-color="#0570b0"></stop>
+          <stop offset="75%" stop-color="#0570b0"></stop>
         
-          <stop offset="70%" stop-color="#045a8d"></stop>
+          <stop offset="87.5%" stop-color="#045a8d"></stop>
         
-          <stop offset="80%" stop-color="#023858"></stop>
+          <stop offset="100%" stop-color="#023858"></stop>
         
       </linearGradient>
     </defs>
@@ -13342,7 +13301,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_purplered">
-        
           <stop offset="0%" stop-color="#dcc9e2"></stop>
         
           <stop offset="10%" stop-color="#d3b3d7"></stop>
@@ -13522,7 +13480,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_PuRd">
-        
           <stop offset="0%" stop-color="#67001f"></stop>
         
           <stop offset="10%" stop-color="#67001f"></stop>
@@ -13702,24 +13659,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_purplered">
-        
           <stop offset="0%" stop-color="#f7f4f9"></stop>
         
-          <stop offset="10%" stop-color="#e7e1ef"></stop>
+          <stop offset="12.5%" stop-color="#e7e1ef"></stop>
         
-          <stop offset="20%" stop-color="#d4b9da"></stop>
+          <stop offset="25%" stop-color="#d4b9da"></stop>
         
-          <stop offset="30%" stop-color="#c994c7"></stop>
+          <stop offset="37.5%" stop-color="#c994c7"></stop>
         
-          <stop offset="40%" stop-color="#df65b0"></stop>
+          <stop offset="50%" stop-color="#df65b0"></stop>
         
-          <stop offset="50%" stop-color="#e7298a"></stop>
+          <stop offset="62.5%" stop-color="#e7298a"></stop>
         
-          <stop offset="60%" stop-color="#ce1256"></stop>
+          <stop offset="75%" stop-color="#ce1256"></stop>
         
-          <stop offset="70%" stop-color="#980043"></stop>
+          <stop offset="87.5%" stop-color="#980043"></stop>
         
-          <stop offset="80%" stop-color="#67001f"></stop>
+          <stop offset="100%" stop-color="#67001f"></stop>
         
       </linearGradient>
     </defs>
@@ -13883,7 +13839,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_redpurple">
-        
           <stop offset="0%" stop-color="#fccfcc"></stop>
         
           <stop offset="10%" stop-color="#fcbec0"></stop>
@@ -14063,7 +14018,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_RdPu">
-        
           <stop offset="0%" stop-color="#49006a"></stop>
         
           <stop offset="10%" stop-color="#49006a"></stop>
@@ -14243,24 +14197,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_redpurple">
-        
           <stop offset="0%" stop-color="#fff7f3"></stop>
         
-          <stop offset="10%" stop-color="#fde0dd"></stop>
+          <stop offset="12.5%" stop-color="#fde0dd"></stop>
         
-          <stop offset="20%" stop-color="#fcc5c0"></stop>
+          <stop offset="25%" stop-color="#fcc5c0"></stop>
         
-          <stop offset="30%" stop-color="#fa9fb5"></stop>
+          <stop offset="37.5%" stop-color="#fa9fb5"></stop>
         
-          <stop offset="40%" stop-color="#f768a1"></stop>
+          <stop offset="50%" stop-color="#f768a1"></stop>
         
-          <stop offset="50%" stop-color="#dd3497"></stop>
+          <stop offset="62.5%" stop-color="#dd3497"></stop>
         
-          <stop offset="60%" stop-color="#ae017e"></stop>
+          <stop offset="75%" stop-color="#ae017e"></stop>
         
-          <stop offset="70%" stop-color="#7a0177"></stop>
+          <stop offset="87.5%" stop-color="#7a0177"></stop>
         
-          <stop offset="80%" stop-color="#49006a"></stop>
+          <stop offset="100%" stop-color="#49006a"></stop>
         
       </linearGradient>
     </defs>
@@ -14424,7 +14377,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_yellowgreenblue">
-        
           <stop offset="0%" stop-color="#eff9bd"></stop>
         
           <stop offset="10%" stop-color="#dbf1b4"></stop>
@@ -14604,7 +14556,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_YlGnBu">
-        
           <stop offset="0%" stop-color="#081d58"></stop>
         
           <stop offset="10%" stop-color="#081d58"></stop>
@@ -14784,24 +14735,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_yellowgreenblue">
-        
           <stop offset="0%" stop-color="#ffffd9"></stop>
         
-          <stop offset="10%" stop-color="#edf8b1"></stop>
+          <stop offset="12.5%" stop-color="#edf8b1"></stop>
         
-          <stop offset="20%" stop-color="#c7e9b4"></stop>
+          <stop offset="25%" stop-color="#c7e9b4"></stop>
         
-          <stop offset="30%" stop-color="#7fcdbb"></stop>
+          <stop offset="37.5%" stop-color="#7fcdbb"></stop>
         
-          <stop offset="40%" stop-color="#41b6c4"></stop>
+          <stop offset="50%" stop-color="#41b6c4"></stop>
         
-          <stop offset="50%" stop-color="#1d91c0"></stop>
+          <stop offset="62.5%" stop-color="#1d91c0"></stop>
         
-          <stop offset="60%" stop-color="#225ea8"></stop>
+          <stop offset="75%" stop-color="#225ea8"></stop>
         
-          <stop offset="70%" stop-color="#253494"></stop>
+          <stop offset="87.5%" stop-color="#253494"></stop>
         
-          <stop offset="80%" stop-color="#081d58"></stop>
+          <stop offset="100%" stop-color="#081d58"></stop>
         
       </linearGradient>
     </defs>
@@ -14965,7 +14915,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_yellowgreen">
-        
           <stop offset="0%" stop-color="#e4f4ac"></stop>
         
           <stop offset="10%" stop-color="#d1eca0"></stop>
@@ -15145,7 +15094,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_YlGn">
-        
           <stop offset="0%" stop-color="#004529"></stop>
         
           <stop offset="10%" stop-color="#004529"></stop>
@@ -15325,24 +15273,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_yellowgreen">
-        
           <stop offset="0%" stop-color="#ffffe5"></stop>
         
-          <stop offset="10%" stop-color="#f7fcb9"></stop>
+          <stop offset="12.5%" stop-color="#f7fcb9"></stop>
         
-          <stop offset="20%" stop-color="#d9f0a3"></stop>
+          <stop offset="25%" stop-color="#d9f0a3"></stop>
         
-          <stop offset="30%" stop-color="#addd8e"></stop>
+          <stop offset="37.5%" stop-color="#addd8e"></stop>
         
-          <stop offset="40%" stop-color="#78c679"></stop>
+          <stop offset="50%" stop-color="#78c679"></stop>
         
-          <stop offset="50%" stop-color="#41ab5d"></stop>
+          <stop offset="62.5%" stop-color="#41ab5d"></stop>
         
-          <stop offset="60%" stop-color="#238443"></stop>
+          <stop offset="75%" stop-color="#238443"></stop>
         
-          <stop offset="70%" stop-color="#006837"></stop>
+          <stop offset="87.5%" stop-color="#006837"></stop>
         
-          <stop offset="80%" stop-color="#004529"></stop>
+          <stop offset="100%" stop-color="#004529"></stop>
         
       </linearGradient>
     </defs>
@@ -15506,7 +15453,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_yelloworangebrown">
-        
           <stop offset="0%" stop-color="#feeaa1"></stop>
         
           <stop offset="10%" stop-color="#fedd84"></stop>
@@ -15686,7 +15632,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_YlOrBr">
-        
           <stop offset="0%" stop-color="#662506"></stop>
         
           <stop offset="10%" stop-color="#662506"></stop>
@@ -15866,24 +15811,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_yelloworangebrown">
-        
           <stop offset="0%" stop-color="#ffffe5"></stop>
         
-          <stop offset="10%" stop-color="#fff7bc"></stop>
+          <stop offset="12.5%" stop-color="#fff7bc"></stop>
         
-          <stop offset="20%" stop-color="#fee391"></stop>
+          <stop offset="25%" stop-color="#fee391"></stop>
         
-          <stop offset="30%" stop-color="#fec44f"></stop>
+          <stop offset="37.5%" stop-color="#fec44f"></stop>
         
-          <stop offset="40%" stop-color="#fe9929"></stop>
+          <stop offset="50%" stop-color="#fe9929"></stop>
         
-          <stop offset="50%" stop-color="#ec7014"></stop>
+          <stop offset="62.5%" stop-color="#ec7014"></stop>
         
-          <stop offset="60%" stop-color="#cc4c02"></stop>
+          <stop offset="75%" stop-color="#cc4c02"></stop>
         
-          <stop offset="70%" stop-color="#993404"></stop>
+          <stop offset="87.5%" stop-color="#993404"></stop>
         
-          <stop offset="80%" stop-color="#662506"></stop>
+          <stop offset="100%" stop-color="#662506"></stop>
         
       </linearGradient>
     </defs>
@@ -16047,7 +15991,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_yelloworangered">
-        
           <stop offset="0%" stop-color="#fee087"></stop>
         
           <stop offset="10%" stop-color="#fed16f"></stop>
@@ -16227,7 +16170,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_YlOrRd">
-        
           <stop offset="0%" stop-color="#800026"></stop>
         
           <stop offset="10%" stop-color="#800026"></stop>
@@ -16407,24 +16349,23 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_yelloworangered">
-        
           <stop offset="0%" stop-color="#ffffcc"></stop>
         
-          <stop offset="10%" stop-color="#ffeda0"></stop>
+          <stop offset="12.5%" stop-color="#ffeda0"></stop>
         
-          <stop offset="20%" stop-color="#fed976"></stop>
+          <stop offset="25%" stop-color="#fed976"></stop>
         
-          <stop offset="30%" stop-color="#feb24c"></stop>
+          <stop offset="37.5%" stop-color="#feb24c"></stop>
         
-          <stop offset="40%" stop-color="#fd8d3c"></stop>
+          <stop offset="50%" stop-color="#fd8d3c"></stop>
         
-          <stop offset="50%" stop-color="#fc4e2a"></stop>
+          <stop offset="62.5%" stop-color="#fc4e2a"></stop>
         
-          <stop offset="60%" stop-color="#e31a1c"></stop>
+          <stop offset="75%" stop-color="#e31a1c"></stop>
         
-          <stop offset="70%" stop-color="#bd0026"></stop>
+          <stop offset="87.5%" stop-color="#bd0026"></stop>
         
-          <stop offset="80%" stop-color="#800026"></stop>
+          <stop offset="100%" stop-color="#800026"></stop>
         
       </linearGradient>
     </defs>
@@ -16588,7 +16529,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_darkblue">
-        
           <stop offset="0%" stop-color="#323232"></stop>
         
           <stop offset="10%" stop-color="#2d4668"></stop>
@@ -16781,7 +16721,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_darkgold">
-        
           <stop offset="0%" stop-color="#3c3c3c"></stop>
         
           <stop offset="10%" stop-color="#584b37"></stop>
@@ -16974,7 +16913,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_darkgreen">
-        
           <stop offset="0%" stop-color="#3a3a3a"></stop>
         
           <stop offset="10%" stop-color="#215748"></stop>
@@ -17167,7 +17105,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_darkmulti">
-        
           <stop offset="0%" stop-color="#373737"></stop>
         
           <stop offset="10%" stop-color="#373737"></stop>
@@ -17360,7 +17297,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_darkred">
-        
           <stop offset="0%" stop-color="#343434"></stop>
         
           <stop offset="10%" stop-color="#343434"></stop>
@@ -17553,7 +17489,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_lightgreyred">
-        
           <stop offset="0%" stop-color="#efe9e6"></stop>
         
           <stop offset="10%" stop-color="#e1dad7"></stop>
@@ -17746,7 +17681,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_lightgreyteal">
-        
           <stop offset="0%" stop-color="#e4eaea"></stop>
         
           <stop offset="10%" stop-color="#d6dcdd"></stop>
@@ -17939,7 +17873,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_lightmulti">
-        
           <stop offset="0%" stop-color="#e0f1f2"></stop>
         
           <stop offset="10%" stop-color="#e0f1f2"></stop>
@@ -18132,7 +18065,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_lightorange">
-        
           <stop offset="0%" stop-color="#f2e7da"></stop>
         
           <stop offset="10%" stop-color="#f7d5ba"></stop>
@@ -18325,7 +18257,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_lighttealblue">
-        
           <stop offset="0%" stop-color="#e3e9e0"></stop>
         
           <stop offset="10%" stop-color="#c0dccf"></stop>
@@ -18552,7 +18483,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_blueorange">
-        
           <stop offset="0%" stop-color="#134b85"></stop>
         
           <stop offset="10%" stop-color="#2f78b3"></stop>
@@ -18691,7 +18621,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_brownbluegreen">
-        
           <stop offset="0%" stop-color="#704108"></stop>
         
           <stop offset="10%" stop-color="#a0651a"></stop>
@@ -18817,7 +18746,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_BrBG">
-        
           <stop offset="0%" stop-color="#003c30"></stop>
         
           <stop offset="10%" stop-color="#01665e"></stop>
@@ -18943,7 +18871,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_brownbluegreen">
-        
           <stop offset="0%" stop-color="#543005"></stop>
         
           <stop offset="10%" stop-color="#8c510a"></stop>
@@ -19074,7 +19001,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_purplegreen">
-        
           <stop offset="0%" stop-color="#5b1667"></stop>
         
           <stop offset="10%" stop-color="#834792"></stop>
@@ -19200,7 +19126,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_PRGn">
-        
           <stop offset="0%" stop-color="#00441b"></stop>
         
           <stop offset="10%" stop-color="#1b7837"></stop>
@@ -19326,7 +19251,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_purplegreen">
-        
           <stop offset="0%" stop-color="#40004b"></stop>
         
           <stop offset="10%" stop-color="#762a83"></stop>
@@ -19457,7 +19381,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_pinkyellowgreen">
-        
           <stop offset="0%" stop-color="#8e0152"></stop>
         
           <stop offset="10%" stop-color="#c0267e"></stop>
@@ -19583,7 +19506,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_PiYG">
-        
           <stop offset="0%" stop-color="#276419"></stop>
         
           <stop offset="10%" stop-color="#4d9221"></stop>
@@ -19709,7 +19631,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_pinkyellowgreen">
-        
           <stop offset="0%" stop-color="#8e0152"></stop>
         
           <stop offset="10%" stop-color="#c51b7d"></stop>
@@ -19840,7 +19761,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_purpleorange">
-        
           <stop offset="0%" stop-color="#411469"></stop>
         
           <stop offset="10%" stop-color="#664796"></stop>
@@ -19966,7 +19886,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_PuOr">
-        
           <stop offset="0%" stop-color="#2d004b"></stop>
         
           <stop offset="10%" stop-color="#542788"></stop>
@@ -20092,7 +20011,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_purpleorange">
-        
           <stop offset="0%" stop-color="#2d004b"></stop>
         
           <stop offset="10%" stop-color="#542788"></stop>
@@ -20223,7 +20141,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_redblue">
-        
           <stop offset="0%" stop-color="#8c0d25"></stop>
         
           <stop offset="10%" stop-color="#bf363a"></stop>
@@ -20349,7 +20266,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_RdBu">
-        
           <stop offset="0%" stop-color="#053061"></stop>
         
           <stop offset="10%" stop-color="#2166ac"></stop>
@@ -20475,7 +20391,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_redblue">
-        
           <stop offset="0%" stop-color="#67001f"></stop>
         
           <stop offset="10%" stop-color="#b2182b"></stop>
@@ -20606,7 +20521,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_redgrey">
-        
           <stop offset="0%" stop-color="#8c0d25"></stop>
         
           <stop offset="10%" stop-color="#bf363a"></stop>
@@ -20732,7 +20646,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_RdGy">
-        
           <stop offset="0%" stop-color="#1a1a1a"></stop>
         
           <stop offset="10%" stop-color="#4d4d4d"></stop>
@@ -20858,7 +20771,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_redgrey">
-        
           <stop offset="0%" stop-color="#67001f"></stop>
         
           <stop offset="10%" stop-color="#b2182b"></stop>
@@ -20989,7 +20901,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_redyellowblue">
-        
           <stop offset="0%" stop-color="#a50026"></stop>
         
           <stop offset="10%" stop-color="#d4322c"></stop>
@@ -21115,7 +21026,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_RdYlBu">
-        
           <stop offset="0%" stop-color="#313695"></stop>
         
           <stop offset="10%" stop-color="#4575b4"></stop>
@@ -21241,7 +21151,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_redyellowblue">
-        
           <stop offset="0%" stop-color="#a50026"></stop>
         
           <stop offset="10%" stop-color="#d73027"></stop>
@@ -21372,7 +21281,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_redyellowgreen">
-        
           <stop offset="0%" stop-color="#a50026"></stop>
         
           <stop offset="10%" stop-color="#d4322c"></stop>
@@ -21498,7 +21406,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_RdYlGn">
-        
           <stop offset="0%" stop-color="#006837"></stop>
         
           <stop offset="10%" stop-color="#1a9850"></stop>
@@ -21624,7 +21531,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_redyellowgreen">
-        
           <stop offset="0%" stop-color="#a50026"></stop>
         
           <stop offset="10%" stop-color="#d73027"></stop>
@@ -21755,7 +21661,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_spectral">
-        
           <stop offset="0%" stop-color="#9e0142"></stop>
         
           <stop offset="10%" stop-color="#d13c4b"></stop>
@@ -21881,7 +21786,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-bokeh_Spectral">
-        
           <stop offset="0%" stop-color="#5e4fa2"></stop>
         
           <stop offset="10%" stop-color="#3288bd"></stop>
@@ -22007,7 +21911,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
         <svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_spectral">
-        
           <stop offset="0%" stop-color="#9e0142"></stop>
         
           <stop offset="10%" stop-color="#d53e4f"></stop>
@@ -22165,7 +22068,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
                   <td><svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_rainbow">
-        
           <stop offset="0%" stop-color="#6e40aa"></stop>
         
           <stop offset="10%" stop-color="#bf3caf"></stop>
@@ -22212,7 +22114,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
                   <td><svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_rainbow">
-        
           <stop offset="0%" stop-color="#7140ab"></stop>
         
           <stop offset="10%" stop-color="#c03cae"></stop>
@@ -22260,7 +22161,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
                   <td><svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-vega_sinebow">
-        
           <stop offset="0%" stop-color="#ff4040"></stop>
         
           <stop offset="10%" stop-color="#e78d0b"></stop>
@@ -22307,7 +22207,6 @@ vendor, name = parse_palette_name(VEGA_CATEGORY_10)
                   <td><svg class="nb-legend__gradient" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-d3_sinebow">
-        
           <stop offset="0%" stop-color="#ff423d"></stop>
         
           <stop offset="10%" stop-color="#e68e0b"></stop>
