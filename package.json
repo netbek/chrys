@@ -1,6 +1,6 @@
 {
   "name": "chrys",
-  "version": "5.0.0",
+  "version": "5.0.2",
   "description": "A collection of color palettes for visualisation in JavaScript, Python and Sass",
   "repository": {
     "type": "git",
