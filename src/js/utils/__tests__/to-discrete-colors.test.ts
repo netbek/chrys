@@ -53,12 +53,24 @@ describe('toDiscreteColors', () => {
     expect(() => toDiscreteColors({})).toThrow('Palette is empty.');
   });
 
-  test('Should default to six colors', () => {
+  test('Should return the only palette size when no size is given', () => {
     const palette = {
       6: ['#000000', '#111111', '#222222', '#333333', '#444444', '#555555']
     };
 
     expect(toDiscreteColors(palette)).toEqual(palette[6]);
+  });
+
+  test('Should return all colors when size is undefined', () => {
+    const palette = {
+      1: ['#000000'],
+      2: ['#000000', '#ffffff']
+    };
+
+    expect(toDiscreteColors(palette, undefined)).toEqual([
+      '#000000',
+      '#ffffff'
+    ]);
   });
 
   test('Should return the maximum available size when no size is given', () => {
@@ -146,9 +158,9 @@ describe('toDiscreteColors', () => {
   });
 
   test('Should list the supported sizes in ascending order in the error', () => {
-    expect(() =>
-      toDiscreteColors({6: ['#000000'], 1: ['#000000']}, 3)
-    ).toThrow('Unsupported palette size 3. Supported sizes: 1, 6.');
+    expect(() => toDiscreteColors({6: ['#000000'], 1: ['#000000']}, 3)).toThrow(
+      'Unsupported palette size 3. Supported sizes: 1, 6.'
+    );
   });
 
   test('Should throw an error for a size between non-contiguous palette sizes', () => {

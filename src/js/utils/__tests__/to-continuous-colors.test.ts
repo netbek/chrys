@@ -20,6 +20,14 @@ describe('toContinuousColors', () => {
     expect(toContinuousColors(COLORS, COLORS.length)).toEqual(COLORS);
   });
 
+  test('Should return all base colors when size is not given', () => {
+    expect(toContinuousColors(COLORS)).toEqual(COLORS);
+  });
+
+  test('Should return all base colors when size is undefined', () => {
+    expect(toContinuousColors(COLORS, undefined)).toEqual(COLORS);
+  });
+
   test('Should throw when size exceeds the list length', () => {
     expect(() => toContinuousColors(COLORS, 5)).toThrow(/Requested 5 colors/);
   });

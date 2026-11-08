@@ -1,4 +1,4 @@
-import {describe, expect, test} from 'vitest';
+import {afterEach, describe, expect, test, vi} from 'vitest';
 import {PaletteNotFoundError} from '../../errors.js';
 import {
   BOKEH_ACCENT,
@@ -8,38 +8,33 @@ import {
   BOKEH_VIRIDIS,
   BOKEH_VIRIDIS_PALETTE_DATA
 } from '../../palettes/bokeh/viridis.js';
-import {
-  D3_ACCENT,
-  D3_ACCENT_PALETTE_DATA
-} from '../../palettes/d3/accent.js';
+import {D3_ACCENT, D3_ACCENT_PALETTE_DATA} from '../../palettes/d3/accent.js';
 import {D3_BLUES} from '../../palettes/d3/blues.js';
 import {
   D3_VIRIDIS,
   D3_VIRIDIS_PALETTE_DATA
 } from '../../palettes/d3/viridis.js';
-import {VEGA_ACCENT} from '../../palettes/vega/accent.js';
+import {
+  VEGA_ACCENT,
+  VEGA_ACCENT_PALETTE_DATA
+} from '../../palettes/vega/accent.js';
 import {
   VEGA_VIRIDIS,
   VEGA_VIRIDIS_PALETTE_DATA
 } from '../../palettes/vega/viridis.js';
-import getPaletteColors from '../get-palette-colors.js';
+import getPaletteColors, {PALETTE_MODE} from '../get-palette-colors.js';
 import toContinuousColors from '../to-continuous-colors.js';
+import toDiscreteColors from '../to-discrete-colors.js';
+import type {Palette} from '../../types.js';
 
 describe('getPaletteColors', () => {
-  test('Should generate a discrete palette with 6 colors if size not given', () => {
-    expect(getPaletteColors(VEGA_ACCENT)).toEqual([
-      '#7fc97f',
-      '#beaed4',
-      '#fdc086',
-      '#ffff99',
-      '#386cb0',
-      '#f0027f'
-    ]);
+  test('Should generate the largest discrete palette if size not given', () => {
+    expect(getPaletteColors(VEGA_ACCENT)).toEqual(VEGA_ACCENT_PALETTE_DATA[8]);
   });
 
-  test('Should generate a bokeh palette with 6 colors if size not given', () => {
+  test('Should generate the largest bokeh palette if size not given', () => {
     expect(getPaletteColors(BOKEH_ACCENT)).toEqual(
-      BOKEH_ACCENT_PALETTE_DATA[6]
+      BOKEH_ACCENT_PALETTE_DATA[8]
     );
   });
 
@@ -86,9 +81,9 @@ describe('getPaletteColors', () => {
     ]);
   });
 
-  test('Should generate a continuous palette with 6 colors if size not given', () => {
+  test('Should generate the full continuous ramp if size not given', () => {
     expect(getPaletteColors(VEGA_VIRIDIS)).toEqual(
-      toContinuousColors(VEGA_VIRIDIS_PALETTE_DATA[256], 6)
+      VEGA_VIRIDIS_PALETTE_DATA[256]
     );
   });
 
@@ -131,12 +126,80 @@ describe('getPaletteColors', () => {
     expect(getPaletteColors(VEGA_VIRIDIS, 0)).toEqual([]);
   });
 
-
   test('Should throw an error when size is negative', () => {
     expect(() => getPaletteColors(VEGA_ACCENT, -1)).toThrow(RangeError);
   });
 
   test('Should throw an error when size is not an integer', () => {
     expect(() => getPaletteColors(VEGA_ACCENT, 4.5)).toThrow(RangeError);
+  });
+});
+
+describe('getPaletteColors mode', () => {
+  afterEach(() => {
+    vi.doUnmock('../get-palette.ts');
+    vi.resetModules();
+  });
+
+  test('Should use auto mode by default', () => {
+    expect(getPaletteColors(VEGA_VIRIDIS)).toEqual(
+      toContinuousColors(VEGA_VIRIDIS_PALETTE_DATA[256])
+    );
+  });
+
+  test('Should accept auto as a string', () => {
+    expect(getPaletteColors(VEGA_VIRIDIS, undefined, 'auto')).toEqual(
+      getPaletteColors(VEGA_VIRIDIS)
+    );
+  });
+
+  test('Should force continuous colors', () => {
+    expect(
+      getPaletteColors(VEGA_VIRIDIS, undefined, PALETTE_MODE.CONTINUOUS)
+    ).toEqual(VEGA_VIRIDIS_PALETTE_DATA[256]);
+  });
+
+  test('Should throw when continuous data is missing', () => {
+    expect(() =>
+      getPaletteColors(VEGA_ACCENT, undefined, PALETTE_MODE.CONTINUOUS)
+    ).toThrow('Palette "vega_accent" has no continuous data.');
+  });
+
+  test('Should exclude the 256 ramp when discrete mode is forced', () => {
+    const palette: Palette = {...VEGA_VIRIDIS_PALETTE_DATA};
+    delete palette[256];
+
+    expect(
+      getPaletteColors(VEGA_VIRIDIS, undefined, PALETTE_MODE.DISCRETE)
+    ).toEqual(toDiscreteColors(palette));
+  });
+
+  test('Should use discrete sizes when discrete mode is forced with a size', () => {
+    const palette: Palette = {...VEGA_VIRIDIS_PALETTE_DATA};
+    delete palette[256];
+
+    expect(getPaletteColors(VEGA_VIRIDIS, 6, 'discrete')).toEqual(
+      toDiscreteColors(palette, 6)
+    );
+  });
+
+  test('Should throw when discrete data is missing', async () => {
+    vi.doMock('../get-palette.ts', () => ({
+      getPalette: () => ({256: ['#000000']})
+    }));
+    vi.resetModules();
+
+    const {default: getPaletteColorsWithMockedData} =
+      await import('../get-palette-colors.js');
+
+    expect(() =>
+      getPaletteColorsWithMockedData(VEGA_ACCENT, undefined, 'discrete')
+    ).toThrow('Palette "vega_accent" has no discrete data.');
+  });
+
+  test('Should throw for an unknown mode', () => {
+    expect(() =>
+      getPaletteColors(VEGA_ACCENT, undefined, 'lorem ipsum' as never)
+    ).toThrow('Unknown palette mode "lorem ipsum".');
   });
 });

@@ -16,12 +16,13 @@
   </table>
 {%- endmacro -%}
 
-{%- macro legend_gradient(name, palette, class_name='nb-legend__gradient') -%}
+{%- macro legend_gradient(name, colors, class_name='nb-legend__gradient') -%}
   <svg class="{{ class_name }}" viewBox="0,0,1,1" preserveAspectRatio="none">
     <defs>
       <linearGradient id="gradient-{{ name }}">
-        {% for x in palette %}
-          <stop offset="{{ loop.index0 * 10 }}%" stop-color="{{ x }}"></stop>
+        {%- set last = colors|length - 1 -%}
+        {% for x in colors %}
+          <stop offset="{{ (loop.index0 / last * 100) if last else 0 }}%" stop-color="{{ x }}"></stop>
         {% endfor %}
       </linearGradient>
     </defs>
@@ -147,7 +148,7 @@ npm install chrys
 
         <section>
           <h1>Get a list of colours</h1>
-          <p>Categorical and other discrete palettes return up to 9 colours; continuous palettes can return up to 256.</p>
+          <p>Omit <code>n</code> to return every available colour: discrete palettes return their largest available size; continuous palettes return the full 256-colour ramp. Pass <code>n</code> to limit the result, or <code>mode</code> to override automatic continuous/discrete selection.</p>
 
           <section>
             <h1><svg width="16" height="16"><use href="#logo-javascript" /></svg> Node.js</h1>
@@ -155,11 +156,21 @@ npm install chrys
             <pre><code class="language-javascript">
 import {VEGA_ACCENT, getPaletteColors} from 'chrys';
 
-const colors = getPaletteColors(VEGA_ACCENT, 5);
+const colors = getPaletteColors(VEGA_ACCENT);
             </code></pre>
 
             <pre><code class="language-javascript">
-["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0"]
+["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f", "#bf5b17", "#666666"]
+            </code></pre>
+
+            <pre><code class="language-javascript">
+import {VEGA_VIRIDIS, getPaletteColors} from 'chrys';
+
+const colors = getPaletteColors(VEGA_VIRIDIS, 5, 'discrete');
+            </code></pre>
+
+            <pre><code class="language-javascript">
+["#443a83", "#31688e", "#21918d", "#35b779", "#8fd744"]
             </code></pre>
           </section>
 
@@ -170,11 +181,22 @@ const colors = getPaletteColors(VEGA_ACCENT, 5);
 from chrys.palettes import VEGA_ACCENT
 from chrys.utils import get_palette_colors
 
-hex_colors = get_palette_colors(VEGA_ACCENT, 5)
+hex_colors = get_palette_colors(VEGA_ACCENT)
             </code></pre>
 
             <pre><code class="language-python">
-["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0"]
+["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f", "#bf5b17", "#666666"]
+            </code></pre>
+
+            <pre><code class="language-python">
+from chrys.palettes import VEGA_VIRIDIS
+from chrys.utils import PaletteMode, get_palette_colors
+
+hex_colors = get_palette_colors(VEGA_VIRIDIS, 5, mode=PaletteMode.DISCRETE)
+            </code></pre>
+
+            <pre><code class="language-python">
+["#443a83", "#31688e", "#21918d", "#35b779", "#8fd744"]
             </code></pre>
           </section>
 
@@ -212,7 +234,7 @@ const colors = toDiscreteColors(BOKEH_VIRIDIS_PALETTE_DATA, 6);
             </code></pre>
           </section>
 
-          <p><code>getPaletteColors(name, n)</code> resolves names through the full palette registry and includes all palette data. Use <code>toDiscreteColors</code> or <code>toContinuousColors</code> with an explicit <code>*_PALETTE_DATA</code> constant when bundle size matters.</p>
+          <p><code>getPaletteColors(name, n, mode)</code> resolves names through the full palette registry and includes all palette data. <code>mode</code> accepts <code>auto</code> (default), <code>continuous</code>, or <code>discrete</code>. Use <code>toDiscreteColors</code> or <code>toContinuousColors</code> with an explicit <code>*_PALETTE_DATA</code> constant when bundle size matters.</p>
         </section>
 
         <section>

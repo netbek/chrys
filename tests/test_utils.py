@@ -25,6 +25,7 @@ from chrys.utils import (
     best_color_contrast,
     get_palette,
     get_palette_colors,
+    PaletteMode,
     parse_palette_name,
     to_continuous_colors,
     to_discrete_colors,
@@ -204,6 +205,14 @@ class TestToDiscreteColors(unittest.TestCase):
 
         self.assertEqual(to_discrete_colors(palette), palette[6])
 
+    def test_none_returns_all_colors(self):
+        palette = {
+            1: ["#000000"],
+            2: ["#000000", "#ffffff"],
+        }
+
+        self.assertEqual(to_discrete_colors(palette, None), ["#000000", "#ffffff"])
+
     def test_default_size_returns_maximum_available(self):
         palette = {
             1: ["#000000"],
@@ -336,13 +345,22 @@ class TestGetPaletteColorsDiscrete(unittest.TestCase):
     def test_no_size(self):
         self.assertEqual(
             get_palette_colors(VEGA_ACCENT),
-            ["#7fc97f", "#beaed4", "#fdc086", "#ffff99", "#386cb0", "#f0027f"],
+            [
+                "#7fc97f",
+                "#beaed4",
+                "#fdc086",
+                "#ffff99",
+                "#386cb0",
+                "#f0027f",
+                "#bf5b17",
+                "#666666",
+            ],
         )
 
     def test_bokeh_palette(self):
         self.assertEqual(
             get_palette_colors(BOKEH_ACCENT),
-            BOKEH_PALETTE_DATA[BOKEH_ACCENT][6],
+            BOKEH_PALETTE_DATA[BOKEH_ACCENT][8],
         )
 
     def test_d3_blues_palette(self):
@@ -422,6 +440,12 @@ class TestGetPaletteColorsDiscrete(unittest.TestCase):
 class TestGetPaletteColorsContinuous(unittest.TestCase):
     def test_zero_colors(self):
         self.assertCountEqual(get_palette_colors(VEGA_VIRIDIS, 0), [])
+
+    def test_default_returns_all_colors(self):
+        self.assertCountEqual(
+            get_palette_colors(VEGA_VIRIDIS),
+            VEGA_PALETTE_DATA[VEGA_VIRIDIS][256],
+        )
 
     def test_one_color(self):
         self.assertCountEqual(get_palette_colors(VEGA_VIRIDIS, 1), ["#440356"])
@@ -712,6 +736,71 @@ class TestGetPaletteColorsContinuous(unittest.TestCase):
         )
 
 
+class TestGetPaletteColorsMode(unittest.TestCase):
+    def test_auto_is_default(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, mode=PaletteMode.AUTO),
+            get_palette_colors(VEGA_VIRIDIS),
+        )
+
+    def test_auto_accepts_string(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, mode="auto"),
+            get_palette_colors(VEGA_VIRIDIS),
+        )
+
+    def test_continuous_returns_full_ramp(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, mode=PaletteMode.CONTINUOUS),
+            VEGA_PALETTE_DATA[VEGA_VIRIDIS][256],
+        )
+
+    def test_continuous_accepts_string_and_size(self):
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, 7, mode="continuous"),
+            sample_continuous(VEGA_PALETTE_DATA[VEGA_VIRIDIS][256], 7),
+        )
+
+    def test_continuous_requires_ramp(self):
+        with pytest.raises(
+            ValueError,
+            match='Palette "vega_accent" has no continuous data.',
+        ):
+            get_palette_colors(VEGA_ACCENT, mode=PaletteMode.CONTINUOUS)
+
+    def test_discrete_excludes_ramp(self):
+        palette = VEGA_PALETTE_DATA[VEGA_VIRIDIS]
+        discrete = {size: colors for size, colors in palette.items() if size != 256}
+
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, mode=PaletteMode.DISCRETE),
+            to_discrete_colors(discrete),
+        )
+
+    def test_discrete_accepts_string_and_size(self):
+        palette = VEGA_PALETTE_DATA[VEGA_VIRIDIS]
+        discrete = {size: colors for size, colors in palette.items() if size != 256}
+
+        self.assertEqual(
+            get_palette_colors(VEGA_VIRIDIS, 6, mode="discrete"),
+            to_discrete_colors(discrete, 6),
+        )
+
+    def test_discrete_requires_discrete_data(self):
+        with (
+            patch("chrys.utils.get_palette", return_value={256: ["#000000"]}),
+            pytest.raises(
+                ValueError,
+                match='Palette "vega_accent" has no discrete data.',
+            ),
+        ):
+            get_palette_colors(VEGA_ACCENT, mode=PaletteMode.DISCRETE)
+
+    def test_unknown_mode(self):
+        with pytest.raises(ValueError, match='Unknown palette mode "lorem ipsum"'):
+            get_palette_colors(VEGA_ACCENT, mode="lorem ipsum")
+
+
 class TestToContinuousColors(unittest.TestCase):
     def setUp(self):
         self.colors = ["#000000", "#111111", "#222222", "#333333"]
@@ -734,6 +823,12 @@ class TestToContinuousColors(unittest.TestCase):
             to_continuous_colors(self.colors, len(self.colors)),
             self.colors,
         )
+
+    def test_default_returns_all_colors(self):
+        self.assertEqual(to_continuous_colors(self.colors), self.colors)
+
+    def test_none_returns_all_colors(self):
+        self.assertEqual(to_continuous_colors(self.colors, None), self.colors)
 
     def test_too_many_colors(self):
         with pytest.raises(ValueError, match="Requested 5 colors"):

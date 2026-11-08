@@ -73,14 +73,18 @@ import {BOKEH_VIRIDIS_PALETTE_DATA} from 'chrys/palettes/bokeh/viridis';
 
 ### Discrete and continuous colours
 
-`getPaletteColors` chooses the right representation automatically. Continuous palettes are sampled from their 256-colour ramp; other palettes return discrete colours.
+`getPaletteColors` chooses the right representation automatically. Continuous palettes are sampled from their 256-colour ramp; other palettes return discrete colours. Pass `n` to limit the number of colours; omit it to return every available colour. Pass `mode` to override the automatic selection.
 
 ```js
 import {VEGA_ACCENT, VEGA_VIRIDIS, getPaletteColors} from 'chrys';
 
-const discrete = getPaletteColors(VEGA_ACCENT, 5);
-const continuous = getPaletteColors(VEGA_VIRIDIS, 7);
+const allDiscrete = getPaletteColors(VEGA_ACCENT);
+const five = getPaletteColors(VEGA_ACCENT, 5);
+const ramp = getPaletteColors(VEGA_VIRIDIS, undefined, 'continuous');
+const discreteViridis = getPaletteColors(VEGA_VIRIDIS, 6, 'discrete');
 ```
+
+`mode` accepts `auto` (default), `continuous`, or `discrete`. Forcing `continuous` on a palette without a 256-colour ramp, or forcing `discrete` on a palette without discrete sizes, throws an error.
 
 For smaller bundles, import the utility and palette data directly:
 
@@ -124,7 +128,7 @@ v5 throws `VendorNotFoundError` for an unknown vendor prefix and `PaletteNotFoun
 
 ### Colour count validation
 
-`toDiscreteColors` and `toContinuousColors` now require `n` to be a non-negative integer. Unsupported discrete sizes throw a `RangeError` instead of returning an obscure error or clamping silently.
+`n` is optional on `getPaletteColors`, `toDiscreteColors`, and `toContinuousColors`. When given, it must be a non-negative integer. Unsupported discrete sizes throw a `RangeError` instead of returning an obscure error or clamping silently.
 
 ## Python
 
@@ -151,15 +155,19 @@ colors = get_palette_colors(VEGA_ACCENT, 5)
 | `chrys.palettes.docs_palette(name)` | Removed |
 | `chrys.utils.score_contrast(...)` | Removed |
 
-`get_palette_colors` selects discrete or continuous output automatically. Continuous palettes are sampled from their 256-colour ramp.
+`get_palette_colors` selects discrete or continuous output automatically. Continuous palettes are sampled from their 256-colour ramp. Pass `n` to limit the number of colours; omit it to return every available colour. Use `mode` to override the automatic selection.
 
 ```python
 from chrys.palettes import VEGA_ACCENT, VEGA_VIRIDIS
-from chrys.utils import get_palette_colors
+from chrys.utils import PaletteMode, get_palette_colors
 
-discrete = get_palette_colors(VEGA_ACCENT, 5)
-continuous = get_palette_colors(VEGA_VIRIDIS, 7)
+all_discrete = get_palette_colors(VEGA_ACCENT)
+five = get_palette_colors(VEGA_ACCENT, 5)
+ramp = get_palette_colors(VEGA_VIRIDIS, mode=PaletteMode.CONTINUOUS)
+discrete_viridis = get_palette_colors(VEGA_VIRIDIS, 6, mode="discrete")
 ```
+
+`mode` accepts `auto` (default), `continuous`, or `discrete`. Forcing `continuous` on a palette without a 256-colour ramp, or forcing `discrete` on a palette without discrete sizes, raises `ValueError`.
 
 ### RGB output removed
 
