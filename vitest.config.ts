@@ -5,9 +5,11 @@ export default defineConfig({
     include: [...configDefaults.include, 'scripts/__tests__/**/*.tests.js'],
     exclude: [
       ...configDefaults.exclude,
+      'vendor/apca-w3/**',
       'vendor/chroma.js/**',
       'vendor/color.js/**',
-      'vendor/coloraide/**'
+      'vendor/coloraide/**',
+      'vendor/colorparsely/**'
     ],
     coverage: {
       provider: 'v8',
