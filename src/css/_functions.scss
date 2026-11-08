@@ -1,6 +1,15 @@
 @use 'sass:list';
 @use 'sass:math';
+@use 'sass:meta';
 @use 'node_modules/sass-apca/apca';
+
+@function _assert-color($color) {
+  @if meta.type-of($color) != 'color' {
+    @error 'Color "#{$color}": unknown format.';
+  }
+
+  @return $color;
+}
 
 @function _contrast($fg-color, $bg-color) {
   // APCA is polarity-sensitive: the foreground is the text color.
@@ -8,10 +17,16 @@
 }
 
 @function best-color-contrast($bg-color, $fg-colors: (#fff, #000)) {
-  $best-color: list.nth($fg-colors, 1);
+  @if list.length($fg-colors) == 0 {
+    @error 'At least one foreground color is required.';
+  }
+
+  $bg-color: _assert-color($bg-color);
+  $best-color: _assert-color(list.nth($fg-colors, 1));
   $highest-contrast: _contrast($best-color, $bg-color);
 
   @each $color in $fg-colors {
+    $color: _assert-color($color);
     $contrast: _contrast($color, $bg-color);
 
     @if $contrast > $highest-contrast {
