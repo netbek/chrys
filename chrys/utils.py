@@ -43,6 +43,14 @@ class Algorithm(StrEnum):
     WCAG = "wcag"
 
 
+class PaletteMode(StrEnum):
+    """How to resolve palette colors."""
+
+    AUTO = "auto"
+    CONTINUOUS = "continuous"
+    DISCRETE = "discrete"
+
+
 def best_color_contrast(
     bg_color: HexColor, fg_colors: HexColors, algorithm: str = Algorithm.APCA
 ) -> HexColor:
@@ -148,12 +156,13 @@ def _validate_color_count(n: int) -> None:
         raise ValueError(f"Color count must be a non-negative integer, got {n}.")
 
 
-def to_discrete_colors(palette: Palette, n: int = 6) -> HexColors:
+def to_discrete_colors(palette: Palette, n: int | None = None) -> HexColors:
     """Generate a list of discrete colors.
 
     Args:
         palette: Palette sizes mapped to color arrays.
-        n: Number of colors to return; must be a non-negative integer.
+        n: Number of colors to return; must be a non-negative integer. Defaults to the
+            largest palette size, returning all available colors.
 
     Returns:
         The discrete colors as hexadecimal strings.
@@ -162,15 +171,19 @@ def to_discrete_colors(palette: Palette, n: int = 6) -> HexColors:
         ValueError: If ``n`` is invalid, the palette is empty, or the requested size is
             unsupported.
     """
-    _validate_color_count(n)
-
-    if n == 0:
-        return []
+    if n is not None:
+        _validate_color_count(n)
 
     sizes = sorted(palette)
 
     if not sizes:
         raise ValueError("Palette is empty.")
+
+    if n is None:
+        return list(palette[sizes[-1]])
+
+    if n == 0:
+        return []
 
     min_size = sizes[0]
     max_size = sizes[-1]
@@ -189,12 +202,13 @@ def to_discrete_colors(palette: Palette, n: int = 6) -> HexColors:
     return result
 
 
-def to_continuous_colors(colors: HexColors, n: int = 6) -> HexColors:
+def to_continuous_colors(colors: HexColors, n: int | None = None) -> HexColors:
     """Generate a list of continuous colors.
 
     Args:
         colors: Base colors in hexadecimal format.
-        n: Number of colors to return; must be a non-negative integer.
+        n: Number of colors to return; must be a non-negative integer. Defaults to the
+            number of base colors, returning all available colors.
 
     Returns:
         The continuous colors as hexadecimal strings.
@@ -206,7 +220,10 @@ def to_continuous_colors(colors: HexColors, n: int = 6) -> HexColors:
         Bokeh v1.3.4, ``linear_palette`` (BSD-3-Clause):
         https://github.com/bokeh/bokeh/blob/1.3.4/bokeh/palettes.py#L1144-L1166
     """
-    _validate_color_count(n)
+    if n is None:
+        n = len(colors)
+    else:
+        _validate_color_count(n)
 
     if n > len(colors):
         raise ValueError(
@@ -224,15 +241,22 @@ def to_continuous_colors(colors: HexColors, n: int = 6) -> HexColors:
     return result
 
 
-def get_palette_colors(name: QualifiedPaletteName, n: int = 6) -> HexColors:
+def get_palette_colors(
+    name: QualifiedPaletteName,
+    n: int | None = None,
+    mode: str = PaletteMode.AUTO,
+) -> HexColors:
     """Get a list of colors from a palette by name.
 
     Continuous palettes generate colors from their 256-color ramp; other palettes return
-    discrete colors.
+    discrete colors. The ``mode`` argument overrides this automatic selection.
 
     Args:
         name: Qualified palette name.
-        n: Number of colors to return; must be a non-negative integer.
+        n: Number of colors to return; must be a non-negative integer. Defaults to all
+            available colors.
+        mode: Palette resolution mode: ``"auto"`` (default), ``"continuous"``, or
+            ``"discrete"``.
 
     Returns:
         The palette colors as hexadecimal strings.
@@ -241,9 +265,32 @@ def get_palette_colors(name: QualifiedPaletteName, n: int = 6) -> HexColors:
         VendorNotFoundError: If the qualified palette name has an unknown vendor.
         PaletteNotFoundError: If the qualified palette name is not recognized.
         PaletteDataEmptyError: If the palette data is empty.
-        ValueError: If ``n`` is invalid or unsupported by the palette.
+        ValueError: If ``n`` or ``mode`` is invalid, the requested size is unsupported,
+            or the palette lacks data for the requested mode.
     """
+    try:
+        resolved_mode = PaletteMode(mode)
+    except ValueError:
+        valid = ", ".join(option.value for option in PaletteMode)
+        raise ValueError(f'Unknown palette mode "{mode}". Expected one of: {valid}.') from None
+
     palette = get_palette(name)
+
+    if resolved_mode == PaletteMode.CONTINUOUS:
+        try:
+            ramp = palette[256]
+        except KeyError:
+            raise ValueError(f'Palette "{name}" has no continuous data.') from None
+
+        return to_continuous_colors(ramp, n=n)
+
+    if resolved_mode == PaletteMode.DISCRETE:
+        discrete_palette = {size: colors for size, colors in palette.items() if size != 256}
+
+        if not discrete_palette:
+            raise ValueError(f'Palette "{name}" has no discrete data.')
+
+        return to_discrete_colors(discrete_palette, n=n)
 
     if 256 in palette:
         return to_continuous_colors(palette[256], n=n)

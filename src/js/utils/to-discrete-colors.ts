@@ -5,15 +5,17 @@ import type {HexColors, Palette} from '../types.ts';
  * Converts palette data to a list of discrete colors with at most `n` colors.
  *
  * @param palette Palette sizes mapped to color arrays.
- * @param n Number of colors to return; must be a non-negative integer.
+ * @param n Number of colors to return; must be a non-negative integer. Defaults to the
+ *   largest palette size, returning all available colors.
  * @returns The discrete colors.
  * @throws If `n` is invalid, the palette is empty, or the requested size is unsupported.
  */
-export default function toDiscreteColors(palette: Palette, n = 6): HexColors {
-  validateColorCount(n);
-
-  if (n === 0) {
-    return [];
+export default function toDiscreteColors(
+  palette: Palette,
+  n?: number
+): HexColors {
+  if (n !== undefined) {
+    validateColorCount(n);
   }
 
   const sizes = Object.keys(palette)
@@ -24,8 +26,17 @@ export default function toDiscreteColors(palette: Palette, n = 6): HexColors {
     throw new Error('Palette is empty.');
   }
 
-  const minSize = sizes[0];
   const maxSize = sizes[sizes.length - 1];
+
+  if (n === undefined) {
+    return palette[maxSize]!.slice();
+  }
+
+  if (n === 0) {
+    return [];
+  }
+
+  const minSize = sizes[0];
 
   if (n <= minSize) {
     return palette[minSize]!.slice(0, n);

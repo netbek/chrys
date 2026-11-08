@@ -7,6 +7,9 @@ export type HexColors = HexColor[];
 /** Palette sizes mapped to color arrays. */
 export type Palette = Partial<Record<number, HexColors>>;
 
+/** How `getPaletteColors` resolves a palette. */
+export type PaletteMode = 'auto' | 'continuous' | 'discrete';
+
 /** A palette vendor. */
 export type Vendor = 'bokeh' | 'vega' | 'd3';
 
