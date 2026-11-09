@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "ignorePatterns": ["vendor/apca-w3/**", "vendor/chroma.js/**", "vendor/color.js/**", "vendor/coloraide/**", "vendor/colorparsely/**"],
+  "ignorePatterns": ["vendor/apca-w3/**", "vendor/chroma.js/**", "vendor/color.js/**", "vendor/coloraide/**", "vendor/colorparsley/**"],
   "plugins": ["react", "typescript", "oxc"],
   "rules": {
     "react/rules-of-hooks": "error",

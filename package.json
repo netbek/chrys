@@ -60,6 +60,17 @@
       },
       "default": "./dist/es/utils/best-color-contrast.js"
     },
+    "./utils/parse-color": {
+      "import": {
+        "types": "./dist/es/utils/parse-color.d.ts",
+        "default": "./dist/es/utils/parse-color.js"
+      },
+      "require": {
+        "types": "./dist/cjs/utils/parse-color.d.ts",
+        "default": "./dist/cjs/utils/parse-color.js"
+      },
+      "default": "./dist/es/utils/parse-color.js"
+    },
     "./utils/to-discrete-colors": {
       "import": {
         "types": "./dist/es/utils/to-discrete-colors.d.ts",

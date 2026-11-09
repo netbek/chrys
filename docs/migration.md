@@ -60,9 +60,9 @@ If you relied on the vendor mapping constants, keep a local copy or derive the v
 
 ### New exports
 
-- `getPaletteColors`, `toDiscreteColors`, and `toContinuousColors`.
+- `getPaletteColors`, `toDiscreteColors`, `toContinuousColors`, and `parseColor`.
 - Error classes: `PaletteNotFoundError`, `VendorNotFoundError`, and `PaletteDataEmptyError`.
-- Types: `HexColor`, `HexColors`, `Palette`, `ParsedPaletteName`, `QualifiedPaletteName`, and `Vendor`.
+- Types: `CssColor`, `CssColors`, `HexColor`, `HexColors`, `Palette`, `ParsedPaletteName`, `QualifiedPaletteName`, `RgbColor`, and `Vendor`.
 - D3 palette constants, such as `D3_ACCENT` and `D3_VIRIDIS`.
 - Per-palette data constants from palette subpaths, such as `BOKEH_VIRIDIS_PALETTE_DATA`, `VEGA_ACCENT_PALETTE_DATA`, and `D3_BLUES_PALETTE_DATA`.
 
@@ -105,15 +105,32 @@ const colors = toContinuousColors(VEGA_VIRIDIS_PALETTE_DATA[256], 7);
 
 ### Contrast selection
 
-`bestColorContrast` uses the APCA algorithm. v5 fixes the argument order so the foreground colour is treated as the text colour, which is required by APCA. The selected colour can therefore differ from v4.
+`bestColorContrast` uses the APCA algorithm. It accepts hexadecimal colours and absolute `rgb()`/`rgba()` colours; alpha is ignored. Relative colours, `calc()`, `var()`, and other colour functions are not supported. v5 fixes the argument order so the foreground colour is treated as the text colour, which is required by APCA. The selected colour can therefore differ from v4.
 
 ```js
 import {bestColorContrast} from 'chrys';
 
-const color = bestColorContrast('#ff0000', ['#000000', '#ffffff']);
+const color = bestColorContrast('rgb(255, 0, 0)', ['#000000', '#ffffff']);
 ```
 
 An empty foreground list now throws an error instead of returning `undefined`.
+
+### Parsing colours
+
+`parseColor` parses a hexadecimal or absolute `rgb()`/`rgba()` colour into 8-bit sRGB channels. Alpha is ignored. The same parser backs `bestColorContrast`.
+
+```js
+import {parseColor} from 'chrys';
+
+parseColor('rgb(255, 0, 0)');
+// [255, 0, 0]
+```
+
+For smaller bundles, import it from the utility subpath:
+
+```js
+import parseColor from 'chrys/utils/parse-color';
+```
 
 ### Parsing palette names
 
@@ -140,7 +157,7 @@ Palette constants remain in `chrys.palettes`. Colour utilities now live in `chry
 from chrys.palettes import VEGA_ACCENT
 from chrys.utils import get_palette_colors
 
-colors = get_palette_colors(VEGA_ACCENT, 5)
+colors = get_palette_colors(VEGA_ACCENT, n=5)
 ```
 
 ### Renamed and moved functions
@@ -162,9 +179,9 @@ from chrys.palettes import VEGA_ACCENT, VEGA_VIRIDIS
 from chrys.utils import PaletteMode, get_palette_colors
 
 all_discrete = get_palette_colors(VEGA_ACCENT)
-five = get_palette_colors(VEGA_ACCENT, 5)
+five = get_palette_colors(VEGA_ACCENT, n=5)
 ramp = get_palette_colors(VEGA_VIRIDIS, mode=PaletteMode.CONTINUOUS)
-discrete_viridis = get_palette_colors(VEGA_VIRIDIS, 6, mode="discrete")
+discrete_viridis = get_palette_colors(VEGA_VIRIDIS, n=6, mode="discrete")
 ```
 
 `mode` accepts `auto` (default), `continuous`, or `discrete`. Forcing `continuous` on a palette without a 256-colour ramp, or forcing `discrete` on a palette without discrete sizes, raises `ValueError`.
@@ -190,8 +207,8 @@ def hex_to_rgb(color: str) -> tuple[float, float, float]:
 ### New Python API
 
 - `chrys.palettes.Vendor` (`StrEnum`) and `chrys.palettes.PALETTE_DATA`.
-- `chrys.utils.get_palette`, `get_palette_colors`, `to_discrete_colors`, `to_continuous_colors`, `parse_palette_name`, and `best_color_contrast`.
-- `chrys.utils.ParsedPaletteName`, `PaletteMode` (`StrEnum`), and the type aliases `HexColor`, `HexColors`, `Palette`, and `QualifiedPaletteName`.
+- `chrys.utils.get_palette`, `get_palette_colors`, `to_discrete_colors`, `to_continuous_colors`, `parse_color`, `parse_palette_name`, and `best_color_contrast`.
+- `chrys.utils.ParsedPaletteName`, `PaletteMode` (`StrEnum`), and the type aliases `CssColor`, `CssColors`, `RgbColor`, `HexColor`, `HexColors`, `Palette`, and `QualifiedPaletteName`.
 - `chrys.apca_w3`, a Python port of the APCA-W3 contrast algorithm.
 - `chrys.exceptions.PaletteNotFoundError`, `VendorNotFoundError`, and `PaletteDataEmptyError`.
 - `chrys.data.d3_palettes` and the `D3_*` constants.
@@ -212,26 +229,37 @@ vendor, palette = parse_palette_name(VEGA_ACCENT)
 
 ### Contrast selection
 
-`best_color_contrast` uses the APCA algorithm. v5 fixes the argument order so the foreground colour is treated as the text colour, which is required by APCA. Alpha digits in hexadecimal colours are ignored. The selected colour can therefore differ from v4.
+`best_color_contrast` uses the APCA algorithm. It accepts hexadecimal colours and absolute `rgb()`/`rgba()` colours; alpha is ignored. Relative colours, `calc()`, `var()`, and other colour functions are not supported. v5 fixes the argument order so the foreground colour is treated as the text colour, which is required by APCA. The selected colour can therefore differ from v4.
 
 ```python
 from chrys.utils import best_color_contrast
 
-color = best_color_contrast("#ff0000", ["#000000", "#ffffff"])
+color = best_color_contrast("rgb(255, 0, 0)", ["#000000", "#ffffff"])
 ```
 
 An empty foreground list now raises `ValueError`, and an invalid colour raises `ValueError` with the message `Color "...": unknown format.`.
+
+### Parsing colours
+
+`parse_color` parses a hexadecimal or absolute `rgb()`/`rgba()` colour into 8-bit sRGB channels. Alpha is ignored. The same parser backs `best_color_contrast`.
+
+```python
+from chrys.utils import parse_color
+
+parse_color("rgb(255, 0, 0)")
+# (255.0, 0.0, 0.0)
+```
 
 ## Sass and CSS
 
 ### `best-color-contrast`
 
-The function uses the APCA algorithm. The APCA call order has been corrected to treat the foreground colour as the text colour, so results can differ from v4.
+The function uses the APCA algorithm. The APCA call order has been corrected to treat the foreground colour as the text colour, so results can differ from v4. Arguments are Sass colours, so both hexadecimal and `rgb()` values are accepted; quoted colour strings are not.
 
 ```scss
 @use 'node_modules/chrys/src/css/functions' as chrys;
 
-$color: chrys.best-color-contrast(#ff0000, (#000, #fff));
+$color: chrys.best-color-contrast(rgb(255, 0, 0), (#000, #fff));
 ```
 
 ### Palette variables

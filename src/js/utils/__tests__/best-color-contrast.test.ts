@@ -24,11 +24,23 @@ describe('bestColorContrast', () => {
     expect(bestColorContrast('#31b57b', ['#000', '#fff'])).toEqual('#fff');
   });
 
-  test('Should ignore alpha digits', () => {
+  test('Should ignore alpha', () => {
     expect(bestColorContrast('#ff0000ff', ['#000000ff', '#ffffffff'])).toEqual(
       '#ffffffff'
     );
-    expect(bestColorContrast('#f00f', ['#000f', '#ffff'])).toEqual('#ffff');
+    expect(bestColorContrast('rgb(255 0 0 / 0.5)', ['#000', '#fff'])).toEqual(
+      '#fff'
+    );
+  });
+
+  test('Should accept rgb colors', () => {
+    for (const color of [
+      'rgb(255, 0, 0)',
+      'rgb(255 0 0 / 0.5)',
+      'rgb(100% 0% 0%)'
+    ]) {
+      expect(bestColorContrast(color, ['#000', '#fff']), color).toEqual('#fff');
+    }
   });
 
   test('Should throw an error when no foreground colors are provided', () => {

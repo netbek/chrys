@@ -72,6 +72,20 @@ describe('best-color-contrast', () => {
     expect(compileContrast('#f00f, (#000f, #ffff)')).toContain('color: white');
   });
 
+  test('Should support rgb colors', () => {
+    for (const color of [
+      'rgb(255, 0, 0)',
+      'rgb(255 0 0)',
+      'rgb(100% 0% 0%)',
+      'rgba(255, 0, 0, 0.5)',
+      'rgb(255 0 0 / 0.5)'
+    ]) {
+      expect(compileContrast(`${color}, (#000, #fff)`), color).toContain(
+        'color: #fff'
+      );
+    }
+  });
+
   test('Should use the default foreground colors', () => {
     expect(compileContrast('#f00')).toContain('color: #fff');
   });

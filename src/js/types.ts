@@ -1,3 +1,12 @@
+/** A CSS color string. */
+export type CssColor = string;
+
+/** A list of CSS color strings. */
+export type CssColors = CssColor[];
+
+/** An 8-bit sRGB color expressed as channel values. */
+export type RgbColor = [number, number, number];
+
 /** A hexadecimal color string. */
 export type HexColor = string;
 

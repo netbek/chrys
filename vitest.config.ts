@@ -9,7 +9,7 @@ export default defineConfig({
       'vendor/chroma.js/**',
       'vendor/color.js/**',
       'vendor/coloraide/**',
-      'vendor/colorparsely/**'
+      'vendor/colorparsley/**'
     ],
     coverage: {
       provider: 'v8',
