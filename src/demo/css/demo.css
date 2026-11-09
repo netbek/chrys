@@ -148,23 +148,20 @@ table tbody tr td {
   margin: .125em 0;
 }
 
-.nb-legend__gradient,
-.nb-table--palettes .nb-swatch-list {
-  min-width: 17em;
-}
-
 .nb-table--palettes .nb-swatch-list {
   display: grid;
   grid-template-columns: repeat(2, auto);
   align-items: center;
   justify-content: space-between;
   column-gap: 0.5em;
+  max-width: 18em;
 }
 
 .nb-table--palettes .nb-swatch-list__swatches {
   flex: 1 1 auto;
   min-width: 0;
   line-height: 1;
+  min-width: 15em;
 }
 
 .nb-table--palettes .nb-copy-colors {
