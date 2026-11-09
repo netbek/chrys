@@ -107,7 +107,7 @@ export default defineConfig(({mode}) => {
             fileName: () => 'index.js'
           },
           rolldownOptions: {
-            external: ['chroma-js'],
+            external: ['apca-w3'],
             output: {
               preserveModules: true,
               preserveModulesRoot: srcDir,
@@ -163,7 +163,7 @@ export default defineConfig(({mode}) => {
             fileName: () => 'index.js'
           },
           rolldownOptions: {
-            external: ['chroma-js'],
+            external: ['apca-w3'],
             output: {
               preserveModules: true,
               preserveModulesRoot: srcDir,
