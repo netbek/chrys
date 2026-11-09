@@ -173,7 +173,7 @@ wheels = [
 
 [[package]]
 name = "chrys"
-version = "5.4.0"
+version = "5.4.1"
 source = { editable = "." }
 
 [package.dev-dependencies]
