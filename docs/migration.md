@@ -157,7 +157,7 @@ Palette constants remain in `chrys.palettes`. Colour utilities now live in `chry
 from chrys.palettes import VEGA_ACCENT
 from chrys.utils import get_palette_colors
 
-colors = get_palette_colors(VEGA_ACCENT, 5)
+colors = get_palette_colors(VEGA_ACCENT, n=5)
 ```
 
 ### Renamed and moved functions
@@ -179,9 +179,9 @@ from chrys.palettes import VEGA_ACCENT, VEGA_VIRIDIS
 from chrys.utils import PaletteMode, get_palette_colors
 
 all_discrete = get_palette_colors(VEGA_ACCENT)
-five = get_palette_colors(VEGA_ACCENT, 5)
+five = get_palette_colors(VEGA_ACCENT, n=5)
 ramp = get_palette_colors(VEGA_VIRIDIS, mode=PaletteMode.CONTINUOUS)
-discrete_viridis = get_palette_colors(VEGA_VIRIDIS, 6, mode="discrete")
+discrete_viridis = get_palette_colors(VEGA_VIRIDIS, n=6, mode="discrete")
 ```
 
 `mode` accepts `auto` (default), `continuous`, or `discrete`. Forcing `continuous` on a palette without a 256-colour ramp, or forcing `discrete` on a palette without discrete sizes, raises `ValueError`.
