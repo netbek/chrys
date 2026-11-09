@@ -82,9 +82,11 @@
 
 {% macro discrete_palette_html(name, palette) %}
   <div class="nb-swatch-list">
-    {% for x in palette %}
-      <span class="nb-swatch" title="{{ x }}" style="background: {{ x }}; color: {{ x|best_color_contrast(['#000', '#fff']) }};">&nbsp;</span>
-    {% endfor %}
+    <span class="nb-swatch-list__swatches">
+      {% for x in palette %}
+        <span class="nb-swatch" title="{{ x }}" style="background: {{ x }}; color: {{ x|best_color_contrast(['#000', '#fff']) }};">&nbsp;</span>
+      {% endfor %}
+    </span>
     <button type="button" class="nb-copy-colors" data-colors="{{ palette | join(' ') }}" aria-label="Copy colour values" title="Copy colour values">
       <svg class="nb-copy-colors__icon nb-copy-colors__icon--copy" aria-hidden="true"><use href="#icon-content-copy"/></svg>
       <svg class="nb-copy-colors__icon nb-copy-colors__icon--copied" aria-hidden="true"><use href="#icon-check"/></svg>
