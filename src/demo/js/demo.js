@@ -57,16 +57,22 @@
 
     copyText(text)
       .then(function () {
-        $button.text('Copied').addClass('is-copied');
+        $button
+          .addClass('is-copied')
+          .attr('aria-label', 'Copied')
+          .attr('title', 'Copied');
       })
       .catch(function () {
-        $button.text('Copy failed');
+        $button.attr('aria-label', 'Copy failed').attr('title', 'Copy failed');
       })
       .then(function () {
         $button.data(
           'resetTimeout',
           setTimeout(function () {
-            $button.text('Copy').removeClass('is-copied');
+            $button
+              .removeClass('is-copied')
+              .attr('aria-label', 'Copy colour values')
+              .attr('title', 'Copy colour values');
           }, 1500)
         );
       });

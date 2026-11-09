@@ -148,23 +148,46 @@ table tbody tr td {
 }
 
 .nb-table--palettes .nb-copy-colors {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
   margin-left: 0.375em;
-  padding: 0.125em 0.5em;
+  padding: 0;
   border: 1px solid #ddd;
-  background: #fff;
-  font: inherit;
-  font-size: 0.75em;
-  line-height: 1.25;
+  background: #eee;
+  color: #000;
+  border-radius: 0.25em;
   vertical-align: middle;
   cursor: pointer;
 }
 
 .nb-table--palettes .nb-copy-colors:hover {
-  background: #f0f0f0;
+  background: #ddd;
+  border-color: #ccc
 }
 
 .nb-table--palettes .nb-copy-colors.is-copied {
   color: #080;
+}
+
+.nb-table--palettes .nb-copy-colors__icon {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+.nb-table--palettes .nb-copy-colors__icon--copied {
+  display: none;
+}
+
+.nb-table--palettes .nb-copy-colors.is-copied .nb-copy-colors__icon--copy {
+  display: none;
+}
+
+.nb-table--palettes .nb-copy-colors.is-copied .nb-copy-colors__icon--copied {
+  display: block;
 }
 
 .nb-table--palettes .nb-legend__gradient {
