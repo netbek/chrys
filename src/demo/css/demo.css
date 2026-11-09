@@ -148,9 +148,16 @@ table tbody tr td {
   margin: .125em 0;
 }
 
+.nb-legend__gradient,
 .nb-table--palettes .nb-swatch-list {
-  display: flex;
+  min-width: 17em;
+}
+
+.nb-table--palettes .nb-swatch-list {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
   align-items: center;
+  justify-content: space-between;
   column-gap: 0.5em;
 }
 
@@ -164,8 +171,8 @@ table tbody tr td {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.75em;
+  height: 1.75em;
   padding: 0;
   border: 1px solid transparent;
   background: transparent;
