@@ -85,7 +85,7 @@ table tbody tr td {
 
 .nb-main {
   margin: 0 auto;
-  max-width: 96em;
+  max-width: 104em;
 }
 
 .nb-legend__gradient {
@@ -145,6 +145,68 @@ table tbody tr td {
   width: 1.25em;
   height: 1.25em;
   border: 1px solid #ddd;
+  margin: .125em 0;
+}
+
+.nb-legend__gradient,
+.nb-table--palettes .nb-swatch-list {
+  min-width: 17em;
+}
+
+.nb-table--palettes .nb-swatch-list {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 0.5em;
+}
+
+.nb-table--palettes .nb-swatch-list__swatches {
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 1;
+}
+
+.nb-table--palettes .nb-copy-colors {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75em;
+  height: 1.75em;
+  padding: 0;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #333;
+  border-radius: 0.25em;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.nb-table--palettes .nb-copy-colors:hover {
+  background: #eee;
+  border-color: #ddd;
+}
+
+.nb-table--palettes .nb-copy-colors.is-copied {
+  color: #080;
+}
+
+.nb-table--palettes .nb-copy-colors__icon {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+.nb-table--palettes .nb-copy-colors__icon--copied {
+  display: none;
+}
+
+.nb-table--palettes .nb-copy-colors.is-copied .nb-copy-colors__icon--copy {
+  display: none;
+}
+
+.nb-table--palettes .nb-copy-colors.is-copied .nb-copy-colors__icon--copied {
+  display: block;
 }
 
 .nb-table--palettes .nb-legend__gradient {
@@ -155,7 +217,7 @@ table tbody tr td {
   margin-top: 0.375em;
 }
 
-.nb-table--diverging-palettes .nb-swatch-list {
+.nb-table--diverging-palettes .nb-swatch-list__swatches {
   text-align: center;
 }
 
