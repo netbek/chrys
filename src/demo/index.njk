@@ -85,6 +85,7 @@
     {% for x in palette %}
       <span class="nb-swatch" title="{{ x }}" style="background: {{ x }}; color: {{ x|best_color_contrast(['#000', '#fff']) }};">&nbsp;</span>
     {% endfor %}
+    <button type="button" class="nb-copy-colors" data-colors="{{ palette | join(' ') }}" aria-label="Copy colour values">Copy</button>
   </div>
 {% endmacro %}
 

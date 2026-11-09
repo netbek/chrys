@@ -147,6 +147,26 @@ table tbody tr td {
   border: 1px solid #ddd;
 }
 
+.nb-table--palettes .nb-copy-colors {
+  margin-left: 0.375em;
+  padding: 0.125em 0.5em;
+  border: 1px solid #ddd;
+  background: #fff;
+  font: inherit;
+  font-size: 0.75em;
+  line-height: 1.25;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.nb-table--palettes .nb-copy-colors:hover {
+  background: #f0f0f0;
+}
+
+.nb-table--palettes .nb-copy-colors.is-copied {
+  color: #080;
+}
+
 .nb-table--palettes .nb-legend__gradient {
   height: 1.25em;
 }
