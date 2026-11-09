@@ -22,6 +22,7 @@ from chrys.palettes import (
     Vendor,
 )
 from chrys.utils import (
+    _parse_color,
     best_color_contrast,
     get_palette,
     get_palette_colors,
@@ -82,6 +83,38 @@ class TestBestColorContrast(unittest.TestCase):
             "#ffffffff",
         )
         self.assertEqual(best_color_contrast("#f00f", ["#000f", "#ffff"]), "#ffff")
+        self.assertEqual(
+            best_color_contrast("rgb(255 0 0 / 0.5)", ["#000", "#fff"]),
+            "#fff",
+        )
+
+    def test_accept_rgb_colors(self):
+        for color in (
+            "rgb(255, 0, 0)",
+            "rgb(255 0 0 / 0.5)",
+            "rgb(100% 0% 0%)",
+        ):
+            with self.subTest(color=color):
+                self.assertEqual(best_color_contrast(color, ["#000", "#fff"]), "#fff")
+
+    def test_invalid_background_color(self):
+        with pytest.raises(ValueError, match='Color "not-a-color": unknown format.'):
+            best_color_contrast("not-a-color", ["#000"])
+
+    def test_invalid_foreground_color(self):
+        with pytest.raises(ValueError, match='Color "not-a-color": unknown format.'):
+            best_color_contrast("#f00", ["not-a-color"])
+
+    def test_empty_foreground_colors(self):
+        with pytest.raises(ValueError, match="At least one foreground color is required."):
+            best_color_contrast("#ffffff", [])
+
+
+class TestParseColor(unittest.TestCase):
+    def test_hex_colors(self):
+        for color in ("#f00", "#ff0000", "#f00f", "#ff000080", "#FF0000", " #f00 "):
+            with self.subTest(color=color):
+                self.assertEqual(_parse_color(color), (255, 0, 0))
 
     def test_legacy_rgb_colors(self):
         for color in (
@@ -92,32 +125,40 @@ class TestBestColorContrast(unittest.TestCase):
             "rgba(100%, 0%, 0%, 50%)",
         ):
             with self.subTest(color=color):
-                self.assertEqual(best_color_contrast(color, ["#000", "#fff"]), "#fff")
+                self.assertEqual(_parse_color(color), (255, 0, 0))
 
     def test_modern_rgb_colors(self):
         for color in (
             "rgb(255 0 0)",
             "rgb(100% 0% 0%)",
-            "rgb(50% 0 0)",
             "rgb(255 0 0 / 0.5)",
             "rgb(255 0 0 / 50%)",
-            "rgb(none none none / none)",
             " RGB( 255\t0\n0 / 0.5 ) ",
         ):
             with self.subTest(color=color):
-                self.assertEqual(best_color_contrast(color, ["#000", "#fff"]), "#fff")
+                self.assertEqual(_parse_color(color), (255, 0, 0))
 
-    def test_clamp_channels_and_preserve_fractional_values(self):
+    def test_mixed_modern_channels(self):
+        self.assertEqual(_parse_color("rgb(50% 0 0)"), (127.5, 0, 0))
+
+    def test_none_channels(self):
+        self.assertEqual(_parse_color("rgb(none none none / none)"), (0, 0, 0))
+
+    def test_clamp_channels(self):
+        self.assertEqual(_parse_color("rgb(300 -20 0)"), (255, 0, 0))
+        self.assertEqual(_parse_color("rgb(300% -20% 0%)"), (255, 0, 0))
+
+    def test_preserve_fractional_channels(self):
+        self.assertEqual(_parse_color("rgb(127.5 0 0)"), (127.5, 0, 0))
+
+    def test_clamp_alpha(self):
         for color in (
-            " #f00 ",
-            "rgb(300 -20 0)",
-            "rgb(300% -20% 0%)",
-            "rgb(127.5 0 0)",
             "rgb(255 0 0 / 2)",
             "rgb(255 0 0 / -1)",
+            "rgb(255 0 0 / 200%)",
         ):
             with self.subTest(color=color):
-                self.assertEqual(best_color_contrast(color, ["#000", "#fff"]), "#fff")
+                self.assertEqual(_parse_color(color), (255, 0, 0))
 
     def test_invalid_rgb_colors(self):
         for color in (
@@ -148,39 +189,19 @@ class TestBestColorContrast(unittest.TestCase):
                 self.subTest(color=color),
                 pytest.raises(ValueError, match="unknown format"),
             ):
-                best_color_contrast("#f00", [color])
+                _parse_color(color)
 
-    def test_invalid_background_color(self):
-        with pytest.raises(ValueError, match='Color "not-a-color": unknown format.'):
-            best_color_contrast("not-a-color", ["#000"])
-
-    def test_invalid_foreground_color(self):
-        with pytest.raises(ValueError, match='Color "not-a-color": unknown format.'):
-            best_color_contrast("#f00", ["not-a-color"])
-
-    def test_missing_hash(self):
-        with pytest.raises(ValueError, match="unknown format"):
-            best_color_contrast("ff0000", ["#000"])
-
-    def test_invalid_hex_length(self):
-        for color in ("#ff", "#fffff", "#fffffff", "#fffffffff"):
+    def test_invalid_hex_colors(self):
+        for color in ("ff0000", "#ff", "#fffff", "#fffffff", "#fffffffff", "#ggg"):
             with (
                 self.subTest(color=color),
                 pytest.raises(ValueError, match="unknown format"),
             ):
-                best_color_contrast("#f00", [color])
-
-    def test_invalid_hex_digits(self):
-        with pytest.raises(ValueError, match="unknown format"):
-            best_color_contrast("#ggg", ["#000"])
+                _parse_color(color)
 
     def test_non_string_color(self):
         with pytest.raises(ValueError, match="unknown format"):
-            best_color_contrast(123, ["#000"])
-
-    def test_empty_foreground_colors(self):
-        with pytest.raises(ValueError, match="At least one foreground color is required."):
-            best_color_contrast("#ffffff", [])
+            _parse_color(123)
 
 
 class TestParsePaletteName(unittest.TestCase):
