@@ -155,7 +155,6 @@ table tbody tr td {
   justify-content: space-between;
   column-gap: 0.5em;
   max-width: 18em;
-  overflow: hidden;
 }
 
 .nb-table--palettes .nb-swatch-list__swatches {
