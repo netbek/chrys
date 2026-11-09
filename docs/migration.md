@@ -60,9 +60,9 @@ If you relied on the vendor mapping constants, keep a local copy or derive the v
 
 ### New exports
 
-- `getPaletteColors`, `toDiscreteColors`, and `toContinuousColors`.
+- `getPaletteColors`, `toDiscreteColors`, `toContinuousColors`, and `parseColor`.
 - Error classes: `PaletteNotFoundError`, `VendorNotFoundError`, and `PaletteDataEmptyError`.
-- Types: `Color`, `Colors`, `HexColor`, `HexColors`, `Palette`, `ParsedPaletteName`, `QualifiedPaletteName`, and `Vendor`.
+- Types: `CssColor`, `CssColors`, `HexColor`, `HexColors`, `Palette`, `ParsedPaletteName`, `QualifiedPaletteName`, `RgbColor`, and `Vendor`.
 - D3 palette constants, such as `D3_ACCENT` and `D3_VIRIDIS`.
 - Per-palette data constants from palette subpaths, such as `BOKEH_VIRIDIS_PALETTE_DATA`, `VEGA_ACCENT_PALETTE_DATA`, and `D3_BLUES_PALETTE_DATA`.
 
@@ -114,6 +114,23 @@ const color = bestColorContrast('rgb(255, 0, 0)', ['#000000', '#ffffff']);
 ```
 
 An empty foreground list now throws an error instead of returning `undefined`.
+
+### Parsing colours
+
+`parseColor` parses a hexadecimal or absolute `rgb()`/`rgba()` colour into 8-bit sRGB channels. Alpha is ignored. The same parser backs `bestColorContrast`.
+
+```js
+import {parseColor} from 'chrys';
+
+parseColor('rgb(255, 0, 0)');
+// [255, 0, 0]
+```
+
+For smaller bundles, import it from the utility subpath:
+
+```js
+import parseColor from 'chrys/utils/parse-color';
+```
 
 ### Parsing palette names
 
@@ -190,8 +207,8 @@ def hex_to_rgb(color: str) -> tuple[float, float, float]:
 ### New Python API
 
 - `chrys.palettes.Vendor` (`StrEnum`) and `chrys.palettes.PALETTE_DATA`.
-- `chrys.utils.get_palette`, `get_palette_colors`, `to_discrete_colors`, `to_continuous_colors`, `parse_palette_name`, and `best_color_contrast`.
-- `chrys.utils.ParsedPaletteName`, `PaletteMode` (`StrEnum`), and the type aliases `HexColor`, `HexColors`, `Palette`, and `QualifiedPaletteName`.
+- `chrys.utils.get_palette`, `get_palette_colors`, `to_discrete_colors`, `to_continuous_colors`, `parse_color`, `parse_palette_name`, and `best_color_contrast`.
+- `chrys.utils.ParsedPaletteName`, `PaletteMode` (`StrEnum`), and the type aliases `CssColor`, `CssColors`, `RgbColor`, `HexColor`, `HexColors`, `Palette`, and `QualifiedPaletteName`.
 - `chrys.apca_w3`, a Python port of the APCA-W3 contrast algorithm.
 - `chrys.exceptions.PaletteNotFoundError`, `VendorNotFoundError`, and `PaletteDataEmptyError`.
 - `chrys.data.d3_palettes` and the `D3_*` constants.
@@ -221,6 +238,17 @@ color = best_color_contrast("rgb(255, 0, 0)", ["#000000", "#ffffff"])
 ```
 
 An empty foreground list now raises `ValueError`, and an invalid colour raises `ValueError` with the message `Color "...": unknown format.`.
+
+### Parsing colours
+
+`parse_color` parses a hexadecimal or absolute `rgb()`/`rgba()` colour into 8-bit sRGB channels. Alpha is ignored. The same parser backs `best_color_contrast`.
+
+```python
+from chrys.utils import parse_color
+
+parse_color("rgb(255, 0, 0)")
+# (255.0, 0.0, 0.0)
+```
 
 ## Sass and CSS
 

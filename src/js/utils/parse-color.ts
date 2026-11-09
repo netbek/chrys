@@ -1,4 +1,4 @@
-import type {Color} from '../types.ts';
+import type {CssColor, RgbColor} from '../types.ts';
 
 /** Matches #rgb, #rgba, #rrggbb, and #rrggbbaa. */
 const HEX_COLOR = /^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
@@ -12,7 +12,6 @@ const NUMBER = '[+-]?(?:\\d+(?:\\.\\d+)?|\\.\\d+)(?:e[+-]?\\d+)?';
 const NUMBER_COLOR = new RegExp(`^${NUMBER}$`, 'i');
 const PERCENTAGE_COLOR = new RegExp(`^${NUMBER}%$`, 'i');
 
-type Rgb = [number, number, number];
 type ChannelType = 'number' | 'percentage';
 
 /** Clamps a value to the inclusive range. */
@@ -72,7 +71,7 @@ function parseAlpha(token: string, allowNone: boolean): number | undefined {
 }
 
 /** Parses a validated hexadecimal color into its 8-bit sRGB channels. */
-function parseHexColor(color: string): Rgb {
+function parseHexColor(color: string): RgbColor {
   let hex = color.slice(1);
 
   if (hex.length <= 4) {
@@ -90,7 +89,7 @@ function parseHexColor(color: string): Rgb {
 }
 
 /** Parses the legacy comma-separated rgb() syntax. */
-function parseLegacyRgb(body: string): Rgb | undefined {
+function parseLegacyRgb(body: string): RgbColor | undefined {
   const parts = body.split(',').map((part) => part.trim());
 
   if (parts.length !== 3 && parts.length !== 4) {
@@ -107,7 +106,9 @@ function parseLegacyRgb(body: string): Rgb | undefined {
     return undefined;
   }
 
-  const rgb = channels.map((channel) => parseChannel(channel, false)) as Rgb;
+  const rgb = channels.map((channel) =>
+    parseChannel(channel, false)
+  ) as RgbColor;
 
   if (parts.length === 4 && parseAlpha(parts[3], false) === undefined) {
     return undefined;
@@ -117,7 +118,7 @@ function parseLegacyRgb(body: string): Rgb | undefined {
 }
 
 /** Parses the modern space-separated rgb() syntax. */
-function parseModernRgb(body: string): Rgb | undefined {
+function parseModernRgb(body: string): RgbColor | undefined {
   const parts = body.split('/');
 
   if (parts.length > 2) {
@@ -140,11 +141,11 @@ function parseModernRgb(body: string): Rgb | undefined {
     return undefined;
   }
 
-  return rgb as Rgb;
+  return rgb as RgbColor;
 }
 
 /** Parses an absolute rgb() or rgba() color. */
-function parseRgbColor(color: string): Rgb | undefined {
+function parseRgbColor(color: string): RgbColor | undefined {
   const match = RGB_COLOR.exec(color);
 
   if (!match) {
@@ -168,7 +169,7 @@ function parseRgbColor(color: string): Rgb | undefined {
  *
  * @throws {Error} When the color is not a supported color.
  */
-export function parseColor(color: Color): Rgb {
+export default function parseColor(color: CssColor): RgbColor {
   if (typeof color !== 'string') {
     throw new Error(`Color "${String(color)}": unknown format.`);
   }

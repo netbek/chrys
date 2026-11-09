@@ -17,10 +17,13 @@ import math
 import re
 
 # A CSS color string.
-type Color = str
+type CssColor = str
 
 # A list of CSS color strings.
-type Colors = list[Color]
+type CssColors = list[CssColor]
+
+# An 8-bit sRGB color expressed as channel values.
+type RgbColor = tuple[float, float, float]
 
 # A hexadecimal color string.
 type HexColor = str
@@ -110,7 +113,7 @@ def _parse_alpha(token: str, allow_none: bool) -> float | None:
     return None
 
 
-def _parse_hex_color(color: str) -> tuple[float, float, float]:
+def _parse_hex_color(color: str) -> RgbColor:
     """Parse a validated hexadecimal color into its 8-bit sRGB channels."""
     hex_digits = color[1:]
 
@@ -124,7 +127,7 @@ def _parse_hex_color(color: str) -> tuple[float, float, float]:
     )
 
 
-def _parse_legacy_rgb(body: str) -> tuple[float, float, float] | None:
+def _parse_legacy_rgb(body: str) -> RgbColor | None:
     """Parse the legacy comma-separated rgb() syntax."""
     parts = [part.strip() for part in body.split(",")]
 
@@ -142,10 +145,10 @@ def _parse_legacy_rgb(body: str) -> tuple[float, float, float] | None:
     if len(parts) == 4 and _parse_alpha(parts[3], allow_none=False) is None:
         return None
 
-    return cast("tuple[float, float, float]", rgb)
+    return cast("RgbColor", rgb)
 
 
-def _parse_modern_rgb(body: str) -> tuple[float, float, float] | None:
+def _parse_modern_rgb(body: str) -> RgbColor | None:
     """Parse the modern space-separated rgb() syntax."""
     parts = body.split("/")
 
@@ -165,10 +168,10 @@ def _parse_modern_rgb(body: str) -> tuple[float, float, float] | None:
     if len(parts) == 2 and _parse_alpha(parts[1].strip(), allow_none=True) is None:
         return None
 
-    return cast("tuple[float, float, float]", rgb)
+    return cast("RgbColor", rgb)
 
 
-def _parse_rgb_color(color: str) -> tuple[float, float, float] | None:
+def _parse_rgb_color(color: str) -> RgbColor | None:
     """Parse an absolute rgb() or rgba() color."""
     match = _RGB_COLOR.fullmatch(color)
 
@@ -183,7 +186,7 @@ def _parse_rgb_color(color: str) -> tuple[float, float, float] | None:
     return _parse_modern_rgb(body)
 
 
-def _parse_color(color: Color) -> tuple[float, float, float]:
+def parse_color(color: CssColor) -> RgbColor:
     """Parse a CSS color into its 8-bit sRGB channels.
 
     Supports hexadecimal colors and absolute ``rgb()``/``rgba()`` colors.
@@ -194,7 +197,7 @@ def _parse_color(color: Color) -> tuple[float, float, float]:
         ValueError: If ``color`` is not a supported color.
     """
     if not isinstance(color, str):
-        raise ValueError(f'Color "{color}": unknown format.')
+        raise ValueError(f'Color "{color}": unknown format.')  # noqa: TRY004
 
     value = color.strip()
 
@@ -209,7 +212,7 @@ def _parse_color(color: Color) -> tuple[float, float, float]:
     raise ValueError(f'Color "{color}": unknown format.')
 
 
-def best_color_contrast(bg_color: Color, fg_colors: Colors) -> Color:
+def best_color_contrast(bg_color: CssColor, fg_colors: CssColors) -> CssColor:
     """Select the foreground color with the highest APCA contrast against a background color.
 
     Accepts hexadecimal colors and absolute ``rgb()``/``rgba()`` colors. Alpha is
@@ -231,13 +234,13 @@ def best_color_contrast(bg_color: Color, fg_colors: Colors) -> Color:
     if not fg_colors:
         raise ValueError("At least one foreground color is required.")
 
-    bg_y = srgb_to_y(_parse_color(bg_color))
+    bg_y = srgb_to_y(parse_color(bg_color))
 
     best_index = 0
     best_score = -1.0
 
     for index, fg_color in enumerate(fg_colors):
-        fg_y = srgb_to_y(_parse_color(fg_color))
+        fg_y = srgb_to_y(parse_color(fg_color))
         score = abs(apca_contrast(fg_y, bg_y))
 
         if score > best_score:

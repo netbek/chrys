@@ -1,5 +1,6 @@
 import {describe, expect, test} from 'vitest';
-import {parseColor} from '../parse-color.ts';
+import {parseColor as publicParseColor} from '../../index.ts';
+import parseColor from '../parse-color.ts';
 
 describe('parseColor', () => {
   test('Should parse hexadecimal colors', () => {
@@ -112,5 +113,9 @@ describe('parseColor', () => {
     expect(() => parseColor(123 as unknown as string)).toThrow(
       /unknown format/
     );
+  });
+
+  test('Should be exported from the package root', () => {
+    expect(publicParseColor).toBe(parseColor);
   });
 });

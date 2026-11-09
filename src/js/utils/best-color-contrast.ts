@@ -1,6 +1,6 @@
 import {APCAcontrast, sRGBtoY} from 'apca-w3';
-import {parseColor} from './parse-color.ts';
-import type {Color, Colors} from '../types.ts';
+import parseColor from './parse-color.ts';
+import type {CssColor, CssColors} from '../types.ts';
 
 /**
  * Selects the foreground color with the highest APCA contrast against a
@@ -18,9 +18,9 @@ import type {Color, Colors} from '../types.ts';
  * @throws {Error} When a color is invalid.
  */
 export default function bestColorContrast(
-  bgColor: Color,
-  fgColors: Colors
-): Color {
+  bgColor: CssColor,
+  fgColors: CssColors
+): CssColor {
   if (fgColors.length === 0) {
     throw new Error('At least one foreground color is required.');
   }

@@ -22,11 +22,11 @@ from chrys.palettes import (
     Vendor,
 )
 from chrys.utils import (
-    _parse_color,
     best_color_contrast,
     get_palette,
     get_palette_colors,
     PaletteMode,
+    parse_color,
     parse_palette_name,
     to_continuous_colors,
     to_discrete_colors,
@@ -114,7 +114,7 @@ class TestParseColor(unittest.TestCase):
     def test_hex_colors(self):
         for color in ("#f00", "#ff0000", "#f00f", "#ff000080", "#FF0000", " #f00 "):
             with self.subTest(color=color):
-                self.assertEqual(_parse_color(color), (255, 0, 0))
+                self.assertEqual(parse_color(color), (255, 0, 0))
 
     def test_legacy_rgb_colors(self):
         for color in (
@@ -125,7 +125,7 @@ class TestParseColor(unittest.TestCase):
             "rgba(100%, 0%, 0%, 50%)",
         ):
             with self.subTest(color=color):
-                self.assertEqual(_parse_color(color), (255, 0, 0))
+                self.assertEqual(parse_color(color), (255, 0, 0))
 
     def test_modern_rgb_colors(self):
         for color in (
@@ -136,20 +136,20 @@ class TestParseColor(unittest.TestCase):
             " RGB( 255\t0\n0 / 0.5 ) ",
         ):
             with self.subTest(color=color):
-                self.assertEqual(_parse_color(color), (255, 0, 0))
+                self.assertEqual(parse_color(color), (255, 0, 0))
 
     def test_mixed_modern_channels(self):
-        self.assertEqual(_parse_color("rgb(50% 0 0)"), (127.5, 0, 0))
+        self.assertEqual(parse_color("rgb(50% 0 0)"), (127.5, 0, 0))
 
     def test_none_channels(self):
-        self.assertEqual(_parse_color("rgb(none none none / none)"), (0, 0, 0))
+        self.assertEqual(parse_color("rgb(none none none / none)"), (0, 0, 0))
 
     def test_clamp_channels(self):
-        self.assertEqual(_parse_color("rgb(300 -20 0)"), (255, 0, 0))
-        self.assertEqual(_parse_color("rgb(300% -20% 0%)"), (255, 0, 0))
+        self.assertEqual(parse_color("rgb(300 -20 0)"), (255, 0, 0))
+        self.assertEqual(parse_color("rgb(300% -20% 0%)"), (255, 0, 0))
 
     def test_preserve_fractional_channels(self):
-        self.assertEqual(_parse_color("rgb(127.5 0 0)"), (127.5, 0, 0))
+        self.assertEqual(parse_color("rgb(127.5 0 0)"), (127.5, 0, 0))
 
     def test_clamp_alpha(self):
         for color in (
@@ -158,7 +158,7 @@ class TestParseColor(unittest.TestCase):
             "rgb(255 0 0 / 200%)",
         ):
             with self.subTest(color=color):
-                self.assertEqual(_parse_color(color), (255, 0, 0))
+                self.assertEqual(parse_color(color), (255, 0, 0))
 
     def test_invalid_rgb_colors(self):
         for color in (
@@ -189,7 +189,7 @@ class TestParseColor(unittest.TestCase):
                 self.subTest(color=color),
                 pytest.raises(ValueError, match="unknown format"),
             ):
-                _parse_color(color)
+                parse_color(color)
 
     def test_invalid_hex_colors(self):
         for color in ("ff0000", "#ff", "#fffff", "#fffffff", "#fffffffff", "#ggg"):
@@ -197,11 +197,11 @@ class TestParseColor(unittest.TestCase):
                 self.subTest(color=color),
                 pytest.raises(ValueError, match="unknown format"),
             ):
-                _parse_color(color)
+                parse_color(color)
 
     def test_non_string_color(self):
         with pytest.raises(ValueError, match="unknown format"):
-            _parse_color(123)
+            parse_color(123)
 
 
 class TestParsePaletteName(unittest.TestCase):
