@@ -1,19 +1,79 @@
 import {APCAcontrast, sRGBtoY} from 'apca-w3';
-import type {HexColor, HexColors} from '../types.ts';
+import type {Color, Colors} from '../types.ts';
 
 /** Matches #rgb, #rgba, #rrggbb, and #rrggbbaa. */
 const HEX_COLOR = /^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
 
-/**
- * Parses a hexadecimal color into its 8-bit sRGB channels.
- *
- * @throws {Error} When the color is not a valid hexadecimal color.
- */
-function parseHexColor(color: HexColor): [number, number, number] {
-  if (!HEX_COLOR.test(color)) {
-    throw new Error(`Color "${color}": unknown format.`);
+/** Matches the rgb() and rgba() functional notation. */
+const RGB_COLOR = /^rgba?\((.*)\)$/is;
+
+/** Matches a CSS number. */
+const NUMBER = '[+-]?(?:\\d+(?:\\.\\d+)?|\\.\\d+)(?:e[+-]?\\d+)?';
+
+const NUMBER_COLOR = new RegExp(`^${NUMBER}$`, 'i');
+const PERCENTAGE_COLOR = new RegExp(`^${NUMBER}%$`, 'i');
+
+type Rgb = [number, number, number];
+type ChannelType = 'number' | 'percentage';
+
+/** Clamps a value to the inclusive range. */
+function clamp(value: number, minimum: number, maximum: number): number {
+  return Math.min(Math.max(value, minimum), maximum);
+}
+
+/** Classifies a color channel token. */
+function channelType(token: string): ChannelType | undefined {
+  if (NUMBER_COLOR.test(token)) {
+    return 'number';
   }
 
+  if (PERCENTAGE_COLOR.test(token)) {
+    return 'percentage';
+  }
+
+  return undefined;
+}
+
+/** Parses a color channel into an 8-bit sRGB value. */
+function parseChannel(token: string, allowNone: boolean): number | undefined {
+  if (allowNone && token.toLowerCase() === 'none') {
+    return 0;
+  }
+
+  const type = channelType(token);
+
+  if (type === 'number') {
+    return clamp(Number(token), 0, 255);
+  }
+
+  if (type === 'percentage') {
+    return clamp((Number(token.slice(0, -1)) / 100) * 255, 0, 255);
+  }
+
+  return undefined;
+}
+
+/** Parses an alpha channel. Alpha is validated but ignored by the caller. */
+function parseAlpha(token: string, allowNone: boolean): number | undefined {
+  if (allowNone && token.toLowerCase() === 'none') {
+    return 1;
+  }
+
+  const type = channelType(token);
+
+  if (type === 'number') {
+    return clamp(Number(token), 0, 1);
+  }
+
+  if (type === 'percentage') {
+    return clamp(Number(token.slice(0, -1)) / 100, 0, 1);
+  }
+
+  return undefined;
+}
+
+/** Parses a validated hexadecimal color into its 8-bit sRGB channels. */
+function parseHexColor(color: string): Rgb {
   let hex = color.slice(1);
 
   if (hex.length <= 4) {
@@ -30,14 +90,114 @@ function parseHexColor(color: HexColor): [number, number, number] {
   ];
 }
 
+/** Parses the legacy comma-separated rgb() syntax. */
+function parseLegacyRgb(body: string): Rgb | undefined {
+  const parts = body.split(',').map((part) => part.trim());
+
+  if (parts.length !== 3 && parts.length !== 4) {
+    return undefined;
+  }
+
+  const channels = parts.slice(0, 3);
+  const type = channelType(channels[0]);
+
+  if (
+    type === undefined ||
+    channels.some((channel) => channelType(channel) !== type)
+  ) {
+    return undefined;
+  }
+
+  const rgb = channels.map((channel) => parseChannel(channel, false)) as Rgb;
+
+  if (parts.length === 4 && parseAlpha(parts[3], false) === undefined) {
+    return undefined;
+  }
+
+  return rgb;
+}
+
+/** Parses the modern space-separated rgb() syntax. */
+function parseModernRgb(body: string): Rgb | undefined {
+  const parts = body.split('/');
+
+  if (parts.length > 2) {
+    return undefined;
+  }
+
+  const channels = parts[0].trim().split(/\s+/);
+
+  if (channels.length !== 3) {
+    return undefined;
+  }
+
+  const rgb = channels.map((channel) => parseChannel(channel, true));
+
+  if (rgb.some((channel) => channel === undefined)) {
+    return undefined;
+  }
+
+  if (parts.length === 2 && parseAlpha(parts[1].trim(), true) === undefined) {
+    return undefined;
+  }
+
+  return rgb as Rgb;
+}
+
+/** Parses an absolute rgb() or rgba() color. */
+function parseRgbColor(color: string): Rgb | undefined {
+  const match = RGB_COLOR.exec(color);
+
+  if (!match) {
+    return undefined;
+  }
+
+  const body = match[1].trim();
+
+  if (body.includes(',')) {
+    return parseLegacyRgb(body);
+  }
+
+  return parseModernRgb(body);
+}
+
+/**
+ * Parses a color into its 8-bit sRGB channels.
+ *
+ * Supports hexadecimal colors and absolute rgb()/rgba() colors. Relative
+ * colors, calc(), var(), and other color functions are not supported.
+ *
+ * @throws {Error} When the color is not a supported color.
+ */
+function parseColor(color: Color): Rgb {
+  if (typeof color !== 'string') {
+    throw new Error(`Color "${String(color)}": unknown format.`);
+  }
+
+  const value = color.trim();
+
+  if (HEX_COLOR.test(value)) {
+    return parseHexColor(value);
+  }
+
+  const rgb = parseRgbColor(value);
+
+  if (rgb !== undefined) {
+    return rgb;
+  }
+
+  throw new Error(`Color "${color}": unknown format.`);
+}
+
 /**
  * Selects the foreground color with the highest APCA contrast against a
  * background color.
  *
- * APCA is polarity-sensitive: each foreground is scored as the text color and
- * the background as the background color. Absolute scores are compared so a
- * foreground is never penalised for being lighter or darker; only the
- * magnitude of the contrast matters.
+ * Accepts hexadecimal colors and absolute rgb()/rgba() colors. Alpha is
+ * ignored. APCA is polarity-sensitive: each foreground is scored as the text
+ * color and the background as the background color. Absolute scores are
+ * compared so a foreground is never penalised for being lighter or darker;
+ * only the magnitude of the contrast matters.
  *
  * @param bgColor Background color.
  * @param fgColors Candidate foreground colors.
@@ -45,20 +205,20 @@ function parseHexColor(color: HexColor): [number, number, number] {
  * @throws {Error} When a color is invalid.
  */
 export default function bestColorContrast(
-  bgColor: HexColor,
-  fgColors: HexColors
-): HexColor {
+  bgColor: Color,
+  fgColors: Colors
+): Color {
   if (fgColors.length === 0) {
     throw new Error('At least one foreground color is required.');
   }
 
-  const bgY = sRGBtoY(parseHexColor(bgColor));
+  const bgY = sRGBtoY(parseColor(bgColor));
 
   let bestIndex = 0;
   let bestScore = -1;
 
   for (let index = 0; index < fgColors.length; index += 1) {
-    const fgY = sRGBtoY(parseHexColor(fgColors[index]));
+    const fgY = sRGBtoY(parseColor(fgColors[index]));
     const score = Math.abs(Number(APCAcontrast(fgY, bgY)));
 
     if (score > bestScore) {

@@ -83,6 +83,73 @@ class TestBestColorContrast(unittest.TestCase):
         )
         self.assertEqual(best_color_contrast("#f00f", ["#000f", "#ffff"]), "#ffff")
 
+    def test_legacy_rgb_colors(self):
+        for color in (
+            "rgb(255, 0, 0)",
+            "rgba(255, 0, 0, 1)",
+            "rgb(255, 0, 0, 0.5)",
+            "rgb(100%, 0%, 0%)",
+            "rgba(100%, 0%, 0%, 50%)",
+        ):
+            with self.subTest(color=color):
+                self.assertEqual(best_color_contrast(color, ["#000", "#fff"]), "#fff")
+
+    def test_modern_rgb_colors(self):
+        for color in (
+            "rgb(255 0 0)",
+            "rgb(100% 0% 0%)",
+            "rgb(50% 0 0)",
+            "rgb(255 0 0 / 0.5)",
+            "rgb(255 0 0 / 50%)",
+            "rgb(none none none / none)",
+            " RGB( 255\t0\n0 / 0.5 ) ",
+        ):
+            with self.subTest(color=color):
+                self.assertEqual(best_color_contrast(color, ["#000", "#fff"]), "#fff")
+
+    def test_clamp_channels_and_preserve_fractional_values(self):
+        for color in (
+            " #f00 ",
+            "rgb(300 -20 0)",
+            "rgb(300% -20% 0%)",
+            "rgb(127.5 0 0)",
+            "rgb(255 0 0 / 2)",
+            "rgb(255 0 0 / -1)",
+        ):
+            with self.subTest(color=color):
+                self.assertEqual(best_color_contrast(color, ["#000", "#fff"]), "#fff")
+
+    def test_invalid_rgb_colors(self):
+        for color in (
+            "rgb(from red r g b)",
+            "rgb(calc(255) 0 0)",
+            "rgb(var(--r) 0 0)",
+            "rgb(255, 0)",
+            "rgb(255, 0, 0, 0.5, 1)",
+            "rgb(255 0 0 0.5)",
+            "rgb(255, 0, 0 / 0.5)",
+            "rgb(255 0 0, 0.5)",
+            "rgb(255, 0%, 0)",
+            "rgb(none, 0, 0)",
+            "rgb(255, 0, 0, none)",
+            "rgb(255 0 0 /)",
+            "rgb(255 0 0 / 0.5 / 1)",
+            "rgb(255 0 0 / nope)",
+            "rgb(255deg 0 0)",
+            "rgb(255.0.0 0 0)",
+            "rgb(255, nope, 0)",
+            "rgb(255, 0, 0, nope)",
+            "rgb(nope 0 0)",
+            "rgb(255 0)",
+            "hsl(0 100% 50%)",
+            "rgb(255 0 0) garbage",
+        ):
+            with (
+                self.subTest(color=color),
+                pytest.raises(ValueError, match="unknown format"),
+            ):
+                best_color_contrast("#f00", [color])
+
     def test_invalid_background_color(self):
         with pytest.raises(ValueError, match='Color "not-a-color": unknown format.'):
             best_color_contrast("not-a-color", ["#000"])

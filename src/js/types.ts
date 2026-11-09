@@ -1,3 +1,9 @@
+/** A CSS color string. */
+export type Color = string;
+
+/** A list of CSS color strings. */
+export type Colors = Color[];
+
 /** A hexadecimal color string. */
 export type HexColor = string;
 

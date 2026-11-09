@@ -1,4 +1,6 @@
 export type {
+  Color,
+  Colors,
   HexColor,
   HexColors,
   Palette,

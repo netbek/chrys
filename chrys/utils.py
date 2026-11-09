@@ -11,10 +11,16 @@ from chrys.palettes import (
 )
 from collections.abc import Mapping
 from enum import StrEnum
-from typing import NamedTuple
+from typing import cast, NamedTuple
 
 import math
 import re
+
+# A CSS color string.
+type Color = str
+
+# A list of CSS color strings.
+type Colors = list[Color]
 
 # A hexadecimal color string.
 type HexColor = str
@@ -47,16 +53,65 @@ class PaletteMode(StrEnum):
 # Matches #rgb, #rgba, #rrggbb, and #rrggbbaa.
 _HEX_COLOR = re.compile(r"^#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$", re.IGNORECASE)
 
+# Matches the rgb() and rgba() functional notation.
+_RGB_COLOR = re.compile(r"rgba?\((.*)\)", re.IGNORECASE | re.DOTALL)
 
-def _parse_hex_color(color: HexColor) -> tuple[int, int, int]:
-    """Parse a hexadecimal color into its 8-bit sRGB channels.
+# Matches a CSS number.
+_NUMBER = r"[+-]?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?"
+_NUMBER_COLOR = re.compile(_NUMBER)
+_PERCENTAGE_COLOR = re.compile(rf"{_NUMBER}%")
 
-    Raises:
-        ValueError: If ``color`` is not a valid hexadecimal color.
-    """
-    if not isinstance(color, str) or _HEX_COLOR.fullmatch(color) is None:
-        raise ValueError(f'Color "{color}": unknown format.')
 
+def _clamp(value: float, minimum: float, maximum: float) -> float:
+    """Clamp a value to the inclusive range."""
+    return min(max(value, minimum), maximum)
+
+
+def _channel_type(token: str) -> str | None:
+    """Classify a color channel token."""
+    if _NUMBER_COLOR.fullmatch(token):
+        return "number"
+
+    if _PERCENTAGE_COLOR.fullmatch(token):
+        return "percentage"
+
+    return None
+
+
+def _parse_channel(token: str, allow_none: bool) -> float | None:
+    """Parse a color channel into an 8-bit sRGB value."""
+    if allow_none and token.lower() == "none":
+        return 0.0
+
+    channel_type = _channel_type(token)
+
+    if channel_type == "number":
+        return _clamp(float(token), 0.0, 255.0)
+
+    if channel_type == "percentage":
+        return _clamp(float(token[:-1]) / 100.0 * 255.0, 0.0, 255.0)
+
+    return None
+
+
+def _parse_alpha(token: str, allow_none: bool) -> float | None:
+    """Parse an alpha channel. Alpha is validated but ignored by the caller."""
+    if allow_none and token.lower() == "none":
+        return 1.0
+
+    channel_type = _channel_type(token)
+
+    if channel_type == "number":
+        return _clamp(float(token), 0.0, 1.0)
+
+    if channel_type == "percentage":
+        return _clamp(float(token[:-1]) / 100.0, 0.0, 1.0)
+
+    return None
+
+
+def _parse_hex_color(color: str) -> tuple[float, float, float]:
+    """Parse a validated hexadecimal color into its 8-bit sRGB channels."""
     hex_digits = color[1:]
 
     if len(hex_digits) <= 4:
@@ -69,14 +124,99 @@ def _parse_hex_color(color: HexColor) -> tuple[int, int, int]:
     )
 
 
-def best_color_contrast(bg_color: HexColor, fg_colors: HexColors) -> HexColor:
+def _parse_legacy_rgb(body: str) -> tuple[float, float, float] | None:
+    """Parse the legacy comma-separated rgb() syntax."""
+    parts = [part.strip() for part in body.split(",")]
+
+    if len(parts) not in (3, 4):
+        return None
+
+    channels = parts[:3]
+    channel_type = _channel_type(channels[0])
+
+    if channel_type is None or any(_channel_type(channel) != channel_type for channel in channels):
+        return None
+
+    rgb = tuple(_parse_channel(channel, allow_none=False) for channel in channels)
+
+    if len(parts) == 4 and _parse_alpha(parts[3], allow_none=False) is None:
+        return None
+
+    return cast("tuple[float, float, float]", rgb)
+
+
+def _parse_modern_rgb(body: str) -> tuple[float, float, float] | None:
+    """Parse the modern space-separated rgb() syntax."""
+    parts = body.split("/")
+
+    if len(parts) > 2:
+        return None
+
+    channels = parts[0].strip().split()
+
+    if len(channels) != 3:
+        return None
+
+    rgb = tuple(_parse_channel(channel, allow_none=True) for channel in channels)
+
+    if any(channel is None for channel in rgb):
+        return None
+
+    if len(parts) == 2 and _parse_alpha(parts[1].strip(), allow_none=True) is None:
+        return None
+
+    return cast("tuple[float, float, float]", rgb)
+
+
+def _parse_rgb_color(color: str) -> tuple[float, float, float] | None:
+    """Parse an absolute rgb() or rgba() color."""
+    match = _RGB_COLOR.fullmatch(color)
+
+    if match is None:
+        return None
+
+    body = match.group(1).strip()
+
+    if "," in body:
+        return _parse_legacy_rgb(body)
+
+    return _parse_modern_rgb(body)
+
+
+def _parse_color(color: Color) -> tuple[float, float, float]:
+    """Parse a CSS color into its 8-bit sRGB channels.
+
+    Supports hexadecimal colors and absolute ``rgb()``/``rgba()`` colors.
+    Relative colors, ``calc()``, ``var()``, and other color functions are not
+    supported.
+
+    Raises:
+        ValueError: If ``color`` is not a supported color.
+    """
+    if not isinstance(color, str):
+        raise ValueError(f'Color "{color}": unknown format.')
+
+    value = color.strip()
+
+    if _HEX_COLOR.fullmatch(value):
+        return _parse_hex_color(value)
+
+    rgb = _parse_rgb_color(value)
+
+    if rgb is not None:
+        return rgb
+
+    raise ValueError(f'Color "{color}": unknown format.')
+
+
+def best_color_contrast(bg_color: Color, fg_colors: Colors) -> Color:
     """Select the foreground color with the highest APCA contrast against a background color.
 
-    APCA is polarity-sensitive: each foreground is scored as the text color and the
-    background as the background color. Absolute scores are compared so a foreground is
-    never penalised for being lighter or darker; only the magnitude of the contrast matters.
-
-    Alpha digits in hexadecimal colors are ignored.
+    Accepts hexadecimal colors and absolute ``rgb()``/``rgba()`` colors. Alpha is
+    ignored. APCA is polarity-sensitive: each foreground is scored as the text color
+    and the background as the background color. Absolute scores are compared so a
+    foreground is never penalised for being lighter or darker; only the magnitude of
+    the contrast matters.
 
     Args:
         bg_color: Background color.
@@ -91,13 +231,13 @@ def best_color_contrast(bg_color: HexColor, fg_colors: HexColors) -> HexColor:
     if not fg_colors:
         raise ValueError("At least one foreground color is required.")
 
-    bg_y = srgb_to_y(_parse_hex_color(bg_color))
+    bg_y = srgb_to_y(_parse_color(bg_color))
 
     best_index = 0
     best_score = -1.0
 
     for index, fg_color in enumerate(fg_colors):
-        fg_y = srgb_to_y(_parse_hex_color(fg_color))
+        fg_y = srgb_to_y(_parse_color(fg_color))
         score = abs(apca_contrast(fg_y, bg_y))
 
         if score > best_score:

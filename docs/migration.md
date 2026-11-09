@@ -62,7 +62,7 @@ If you relied on the vendor mapping constants, keep a local copy or derive the v
 
 - `getPaletteColors`, `toDiscreteColors`, and `toContinuousColors`.
 - Error classes: `PaletteNotFoundError`, `VendorNotFoundError`, and `PaletteDataEmptyError`.
-- Types: `HexColor`, `HexColors`, `Palette`, `ParsedPaletteName`, `QualifiedPaletteName`, and `Vendor`.
+- Types: `Color`, `Colors`, `HexColor`, `HexColors`, `Palette`, `ParsedPaletteName`, `QualifiedPaletteName`, and `Vendor`.
 - D3 palette constants, such as `D3_ACCENT` and `D3_VIRIDIS`.
 - Per-palette data constants from palette subpaths, such as `BOKEH_VIRIDIS_PALETTE_DATA`, `VEGA_ACCENT_PALETTE_DATA`, and `D3_BLUES_PALETTE_DATA`.
 
@@ -105,12 +105,12 @@ const colors = toContinuousColors(VEGA_VIRIDIS_PALETTE_DATA[256], 7);
 
 ### Contrast selection
 
-`bestColorContrast` uses the APCA algorithm. v5 fixes the argument order so the foreground colour is treated as the text colour, which is required by APCA. The selected colour can therefore differ from v4.
+`bestColorContrast` uses the APCA algorithm. It accepts hexadecimal colours and absolute `rgb()`/`rgba()` colours; alpha is ignored. Relative colours, `calc()`, `var()`, and other colour functions are not supported. v5 fixes the argument order so the foreground colour is treated as the text colour, which is required by APCA. The selected colour can therefore differ from v4.
 
 ```js
 import {bestColorContrast} from 'chrys';
 
-const color = bestColorContrast('#ff0000', ['#000000', '#ffffff']);
+const color = bestColorContrast('rgb(255, 0, 0)', ['#000000', '#ffffff']);
 ```
 
 An empty foreground list now throws an error instead of returning `undefined`.
@@ -212,12 +212,12 @@ vendor, palette = parse_palette_name(VEGA_ACCENT)
 
 ### Contrast selection
 
-`best_color_contrast` uses the APCA algorithm. v5 fixes the argument order so the foreground colour is treated as the text colour, which is required by APCA. Alpha digits in hexadecimal colours are ignored. The selected colour can therefore differ from v4.
+`best_color_contrast` uses the APCA algorithm. It accepts hexadecimal colours and absolute `rgb()`/`rgba()` colours; alpha is ignored. Relative colours, `calc()`, `var()`, and other colour functions are not supported. v5 fixes the argument order so the foreground colour is treated as the text colour, which is required by APCA. The selected colour can therefore differ from v4.
 
 ```python
 from chrys.utils import best_color_contrast
 
-color = best_color_contrast("#ff0000", ["#000000", "#ffffff"])
+color = best_color_contrast("rgb(255, 0, 0)", ["#000000", "#ffffff"])
 ```
 
 An empty foreground list now raises `ValueError`, and an invalid colour raises `ValueError` with the message `Color "...": unknown format.`.
@@ -226,12 +226,12 @@ An empty foreground list now raises `ValueError`, and an invalid colour raises `
 
 ### `best-color-contrast`
 
-The function uses the APCA algorithm. The APCA call order has been corrected to treat the foreground colour as the text colour, so results can differ from v4.
+The function uses the APCA algorithm. The APCA call order has been corrected to treat the foreground colour as the text colour, so results can differ from v4. Arguments are Sass colours, so both hexadecimal and `rgb()` values are accepted; quoted colour strings are not.
 
 ```scss
 @use 'node_modules/chrys/src/css/functions' as chrys;
 
-$color: chrys.best-color-contrast(#ff0000, (#000, #fff));
+$color: chrys.best-color-contrast(rgb(255, 0, 0), (#000, #fff));
 ```
 
 ### Palette variables
