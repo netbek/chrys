@@ -160,7 +160,7 @@
     "browserslist": "4.29.5",
     "chroma-js": "3.2.0",
     "chrys-cli": "2.1.4",
-    "d3-scale-chromatic": "3.1.0",
+    "d3-scale-chromatic": "3.1.1",
     "esbuild": "0.28.2",
     "esbuild-plugin-browserslist": "4.0.0",
     "fs-extra": "11.4.1",

@@ -46,8 +46,8 @@ importers:
         specifier: 2.1.4
         version: 2.1.4
       d3-scale-chromatic:
-        specifier: 3.1.0
-        version: 3.1.0
+        specifier: 3.1.1
+        version: 3.1.1
       esbuild:
         specifier: 0.28.2
         version: 0.28.2
@@ -968,8 +968,8 @@ packages:
     resolution: {integrity: sha512-3bYs1rOD33uo8aqJfKP3JWPAibgw8Zm2+L9vBKEHJ2Rg+viTR7o5Mmv5mZcieN+FRYaAOWX5SJATX6k1PWz72g==}
     engines: {node: '>=12'}
 
-  d3-scale-chromatic@3.1.0:
-    resolution: {integrity: sha512-A3s5PWiZ9YCXFye1o246KoscMWqf8BsD9eRiJ3He7C9OBaxKhAd5TFCdEx/7VbKtxxTsu//1mMJFrEt572cEyQ==}
+  d3-scale-chromatic@3.1.1:
+    resolution: {integrity: sha512-lA5gfN2yMvmChubmptnDiBfeGpHD7Yb1EbvCz0TZE0WHXhyR6W2allPuhKtzV5ILQRqeOdefF0qYtERReLUBDg==}
     engines: {node: '>=12'}
 
   d3-scale@4.0.2:
@@ -2543,10 +2543,11 @@ snapshots:
     dependencies:
       d3-color: 3.1.0
 
-  d3-scale-chromatic@3.1.0:
+  d3-scale-chromatic@3.1.1:
     dependencies:
       d3-color: 3.1.0
       d3-interpolate: 3.0.1
+      d3-scale: 4.0.2
 
   d3-scale@4.0.2:
     dependencies:
@@ -3413,7 +3414,7 @@ snapshots:
       d3-array: 3.2.4
       d3-interpolate: 3.0.1
       d3-scale: 4.0.2
-      d3-scale-chromatic: 3.1.0
+      d3-scale-chromatic: 3.1.1
       vega-time: 2.1.4
       vega-util: 1.17.4
 
