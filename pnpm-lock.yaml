@@ -64,8 +64,8 @@ importers:
         specifier: 16.2.4
         version: 16.2.4
       jquery:
-        specifier: 4.0.0
-        version: 4.0.0
+        specifier: 4.1.0
+        version: 4.1.0
       lodash:
         specifier: 4.18.1
         version: 4.18.1
@@ -1277,8 +1277,8 @@ packages:
   jquery-ui@1.14.2:
     resolution: {integrity: sha512-1gSl7PUjyipa2adSr780Ujk16faicrV7PjPPzPtvWk7tTqBnsqp67NNV9jZK2+BIxUPXWSnIUU/LBCgwgGZE+Q==}
 
-  jquery@4.0.0:
-    resolution: {integrity: sha512-TXCHVR3Lb6TZdtw1l3RTLf8RBWVGexdxL6AC8/e0xZKEpBflBsjh9/8LXw+dkNFuOyW9B7iB3O1sP7hS0Kiacg==}
+  jquery@4.1.0:
+    resolution: {integrity: sha512-tnN2N83S+xD3yhmdBP4nnJ1XOO0Fl586rG23FA5h/JAe8XN3W9a1zGwDMltBptn+UpcqEKicnO61+jQ0EiF2fw==}
 
   js-tokens@10.0.0:
     resolution: {integrity: sha512-lM/UBzQmfJRo9ABXbPWemivdCW8V2G8FHaHdypQaIy523snUjog0W71ayWXTjiR+ixeMyVHN2XcpnTd/liPg/Q==}
@@ -2025,7 +2025,7 @@ snapshots:
   '@bokeh/slickgrid@2.4.4103':
     dependencies:
       '@types/slickgrid': 2.1.40
-      jquery: 4.0.0
+      jquery: 4.1.0
       jquery-ui: 1.14.2
       tslib: 1.14.1
 
@@ -2897,9 +2897,9 @@ snapshots:
 
   jquery-ui@1.14.2:
     dependencies:
-      jquery: 4.0.0
+      jquery: 4.1.0
 
-  jquery@4.0.0: {}
+  jquery@4.1.0: {}
 
   js-tokens@10.0.0: {}
 
